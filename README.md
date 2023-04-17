@@ -12,6 +12,8 @@ Muitas divulgações por meio de instagram e contas relacionadas a instituição
 
 A solução é de que haja a quebra de falta de comunicação entre os estudantes que vendem produtos (seja por uma renda extra ou questão de necessidade) e seus alvos/público. Estimulando também o lado empreendedor dos jovens e pessoas em geral.
 
+## Requisitos
+
 > Requisitos funcionais
   - RF01 - Login/Cadastro - Cadastro de usuário e posterior login. As contas serão classificadas como cliente e vendedor.
   - RF02 - Chat interno - Comunicação entre cliente e vendedor por meio de um chat.
