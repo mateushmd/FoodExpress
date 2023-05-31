@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="icon" type="image/png" href="imgs/icon.png"/>
+</head>
+
+<body>
+    <main>
+        <img src="imgs/logo.png" alt="">
+        <div class="container">
+            <form>
+                <section class="campo">
+                    <label for="name" class="label">NOME:</label>
+                    <input type="text" id="name" name="name">
+                </section>
+
+                <section class="campo">
+                    <label for="email" class="label">E-MAIL:</label>
+                    <input type="email" id="email" name="email">
+                </section>
+
+                <section class="campo">
+                    <label for="password" class="label">SENHA:</label>
+                    <input type="password" id="password" name="password">
+                </section>
+
+                <section class="campo">
+                    <label for="phone" class="label">TELEFONE:</label>
+                    <input type="tel" id="phone" name="tel" tabindex="1" placeholder="(xx) x xxxx-xxxx" value=""
+                        maxlength="15">
+                </section>
+
+                <section class="opcoes">
+                    <div id="comprar">
+                        <label><input type="radio" name="opcao">VOU COMPRAR</label>
+                    </div>
+                    <div id="vender">
+                        <label><input type="radio" name="opcao">VOU VENDER</label>
+                    </div>
+                </section>
+
+                <div class="botao">
+                    <input type="submit" value="CADASTRAR" style="cursor: pointer; font-family: 'Oswald', sans-serif;" id="cadastro">
+                    <p id="tenhoLogin"><a href="login.html" style="font-family: 'Oswald', sans-serif; font-size: 12px;">JÁ TENHO CADASTRO</a></p>
+                </div>
+            </form>
+        </div>
+    </main>
+    <script src="mascaras.js"></script>
+</body>
+
+</html>
