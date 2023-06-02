@@ -1,4 +1,4 @@
-package com.villabeef.model.dao;
+package com.foodexpress.model.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,6 +12,8 @@ public class ConexaoBD {
     private static final String URL = "jdbc:mysql://us-cdbr-east-06.cleardb.net:3306/heroku_b695d40b1c0e531?useSSL=false";
     private static final String USUARIO = "b4ef7c73d61cc7";
     private static final String SENHA = "c101e0f6";
+    
+    
     
     public static Connection getConexao() throws ClassNotFoundException, SQLException {
         Class.forName(DRIVER);
