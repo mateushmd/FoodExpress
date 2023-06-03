@@ -24,7 +24,7 @@ public class UsuarioDAO {
     }
     
     public void insert(UsuarioDTO obj) {
-        String sqlInsert = "INSERT INTO usuario (email, nome, senha, telefone, tipo) VALUES (?, ?, ?, ?, ?)";
+        String sqlInsert = "INSERT INTO usuarios (email, nome, senha, telefone, tipo) VALUES (?, ?, ?, ?, ?)";
         try {
             PreparedStatement st = conn.prepareStatement(sqlInsert, Statement.RETURN_GENERATED_KEYS);
             st.setString(1, obj.getEmail());
@@ -36,7 +36,7 @@ public class UsuarioDAO {
             int linhasAfetadas = st.executeUpdate();
             if (linhasAfetadas > 0) {
                 ResultSet rs = st.getGeneratedKeys();
-                ConexaoBD.fecharConexao(conn, st, rs);
+                ConexaoBD.closeResultSet(rs);
             } else {
                 throw new SQLException("Erro inesperado, nehuma linha foi afetada!");
             }
@@ -46,7 +46,7 @@ public class UsuarioDAO {
     }
 
     public void update(UsuarioDTO obj) {
-        String sqlUpdate = "UPDATE usuario "
+        String sqlUpdate = "UPDATE usuarios "
                 + "SET email = ?, nome = ?, senha = ?, telefone = ?, tipo = ?"
                 + "WHERE codigo = ?";
         try {
@@ -65,7 +65,7 @@ public class UsuarioDAO {
     }
 
     public void deleteByEmail(String email) {
-        String sqlDelete = "DELETE FROM usuario WHERE email = ?";
+        String sqlDelete = "DELETE FROM usuarios WHERE email = ?";
         try {
             PreparedStatement st = conn.prepareStatement(sqlDelete);
             st.setString(1, email);// 
@@ -79,7 +79,7 @@ public class UsuarioDAO {
         PreparedStatement st = null;
         ResultSet rs = null;
         try {
-            st = conn.prepareStatement("SELECT * FROM usuario "
+            st = conn.prepareStatement("SELECT * FROM usuarios "
                     + "WHERE codigo = ?");
 
             st.setString(1, email);
@@ -101,8 +101,8 @@ public class UsuarioDAO {
         } catch (SQLException e) {
             throw new SQLException(e.getMessage());
         } finally {
-            ConexaoBD.fecharConexao(conn, st);
-            ConexaoBD.fecharConexao(conn, st, rs);
+            ConexaoBD.closeStatement(st);
+            ConexaoBD.closeResultSet(rs);
         }
     }
 
@@ -112,7 +112,7 @@ public class UsuarioDAO {
         PreparedStatement st = null;
         ResultSet rs = null;
         try {
-            st = conn.prepareStatement("SELECT * " + "FROM usuario " + "ORDER BY nome");
+            st = conn.prepareStatement("SELECT * " + "FROM usuarios " + "ORDER BY nome");
             rs = st.executeQuery();
 
             while (rs.next()) {
@@ -128,8 +128,8 @@ public class UsuarioDAO {
         } catch (SQLException e) {
             throw new SQLException(e.getMessage());
         } finally {
-            ConexaoBD.fecharConexao(conn, st);
-            ConexaoBD.fecharConexao(conn, st, rs);
+            ConexaoBD.closeStatement(st);
+            ConexaoBD.closeResultSet(rs);
         }
     }
 
@@ -138,7 +138,7 @@ public class UsuarioDAO {
         ResultSet rs = null;
 
         try {
-            st = conn.prepareStatement("SELECT login, senha, tipo FROM usuario "
+            st = conn.prepareStatement("SELECT login, senha, tipo FROM usuarios "
                     + "WHERE email = ?, senha = ?, tipo = ? ");
 
             st.setString(1, obj.getEmail());
@@ -160,8 +160,8 @@ public class UsuarioDAO {
         }  catch (SQLException e) {
             throw new SQLException(e.getMessage());
         } finally {
-            ConexaoBD.fecharConexao(conn, st);
-            ConexaoBD.fecharConexao(conn, st, rs);
+            ConexaoBD.closeStatement(st);
+            ConexaoBD.closeResultSet(rs);
         }
     }
 
