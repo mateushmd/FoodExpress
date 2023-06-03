@@ -1,11 +1,36 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
 package com.foodexpress.model.service;
-
+import com.foodexpress.model.dao.UsuarioDAO;
+import com.foodexpress.model.dao.DAOFactory;
+import com.foodexpress.model.dto.UsuarioDTO;
+import java.sql.SQLException;
+import java.util.List;
 
 public class UsuarioService {
-    private UsuarioService () {}
+    private UsuarioDAO dao = DAOFactory.createUsuarioDAO();
+    
+     public void update(UsuarioDTO obj) {
+        dao.update(obj);
+    }
+    public void delete(String email) {
+        dao.deleteByEmail(email);
+    }
+
+    public UsuarioDTO validaUsuario(UsuarioDTO obj) throws SQLException {
+        return dao.validaUsuario(obj);
+    }
+
+    public UsuarioDTO findByLogin(String email) throws SQLException {
+        return dao.findByEmail(email);
+    }
+
+    public void cadastrar(UsuarioDTO obj) {
+        if (obj.getEmail()== null) {
+            dao.insert(obj);
+        }
+    }
+
+    public List<UsuarioDTO> ListarUsuario() throws SQLException {
+        return dao.ListarUsuarios();
+    }
+    
 }

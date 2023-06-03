@@ -14,7 +14,7 @@
     <main>
         <img src="imgs/logo.png" alt="">
         <div class="container">
-            <form>
+            <form action="cadastrar" method="post">
                 <section class="campo">
                     <label for="name" class="label">NOME:</label>
                     <input type="text" id="name" name="name">
@@ -38,10 +38,10 @@
 
                 <section class="opcoes">
                     <div id="comprar">
-                        <label><input type="radio" name="opcao">VOU COMPRAR</label>
+                        <label><input type="radio" name="opcao" value="1">VOU COMPRAR</label>
                     </div>
                     <div id="vender">
-                        <label><input type="radio" name="opcao">VOU VENDER</label>
+                        <label><input type="radio" name="opcao" value="2">VOU VENDER</label>
                     </div>
                 </section>
 
