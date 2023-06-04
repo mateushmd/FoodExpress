@@ -2,10 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package servlet;
+package com.foodexpress.web.servlet;
 
-import com.foodexpress.model.dao.DAOFactory;
-import com.foodexpress.model.dao.UsuarioDAO;
 import com.foodexpress.model.dto.UsuarioDTO;
 import com.foodexpress.model.service.UsuarioService;
 import jakarta.servlet.RequestDispatcher;
@@ -35,16 +33,22 @@ public class cadastrar extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         response.setContentType("text/html;charset=UTF-8");
+        
         try (PrintWriter out = response.getWriter()) {
+            System.out.println("passei aqui");
+            
             UsuarioService uservice = new UsuarioService();
             UsuarioDTO uDTO = new UsuarioDTO();
 
             String nome = request.getParameter("name");
             String email = request.getParameter("email");
             String password = request.getParameter("password");
-            String phone = request.getParameter("phone");
+            String phone = request.getParameter("tel");
             int tipo = Integer.parseInt(request.getParameter("opcao"));
+            
+            System.out.println(phone);
 
             uDTO.setNome(nome);
             uDTO.setEmail(email);
@@ -56,7 +60,7 @@ public class cadastrar extends HttpServlet {
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("index.html");
             dispatcher.forward(request, response);
-
+            
         }
     }
 

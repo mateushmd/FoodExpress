@@ -1,4 +1,5 @@
 package com.foodexpress.model.service;
+
 import com.foodexpress.model.dao.UsuarioDAO;
 import com.foodexpress.model.dao.DAOFactory;
 import com.foodexpress.model.dto.UsuarioDTO;
@@ -6,11 +7,13 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class UsuarioService {
+
     private UsuarioDAO dao = DAOFactory.createUsuarioDAO();
-    
-     public void update(UsuarioDTO obj) {
+
+    public void update(UsuarioDTO obj) {
         dao.update(obj);
     }
+
     public void delete(String email) {
         dao.deleteByEmail(email);
     }
@@ -24,13 +27,11 @@ public class UsuarioService {
     }
 
     public void cadastrar(UsuarioDTO obj) {
-        if (obj.getEmail()== null) {
-            dao.insert(obj);
-        }
+        dao.insert(obj);
     }
 
     public List<UsuarioDTO> ListarUsuario() throws SQLException {
         return dao.ListarUsuarios();
     }
-    
+
 }
