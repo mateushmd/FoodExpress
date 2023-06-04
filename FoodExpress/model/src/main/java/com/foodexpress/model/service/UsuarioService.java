@@ -10,6 +10,10 @@ public class UsuarioService {
 
     private UsuarioDAO dao = DAOFactory.createUsuarioDAO();
 
+    public void login(String email, String senha){
+        dao.Login(email, senha);
+    }
+    
     public void update(UsuarioDTO obj) {
         dao.update(obj);
     }
@@ -32,6 +36,10 @@ public class UsuarioService {
 
     public List<UsuarioDTO> ListarUsuario() throws SQLException {
         return dao.ListarUsuarios();
+    }
+    
+    public UsuarioDTO getUser(){
+        return dao.getUser();
     }
 
 }

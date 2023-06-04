@@ -14,7 +14,7 @@
         <main>
             <img src="imgs/logo.png" alt="">
             <div class="containerLogin">
-                <form>
+                <form action="login" method="post">
                     <section class="campo">
                         <label for="email" class="label">E-MAIL:</label>
                         <input type="email" id="email" name="email">
