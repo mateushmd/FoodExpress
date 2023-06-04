@@ -14,6 +14,8 @@ import java.util.logging.Level;
 public class UsuarioDAO {
 
     private Connection conn;
+    
+    UsuarioDTO user;
 
      UsuarioDAO(Connection conn) {
         this.conn = conn;
@@ -42,6 +44,26 @@ public class UsuarioDAO {
             }
         } catch (SQLException ex) {
             java.util.logging.Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void Login(String email, String senha){
+        Connection conn = ConexaoBD.getConnection();
+        String consulta = "SELECT * FROM usuarios WHERE email = '" + email + "' AND senha = '" + senha + "'";
+        ResultSet r = null;
+        Statement stm = null;
+        
+        try{
+            stm = conn.createStatement();
+            r = stm.executeQuery(consulta);
+            while(r.next()){
+                user = new UsuarioDTO(r.getString("email"), r.getString("nome"), r.getString("senha"), r.getString("telefone"), r.getInt("tipo"));
+            }
+        }catch (SQLException ex) {
+            System.out.println("Login não encontrado.");
+        } finally {
+            ConexaoBD.closeStatement(stm);
+            ConexaoBD.closeResultSet(r);
         }
     }
 
