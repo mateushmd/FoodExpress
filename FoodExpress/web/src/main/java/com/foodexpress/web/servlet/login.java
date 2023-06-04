@@ -6,7 +6,11 @@ package com.foodexpress.web.servlet;
 
 import com.foodexpress.model.dto.UsuarioDTO;
 import com.foodexpress.model.service.UsuarioService;
-import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -17,10 +21,10 @@ import jakarta.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Samuel
+ * @author washi
  */
-@WebServlet(name = "cadastrar", urlPatterns = {"/cadastrar"})
-public class cadastrar extends HttpServlet {
+@WebServlet(name = "login", urlPatterns = {"/login"})
+public class login extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,34 +37,20 @@ public class cadastrar extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         response.setContentType("text/html;charset=UTF-8");
-        
         try (PrintWriter out = response.getWriter()) {
-            System.out.println("passei aqui");
+            System.out.println("passei pelo login");
             
             UsuarioService uservice = new UsuarioService();
-            UsuarioDTO uDTO = new UsuarioDTO();
-
-            String nome = request.getParameter("name");
+            UsuarioDTO uDTO;
+            
             String email = request.getParameter("email");
             String password = request.getParameter("password");
-            String phone = request.getParameter("tel");
-            int tipo = Integer.parseInt(request.getParameter("opcao"));
             
-            System.out.println(phone);
-
-            uDTO.setNome(nome);
-            uDTO.setEmail(email);
-            uDTO.setSenha(password);
-            uDTO.setTelefone(phone);
-            uDTO.setTipo(tipo);
-
-            uservice.cadastrar(uDTO);
-
-            RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
-            dispatcher.forward(request, response);
+            uservice.login(email, email);
+            uDTO = uservice.getUser();
             
+            System.out.printf("Login do usuario %s do tipo %d realizado com sucesso!", uDTO.getNome(), uDTO.getTipo());
         }
     }
 
