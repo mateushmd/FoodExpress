@@ -15,7 +15,7 @@ public class UsuarioDAO {
 
     private Connection conn;
     
-    UsuarioDTO user;
+    private static UsuarioDTO user;
 
     UsuarioDAO(Connection conn) {
         this.conn = conn;
@@ -47,7 +47,7 @@ public class UsuarioDAO {
         }
     }
     
-    public void Login(String email, String senha){
+    public static void Login(String email, String senha){
         Connection conn = ConexaoBD.getConnection();
         String consulta = "SELECT * FROM usuarios WHERE email = '" + email + "' AND senha = '" + senha + "'";
         ResultSet r = null;
@@ -62,6 +62,7 @@ public class UsuarioDAO {
         }catch (SQLException ex) {
             System.out.println("Login não encontrado.");
         } finally {
+            System.out.println(user.getNome() + " " + user.getSenha());
             ConexaoBD.closeStatement(stm);
             ConexaoBD.closeResultSet(r);
         }
@@ -187,4 +188,7 @@ public class UsuarioDAO {
         }
     }
 
+    public static UsuarioDTO getUser() {
+        return user;
+    }
 }
