@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
+import java.util.Random;
 
 
 public class UsuarioDAO {
@@ -16,6 +17,7 @@ public class UsuarioDAO {
     private Connection conn;
     
     private static UsuarioDTO user;
+    private static String codigoRec;
 
     UsuarioDAO(Connection conn) {
         this.conn = conn;
@@ -47,7 +49,7 @@ public class UsuarioDAO {
         }
     }
     
-    public static void Login(String email, String senha){
+    public static boolean Login(String email, String senha){
         Connection conn = ConexaoBD.getConnection();
         String consulta = "SELECT * FROM usuarios WHERE email = '" + email + "' AND senha = '" + senha + "'";
         ResultSet r = null;
@@ -62,9 +64,25 @@ public class UsuarioDAO {
         }catch (SQLException ex) {
             System.out.println("Login não encontrado.");
         } finally {
-            System.out.println(user.getNome() + " " + user.getSenha());
             ConexaoBD.closeStatement(stm);
             ConexaoBD.closeResultSet(r);
+            if(user == null){
+                System.out.println("Login não encontrado!");
+                return false;
+            } else{
+                System.out.println("nome " + user.getNome() + " senha: " + user.getSenha() + " Tipo: " + user.getTipo());
+                return true;
+            }
+        }
+    }
+    
+    
+    public static void recoverCod(String email){
+        codigoRec = "";
+        Random gerador = new Random();
+        
+        for(int i = 0; i < 6; i++){
+            codigoRec += gerador.nextInt();
         }
     }
 
