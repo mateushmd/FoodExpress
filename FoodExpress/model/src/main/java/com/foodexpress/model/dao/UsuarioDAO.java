@@ -15,15 +15,15 @@ public class UsuarioDAO {
 
     private Connection conn;
 
-     UsuarioDAO(Connection conn) {
+    UsuarioDAO(Connection conn) {
         this.conn = conn;
-      
     }
 
     public UsuarioDAO() {
     }
     
     public void insert(UsuarioDTO obj) {
+        System.out.println("passei aqui");
         String sqlInsert = "INSERT INTO usuarios (email, nome, senha, telefone, tipo) VALUES (?, ?, ?, ?, ?)";
         try {
             PreparedStatement st = conn.prepareStatement(sqlInsert, Statement.RETURN_GENERATED_KEYS);
