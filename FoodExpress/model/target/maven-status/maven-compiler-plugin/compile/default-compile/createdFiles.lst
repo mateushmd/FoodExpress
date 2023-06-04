@@ -4,5 +4,4 @@ com\foodexpress\model\dao\ConexaoBD.class
 com\foodexpress\model\dao\teste.class
 com\foodexpress\model\dao\UsuarioDAO.class
 com\foodexpress\model\dao\DAOFactory.class
-ClasseTeste.class
 com\foodexpress\model\dao\DbException.class

@@ -11,13 +11,12 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.Random;
 
-
 public class UsuarioDAO {
 
     private Connection conn;
-    
-    private static UsuarioDTO user;
-    private static String codigoRec;
+
+    private UsuarioDTO user;
+    private String codigoRec;
 
     UsuarioDAO(Connection conn) {
         this.conn = conn;
@@ -25,7 +24,7 @@ public class UsuarioDAO {
 
     public UsuarioDAO() {
     }
-    
+
     public void insert(UsuarioDTO obj) {
         System.out.println("passei aqui");
         String sqlInsert = "INSERT INTO usuarios (email, nome, senha, telefone, tipo) VALUES (?, ?, ?, ?, ?)";
@@ -48,40 +47,36 @@ public class UsuarioDAO {
             java.util.logging.Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public static boolean Login(String email, String senha){
-        Connection conn = ConexaoBD.getConnection();
+
+    public boolean Login(String email, String senha) {
         String consulta = "SELECT * FROM usuarios WHERE email = '" + email + "' AND senha = '" + senha + "'";
         ResultSet r = null;
         Statement stm = null;
-        
-        try{
+
+        try {
             stm = conn.createStatement();
             r = stm.executeQuery(consulta);
-            while(r.next()){
+            while (r.next()) {
                 user = new UsuarioDTO(r.getString("email"), r.getString("nome"), r.getString("senha"), r.getString("telefone"), r.getInt("tipo"));
             }
-        }catch (SQLException ex) {
+        } catch (SQLException ex) {
             System.out.println("Login não encontrado.");
         } finally {
-            ConexaoBD.closeStatement(stm);
-            ConexaoBD.closeResultSet(r);
-            if(user == null){
+            if (user == null) {
                 System.out.println("Login não encontrado!");
                 return false;
-            } else{
+            } else {
                 System.out.println("nome " + user.getNome() + " senha: " + user.getSenha() + " Tipo: " + user.getTipo());
                 return true;
             }
         }
     }
-    
-    
-    public static void recoverCod(String email){
+
+    public void recoverCod(String email) {
         codigoRec = "";
         Random gerador = new Random();
-        
-        for(int i = 0; i < 6; i++){
+
+        for (int i = 0; i < 6; i++) {
             codigoRec += gerador.nextInt();
         }
     }
@@ -198,7 +193,7 @@ public class UsuarioDAO {
 
             return null;
 
-        }  catch (SQLException e) {
+        } catch (SQLException e) {
             throw new SQLException(e.getMessage());
         } finally {
             ConexaoBD.closeStatement(st);
@@ -206,7 +201,7 @@ public class UsuarioDAO {
         }
     }
 
-    public static UsuarioDTO getUser() {
+    public UsuarioDTO getUser() {
         return user;
     }
 }

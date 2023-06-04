@@ -27,7 +27,7 @@
 
                     <div class="botao">
                         <input type="submit" value="LOGAR" style="cursor: pointer; font-family: 'Oswald', sans-serif;" id="login">
-                        <p><a href="index.html" id="cadastroBtn">Cadastrar</a>  | <a href="#" id="senhaBtn">  Esqueci minha senha</a></p>
+                        <p><a href="cadastro.jsp" id="cadastroBtn">Cadastrar</a>  | <a href="#" id="senhaBtn">  Esqueci minha senha</a></p>
                     </div>
                 </form>
             </div>

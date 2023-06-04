@@ -58,7 +58,7 @@ public class cadastrar extends HttpServlet {
 
             uservice.cadastrar(uDTO);
 
-            RequestDispatcher dispatcher = request.getRequestDispatcher("index.html");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
             dispatcher.forward(request, response);
             
         }

@@ -48,7 +48,7 @@
 
                     <div class="botao">
                         <input type="submit" value="CADASTRAR" style="cursor: pointer; font-family: 'Oswald', sans-serif;" id="cadastro">
-                        <p id="tenhoLogin"><a href="login.html" style="font-family: 'Oswald', sans-serif; font-size: 12px;">JÁ TENHO CADASTRO</a></p>
+                        <p id="tenhoLogin"><a href="login.jsp" style="font-family: 'Oswald', sans-serif; font-size: 12px;">JÁ TENHO CADASTRO</a></p>
                     </div>
                 </form>
             </div>
