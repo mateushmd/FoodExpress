@@ -16,6 +16,9 @@ public class UsuarioDTO {
         this.tipo = tipo;
     }
 
+    public UsuarioDTO() {
+    }
+
     public String getEmail() {
         return email;
     }
