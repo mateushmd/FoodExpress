@@ -3,7 +3,6 @@ package com.foodexpress.model.dao;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -25,7 +24,7 @@ public class ConexaoBD {
         }
         if (conn == null) {
             try {
-                conn = DriverManager.getConnection("jdbc:mysql://us-cdbr-east-06.cleardb.net:3306/heroku_4f92f1c6b3d797c?autoReconnect=true&useSSL=false", "b4ef7c73d61cc7", "c101e0f6");
+                conn = DriverManager.getConnection("jdbc:mysql://us-cdbr-east-06.cleardb.net:3306/heroku_b695d40b1c0e531?useSSL=false", "b4ef7c73d61cc7", "c101e0f6");
             } catch (SQLException e) {
                 try {
                     throw new DbException(e.getMessage());
