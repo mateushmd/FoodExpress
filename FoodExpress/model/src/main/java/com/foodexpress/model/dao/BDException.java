@@ -8,9 +8,9 @@ package com.foodexpress.model.dao;
  *
  * @author Samuel
  */
-public class DbException extends Exception {
+public class BDException extends Exception {
     private static final long serialVersionUID = 1L;
-    public DbException(String message) {
+    public BDException(String message) {
         super(message);
     }
     

@@ -11,7 +11,8 @@ public class UsuarioService {
     private UsuarioDAO dao = DAOFactory.createUsuarioDAO();
 
     public void login(String email, String senha){
-        dao.Login(email, senha);
+        boolean check = dao.login(email, senha);
+        System.out.println(check);
     }
     
     public void update(UsuarioDTO obj) {

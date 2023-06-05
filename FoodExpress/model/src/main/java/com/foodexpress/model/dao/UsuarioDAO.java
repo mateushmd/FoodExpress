@@ -27,12 +27,15 @@ public class UsuarioDAO {
 
     public void insert(UsuarioDTO obj) {
         System.out.println("passei aqui");
+        
+        PasswordEncoder encoder = PasswordEncoder.createEncoder();
+        
         String sqlInsert = "INSERT INTO usuarios (email, nome, senha, telefone, tipo) VALUES (?, ?, ?, ?, ?)";
         try {
             PreparedStatement st = conn.prepareStatement(sqlInsert, Statement.RETURN_GENERATED_KEYS);
             st.setString(1, obj.getEmail());
             st.setString(2, obj.getNome());
-            st.setString(3, obj.getSenha());
+            st.setString(3, encoder.encode(obj.getSenha()));
             st.setString(4, obj.getTelefone());
             st.setInt(5, obj.getTipo());
 
@@ -48,21 +51,25 @@ public class UsuarioDAO {
         }
     }
 
-    public boolean Login(String email, String senha) {
-        String consulta = "SELECT * FROM usuarios WHERE email = '" + email + "' AND senha = '" + senha + "'";
+    public boolean login(String email, String senha) {
+        PasswordEncoder encoder = PasswordEncoder.createEncoder();
+        
+        String sql = "SELECT * FROM usuarios WHERE email = ?";
+        
         ResultSet r = null;
-        Statement stm = null;
 
         try {
-            stm = conn.createStatement();
-            r = stm.executeQuery(consulta);
+            PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            st.setString(1, email);
+            
+            r = st.executeQuery();
             while (r.next()) {
                 user = new UsuarioDTO(r.getString("email"), r.getString("nome"), r.getString("senha"), r.getString("telefone"), r.getInt("tipo"));
             }
         } catch (SQLException ex) {
-            System.out.println("Login não encontrado.");
+            java.util.logging.Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            if (user == null) {
+            if (!encoder.check(senha, user.getSenha()) || user == null) {
                 System.out.println("Login não encontrado!");
                 return false;
             } else {

@@ -5,5 +5,4 @@ public class DAOFactory {
     public static UsuarioDAO createUsuarioDAO() {
         return new UsuarioDAO(ConexaoBD.getConnection());
     }
-
 }

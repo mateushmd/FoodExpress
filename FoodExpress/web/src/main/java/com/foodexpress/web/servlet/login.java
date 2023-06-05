@@ -6,11 +6,6 @@ package com.foodexpress.web.servlet;
 
 import com.foodexpress.model.dto.UsuarioDTO;
 import com.foodexpress.model.service.UsuarioService;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -47,7 +42,7 @@ public class login extends HttpServlet {
             String email = request.getParameter("email");
             String password = request.getParameter("password");
             
-            uservice.login(email, email);
+            uservice.login(email, password);
             uDTO = uservice.getUser();
             
             System.out.printf("Login do usuario %s do tipo %d realizado com sucesso!", uDTO.getNome(), uDTO.getTipo());
