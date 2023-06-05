@@ -5,7 +5,9 @@ tel.addEventListener('change', (e) => mascaraTelefone(e.target.value))
 
 const mascaraTelefone = (valor) => {
     valor = valor.replace(/\D/g, "")
-    valor = valor.replace(/^(\d{2})(\d)/g, "($1) $2")
-    valor = valor.replace(/(\d)(\d{4})$/, "$1-$2")
+    valor = valor.replace(/(\d{2})(\d)/, "($1) $2")
+    valor = valor.replace(/(\d{2})(\d)/, "$1 $2")
+    valor = valor.replace(/(\d{5})(\d)/, "$1-$2")
+    valor = valor.replace(/(-\d{4})(\d+?)$/, "$1")
     tel.value = valor 
 }

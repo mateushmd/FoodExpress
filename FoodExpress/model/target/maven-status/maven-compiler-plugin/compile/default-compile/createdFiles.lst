@@ -4,4 +4,5 @@ com\foodexpress\model\dao\ConexaoBD.class
 com\foodexpress\model\dao\teste.class
 com\foodexpress\model\dao\UsuarioDAO.class
 com\foodexpress\model\dao\DAOFactory.class
-com\foodexpress\model\dao\DbException.class
+com\foodexpress\model\dao\PasswordArgon2.class
+com\foodexpress\model\dao\BDException.class

@@ -27,8 +27,8 @@ public class ConexaoBD {
                 conn = DriverManager.getConnection("jdbc:mysql://us-cdbr-east-06.cleardb.net:3306/heroku_b695d40b1c0e531?useSSL=false", "b4ef7c73d61cc7", "c101e0f6");
             } catch (SQLException e) {
                 try {
-                    throw new DbException(e.getMessage());
-                } catch (DbException ex) {
+                    throw new BDException(e.getMessage());
+                } catch (BDException ex) {
                     Logger.getLogger(ConexaoBD.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
@@ -42,8 +42,8 @@ public class ConexaoBD {
                 conn.close();
             } catch (SQLException e) {
                 try {
-                    throw new DbException(e.getMessage());
-                } catch (DbException ex) {
+                    throw new BDException(e.getMessage());
+                } catch (BDException ex) {
                     Logger.getLogger(ConexaoBD.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
@@ -57,8 +57,8 @@ public class ConexaoBD {
             return props;
         } catch (IOException e) {
             try {
-                throw new DbException(e.getMessage());
-            } catch (DbException ex) {
+                throw new BDException(e.getMessage());
+            } catch (BDException ex) {
                 Logger.getLogger(ConexaoBD.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -71,8 +71,8 @@ public class ConexaoBD {
                 st.close();
             } catch (SQLException e) {
                 try {
-                    throw new DbException(e.getMessage());
-                } catch (DbException ex) {
+                    throw new BDException(e.getMessage());
+                } catch (BDException ex) {
                     Logger.getLogger(ConexaoBD.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
@@ -85,8 +85,8 @@ public class ConexaoBD {
                 rs.close();
             } catch (SQLException e) {
                 try {
-                    throw new DbException(e.getMessage());
-                } catch (DbException ex) {
+                    throw new BDException(e.getMessage());
+                } catch (BDException ex) {
                     Logger.getLogger(ConexaoBD.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
