@@ -1,38 +1,95 @@
-package com.villabeef.model.dao;
+package com.foodexpress.model.dao;
 
+
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ConexaoBD {
-    private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
-    private static final String URL = "jdbc:mysql://us-cdbr-east-06.cleardb.net:3306/heroku_b695d40b1c0e531?useSSL=false";
-    private static final String USUARIO = "b4ef7c73d61cc7";
-    private static final String SENHA = "c101e0f6";
-    
-    public static Connection getConexao() throws ClassNotFoundException, SQLException {
-        Class.forName(DRIVER);
-        
-        Connection conexao = DriverManager.getConnection(URL, USUARIO, SENHA);
-        
-        return conexao;
+
+    private static Connection conn = null;
+
+    public static Connection getConnection() {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e1) {
+            e1.printStackTrace();
+        }
+        if (conn == null) {
+            try {
+                conn = DriverManager.getConnection("jdbc:mysql://us-cdbr-east-06.cleardb.net:3306/heroku_b695d40b1c0e531?useSSL=false", "b4ef7c73d61cc7", "c101e0f6");
+            } catch (SQLException e) {
+                try {
+                    throw new BDException(e.getMessage());
+                } catch (BDException ex) {
+                    Logger.getLogger(ConexaoBD.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return conn;
     }
-    
-    public static void fecharConexao(Connection conexao, Statement comando) throws SQLException{
-        if(comando != null)
-            comando.close();
-        
-        if(conexao != null)
-            conexao.close();
+
+    public static void closeConnection() {
+        if (conn != null) {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                try {
+                    throw new BDException(e.getMessage());
+                } catch (BDException ex) {
+                    Logger.getLogger(ConexaoBD.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
     }
-    
-    public static void fecharConexao(Connection conexao, Statement comando, ResultSet rs) throws SQLException {
-        fecharConexao(conexao, comando);
-        
-        if(rs != null)
-            rs.close();
+
+    private static Properties loadProperties() {
+        try (FileInputStream fs = new FileInputStream("conexao.properties")) {
+            Properties props = new Properties();
+            props.load(fs);
+            return props;
+        } catch (IOException e) {
+            try {
+                throw new BDException(e.getMessage());
+            } catch (BDException ex) {
+                Logger.getLogger(ConexaoBD.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return null;
+    }
+
+    public static void closeStatement(Statement st) {
+        if (st != null) {
+            try {
+                st.close();
+            } catch (SQLException e) {
+                try {
+                    throw new BDException(e.getMessage());
+                } catch (BDException ex) {
+                    Logger.getLogger(ConexaoBD.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }
+
+    public static void closeResultSet(ResultSet rs) {
+        if (rs != null) {
+            try {
+                rs.close();
+            } catch (SQLException e) {
+                try {
+                    throw new BDException(e.getMessage());
+                } catch (BDException ex) {
+                    Logger.getLogger(ConexaoBD.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
     }
 }

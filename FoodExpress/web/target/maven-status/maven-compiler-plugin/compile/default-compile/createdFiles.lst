@@ -1,0 +1,4 @@
+com\foodexpress\web\resources\JakartaEE91Resource.class
+com\foodexpress\web\servlet\login.class
+com\foodexpress\web\JakartaRestConfiguration.class
+com\foodexpress\web\servlet\cadastrar.class
