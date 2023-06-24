@@ -6,6 +6,7 @@ package com.foodexpress.web.servlet;
 
 import com.foodexpress.model.dto.UsuarioDTO;
 import com.foodexpress.model.service.UsuarioService;
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,10 +15,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author washi
- */
 @WebServlet(name = "login", urlPatterns = {"/login"})
 public class login extends HttpServlet {
 
@@ -42,10 +39,16 @@ public class login extends HttpServlet {
             String email = request.getParameter("email");
             String password = request.getParameter("password");
             
-            uservice.login(email, password);
-            uDTO = uservice.getUser();
+            boolean check = uservice.login(email, password);
             
-            System.out.printf("Login do usuario %s do tipo %d realizado com sucesso!", uDTO.getNome(), uDTO.getTipo());
+            RequestDispatcher rd = null;
+            
+            if(!check) {
+                request.setAttribute("erro", "Email ou senha incorretos.");
+                
+                rd = request.getRequestDispatcher("login.jsp");
+                rd.forward(request, response);
+            }
         }
     }
 
@@ -61,7 +64,8 @@ public class login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+        rd.forward(request, response);
     }
 
     /**

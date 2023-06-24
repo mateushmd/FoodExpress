@@ -1,5 +1,6 @@
 package com.foodexpress.model.dao;
 
+import com.foodexpress.model.PasswordEncoder;
 import com.foodexpress.model.dto.UsuarioDTO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -28,7 +29,7 @@ public class UsuarioDAO {
     public void insert(UsuarioDTO obj) {
         System.out.println("passei aqui");
         
-        PasswordEncoder encoder = PasswordEncoder.createEncoder();
+        PasswordEncoder encoder = PasswordEncoder.getEncoder();
         
         String sqlInsert = "INSERT INTO usuarios (email, nome, senha, telefone, tipo) VALUES (?, ?, ?, ?, ?)";
         try {
@@ -52,7 +53,7 @@ public class UsuarioDAO {
     }
 
     public boolean login(String email, String senha) {
-        PasswordEncoder encoder = PasswordEncoder.createEncoder();
+        PasswordEncoder encoder = PasswordEncoder.getEncoder();
         
         String sql = "SELECT * FROM usuarios WHERE email = ?";
         

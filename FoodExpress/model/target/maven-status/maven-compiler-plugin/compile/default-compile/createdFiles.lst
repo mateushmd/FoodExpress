@@ -1,8 +1,9 @@
+com\foodexpress\model\dao\EmailUtil.class
 com\foodexpress\model\dto\UsuarioDTO.class
 com\foodexpress\model\service\UsuarioService.class
 com\foodexpress\model\dao\ConexaoBD.class
 com\foodexpress\model\dao\teste.class
 com\foodexpress\model\dao\UsuarioDAO.class
 com\foodexpress\model\dao\DAOFactory.class
-com\foodexpress\model\dao\PasswordArgon2.class
+com\foodexpress\model\dao\PasswordEncoder.class
 com\foodexpress\model\dao\BDException.class

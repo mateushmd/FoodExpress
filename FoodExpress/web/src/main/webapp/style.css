@@ -40,21 +40,11 @@ main img {
     align-items: center;
 }
 
-.containerLogin {
-    margin-top: 50px;
-    background-color: #cc575f;
-    margin-right: 50px;
-    border: 1px solid #e6f1f5;
+#containerLogin {
     padding: 20px 46px 20px 46px;
-    border-radius: 47px;
     width: 465px;
     height: 278px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
-
-
 
 form {
     display: flex;
@@ -76,7 +66,7 @@ input:focus {
 }
 
 .campo input,
-.botao input {
+.botoes input {
     height: 25px;
     border-radius: 12px;
     border: 1px solid #e6f1f5;
@@ -90,11 +80,11 @@ input:focus {
     padding-left: 6px;
 }
 
-.botao {
+.botoes {
     text-align: center;
 }
 
-.botao input {
+.botoes input {
     width: 200px;
     text-align: center;
     background-color: #e6f1f5;
@@ -122,9 +112,20 @@ input:focus {
     margin-left: 40px;
 }
 
-form a {
+form a,
+form > p {
     text-decoration: none;
     color: inherit;
+    font-family: 'Oswald', sans-serif;
+}
+
+form a {
+    font-size: 13px; 
+}
+
+form > p {
+    margin: 0;
+    font-size: 20px;
 }
 
 ::placeholder {
@@ -158,14 +159,26 @@ form a {
     text-decoration-color: white;
 }
 
-a {
-    
-    font-size: 13px;
-    font-family: 'Oswald', sans-serif;
+#aviso {
+    animation: piscar 1s linear 2;
 }
 
 .label {
     font-family: 'freshwost', sans-serif;
     font-size: 15px;
     padding-bottom: 3px;
+}
+
+@keyframes piscar {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }

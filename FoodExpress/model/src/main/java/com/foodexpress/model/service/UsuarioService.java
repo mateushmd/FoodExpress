@@ -10,9 +10,11 @@ public class UsuarioService {
 
     private UsuarioDAO dao = DAOFactory.createUsuarioDAO();
 
-    public void login(String email, String senha){
+    public boolean login(String email, String senha){
         boolean check = dao.login(email, senha);
         System.out.println(check);
+        
+        return check;
     }
     
     public void update(UsuarioDTO obj) {

@@ -4,13 +4,13 @@
  */
 package com.foodexpress.model.dao;
 
+import com.foodexpress.model.EmailEncoder;
+import com.foodexpress.model.EmailUtil;
+
 /**
  *
  * @author Samuel
  */
 public class teste {
- public  String msg (){
-        String a = "fd";
-        return a;
-    }
+    public static void main(String[] args) {}
 }
