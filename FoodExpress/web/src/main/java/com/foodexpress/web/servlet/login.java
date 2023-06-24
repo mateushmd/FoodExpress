@@ -49,6 +49,9 @@ public class login extends HttpServlet {
                 rd = request.getRequestDispatcher("login.jsp");
                 rd.forward(request, response);
             }
+            
+            rd = request.getRequestDispatcher("perfil.html");
+            rd.forward(request, response);
         }
     }
 

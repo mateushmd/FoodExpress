@@ -60,7 +60,6 @@ public class cadastrar extends HttpServlet {
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("login.html");
             dispatcher.forward(request, response);
-            
         }
     }
 
