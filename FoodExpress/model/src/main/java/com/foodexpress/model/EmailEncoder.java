@@ -61,7 +61,7 @@ public class EmailEncoder {
         }
     }
 
-    private String decode(String encryptedEmail) {
+    public String decode(String encryptedEmail) {
         byte[] decryptedBytes = null;
         
         try {

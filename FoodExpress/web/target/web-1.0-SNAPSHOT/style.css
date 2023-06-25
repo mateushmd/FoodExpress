@@ -41,9 +41,31 @@ main img {
 }
 
 #containerLogin {
+    margin-top: 50px;
+    background-color: #cc575f;
+    margin-right: 50px;
+    border: 1px solid #e6f1f5;
     padding: 20px 46px 20px 46px;
+    border-radius: 47px;
     width: 465px;
     height: 278px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#containerVerificacao {
+    margin-top: 50px;
+    background-color: #cc575f;
+    margin-right: 50px;
+    border: 1px solid #e6f1f5;
+    padding: 20px 46px 20px 46px;
+    border-radius: 47px;
+    width: 440px;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 form {
@@ -66,7 +88,7 @@ input:focus {
 }
 
 .campo input,
-.botoes input {
+.botao input {
     height: 25px;
     border-radius: 12px;
     border: 1px solid #e6f1f5;
@@ -80,11 +102,11 @@ input:focus {
     padding-left: 6px;
 }
 
-.botoes {
+.botao {
     text-align: center;
 }
 
-.botoes input {
+.botao input {
     width: 200px;
     text-align: center;
     background-color: #e6f1f5;
@@ -112,20 +134,9 @@ input:focus {
     margin-left: 40px;
 }
 
-form a,
-form > p {
+form a {
     text-decoration: none;
     color: inherit;
-    font-family: 'Oswald', sans-serif;
-}
-
-form a {
-    font-size: 13px; 
-}
-
-form > p {
-    margin: 0;
-    font-size: 20px;
 }
 
 ::placeholder {
@@ -159,8 +170,10 @@ form > p {
     text-decoration-color: white;
 }
 
-#aviso {
-    animation: piscar 1s linear 2;
+a {
+    
+    font-size: 13px;
+    font-family: 'Oswald', sans-serif;
 }
 
 .label {
@@ -169,16 +182,6 @@ form > p {
     padding-bottom: 3px;
 }
 
-@keyframes piscar {
-    0% {
-        opacity: 1;
-    }
-
-    50% {
-        opacity: 0;
-    }
-
-    100% {
-        opacity: 1;
-    }
+#aviso {
+    margin: 0px;
 }

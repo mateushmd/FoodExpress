@@ -4,8 +4,6 @@
  */
 package com.foodexpress.model.dao;
 
-import com.foodexpress.model.EmailEncoder;
-import com.foodexpress.model.EmailUtil;
 
 /**
  *

@@ -3,7 +3,7 @@
 
 <%
 
-    String erro = (String) request.getAttribute("erro");
+    String msg = (String) request.getAttribute("msg");
 
 %>
 
@@ -32,13 +32,13 @@
                         <input type="password" id="password" name="password">
                     </section>
 
-                    <div class="botoes">
+                    <div class="botao">
                         <input type="submit" value="LOGAR" style="cursor: pointer; font-family: 'Oswald', sans-serif;" id="login">
                         <p><a href="index.html" id="cadastroBtn">Cadastrar</a>  | <a href="#" id="senhaBtn">  Esqueci minha senha</a></p>
                     </div>
 
-                    <c:if test = "${erro != null}">
-                        <p id="aviso">Email ou senha incorretos.</p> 
+                    <c:if test = "${msg != null}">
+                        <p id="aviso"><c:out value = "${msg}"/></p> 
                     </c:if>
                 </form> 
             </div>

@@ -3,18 +3,18 @@ package com.foodexpress.model;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 
 
-public class PasswordEncoder {
+public class Argon2Encoder {
     private Argon2PasswordEncoder encoder;
     
-    private static PasswordEncoder self = null;
+    private static Argon2Encoder self = null;
     
-    private PasswordEncoder() {
+    private Argon2Encoder() {
         encoder = new Argon2PasswordEncoder(32, 64, 1, 15 * 1024, 2);
     }
     
-    public static PasswordEncoder getEncoder() {
+    public static Argon2Encoder getEncoder() {
         if(self == null)
-            self = new PasswordEncoder();
+            self = new Argon2Encoder();
         
         return self;
     }
@@ -25,7 +25,7 @@ public class PasswordEncoder {
         return encoded;
     }
     
-    public boolean check(String password, String encoded) {
-        return encoder.matches(password, encoded);
+    public boolean check(String target, String encoded) {
+        return encoder.matches(target, encoded);
     }
 }

@@ -5,4 +5,8 @@ public class DAOFactory {
     public static UsuarioDAO createUsuarioDAO() {
         return new UsuarioDAO(ConexaoBD.getConnection());
     }
+    
+    public static TokenVerificacaoDAO createTokenVerificacaoDAO() {
+        return new TokenVerificacaoDAO(ConexaoBD.getConnection());
+    }
 }

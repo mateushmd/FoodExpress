@@ -1,6 +1,6 @@
 package com.foodexpress.model.dao;
 
-import com.foodexpress.model.PasswordEncoder;
+import com.foodexpress.model.Argon2Encoder;
 import com.foodexpress.model.dto.UsuarioDTO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.Random;
+import java.util.logging.Logger;
 
 public class UsuarioDAO {
 
@@ -23,15 +24,14 @@ public class UsuarioDAO {
         this.conn = conn;
     }
 
-    public UsuarioDAO() {
-    }
+    private UsuarioDAO() {}
 
     public void insert(UsuarioDTO obj) {
         System.out.println("passei aqui");
-        
-        PasswordEncoder encoder = PasswordEncoder.getEncoder();
-        
-        String sqlInsert = "INSERT INTO usuarios (email, nome, senha, telefone, tipo) VALUES (?, ?, ?, ?, ?)";
+
+        Argon2Encoder encoder = Argon2Encoder.getEncoder();
+
+        String sqlInsert = "INSERT INTO usuarios (email, nome, senha, telefone, tipo, verificado) VALUES (?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement st = conn.prepareStatement(sqlInsert, Statement.RETURN_GENERATED_KEYS);
             st.setString(1, obj.getEmail());
@@ -39,6 +39,7 @@ public class UsuarioDAO {
             st.setString(3, encoder.encode(obj.getSenha()));
             st.setString(4, obj.getTelefone());
             st.setInt(5, obj.getTipo());
+            st.setBoolean(6, false);
 
             int linhasAfetadas = st.executeUpdate();
             if (linhasAfetadas > 0) {
@@ -52,31 +53,57 @@ public class UsuarioDAO {
         }
     }
 
-    public boolean login(String email, String senha) {
-        PasswordEncoder encoder = PasswordEncoder.getEncoder();
-        
+    public int login(String email, String senha) {
+        Argon2Encoder encoder = Argon2Encoder.getEncoder();
+
         String sql = "SELECT * FROM usuarios WHERE email = ?";
-        
+
         ResultSet r = null;
 
         try {
             PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             st.setString(1, email);
-            
+
             r = st.executeQuery();
             while (r.next()) {
-                user = new UsuarioDTO(r.getString("email"), r.getString("nome"), r.getString("senha"), r.getString("telefone"), r.getInt("tipo"));
+                user = new UsuarioDTO(r.getString("email"), r.getString("nome"), r.getString("senha"), r.getString("telefone"), r.getInt("tipo"), r.getBoolean("verificado"));
             }
         } catch (SQLException ex) {
             java.util.logging.Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (!encoder.check(senha, user.getSenha()) || user == null) {
                 System.out.println("Login não encontrado!");
-                return false;
-            } else {
-                System.out.println("nome " + user.getNome() + " senha: " + user.getSenha() + " Tipo: " + user.getTipo());
-                return true;
+                return -1;
             }
+
+            if (!user.getVerificado()) {
+                System.out.println("O email associado a esta conta não foi verificado.");
+                return 0;
+            }
+
+            System.out.println("nome " + user.getNome() + " senha: " + user.getSenha() + " Tipo: " + user.getTipo());
+            return 1;
+        }
+    }
+    
+    public boolean updateVerificacao(String email) {
+        String sqlUpdate = "UPDATE usuarios SET verificado = ? WHERE email = ?";
+        
+        int affectedLines = 0;
+        
+        try {
+            PreparedStatement st = conn.prepareStatement(sqlUpdate, Statement.RETURN_GENERATED_KEYS);
+            
+            st.setBoolean(1, true);
+            st.setString(2, email);
+                        
+            affectedLines = st.executeUpdate();
+            
+            System.out.println("updateVerificacao(): affectedLines " + affectedLines);
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            return affectedLines > 0;
         }
     }
 
@@ -169,38 +196,6 @@ public class UsuarioDAO {
                 lista.add(obj);
             }
             return lista;
-        } catch (SQLException e) {
-            throw new SQLException(e.getMessage());
-        } finally {
-            ConexaoBD.closeStatement(st);
-            ConexaoBD.closeResultSet(rs);
-        }
-    }
-
-    public UsuarioDTO validaUsuario(UsuarioDTO obj) throws SQLException {
-        PreparedStatement st = null;
-        ResultSet rs = null;
-
-        try {
-            st = conn.prepareStatement("SELECT login, senha, tipo FROM usuarios "
-                    + "WHERE email = ?, senha = ?, tipo = ? ");
-
-            st.setString(1, obj.getEmail());
-            st.setString(2, obj.getSenha());
-            st.setInt(3, obj.getTipo());
-
-            rs = st.executeQuery();
-
-            if (rs.next()) {
-                UsuarioDTO c = new UsuarioDTO();
-                c.setEmail(rs.getString("email"));
-                c.setSenha(rs.getString("senha"));
-                c.setTipo(rs.getInt("tipo"));
-                return c;
-            }
-
-            return null;
-
         } catch (SQLException e) {
             throw new SQLException(e.getMessage());
         } finally {
