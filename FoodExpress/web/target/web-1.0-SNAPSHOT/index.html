@@ -17,28 +17,28 @@
             <form action="cadastrar" method="post">
                 <section class="campo">
                     <label for="name" class="label">NOME:</label>
-                    <input type="text" id="name" name="name">
+                    <input type="text" id="name" name="name" required>
                 </section>
 
                 <section class="campo">
                     <label for="email" class="label">E-MAIL:</label>
-                    <input type="email" id="email" name="email">
+                    <input type="email" id="email" name="email" required>
                 </section>
 
                 <section class="campo">
                     <label for="password" class="label">SENHA:</label>
-                    <input type="password" id="password" name="password">
+                    <input type="password" id="password" name="password" required>
                 </section>
 
                 <section class="campo">
                     <label for="phone" class="label">TELEFONE:</label>
                     <input type="tel" id="phone" name="tel" tabindex="1" placeholder="(xx) xx xxxx-xxxx" value=""
-                        maxlength="18">
+                        maxlength="18" required>
                 </section>
 
                 <section class="opcoes">
                     <div id="comprar">
-                        <label><input type="radio" name="opcao" value="1">VOU COMPRAR</label>
+                        <label><input type="radio" name="opcao" value="1" required>VOU COMPRAR</label>
                     </div>
                     <div id="vender">
                         <label><input type="radio" name="opcao" value="2">VOU VENDER</label>
@@ -47,12 +47,11 @@
 
                 <div class="botao">
                     <input type="submit" value="CADASTRAR" style="cursor: pointer; font-family: 'Oswald', sans-serif;" id="cadastro">
-                    <p id="tenhoLogin"><a href="login.html" style="font-family: 'Oswald', sans-serif; font-size: 12px;">JÁ TENHO CADASTRO</a></p>
+                    <p id="tenhoLogin"><a href="cadastrar" style="font-family: 'Oswald', sans-serif; font-size: 12px;">JÁ TENHO CADASTRO</a></p>
                 </div>
             </form>
         </div>
     </main>
     <script src="mascaras.js"></script>
 </body>
-
 </html>

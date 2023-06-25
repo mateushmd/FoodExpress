@@ -4,10 +4,11 @@
  */
 package com.foodexpress.web.servlet;
 
-import com.foodexpress.model.dto.UsuarioDTO;
+import com.foodexpress.model.dto.TokenVerificacaoDTO;
 import com.foodexpress.model.service.UsuarioService;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -16,10 +17,10 @@ import jakarta.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Samuel
+ * @author chsdi
  */
-@WebServlet(name = "cadastrar", urlPatterns = {"/cadastrar"})
-public class cadastrar extends HttpServlet {
+@WebServlet(name = "validarEmail", urlPatterns = {"/validarEmail"})
+public class validarEmail extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,32 +35,40 @@ public class cadastrar extends HttpServlet {
             throws ServletException, IOException {
         
         response.setContentType("text/html;charset=UTF-8");
-
-        System.out.println("passei aqui");
-
+        
         UsuarioService uservice = new UsuarioService();
-        UsuarioDTO uDTO = new UsuarioDTO();
-
-        String nome = request.getParameter("name");
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        String phone = request.getParameter("tel");
-        int tipo = Integer.parseInt(request.getParameter("opcao"));
-
-        System.out.println(phone);
-
-        uDTO.setNome(nome);
-        uDTO.setEmail(email);
-        uDTO.setSenha(password);
-        uDTO.setTelefone(phone);
-        uDTO.setTipo(tipo);
-
-        uservice.cadastrar(uDTO);
-
-        request.setAttribute("email", uDTO.getEmail());
-
-        RequestDispatcher dispatcher = request.getRequestDispatcher("verificacaoemail.jsp");
-        dispatcher.forward(request, response);
+        
+        TokenVerificacaoDTO tDTO = new TokenVerificacaoDTO();
+        
+        String[] tokenNumbers = request.getParameterValues("code");
+        
+        StringBuilder token = new StringBuilder();
+        
+        for(String value : tokenNumbers) {
+            token.append(value);
+        }
+        
+        tDTO.setEmailUsuario(request.getParameter("email"));
+        tDTO.setToken(token.toString());
+        
+        boolean check = uservice.verificarEmail(tDTO);
+        
+        RequestDispatcher rd;
+        
+        if(!check) {
+            request.setAttribute("msg", "Código inválido.");
+            request.setAttribute("email", tDTO.getEmailUsuario());
+            
+            rd = request.getRequestDispatcher("verificacaoemail.jsp");
+            rd.forward(request, response);
+            
+            return;
+        }
+        
+        request.setAttribute("msg", "Email verificado e cadastro feito! Aproveite o nosso site!");
+        
+        rd = request.getRequestDispatcher("login.jsp");
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -74,8 +83,7 @@ public class cadastrar extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
-        dispatcher.forward(request, response);
+        processRequest(request, response);
     }
 
     /**

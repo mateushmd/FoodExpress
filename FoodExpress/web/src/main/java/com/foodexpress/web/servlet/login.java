@@ -6,6 +6,7 @@ package com.foodexpress.web.servlet;
 
 import com.foodexpress.model.dto.UsuarioDTO;
 import com.foodexpress.model.service.UsuarioService;
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,10 +15,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author washi
- */
 @WebServlet(name = "login", urlPatterns = {"/login"})
 public class login extends HttpServlet {
 
@@ -32,21 +29,35 @@ public class login extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            System.out.println("passei pelo login");
-            
-            UsuarioService uservice = new UsuarioService();
-            UsuarioDTO uDTO;
-            
-            String email = request.getParameter("email");
-            String password = request.getParameter("password");
-            
-            uservice.login(email, password);
-            uDTO = uservice.getUser();
-            
-            System.out.printf("Login do usuario %s do tipo %d realizado com sucesso!", uDTO.getNome(), uDTO.getTipo());
+
+        System.out.println("passei pelo login");
+
+        UsuarioService uservice = new UsuarioService();
+        UsuarioDTO uDTO;
+
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+
+        int check = uservice.login(email, password);
+
+        RequestDispatcher rd = null;
+
+        if(check < 1) {
+            if(check == 0)
+                request.setAttribute("msg", "O email associado a esta conta não foi verificado.");
+            else 
+                request.setAttribute("msg", "Email ou senha incorretos.");
+
+            rd = request.getRequestDispatcher("login.jsp");
+            rd.forward(request, response);
+
+            return;
         }
+
+        rd = request.getRequestDispatcher("perfil.html");
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -61,7 +72,8 @@ public class login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+        rd.forward(request, response);
     }
 
     /**

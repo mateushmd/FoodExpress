@@ -40,7 +40,7 @@ main img {
     align-items: center;
 }
 
-.containerLogin {
+#containerLogin {
     margin-top: 50px;
     background-color: #cc575f;
     margin-right: 50px;
@@ -54,7 +54,19 @@ main img {
     align-items: center;
 }
 
-
+#containerVerificacao {
+    margin-top: 50px;
+    background-color: #cc575f;
+    margin-right: 50px;
+    border: 1px solid #e6f1f5;
+    padding: 20px 46px 20px 46px;
+    border-radius: 47px;
+    width: 440px;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 form {
     display: flex;
@@ -168,4 +180,8 @@ a {
     font-family: 'freshwost', sans-serif;
     font-size: 15px;
     padding-bottom: 3px;
+}
+
+#aviso {
+    margin: 0px;
 }
