@@ -4,7 +4,6 @@
  */
 package com.foodexpress.web.servlet;
 
-import com.foodexpress.model.dto.UsuarioDTO;
 import com.foodexpress.model.service.UsuarioService;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
@@ -15,8 +14,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "login", urlPatterns = {"/login"})
-public class login extends HttpServlet {
+/**
+ *
+ * @author chsdi
+ */
+@WebServlet(name = "redefinirSenha", urlPatterns = {"/redefinirSenha"})
+public class redefinirSenha extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -29,38 +32,22 @@ public class login extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         response.setContentType("text/html;charset=UTF-8");
-
-        System.out.println("passei pelo login");
-
+        
         UsuarioService uservice = new UsuarioService();
-        UsuarioDTO uDTO;
-
+        
+        String senha = request.getParameter("password");
         String email = request.getParameter("email");
-        String password = request.getParameter("password");
-
-        int check = uservice.login(email, password);
-
-        RequestDispatcher rd = null;
-
-        if(check < 1) {
-            if(check == 0)
-                request.setAttribute("msg", "O email associado a esta conta não foi verificado.");
-            else 
-                request.setAttribute("msg", "Email ou senha incorretos.");
-
-            rd = request.getRequestDispatcher("login.jsp");
-            rd.forward(request, response);
-
-            return;
-        }
         
-        uDTO = uservice.getUsuario(email);
+        boolean check = uservice.redefinirSenha(email, senha);
         
-        request.setAttribute("usuario", uDTO);
-
-        rd = request.getRequestDispatcher("perfil.jsp");
+        System.out.println(check);
+        
+        if(check)
+            request.setAttribute("msg", "Email redefinido com sucesso!");
+        
+        RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+        
         rd.forward(request, response);
     }
 
@@ -76,8 +63,7 @@ public class login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-        rd.forward(request, response);
+        processRequest(request, response);
     }
 
     /**

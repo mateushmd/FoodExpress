@@ -8,15 +8,18 @@ import com.foodexpress.model.dto.UsuarioDTO;
 import com.foodexpress.model.service.UsuarioService;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "login", urlPatterns = {"/login"})
-public class login extends HttpServlet {
+/**
+ *
+ * @author chsdi
+ */
+@WebServlet(name = "editarPerfil", urlPatterns = {"/editarPerfil"})
+public class editarPerfil extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -29,37 +32,56 @@ public class login extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         response.setContentType("text/html;charset=UTF-8");
-
-        System.out.println("passei pelo login");
-
-        UsuarioService uservice = new UsuarioService();
-        UsuarioDTO uDTO;
-
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-
-        int check = uservice.login(email, password);
-
-        RequestDispatcher rd = null;
-
-        if(check < 1) {
-            if(check == 0)
-                request.setAttribute("msg", "O email associado a esta conta não foi verificado.");
-            else 
-                request.setAttribute("msg", "Email ou senha incorretos.");
-
-            rd = request.getRequestDispatcher("login.jsp");
+        
+        RequestDispatcher rd;
+        
+        String email = request.getParameter("defMail");
+        
+        String submit = request.getParameter("submit");
+        
+        if(submit.equals("ALTERAR SENHA")) {
+            request.setAttribute("email", email);
+            
+            rd = request.getRequestDispatcher("confirmarsenha.jsp");
+            
             rd.forward(request, response);
-
+            
             return;
         }
+        
+        UsuarioService uservice = new UsuarioService();
+        
+        UsuarioDTO uDTO;
+        
+        String nome = request.getParameter("name");
+        
+        String telefone = request.getParameter("tel");
+        
+        String defaultNome = request.getParameter("defName");
+        
+        String defaultTel = request.getParameter("defTel");
+        
+        if(nome == null || nome.isBlank() || nome.isEmpty()) {
+            nome = defaultNome;
+        }
+        
+        if(telefone == null || telefone.length() < 18 || telefone.isBlank()) {
+            telefone = defaultTel;
+        }
+        
+        uDTO = new UsuarioDTO();
+        
+        uDTO.setNome(nome);
+        uDTO.setTelefone(telefone);
+        uDTO.setEmail(email);
+        
+        System.out.println(uservice.update(uDTO));
         
         uDTO = uservice.getUsuario(email);
         
         request.setAttribute("usuario", uDTO);
-
+        
         rd = request.getRequestDispatcher("perfil.jsp");
         rd.forward(request, response);
     }
@@ -76,8 +98,7 @@ public class login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-        rd.forward(request, response);
+        processRequest(request, response);
     }
 
     /**

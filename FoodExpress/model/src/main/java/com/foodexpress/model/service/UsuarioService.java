@@ -39,16 +39,16 @@ public class UsuarioService {
         return check;
     }
     
-    public void update(UsuarioDTO obj) {
-        dao.update(obj);
+    public boolean update(UsuarioDTO obj) {
+        return dao.update(obj);
     }
 
     public void delete(String email) {
         dao.deleteByEmail(email);
     }
 
-    public UsuarioDTO findByLogin(String email) throws SQLException {
-        return dao.findByEmail(email);
+    public UsuarioDTO getUsuario(String email) {
+        return dao.getUsuario(email);
     }
 
     public void cadastrar(UsuarioDTO obj) {
@@ -63,6 +63,10 @@ public class UsuarioService {
         EmailUtil.sendEmailVerificacao(token);
         
         tokenDAO.addToken(token);
+    }
+    
+    public boolean redefinirSenha(String email, String senha) {
+        return dao.redefinirSenha(email, senha);
     }
 
     public List<UsuarioDTO> ListarUsuario() throws SQLException {

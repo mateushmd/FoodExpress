@@ -68,6 +68,20 @@ main img {
     align-items: center;
 }
 
+#containerRedefinir {
+    margin-top: 50px;
+    background-color: #cc575f;
+    margin-right: 50px;
+    border: 1px solid #e6f1f5;
+    padding: 20px 46px 20px 46px;
+    border-radius: 47px;
+    width: 440px;
+    height: 330px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 form {
     display: flex;
     flex-direction: column;

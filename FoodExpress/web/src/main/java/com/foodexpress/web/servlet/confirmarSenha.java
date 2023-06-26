@@ -15,8 +15,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "login", urlPatterns = {"/login"})
-public class login extends HttpServlet {
+/**
+ *
+ * @author chsdi
+ */
+@WebServlet(name = "confirmarSenha", urlPatterns = {"/confirmarSenha"})
+public class confirmarSenha extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -29,39 +33,44 @@ public class login extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         response.setContentType("text/html;charset=UTF-8");
-
-        System.out.println("passei pelo login");
-
+        
+        String submit = request.getParameter("submit");
+        
+        RequestDispatcher rd = null;
+        
+        String email = request.getParameter("email");
+        
+        if(submit.equals("CANCELAR")) {
+            request.setAttribute("email", email);
+            
+            rd = request.getRequestDispatcher("editarPerfil.jsp");
+            
+            rd.forward(request, response);
+            
+            return;
+        }
+        
         UsuarioService uservice = new UsuarioService();
         UsuarioDTO uDTO;
-
-        String email = request.getParameter("email");
+        
         String password = request.getParameter("password");
 
         int check = uservice.login(email, password);
-
-        RequestDispatcher rd = null;
+        
+        request.setAttribute("email", email);
 
         if(check < 1) {
-            if(check == 0)
-                request.setAttribute("msg", "O email associado a esta conta não foi verificado.");
-            else 
-                request.setAttribute("msg", "Email ou senha incorretos.");
-
-            rd = request.getRequestDispatcher("login.jsp");
+            request.setAttribute("msg", "Senha incorreta.");
+           
+            rd = request.getRequestDispatcher("confirmarSenha.jsp");
             rd.forward(request, response);
 
             return;
         }
-        
-        uDTO = uservice.getUsuario(email);
-        
-        request.setAttribute("usuario", uDTO);
 
-        rd = request.getRequestDispatcher("perfil.jsp");
-        rd.forward(request, response);
+        rd = request.getRequestDispatcher("redefinirsenha.jsp");
+        rd.forward(request, response); 
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -76,8 +85,7 @@ public class login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-        rd.forward(request, response);
+        processRequest(request, response);
     }
 
     /**
