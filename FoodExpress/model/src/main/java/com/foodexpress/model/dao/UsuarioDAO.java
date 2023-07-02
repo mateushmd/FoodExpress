@@ -1,6 +1,6 @@
 package com.foodexpress.model.dao;
 
-import com.foodexpress.model.Argon2Encoder;
+import com.foodexpress.model.encoder.Argon2Encoder;
 import com.foodexpress.model.dto.UsuarioDTO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,21 +10,24 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.Random;
 import java.util.logging.Logger;
 
-public class UsuarioDAO {
-
-    private Connection conn;
-
+public class UsuarioDAO extends DAOTemplate<UsuarioDTO> {
+    
+    private static UsuarioDAO instance = null;
+    
     private UsuarioDTO user;
-    private String codigoRec;
 
-    UsuarioDAO(Connection conn) {
-        this.conn = conn;
+    private UsuarioDAO() {
+        super();
     }
-
-    private UsuarioDAO() {}
+    
+    public static synchronized UsuarioDAO getInstance() {
+        if(instance == null)
+            instance = new UsuarioDAO();
+        
+        return instance;
+    }
 
     public void insert(UsuarioDTO obj) {
         System.out.println("passei aqui");
@@ -174,7 +177,6 @@ public class UsuarioDAO {
             st.setString(2, email);
             
             affectedLines = st.executeUpdate();
-            
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -182,17 +184,26 @@ public class UsuarioDAO {
         }
     }
     
-    public void deleteByEmail(String email) {
+    @Override
+    public boolean delete(UsuarioDTO obj) {
         String sqlDelete = "DELETE FROM usuarios WHERE email = ?";
+        
+        int affectedLines = 0;
+        
         try {
             PreparedStatement st = conn.prepareStatement(sqlDelete);
-            st.setString(1, email);// 
-            st.executeUpdate();
+            
+            st.setString(1, obj.getEmail());
+            
+            affectedLines = st.executeUpdate();
         } catch (SQLException ex) {
             java.util.logging.Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        } finally {
+            return affectedLines > 0;
+        }
     }
-
+    
+   
     public List<UsuarioDTO> ListarUsuarios() throws SQLException {
         List<UsuarioDTO> lista = new ArrayList<>();
 

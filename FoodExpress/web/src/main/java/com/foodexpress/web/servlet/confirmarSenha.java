@@ -51,9 +51,8 @@ public class confirmarSenha extends HttpServlet {
             return;
         }
         
-        UsuarioService uservice = new UsuarioService();
-        UsuarioDTO uDTO;
-        
+        UsuarioService uservice = UsuarioService.getInstance();
+       
         String password = request.getParameter("password");
 
         int check = uservice.login(email, password);

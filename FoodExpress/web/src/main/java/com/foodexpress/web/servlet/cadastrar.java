@@ -37,7 +37,7 @@ public class cadastrar extends HttpServlet {
 
         System.out.println("passei aqui");
 
-        UsuarioService uservice = new UsuarioService();
+        UsuarioService uservice = UsuarioService.getInstance();
         UsuarioDTO uDTO = new UsuarioDTO();
 
         String nome = request.getParameter("name");

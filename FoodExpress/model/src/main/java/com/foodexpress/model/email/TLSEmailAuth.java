@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.foodexpress.model;
+package com.foodexpress.model.email;
 
 import java.util.Properties;
 import javax.mail.Authenticator;
@@ -24,6 +24,7 @@ public class TLSEmailAuth {
         props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
         
         Authenticator auth = new Authenticator() {
+            @Override
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(EMAIL, PASSWORD);
             }

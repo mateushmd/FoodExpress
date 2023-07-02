@@ -1,4 +1,4 @@
-package com.foodexpress.model;
+package com.foodexpress.model.encoder;
 
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 

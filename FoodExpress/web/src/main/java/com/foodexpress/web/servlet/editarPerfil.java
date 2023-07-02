@@ -50,7 +50,7 @@ public class editarPerfil extends HttpServlet {
             return;
         }
         
-        UsuarioService uservice = new UsuarioService();
+        UsuarioService uservice = UsuarioService.getInstance();
         
         UsuarioDTO uDTO;
         

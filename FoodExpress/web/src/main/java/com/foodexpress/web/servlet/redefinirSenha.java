@@ -7,7 +7,6 @@ package com.foodexpress.web.servlet;
 import com.foodexpress.model.service.UsuarioService;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -34,7 +33,7 @@ public class redefinirSenha extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        UsuarioService uservice = new UsuarioService();
+        UsuarioService uservice = UsuarioService.getInstance();
         
         String senha = request.getParameter("password");
         String email = request.getParameter("email");

@@ -8,7 +8,6 @@ import com.foodexpress.model.dto.UsuarioDTO;
 import com.foodexpress.model.service.UsuarioService;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -34,7 +33,7 @@ public class login extends HttpServlet {
 
         System.out.println("passei pelo login");
 
-        UsuarioService uservice = new UsuarioService();
+        UsuarioService uservice = UsuarioService.getInstance();
         UsuarioDTO uDTO;
 
         String email = request.getParameter("email");

@@ -5,9 +5,8 @@
 
 package com.foodexpress.model.dao;
 
-import com.foodexpress.model.Argon2Encoder;
+import com.foodexpress.model.encoder.Argon2Encoder;
 import com.foodexpress.model.dto.TokenVerificacaoDTO;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,18 +15,23 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class TokenVerificacaoDAO {
-    private Connection conn;
-
-    private TokenVerificacaoDTO token;
-
-    TokenVerificacaoDAO(Connection conn) {
-        this.conn = conn;
-    }
-
-    private TokenVerificacaoDAO() {}
+public class TokenVerificacaoDAO extends DAOTemplate<TokenVerificacaoDTO> {
     
-    public void addToken(TokenVerificacaoDTO token) {
+    private static TokenVerificacaoDAO instance = null;
+
+    private TokenVerificacaoDAO() {
+        super();
+    }
+    
+    public static synchronized TokenVerificacaoDAO getInstance() {
+        if(instance == null)
+            instance = new TokenVerificacaoDAO();
+        
+        return instance;
+    }
+    
+    @Override
+    public void insert(TokenVerificacaoDTO token) {
         Argon2Encoder encoder = Argon2Encoder.getEncoder();
         
         String sql = "INSERT INTO token_verificacao VALUES(?, ?)";
@@ -55,7 +59,7 @@ public class TokenVerificacaoDAO {
         
         String sql = "SELECT * FROM token_verificacao WHERE usuario_id = ?";
             
-        ResultSet r = null;
+        ResultSet r;
         
         TokenVerificacaoDTO tokenVerificacao = null;
         
@@ -70,15 +74,17 @@ public class TokenVerificacaoDAO {
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            if(!encoder.check(token.getToken(), tokenVerificacao.getToken()) || tokenVerificacao == null) {
+            if(tokenVerificacao == null | !encoder.check(token.getToken(), tokenVerificacao.getToken())) {
                 System.out.println("Token não encontrado");
                 return false;
             }
-            return closeVerifiedToken(tokenVerificacao);
+            
+            return delete(tokenVerificacao);
         }
     }
     
-    private boolean closeVerifiedToken(TokenVerificacaoDTO token) {
+    @Override
+    public boolean delete(TokenVerificacaoDTO token) {
         
         String sql = "DELETE FROM token_verificacao WHERE usuario_id = ?";
         
