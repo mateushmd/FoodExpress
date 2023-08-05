@@ -28,8 +28,8 @@ public class LojaService {
         return check;
     }
     
-    public LojaDTO getLoja(String email) {
-        return dao.getLoja(email);
+    public LojaDTO getLoja(String idUser) {
+        return dao.getLoja(idUser);
     }
     
     public boolean updateND(LojaDTO obj){
