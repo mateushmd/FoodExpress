@@ -22,14 +22,16 @@
 <body>
     <main>
         <img src="imgs/logo.png" alt="">
-        <div class="containerRedefinir">
+        <div class="container" id="containerRedefinir">
             <form action="redefinirSenha" method="post">
                 <h1>Quase lá!</h1>
                 <p>Estamos finalizando o processo para redefinir sua senha! Insira uma nova senha no campo abaixo.</p>
+                
                 <fieldset class='number-code'>
                     <legend>Senha</legend>
                     <input type="password" name="password" id="password">
                 </fieldset>
+                
                 <div class="botao">
                     <input type="submit" name="submit" value="REDEFINIR" style="cursor: pointer; font-family: 'Oswald', sans-serif;" id="login">
                 </div>
@@ -38,7 +40,7 @@
             </form>
         </div>
     </main>
-    <script src="codigoverificacao.js"></script>
+    <script src="scripts/codigoVerificacao.js"></script>
 </body>
 
 </html>

@@ -54,7 +54,9 @@ public class confirmarSenha extends HttpServlet {
         UsuarioService uservice = UsuarioService.getInstance();
        
         String password = request.getParameter("password");
-
+        
+        System.out.println("Senha: " + password + "\nEmail: " + email);
+        
         int check = uservice.login(email, password);
         
         request.setAttribute("email", email);

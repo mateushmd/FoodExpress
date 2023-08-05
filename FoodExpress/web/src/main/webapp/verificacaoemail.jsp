@@ -46,6 +46,6 @@
                 </form>
             </div>
         </main>
-        <script src="scripts/codigoverificacao.js"></script>
+        <script src="scripts/codigoVerificacao.js"></script>
     </body>
 </html>

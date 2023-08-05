@@ -7,10 +7,9 @@ package com.foodexpress.model.dao;
 
 import com.foodexpress.model.encoder.Argon2Encoder;
 import com.foodexpress.model.dto.TokenVerificacaoDTO;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,9 +17,13 @@ import java.util.logging.Logger;
 public class TokenVerificacaoDAO extends DAOTemplate<TokenVerificacaoDTO> {
     
     private static TokenVerificacaoDAO instance = null;
+    
+    private Argon2Encoder encoder;
 
     private TokenVerificacaoDAO() {
         super();
+        
+        encoder = Argon2Encoder.getEncoder();
     }
     
     public static synchronized TokenVerificacaoDAO getInstance() {
@@ -29,81 +32,49 @@ public class TokenVerificacaoDAO extends DAOTemplate<TokenVerificacaoDTO> {
         
         return instance;
     }
-    
+
     @Override
-    public void insert(TokenVerificacaoDTO token) {
-        Argon2Encoder encoder = Argon2Encoder.getEncoder();
-        
-        String sql = "INSERT INTO token_verificacao VALUES(?, ?)";
+    protected TokenVerificacaoDTO mapResultSetToObject(ResultSet rs) throws SQLException {
+        TokenVerificacaoDTO token = null;
         
         try {
-            PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            
-            st.setString(1, token.getEmailUsuario());
-            st.setString(2, encoder.encode(token.getToken()));
-            
-            int linhasAfetadas = st.executeUpdate();
-            if (linhasAfetadas > 0) {
-                ResultSet rs = st.getGeneratedKeys();
-                ConexaoBD.closeResultSet(rs);
-            } else {
-                throw new SQLException("Erro inesperado, nehuma linha foi afetada!");
-            }
+            token = new TokenVerificacaoDTO();
+        
+            token.setEmailUsuario(rs.getString("usuario_id"));
+            token.setToken(rs.getString("token"));
         } catch (SQLException ex) {
             Logger.getLogger(TokenVerificacaoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        return token;
     }
     
-    public boolean validateToken(TokenVerificacaoDTO token) {
-        Argon2Encoder encoder = Argon2Encoder.getEncoder();
+    public boolean insert(TokenVerificacaoDTO token) {
+        String sql = "INSERT INTO token_verificacao VALUES(?, ?)";
         
+        return executeUpdate(sql, token.getEmailUsuario(), encoder.encode(token.getToken()));
+    }
+    
+    public boolean validateToken(TokenVerificacaoDTO obj) {
         String sql = "SELECT * FROM token_verificacao WHERE usuario_id = ?";
-            
-        ResultSet r;
         
-        TokenVerificacaoDTO tokenVerificacao = null;
+        List<TokenVerificacaoDTO> tokens = executeQuery(sql, obj.getEmailUsuario());
         
-        try {
-            PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            st.setString(1, token.getEmailUsuario());
-            
-            r = st.executeQuery();
-            while (r.next()) {
-                tokenVerificacao = new TokenVerificacaoDTO(r.getString("usuario_id"), r.getString("token"));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if(tokenVerificacao == null | !encoder.check(token.getToken(), tokenVerificacao.getToken())) {
-                System.out.println("Token não encontrado");
-                return false;
-            }
-            
-            return delete(tokenVerificacao);
-        }
+        if(tokens.isEmpty())
+            return false;
+        
+        TokenVerificacaoDTO token = tokens.get(0);
+        
+        if(!encoder.check(obj.getToken(), token.getToken()))
+            return false;
+        
+        return delete(token);
     }
     
-    @Override
     public boolean delete(TokenVerificacaoDTO token) {
         
         String sql = "DELETE FROM token_verificacao WHERE usuario_id = ?";
         
-        int affectedLines = 0;
-        
-        try {
-            PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            
-            st.setString(1, token.getEmailUsuario());
-            
-            System.out.println("closeVerifiedToken() " + token.getEmailUsuario());
-            
-            affectedLines = st.executeUpdate();
-                    
-            System.out.println("closeVerifiedToken(): affectedLines" + affectedLines);
-        } catch (SQLException ex) {
-            Logger.getLogger(TokenVerificacaoDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            return affectedLines > 0;
-        }
+        return executeUpdate(sql, token.getEmailUsuario());
     }
 }

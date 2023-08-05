@@ -55,13 +55,6 @@ public class UsuarioService {
         return dao.update(obj);
     }
 
-    public void delete(String email) {
-        UsuarioDTO user = new UsuarioDTO();
-        user.setEmail(email);
-        
-        dao.delete(user);
-    }
-
     public UsuarioDTO getUsuario(String email) {
         return dao.getUsuario(email);
     }
@@ -69,7 +62,7 @@ public class UsuarioService {
     public void cadastrar(UsuarioDTO obj) {
         TokenVerificacaoDAO tokenDAO = TokenVerificacaoDAO.getInstance();
         
-        dao.insert(obj);
+        dao.cadastrar(obj);
         
         String generatedToken = TokenGenerator.generateToken();
         

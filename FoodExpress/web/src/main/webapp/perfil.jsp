@@ -105,9 +105,9 @@
             </div>
         </main>
 
-        <script src="scripts/barrapesquisa.js"></script>
+        <script src="scripts/barraPesquisa.js"></script>
         <script src="scripts/mascaras.js"></script>
-        <script src="scripts/editarperfil.js"></script>
+        <script src="scripts/editarPerfil.js"></script>
     </body>
 </html>
 

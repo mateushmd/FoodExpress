@@ -28,7 +28,7 @@
                 <p>Antes de mudar sua senha (<c:out value = "${email}"/>), insira a senha atual para confirmarmos se é realmente você.</p>
                 <fieldset class='number-code'>
                     <legend>Senha</legend>
-                    <input type="password" name="senha" id="password">
+                    <input type="password" name="password" id="password">
                 </fieldset>
                 <div class="botao">
                     <input type="submit" name="submit" value="ENVIAR" style="cursor: pointer; font-family: 'Oswald', sans-serif;" id="login">

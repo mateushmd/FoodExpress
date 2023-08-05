@@ -35,15 +35,15 @@ public class redefinirSenha extends HttpServlet {
         
         UsuarioService uservice = UsuarioService.getInstance();
         
-        String senha = request.getParameter("password");
+        String password = request.getParameter("password");
         String email = request.getParameter("email");
         
-        boolean check = uservice.redefinirSenha(email, senha);
+        boolean check = uservice.redefinirSenha(email, password);
         
         System.out.println(check);
         
         if(check)
-            request.setAttribute("msg", "Email redefinido com sucesso!");
+            request.setAttribute("msg", "Senha redefinida com sucesso!");
         
         RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
         

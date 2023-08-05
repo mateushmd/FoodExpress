@@ -34,7 +34,7 @@ main img {
     padding: 20px;
     border-radius: 47px;
     width: 500px;
-    height: 500px;
+    height: 550px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -168,6 +168,13 @@ form a {
     border-color: #cc575f;
 }
 
+#cadastro:disabled {
+    background-color: #bcc6ca;
+    color: black;
+    border-color: #e6f1f5;
+    cursor: default;
+}
+
 #login:hover {
     color: #ffffff;
     background-color: #0f7496;
@@ -198,4 +205,8 @@ a {
 
 #aviso {
     margin: 0px;
+}
+
+#msg-password {
+    margin-top: 0px; 
 }
