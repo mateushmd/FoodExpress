@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.foodexpress.model;
+package com.foodexpress.model.email;
 
+import com.foodexpress.model.email.EmailTemplates;
 import com.foodexpress.model.dto.TokenVerificacaoDTO;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;

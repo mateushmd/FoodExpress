@@ -1,9 +1,8 @@
 package com.foodexpress.model.service;
 
-import com.foodexpress.model.EmailUtil;
-import com.foodexpress.model.TokenGenerator;
+import com.foodexpress.model.email.EmailUtil;
+import com.foodexpress.model.encoder.TokenGenerator;
 import com.foodexpress.model.dao.UsuarioDAO;
-import com.foodexpress.model.dao.DAOFactory;
 import com.foodexpress.model.dao.TokenVerificacaoDAO;
 import com.foodexpress.model.dto.TokenVerificacaoDTO;
 import com.foodexpress.model.dto.UsuarioDTO;
@@ -12,7 +11,20 @@ import java.util.List;
 
 public class UsuarioService {
 
-    private UsuarioDAO dao = DAOFactory.createUsuarioDAO();
+    private UsuarioDAO dao;
+    
+    private static UsuarioService instance = null;
+    
+    private UsuarioService() {
+        dao = UsuarioDAO.getInstance();
+    }
+    
+    public static UsuarioService getInstance() {
+        if(instance == null)
+            instance = new UsuarioService();
+        
+        return instance;
+    }
     
     public int login(String email, String senha){
         int check = dao.login(email, senha);
@@ -25,7 +37,7 @@ public class UsuarioService {
         System.out.println("verificarEmail() " + token.getEmailUsuario());
         System.out.println("verificarEmail() " + token.getToken());
         
-        TokenVerificacaoDAO tokenDAO = DAOFactory.createTokenVerificacaoDAO();
+        TokenVerificacaoDAO tokenDAO = TokenVerificacaoDAO.getInstance();
         
         boolean check = tokenDAO.validateToken(token);
         
@@ -39,22 +51,18 @@ public class UsuarioService {
         return check;
     }
     
-    public void update(UsuarioDTO obj) {
-        dao.update(obj);
+    public boolean update(UsuarioDTO obj) {
+        return dao.update(obj);
     }
 
-    public void delete(String email) {
-        dao.deleteByEmail(email);
-    }
-
-    public UsuarioDTO findByLogin(String email) throws SQLException {
-        return dao.findByEmail(email);
+    public UsuarioDTO getUsuario(String email) {
+        return dao.getUsuario(email);
     }
 
     public void cadastrar(UsuarioDTO obj) {
-        TokenVerificacaoDAO tokenDAO = DAOFactory.createTokenVerificacaoDAO();
+        TokenVerificacaoDAO tokenDAO = TokenVerificacaoDAO.getInstance();
         
-        dao.insert(obj);
+        dao.cadastrar(obj);
         
         String generatedToken = TokenGenerator.generateToken();
         
@@ -62,7 +70,11 @@ public class UsuarioService {
         
         EmailUtil.sendEmailVerificacao(token);
         
-        tokenDAO.addToken(token);
+        tokenDAO.insert(token);
+    }
+    
+    public boolean redefinirSenha(String email, String senha) {
+        return dao.redefinirSenha(email, senha);
     }
 
     public List<UsuarioDTO> ListarUsuario() throws SQLException {

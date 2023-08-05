@@ -8,6 +8,7 @@ import com.foodexpress.model.dto.UsuarioDTO;
 import com.foodexpress.model.service.UsuarioService;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -16,10 +17,10 @@ import jakarta.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Samuel
+ * @author chsdi
  */
-@WebServlet(name = "cadastrar", urlPatterns = {"/cadastrar"})
-public class cadastrar extends HttpServlet {
+@WebServlet(name = "confirmarSenha", urlPatterns = {"/confirmarSenha"})
+public class confirmarSenha extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,34 +33,45 @@ public class cadastrar extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         response.setContentType("text/html;charset=UTF-8");
-
-        System.out.println("passei aqui");
-
-        UsuarioService uservice = UsuarioService.getInstance();
-        UsuarioDTO uDTO = new UsuarioDTO();
-
-        String nome = request.getParameter("name");
+        
+        String submit = request.getParameter("submit");
+        
+        RequestDispatcher rd = null;
+        
         String email = request.getParameter("email");
+        
+        if(submit.equals("CANCELAR")) {
+            request.setAttribute("email", email);
+            
+            rd = request.getRequestDispatcher("editarPerfil.jsp");
+            
+            rd.forward(request, response);
+            
+            return;
+        }
+        
+        UsuarioService uservice = UsuarioService.getInstance();
+       
         String password = request.getParameter("password");
-        String phone = request.getParameter("tel");
-        int tipo = Integer.parseInt(request.getParameter("opcao"));
+        
+        System.out.println("Senha: " + password + "\nEmail: " + email);
+        
+        int check = uservice.login(email, password);
+        
+        request.setAttribute("email", email);
 
-        System.out.println(phone);
+        if(check < 1) {
+            request.setAttribute("msg", "Senha incorreta.");
+           
+            rd = request.getRequestDispatcher("confirmarSenha.jsp");
+            rd.forward(request, response);
 
-        uDTO.setNome(nome);
-        uDTO.setEmail(email);
-        uDTO.setSenha(password);
-        uDTO.setTelefone(phone);
-        uDTO.setTipo(tipo);
+            return;
+        }
 
-        uservice.cadastrar(uDTO);
-
-        request.setAttribute("email", uDTO.getEmail());
-
-        RequestDispatcher dispatcher = request.getRequestDispatcher("verificacaoemail.jsp");
-        dispatcher.forward(request, response);
+        rd = request.getRequestDispatcher("redefinirsenha.jsp");
+        rd.forward(request, response); 
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -74,8 +86,7 @@ public class cadastrar extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
-        dispatcher.forward(request, response);
+        processRequest(request, response);
     }
 
     /**

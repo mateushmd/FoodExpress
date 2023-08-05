@@ -16,10 +16,10 @@ import jakarta.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Samuel
+ * @author chsdi
  */
-@WebServlet(name = "cadastrar", urlPatterns = {"/cadastrar"})
-public class cadastrar extends HttpServlet {
+@WebServlet(name = "editarPerfil", urlPatterns = {"/editarPerfil"})
+public class editarPerfil extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,34 +32,58 @@ public class cadastrar extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         response.setContentType("text/html;charset=UTF-8");
-
-        System.out.println("passei aqui");
-
+        
+        RequestDispatcher rd;
+        
+        String email = request.getParameter("defMail");
+        
+        String submit = request.getParameter("submit");
+        
+        if(submit.equals("ALTERAR SENHA")) {
+            request.setAttribute("email", email);
+            
+            rd = request.getRequestDispatcher("confirmarsenha.jsp");
+            
+            rd.forward(request, response);
+            
+            return;
+        }
+        
         UsuarioService uservice = UsuarioService.getInstance();
-        UsuarioDTO uDTO = new UsuarioDTO();
-
+        
+        UsuarioDTO uDTO;
+        
         String nome = request.getParameter("name");
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        String phone = request.getParameter("tel");
-        int tipo = Integer.parseInt(request.getParameter("opcao"));
-
-        System.out.println(phone);
-
+        
+        String telefone = request.getParameter("tel");
+        
+        String defaultNome = request.getParameter("defName");
+        
+        String defaultTel = request.getParameter("defTel");
+        
+        if(nome == null || nome.isBlank() || nome.isEmpty()) {
+            nome = defaultNome;
+        }
+        
+        if(telefone == null || telefone.length() < 18 || telefone.isBlank()) {
+            telefone = defaultTel;
+        }
+        
+        uDTO = new UsuarioDTO();
+        
         uDTO.setNome(nome);
+        uDTO.setTelefone(telefone);
         uDTO.setEmail(email);
-        uDTO.setSenha(password);
-        uDTO.setTelefone(phone);
-        uDTO.setTipo(tipo);
-
-        uservice.cadastrar(uDTO);
-
-        request.setAttribute("email", uDTO.getEmail());
-
-        RequestDispatcher dispatcher = request.getRequestDispatcher("verificacaoemail.jsp");
-        dispatcher.forward(request, response);
+        
+        System.out.println(uservice.update(uDTO));
+        
+        uDTO = uservice.getUsuario(email);
+        
+        request.setAttribute("usuario", uDTO);
+        
+        rd = request.getRequestDispatcher("perfil.jsp");
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -74,8 +98,7 @@ public class cadastrar extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
-        dispatcher.forward(request, response);
+        processRequest(request, response);
     }
 
     /**

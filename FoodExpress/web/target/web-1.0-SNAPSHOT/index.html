@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="styles/style.css">
     <link rel="icon" type="image/png" href="imgs/icon.png"/>
 </head>
 
@@ -29,6 +29,13 @@
                     <label for="password" class="label">SENHA:</label>
                     <input type="password" id="password" name="password" required>
                 </section>
+                
+                <section class="campo">
+                    <label for="confirm-password" class="label">CONFIRMAR SENHA:</label>
+                    <input type="password" id="confirm-password" name="confirm-password" required>
+                </section>
+
+                <p id="msg-password" hidden></p>
 
                 <section class="campo">
                     <label for="phone" class="label">TELEFONE:</label>
@@ -52,6 +59,7 @@
             </form>
         </div>
     </main>
-    <script src="mascaras.js"></script>
+    <script src="scripts/mascaras.js"></script>
+    <script src="scripts/confirmarSenha.js"></script>
 </body>
 </html>
