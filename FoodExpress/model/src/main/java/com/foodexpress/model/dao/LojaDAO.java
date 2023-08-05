@@ -31,7 +31,7 @@ public class LojaDAO extends DAOTemplate<LojaDAO> {
     }
     
     @Override
-    protected LojaDAO mapResultSetToObject(ResultSet rs) throws SQLException {
+    protected LojaDTO mapResultSetToObject(ResultSet rs) throws SQLException {
         LojaDTO loja = null;
         
         try{
@@ -65,5 +65,37 @@ public class LojaDAO extends DAOTemplate<LojaDAO> {
             return -1;
         
         LojaDTO loja = lojas.get(0);
+        
+        return 1;
+    }
+    
+    public LojaDTO getLoja(String idUser) {
+        String sql = "SELECT * FROM lojas WHERE id_usuario = ?";
+        
+        List<LojaDTO> lojas = executeQuery(sql, idUser);
+        
+        return lojas.isEmpty() ? null : lojas.get(0);
+    }
+    
+    public boolean updateND(LojaDTO obj){
+        String sqlUpdate = "UPDATE lojas SET nome = ?, descricao = ? WHERE id_usuario = ?";
+        
+        return executeUpdate(sqlUpdate, obj.getNome(), obj.getDescricao());
+    }
+    
+    public boolean updateA(LojaDTO obj){
+        String sqlUpdate = "UPDATE lojas SET avaliacao = ? WHERE id_usuario = ?";
+        
+        return executeUpdate(sqlUpdate, obj.getAvaliacao());
+    }
+    
+    public List<LojaDTO> ListarLojas() throws SQLException{
+        String sql = "SELECT * FROM lojas ORDER BY nome";
+        
+        return executeQuery(sql);
+    }
+    
+    public LojaDTO getLoja(){
+        return loja;
     }
 }
