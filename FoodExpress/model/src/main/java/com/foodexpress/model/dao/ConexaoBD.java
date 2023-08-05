@@ -3,7 +3,6 @@ package com.foodexpress.model.dao;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -18,22 +17,15 @@ public class ConexaoBD {
     private static Connection conn = null;
 
     public static Connection getConnection() {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e1) {
-            e1.printStackTrace();
-        }
         if (conn == null) {
             try {
-                conn = DriverManager.getConnection("jdbc:mysql://us-cdbr-east-06.cleardb.net:3306/heroku_4f92f1c6b3d797c?autoReconnect=true&useSSL=false", "b4ef7c73d61cc7", "c101e0f6");
-            } catch (SQLException e) {
-                try {
-                    throw new DbException(e.getMessage());
-                } catch (DbException ex) {
-                    Logger.getLogger(ConexaoBD.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                conn = DriverManager.getConnection("jdbc:mysql://us-cdbr-east-06.cleardb.net:3306/heroku_b695d40b1c0e531?useSSL=false", "b4ef7c73d61cc7", "c101e0f6");
+            } catch (ClassNotFoundException | SQLException ex) {
+                Logger.getLogger(ConexaoBD.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        
         return conn;
     }
 
@@ -41,12 +33,8 @@ public class ConexaoBD {
         if (conn != null) {
             try {
                 conn.close();
-            } catch (SQLException e) {
-                try {
-                    throw new DbException(e.getMessage());
-                } catch (DbException ex) {
-                    Logger.getLogger(ConexaoBD.class.getName()).log(Level.SEVERE, null, ex);
-                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ConexaoBD.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -56,12 +44,8 @@ public class ConexaoBD {
             Properties props = new Properties();
             props.load(fs);
             return props;
-        } catch (IOException e) {
-            try {
-                throw new DbException(e.getMessage());
-            } catch (DbException ex) {
-                Logger.getLogger(ConexaoBD.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        } catch (IOException ex) {
+            Logger.getLogger(ConexaoBD.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -70,12 +54,8 @@ public class ConexaoBD {
         if (st != null) {
             try {
                 st.close();
-            } catch (SQLException e) {
-                try {
-                    throw new DbException(e.getMessage());
-                } catch (DbException ex) {
-                    Logger.getLogger(ConexaoBD.class.getName()).log(Level.SEVERE, null, ex);
-                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ConexaoBD.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -84,12 +64,8 @@ public class ConexaoBD {
         if (rs != null) {
             try {
                 rs.close();
-            } catch (SQLException e) {
-                try {
-                    throw new DbException(e.getMessage());
-                } catch (DbException ex) {
-                    Logger.getLogger(ConexaoBD.class.getName()).log(Level.SEVERE, null, ex);
-                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ConexaoBD.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }

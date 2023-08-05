@@ -1,0 +1,237 @@
+@import url('https://fonts.cdnfonts.com/css/cooper-hewitt?styles=34277,34271');
+@import url(' https://fonts.cdnfonts.com/css/oswald-4 ');
+
+body {
+  font-family: 'Cooper Hewitt', sans-serif;
+  margin: 0;
+  height: 100%;
+  background-color: #e6f1f5;
+}
+
+header {
+  background-color: #cd606b;
+  padding: 23px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+}
+
+main {
+  height: calc(100vh - 116px);
+}
+
+.logo {
+  font-size: 2px;
+  font-weight: bold;
+}
+
+#pesquisa-icon {
+  cursor: pointer;
+}
+
+#barra-pesquisa {
+  display: none;
+  margin-left: 10px;
+}
+
+#barra-pesquisa input {
+  padding: 5px;
+  border-radius: 3px;
+  border: none;
+}
+
+.menu-options ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.menu-options ul li {
+  margin-right: 100px;
+}
+
+.menu-options ul li a {
+  text-decoration: none;
+  color: #ffffff;
+  padding: 5px;
+
+}
+
+.logo img {
+  width: 100px;
+  height: auto;
+  max-height: 100%;
+}
+
+#pesquisa-icon img {
+  width: 30px;
+  height: auto;
+}
+
+.sessao {
+  background-color: white;
+  border: 1px solid rgb(255, 251, 251);
+  border-radius: 30px;
+  padding: 10px;
+}
+
+#loja {
+  width: auto;
+  height: 420px;
+  margin: 10px 20px 10px 20px;
+}
+
+#loja-container {
+  width: inherit;
+  margin-top: 100px;
+}
+
+#loja div {
+  margin-left: 10px;
+}
+
+section {
+  display: flex;
+  flex-direction: row;
+}
+
+#loja-cabecalho {
+  width: calc(100vw - 900px);
+  height: 350px;
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+#perfil {
+  width: 800px;
+  height: 350px;
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+#perfil > div {
+  margin-left: 10px;
+}
+
+#img-perfil {
+  width: 300px;
+  height: auto;
+  margin-bottom: 10px;
+  border-right: 5px solid black;
+  padding-right: 20px;
+}
+
+#perfil ul {
+  margin-top: 50px;
+  padding-left: 20px;
+}
+
+#perfil li {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+#perfil input:not([type="submit"]) {
+  width: 220px;
+  box-sizing: border-box;
+  margin-top: 5px;
+  border: none;
+  border-bottom: 2px solid black;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 800;
+}
+
+#perfil input:not([type="submit"]):disabled {
+  background-color: inherit;
+  color: inherit;
+  font-weight: inherit;
+}
+
+.editar img {
+  width: 15px;
+  height: auto;
+}
+
+.editar {
+  background-color: inherit;
+  width: 15px;
+  height: 15px;
+  padding: 0px;
+  border: 0px;
+}
+
+.editar:hover {
+  cursor:pointer;
+}
+
+.p {
+  text-align: right;
+  margin: 0;
+}
+
+h2 {
+  font-weight: 800;
+  margin-top: 0px;
+}
+
+ul {
+  list-style: none;
+}
+
+.fechada {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.botao input {
+  border-radius: 12px;
+  border: 1px solid #cc575f;
+  color: inherit;
+  text-align: center;
+  background-color: #cc575f;
+  color: #e6f1f5;
+  font-size: inherit;
+}
+
+.botao input:disabled {
+  border: 1px solid #cc575f;
+  color: inherit;
+  text-align: center;
+  background-color: #cc575f;
+  color: #e6f1f5;
+  font-size: inherit;
+}
+
+.botao input:not(:disabled):hover {
+  color: #ffffff;
+  background-color: #0f7496;
+  border-color: #cc575f;
+}
+
+.enabled {
+  cursor: pointer;
+}
+
+.botao:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.editar-perfil {
+  width: 220px;
+  height: 25px;
+}
+
+#abrir-loja {
+  width: 400px;
+  height: 50px;
+  font-size: 32px;
+}

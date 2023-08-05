@@ -2,15 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package servlet;
+package com.foodexpress.web.servlet;
 
-import com.foodexpress.model.dao.DAOFactory;
-import com.foodexpress.model.dao.UsuarioDAO;
 import com.foodexpress.model.dto.UsuarioDTO;
 import com.foodexpress.model.service.UsuarioService;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -35,29 +32,34 @@ public class cadastrar extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            UsuarioService uservice = new UsuarioService();
-            UsuarioDTO uDTO = new UsuarioDTO();
 
-            String nome = request.getParameter("name");
-            String email = request.getParameter("email");
-            String password = request.getParameter("password");
-            String phone = request.getParameter("phone");
-            int tipo = Integer.parseInt(request.getParameter("opcao"));
+        System.out.println("passei aqui");
 
-            uDTO.setNome(nome);
-            uDTO.setEmail(email);
-            uDTO.setSenha(password);
-            uDTO.setTelefone(phone);
-            uDTO.setTipo(tipo);
+        UsuarioService uservice = UsuarioService.getInstance();
+        UsuarioDTO uDTO = new UsuarioDTO();
 
-            uservice.cadastrar(uDTO);
+        String nome = request.getParameter("name");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        String phone = request.getParameter("tel");
+        int tipo = Integer.parseInt(request.getParameter("opcao"));
 
-            RequestDispatcher dispatcher = request.getRequestDispatcher("index.html");
-            dispatcher.forward(request, response);
+        System.out.println(phone);
 
-        }
+        uDTO.setNome(nome);
+        uDTO.setEmail(email);
+        uDTO.setSenha(password);
+        uDTO.setTelefone(phone);
+        uDTO.setTipo(tipo);
+
+        uservice.cadastrar(uDTO);
+
+        request.setAttribute("email", uDTO.getEmail());
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("verificacaoemail.jsp");
+        dispatcher.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -72,7 +74,8 @@ public class cadastrar extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+        dispatcher.forward(request, response);
     }
 
     /**

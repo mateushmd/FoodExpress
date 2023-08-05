@@ -34,13 +34,13 @@ main img {
     padding: 20px;
     border-radius: 47px;
     width: 500px;
-    height: 500px;
+    height: 550px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.containerLogin {
+#containerLogin {
     margin-top: 50px;
     background-color: #cc575f;
     margin-right: 50px;
@@ -54,7 +54,33 @@ main img {
     align-items: center;
 }
 
+#containerVerificacao {
+    margin-top: 50px;
+    background-color: #cc575f;
+    margin-right: 50px;
+    border: 1px solid #e6f1f5;
+    padding: 20px 46px 20px 46px;
+    border-radius: 47px;
+    width: 440px;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
+#containerRedefinir {
+    margin-top: 50px;
+    background-color: #cc575f;
+    margin-right: 50px;
+    border: 1px solid #e6f1f5;
+    padding: 20px 46px 20px 46px;
+    border-radius: 47px;
+    width: 440px;
+    height: 330px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 form {
     display: flex;
@@ -142,6 +168,13 @@ form a {
     border-color: #cc575f;
 }
 
+#cadastro:disabled {
+    background-color: #bcc6ca;
+    color: black;
+    border-color: #e6f1f5;
+    cursor: default;
+}
+
 #login:hover {
     color: #ffffff;
     background-color: #0f7496;
@@ -168,4 +201,12 @@ a {
     font-family: 'freshwost', sans-serif;
     font-size: 15px;
     padding-bottom: 3px;
+}
+
+#aviso {
+    margin: 0px;
+}
+
+#msg-password {
+    margin-top: 0px; 
 }
