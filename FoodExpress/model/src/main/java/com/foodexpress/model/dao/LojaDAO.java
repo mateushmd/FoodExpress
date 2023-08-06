@@ -14,7 +14,7 @@ import java.util.logging.Level;
  *
  * @author washi
  */
-public class LojaDAO extends DAOTemplate<LojaDAO> {
+public class LojaDAO extends DAOTemplate<LojaDTO> {
     private static LojaDAO instance = null;
     
     private LojaDTO loja;
