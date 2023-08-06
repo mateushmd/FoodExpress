@@ -5,10 +5,12 @@ import com.google.cloud.storage.Bucket;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
 import java.io.ByteArrayInputStream;
-
+import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
@@ -49,12 +51,29 @@ abstract public class FirebaseStorage {
         }
     }
      private int counter = 1;
+     
+     public static byte[] getImageDataFromUrl(String imageUrl) throws IOException {
+        try (InputStream inputStream = new URL(imageUrl).openStream();
+             ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
 
+            byte[] buffer = new byte[4096];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+
+            return outputStream.toByteArray();
+        }
+    }
+
+    public abstract void uploadByLink(String imageUrl) throws IOException;
     public abstract void upload(String imgLocal) throws FileNotFoundException;
+    public abstract void delete (String imgLocal) throws FileNotFoundException;
+    public abstract void readImageAsUrl(String imgLocal) throws FileNotFoundException;
+
 
     protected String generateUniqueFileName() {
         return counter++ + "_" + UUID.randomUUID().toString() + ".png";
     }
-
 }
 
