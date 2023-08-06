@@ -5,6 +5,7 @@
 package com.foodexpress.model.dao;
 
 import com.foodexpress.model.dto.LojaDTO;
+import com.foodexpress.model.dto.ProdutoDTO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -16,11 +17,13 @@ import java.util.logging.Level;
  */
 public class LojaDAO extends DAOTemplate<LojaDTO> {
     private static LojaDAO instance = null;
+    ProdutoDAO prod;
     
     private LojaDTO loja;
     
     private LojaDAO() {
         super();
+        prod = ProdutoDAO.getInstance();
     }
     
     public static synchronized LojaDAO getInstance(){
@@ -41,7 +44,7 @@ public class LojaDAO extends DAOTemplate<LojaDTO> {
             loja.setNome(rs.getString("nome"));
             loja.setDescricao(rs.getString("descricao"));
             loja.setAvaliacao(rs.getDouble("avaliacao"));
-            loja.setIdUser(rs.getString("id_user"));
+            loja.setIdUser(rs.getString("id_usuario"));
         } catch(SQLException ex){
             java.util.logging.Logger.getLogger(LojaDTO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -50,13 +53,13 @@ public class LojaDAO extends DAOTemplate<LojaDTO> {
     }
     
     public boolean cadastrar(LojaDTO obj){
-        String sql = "INSERT INTO lojas (id, nome, descricao, avaliacao, id_usuario) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO lojas (nome, descricao, avaliacao, id_usuario) VALUES (?, ?, ?, ?)";
         
-        return executeUpdate(sql, obj.getId(), obj.getNome(), obj.getDescricao(), obj.getAvaliacao(), obj.getIdUser());
+        return executeUpdate(sql, obj.getNome(), obj.getDescricao(), obj.getAvaliacao(), obj.getIdUser());
     }
     
     public int login(String idUser){
-        String sql = "SELECT * FROM lojas WHERE id_user = ?";
+        String sql = "SELECT * FROM lojas WHERE id_usuario = ?";
         
         List<LojaDTO> lojas = executeQuery(sql, idUser);
         
@@ -93,6 +96,18 @@ public class LojaDAO extends DAOTemplate<LojaDTO> {
         String sql = "SELECT * FROM lojas ORDER BY nome";
         
         return executeQuery(sql);
+    }
+    
+    public boolean adicionarAoCard(ProdutoDTO obj){
+        return prod.cadastrar(obj);
+    }
+    
+    public List<ProdutoDTO> listarCard(int idLoja) throws SQLException{
+        return prod.ListarPorLoja(idLoja);
+    }
+    
+    public List<ProdutoDTO> listarProd() throws SQLException{
+        return prod.Listar();
     }
     
     public LojaDTO getLoja(){

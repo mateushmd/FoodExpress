@@ -2,6 +2,7 @@ package com.foodexpress.model.service;
 
 import com.foodexpress.model.dao.LojaDAO;
 import com.foodexpress.model.dto.LojaDTO;
+import com.foodexpress.model.dto.ProdutoDTO;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -51,4 +52,17 @@ public class LojaService {
     public LojaDTO getLoja(){
         return dao.getLoja();
     }
+    
+    public boolean adicionarAoCard(ProdutoDTO obj){
+        return dao.adicionarAoCard(obj);
+    }
+    
+    public List<ProdutoDTO> listarCard(int idLoja) throws SQLException{
+        return dao.listarCard(idLoja);
+    }
+    
+    public List<ProdutoDTO> listarProd() throws SQLException{
+        return dao.listarProd();
+    }
+    
 }

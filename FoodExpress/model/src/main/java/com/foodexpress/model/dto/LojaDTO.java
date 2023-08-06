@@ -1,4 +1,6 @@
 package com.foodexpress.model.dto;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LojaDTO {
     private int id;
@@ -6,6 +8,7 @@ public class LojaDTO {
     private String descricao;
     private double avaliacao;
     private String idUser;
+    private List<ProdutoDTO> cardapio;
 
     public LojaDTO(int id, String nome, String descricao, double avaliacao, String idUser) {
         this.id = id;
@@ -14,6 +17,15 @@ public class LojaDTO {
         this.avaliacao = avaliacao;
         this.idUser = idUser;
     }
+
+    public LojaDTO(String nome, String descricao, double avaliacao, String idUser) {
+        this.nome = nome;
+        this.descricao = descricao;
+        this.avaliacao = avaliacao;
+        this.idUser = idUser;
+    }
+    
+    
     
     public LojaDTO(){
     }

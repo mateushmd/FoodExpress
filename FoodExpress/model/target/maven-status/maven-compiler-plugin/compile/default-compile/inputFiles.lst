@@ -4,12 +4,14 @@ C:\Users\washi\Documents\GitHub\lp2\TCC\FoodExpress\model\src\main\java\com\food
 C:\Users\washi\Documents\GitHub\lp2\TCC\FoodExpress\model\src\main\java\com\foodexpress\model\dao\DAOTemplate.java
 C:\Users\washi\Documents\GitHub\lp2\TCC\FoodExpress\model\src\main\java\com\foodexpress\model\dao\LojaDAO.java
 C:\Users\washi\Documents\GitHub\lp2\TCC\FoodExpress\model\src\main\java\com\foodexpress\model\encoder\TokenGenerator.java
+C:\Users\washi\Documents\GitHub\lp2\TCC\FoodExpress\model\src\main\java\com\foodexpress\model\dto\ProdutoDTO.java
 C:\Users\washi\Documents\GitHub\lp2\TCC\FoodExpress\model\src\main\java\com\foodexpress\model\email\EmailTemplates.java
 C:\Users\washi\Documents\GitHub\lp2\TCC\FoodExpress\model\src\main\java\com\foodexpress\model\dto\UsuarioDTO.java
 C:\Users\washi\Documents\GitHub\lp2\TCC\FoodExpress\model\src\main\java\com\foodexpress\model\dao\teste.java
 C:\Users\washi\Documents\GitHub\lp2\TCC\FoodExpress\model\src\main\java\com\foodexpress\model\dto\LojaDTO.java
 C:\Users\washi\Documents\GitHub\lp2\TCC\FoodExpress\model\src\main\java\com\foodexpress\model\encoder\EmailEncoder.java
 C:\Users\washi\Documents\GitHub\lp2\TCC\FoodExpress\model\src\main\java\com\foodexpress\model\service\UsuarioService.java
+C:\Users\washi\Documents\GitHub\lp2\TCC\FoodExpress\model\src\main\java\com\foodexpress\model\dao\ProdutoDAO.java
 C:\Users\washi\Documents\GitHub\lp2\TCC\FoodExpress\model\src\main\java\com\foodexpress\model\dao\ConexaoBD.java
 C:\Users\washi\Documents\GitHub\lp2\TCC\FoodExpress\model\src\main\java\com\foodexpress\model\service\LojaService.java
 C:\Users\washi\Documents\GitHub\lp2\TCC\FoodExpress\model\src\main\java\com\foodexpress\model\dto\TokenVerificacaoDTO.java
