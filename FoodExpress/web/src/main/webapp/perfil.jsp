@@ -17,26 +17,44 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>FoodExpress</title>
         <link rel="stylesheet" type="text/css" href="styles/perfil.css">
+        <link rel="stylesheet" type="text/css" href="styles/header.css">
         <link rel="icon" type="image/png" href="imgs/icon.png"/>
     </head>
     <body>
         <header>
-            <div class="logo">
-                <img src="imgs/logo2.png" alt="Logo">
-            </div>
-            <div class="menu-options">
+            <nav class="nav-bar">
+                <div class="logo"><a href="menuprincipal.html"><img src="imgs/logo2.png" alt="Logo" id="logoimg"></a></div>
+
+                <div class="menu-options">
+                    <ul>
+                        <li class="menu-item"><a href="menuprincipal.html" class="menu-link">INÍCIO</a></li>
+                        <li class="menu-item"><a href="perfil.html" class="menu-link">PERFIL</a></li>
+                        <li class="menu-item"><a href="#" class="menu-link">PEDIDOS</a></li>
+                        <li class="menu-item"><a href="#" class="menu-link">FAVORITOS</a></li>
+                        <li class="menu-item"><a href="#" class="menu-link">SOBRE</a></li>
+                    </ul>
+
+                    <div class="pesquisa-icon">
+                        <input type="text" class="barra-pesquisa" placeholder="Pesquisar...">
+                        <a class="pesquisaBtn">
+                            <img class="lupa-icon-B" src="imgs/loupe-white.svg" alt="Lupa">
+                            <img class="lupa-icon-A" src="imgs/loupe-blue.svg" alt="Lupa">
+
+                        </a>
+                    </div>
+                </div>
+
+                <div class="botao-menu"><button onclick="menuShow()"><img class="menuBtn" src="imgs/menu_white_36dp.svg"></button></div>
+            </nav>
+
+            <div class="menu-options-mobile">
                 <ul>
-                    <li><a href="perfil.html">PERFIL</a></li>
-                    <li><a href="#">PEDIDOS</a></li>
-                    <li><a href="#">FAVORITOS</a></li>
-                    <li><a href="#">SOBRE</a></li>
+                    <li class="menu-item"><a href="menuprincipal.html" class="menu-link">INÍCIO</a></li>
+                    <li class="menu-item"><a href="perfil.html" class="menu-link">PERFIL</a></li>
+                    <li class="menu-item"><a href="#" class="menu-link">PEDIDOS</a></li>
+                    <li class="menu-item"><a href="#" class="menu-link">FAVORITOS</a></li>
+                    <li class="menu-item"><a href="#" class="menu-link">SOBRE</a></li>
                 </ul>
-            </div>
-            <div id="pesquisa-icon">
-                <img src="imgs/lupa.png" alt="Lupa">
-            </div>
-            <div id="barra-pesquisa">
-                <input type="text" placeholder="Pesquisar...">
             </div>
         </header>
 
@@ -108,6 +126,7 @@
         <script src="scripts/barraPesquisa.js"></script>
         <script src="scripts/mascaras.js"></script>
         <script src="scripts/editarPerfil.js"></script>
+        <script src="scripts/menu.js"></script>
     </body>
 </html>
 
