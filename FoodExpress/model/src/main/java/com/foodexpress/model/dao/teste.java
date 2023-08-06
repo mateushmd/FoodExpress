@@ -1,16 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.foodexpress.model.dao;
+import com.foodexpress.model.dto.*;
+import com.foodexpress.model.service.*;
+import java.sql.SQLException;
 
-import com.foodexpress.model.EmailEncoder;
-import com.foodexpress.model.EmailUtil;
-
-/**
- *
- * @author Samuel
- */
 public class teste {
-    public static void main(String[] args) {}
+    public static void main(String[] args) throws SQLException {
+        LojaService lo = LojaService.getinstance();
+        
+        lo.adicionarAoCard(new ProdutoDTO(lo.getLoja("washingtonwagner2020@gmail.com").getId(), "bolo de cenoura com cobertura", 5.0, "Melhor bolo"));
+    }
 }

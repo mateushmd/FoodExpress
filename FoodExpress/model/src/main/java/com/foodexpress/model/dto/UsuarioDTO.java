@@ -7,13 +7,15 @@ public class UsuarioDTO {
     private String senha;
     private String telefone;
     private int tipo;
+    private boolean verificado;
 
-    public UsuarioDTO(String email, String nome, String senha, String telefone, int tipo) {
+    public UsuarioDTO(String email, String nome, String senha, String telefone, int tipo, boolean verificado) {
         this.email = email;
         this.nome = nome;
         this.senha = senha;
         this.telefone = telefone;
         this.tipo = tipo;
+        this.verificado = verificado;
     }
 
     public UsuarioDTO() {
@@ -57,5 +59,13 @@ public class UsuarioDTO {
 
     public void setTipo(int tipo) {
         this.tipo = tipo;
+    }
+    
+    public boolean getVerificado() {
+        return verificado;
+    }
+    
+    public void setVerificado(boolean verificado) {
+        this.verificado = verificado;
     }
 }
