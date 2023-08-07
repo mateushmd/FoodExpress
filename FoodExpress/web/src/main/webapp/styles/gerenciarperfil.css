@@ -14,16 +14,16 @@ body {
     display: flex;
 }
 
-nav {
+#menu-perfil {
     background-color: #ffffff;
 }
 
-nav>h2:first-of-type {
+#menu-perfil>h2:first-of-type {
     margin: 20px 20px 20px 30px;
     font-weight: 800;
 }
 
-nav>h2:not(:first-of-type) {
+#menu-perfil>h2:not(:first-of-type) {
     padding: 10px 60px 10px 60px;
 
     background: linear-gradient(to right, #cd606b 50%, white 50%);
@@ -32,10 +32,10 @@ nav>h2:not(:first-of-type) {
     transition: all .2s ease-out;
 }
 
-nav>h2:not(:first-of-type):hover,
+#menu-perfil>h2:not(:first-of-type):hover,
 #selected {
-    background-position: left bottom;
-    color: #fff
+    background-position: left bottom !important;
+    color: #fff;
 }
 
 section {
@@ -78,7 +78,7 @@ main {
     margin-bottom: 70px;
 }
 
-#informacoes-conta li:last-of-type {
+#informacoes-conta li:nth-last-of-type(2){
     flex-direction: row;
     gap: 20px;
 }
@@ -152,7 +152,7 @@ main {
 }
 
 @media screen and (max-height: 796px) {
-    nav {
+    #menu-perfil {
         overflow-y: scroll;
     }
 }

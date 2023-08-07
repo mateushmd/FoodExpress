@@ -76,6 +76,10 @@ public class UsuarioService {
     public boolean redefinirSenha(String email, String senha) {
         return dao.redefinirSenha(email, senha);
     }
+    
+    public boolean abrirLoja(String email) {
+        return dao.abrirLoja(email);
+    }
 
     public List<UsuarioDTO> ListarUsuario() throws SQLException {
         return dao.ListarUsuarios();

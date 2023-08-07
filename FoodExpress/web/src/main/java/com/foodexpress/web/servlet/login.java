@@ -4,7 +4,9 @@
  */
 package com.foodexpress.web.servlet;
 
+import com.foodexpress.model.dto.LojaDTO;
 import com.foodexpress.model.dto.UsuarioDTO;
+import com.foodexpress.model.service.LojaService;
 import com.foodexpress.model.service.UsuarioService;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
@@ -13,6 +15,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @WebServlet(name = "login", urlPatterns = {"/login"})
 public class login extends HttpServlet {
@@ -57,9 +60,20 @@ public class login extends HttpServlet {
         
         uDTO = uservice.getUsuario(email);
         
-        request.setAttribute("usuario", uDTO);
+        LojaService lservice = LojaService.getInstance();
+        
+        LojaDTO lDTO = null;
+        
+        if(uDTO.getTipo() == 2) {
+            lDTO = lservice.getLoja(uDTO.getEmail());
+        }
+        
+        HttpSession session = request.getSession();
+        
+        session.setAttribute("usuario", uDTO);
+        session.setAttribute("loja", lDTO);
 
-        rd = request.getRequestDispatcher("perfil.jsp");
+        rd = request.getRequestDispatcher("menuprincipal.jsp");
         rd.forward(request, response);
     }
 

@@ -25,8 +25,6 @@ public class LojaDTO {
         this.idUser = idUser;
     }
     
-    
-    
     public LojaDTO(){
     }
 

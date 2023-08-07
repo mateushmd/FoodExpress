@@ -15,7 +15,7 @@ public class LojaService {
         dao = LojaDAO.getInstance();
     }
     
-    public static LojaService getinstance(){
+    public static LojaService getInstance(){
         if(instance == null)
             instance = new LojaService();
         

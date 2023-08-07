@@ -4,7 +4,9 @@
  */
 package com.foodexpress.web.servlet;
 
+import com.foodexpress.model.dto.LojaDTO;
 import com.foodexpress.model.dto.UsuarioDTO;
+import com.foodexpress.model.service.LojaService;
 import com.foodexpress.model.service.UsuarioService;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
@@ -13,6 +15,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -41,8 +44,6 @@ public class editarPerfil extends HttpServlet {
         String submit = request.getParameter("submit");
         
         if(submit.equals("ALTERAR SENHA")) {
-            request.setAttribute("email", email);
-            
             rd = request.getRequestDispatcher("confirmarsenha.jsp");
             
             rd.forward(request, response);
@@ -51,6 +52,26 @@ public class editarPerfil extends HttpServlet {
         }
         
         UsuarioService uservice = UsuarioService.getInstance();
+        
+        if(submit.equals("ABRIR LOJA")) {
+            uservice.abrirLoja(email);
+            
+            LojaDTO loja = new LojaDTO();
+            
+            loja.setIdUser(email);
+            
+            LojaService lservice = LojaService.getInstance();
+            
+            lservice.cadastrar(loja);
+            
+            request.setAttribute("loja", loja);
+            
+            rd = request.getRequestDispatcher("gerenciarloja.jsp");
+            
+            rd.forward(request, response);
+            
+            return;
+        }
         
         UsuarioDTO uDTO;
         
@@ -80,9 +101,11 @@ public class editarPerfil extends HttpServlet {
         
         uDTO = uservice.getUsuario(email);
         
-        request.setAttribute("usuario", uDTO);
+        HttpSession session = request.getSession();
         
-        rd = request.getRequestDispatcher("perfil.jsp");
+        session.setAttribute("usuario", uDTO);
+        
+        rd = request.getRequestDispatcher("gerenciarperfil.jsp");
         rd.forward(request, response);
     }
 

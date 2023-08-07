@@ -1,7 +1,10 @@
+body {
+    margin: 0;
+}
+
 section {
     display: flex;
 }
-
 
 .container-loja {
     width: 591px;

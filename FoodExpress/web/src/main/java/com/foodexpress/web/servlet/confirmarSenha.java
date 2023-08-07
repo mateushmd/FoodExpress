@@ -14,6 +14,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -35,6 +36,8 @@ public class confirmarSenha extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
+        HttpSession session = request.getSession();
+        
         String submit = request.getParameter("submit");
         
         RequestDispatcher rd = null;
@@ -42,9 +45,7 @@ public class confirmarSenha extends HttpServlet {
         String email = request.getParameter("email");
         
         if(submit.equals("CANCELAR")) {
-            request.setAttribute("email", email);
-            
-            rd = request.getRequestDispatcher("editarPerfil.jsp");
+            rd = request.getRequestDispatcher("gerenciarperfil.jsp");
             
             rd.forward(request, response);
             
@@ -58,13 +59,11 @@ public class confirmarSenha extends HttpServlet {
         System.out.println("Senha: " + password + "\nEmail: " + email);
         
         int check = uservice.login(email, password);
-        
-        request.setAttribute("email", email);
 
         if(check < 1) {
             request.setAttribute("msg", "Senha incorreta.");
            
-            rd = request.getRequestDispatcher("confirmarSenha.jsp");
+            rd = request.getRequestDispatcher("confirmarsenha.jsp");
             rd.forward(request, response);
 
             return;

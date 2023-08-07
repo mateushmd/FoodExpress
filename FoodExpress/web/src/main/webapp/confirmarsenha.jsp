@@ -1,13 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<%
-
-    String email = (String) request.getAttribute("email");
-    String msg = (String) request.getAttribute("msg");
-
-%>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,12 +13,13 @@
 </head>
 
 <body>
+    <c:set var="usuario" value="${sessionScope.usuario}"/>
     <main>
         <img src="imgs/logo.png" alt="">
         <div class="container" id="containerRedefinir">
             <form action="confirmarSenha" method="post">
                 <h1>Quase lá!</h1>
-                <p>Antes de mudar sua senha (<c:out value = "${email}"/>), insira a senha atual para confirmarmos se é realmente você.</p>
+                <p>Antes de mudar sua senha (<c:out value = "${usuario.getEmail()}"/>), insira a senha atual para confirmarmos se é realmente você.</p>
                 <fieldset class='number-code'>
                     <legend>Senha</legend>
                     <input type="password" name="password" id="password">
@@ -41,7 +35,7 @@
                     <p id="aviso"><c:out value = "${msg}"/></p> 
                 </c:if>
                 
-                <input type="hidden" name="email" value="${email}">
+                <input type="hidden" name="email" value="${usuario.getEmail()}">
             </form>
         </div>
     </main>
