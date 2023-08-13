@@ -79,7 +79,7 @@
                     <h2 class="item">SAIR</h2>       
                 </nav>
                 <section id="informacoes-conta">
-                    <form action="editarPerfil" method="post">
+                    <form action="gerenciarPerfil" method="post">
                         <ul>
                             <li>
                                 <label>NOME:</label>

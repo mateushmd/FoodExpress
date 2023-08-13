@@ -60,7 +60,7 @@
                     </label>
                 </div>
                 <div id="container-forms-loja">
-                    <form style="display: flex;" action="editarLoja" method="post">
+                    <form style="display: flex;" action="gerenciarLoja" method="post">
                         <div id="editaLoja">
                             <div class="dados-loja">
                                 <label class="labels-loja">Nome:</label>

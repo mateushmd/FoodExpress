@@ -4,6 +4,7 @@ com\foodexpress\model\dao\teste.class
 com\foodexpress\model\dao\UsuarioDAO.class
 com\foodexpress\model\email\TLSEmailAuth$1.class
 com\foodexpress\model\encoder\Argon2Encoder.class
+com\foodexpress\model\dao\ConnectionPoolManager.class
 com\foodexpress\model\dto\LojaDTO.class
 com\foodexpress\model\encoder\EmailEncoder.class
 com\foodexpress\model\encoder\TokenGenerator.class

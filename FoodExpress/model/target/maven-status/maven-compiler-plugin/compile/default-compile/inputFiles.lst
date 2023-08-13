@@ -8,6 +8,7 @@ D:\NetBeans\Projetos\Git\tcc\FoodExpress\model\src\main\java\com\foodexpress\mod
 D:\NetBeans\Projetos\Git\tcc\FoodExpress\model\src\main\java\com\foodexpress\model\dto\TokenVerificacaoDTO.java
 D:\NetBeans\Projetos\Git\tcc\FoodExpress\model\src\main\java\com\foodexpress\model\dto\UsuarioDTO.java
 D:\NetBeans\Projetos\Git\tcc\FoodExpress\model\src\main\java\com\foodexpress\model\dto\IDTO.java
+D:\NetBeans\Projetos\Git\tcc\FoodExpress\model\src\main\java\com\foodexpress\model\dao\ConnectionPoolManager.java
 D:\NetBeans\Projetos\Git\tcc\FoodExpress\model\src\main\java\com\foodexpress\model\dto\ProdutoDTO.java
 D:\NetBeans\Projetos\Git\tcc\FoodExpress\model\src\main\java\com\foodexpress\model\dao\LojaDAO.java
 D:\NetBeans\Projetos\Git\tcc\FoodExpress\model\src\main\java\com\foodexpress\model\dao\TokenVerificacaoDAO.java

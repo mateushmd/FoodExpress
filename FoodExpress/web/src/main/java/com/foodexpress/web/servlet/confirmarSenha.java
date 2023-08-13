@@ -4,11 +4,9 @@
  */
 package com.foodexpress.web.servlet;
 
-import com.foodexpress.model.dto.UsuarioDTO;
 import com.foodexpress.model.service.UsuarioService;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
