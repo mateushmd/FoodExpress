@@ -33,6 +33,7 @@ public class ProdutoDAO extends DAOTemplate<ProdutoDTO>{
             produto.setNome(rs.getString("nome"));
             produto.setPreco(rs.getFloat("preco"));
             produto.setDescricao(rs.getString("descricao"));
+            produto.setQuantidade(rs.getInt("quantidade"));
         } catch(SQLException ex){
             java.util.logging.Logger.getLogger(LojaDTO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -41,9 +42,9 @@ public class ProdutoDAO extends DAOTemplate<ProdutoDTO>{
     }
     
     public boolean cadastrar(ProdutoDTO obj){
-        String sql = "INSERT INTO produtos (id_loja, nome, preço, descricao) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO produtos (id_loja, nome, preço, descricao, quantidade) VALUES (?, ?, ?, ?, ?)";
         
-        return executeUpdate(sql, obj.getIdLoja(), obj.getNome(), obj.getPreco(), obj.getDescricao());
+        return executeUpdate(sql, obj.getIdLoja(), obj.getNome(), obj.getPreco(), obj.getDescricao(), obj.getQuantidade());
     }
     
     public List<ProdutoDTO> ListarPorLoja(int idLoja) throws SQLException {

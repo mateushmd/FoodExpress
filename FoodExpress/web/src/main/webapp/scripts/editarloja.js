@@ -57,6 +57,8 @@ inputFileProduto.addEventListener('change', function(e) {
 });
 
 function moeda(a, e, r, t) {
+    let valorAtual = a.value;
+    
     let n = ""
       , h = j = 0
       , u = tamanho2 = 0
@@ -64,8 +66,7 @@ function moeda(a, e, r, t) {
       , o = window.Event ? t.which : t.keyCode;
     if (13 == o || 8 == o)
         return !0;
-    if (n = String.fromCharCode(o),
-    -1 == "0123456789".indexOf(n))
+    if (n = String.fromCharCode(o), -1 == "0123456789".indexOf(n))
         return !1;
     for (u = a.value.length,
     h = 0; h < u && ("0" == a.value.charAt(h) || a.value.charAt(h) == r); h++)
@@ -93,20 +94,17 @@ function moeda(a, e, r, t) {
     return !1
 }
 
-let quantidade = 0;
+const botaoQuantidadeElements = [...document.querySelectorAll('.quantidade-btn')];
 
-function incrementeQuantidade() {
-  quantidade++;
-  updateQuantity();
-}
+botaoQuantidadeElements.forEach((el) => {
+    el.addEventListener('click', (e) => {
+        let incremento = el.innerHTML === '+' ? 1 : -1;
 
-function decrementaQuantidade() {
-  if (quantidade > 0) {
-    quantidade--;
-    updateQuantity();
-  }
-}
+        let quantidadeEl = incremento === 1 ? el.previousElementSibling : el.nextElementSibling;
 
-function updateQuantity() {
-  document.getElementById("quantidade").innerText = quantidade;
-}
+        let valorAtual = parseInt(quantidadeEl.innerHTML)
+
+        quantidadeEl.innerHTML = valorAtual + incremento > -1 ? valorAtual + incremento : 0;
+    });
+});
+

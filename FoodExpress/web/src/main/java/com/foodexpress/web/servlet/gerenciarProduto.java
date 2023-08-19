@@ -5,9 +5,8 @@
 package com.foodexpress.web.servlet;
 
 import com.foodexpress.model.dto.LojaDTO;
-import com.foodexpress.model.dto.UsuarioDTO;
+import com.foodexpress.model.dto.ProdutoDTO;
 import com.foodexpress.model.service.LojaService;
-import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -16,8 +15,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebServlet(name = "gerenciarLoja", urlPatterns = {"/gerenciarLoja"})
-public class gerenciarLoja extends HttpServlet {
+/**
+ *
+ * @author chsdi
+ */
+@WebServlet(name = "gerenciarProduto", urlPatterns = {"/gerenciarProduto"})
+public class gerenciarProduto extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,32 +34,24 @@ public class gerenciarLoja extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+           
         HttpSession session = request.getSession();
         
-        UsuarioDTO usuario = (UsuarioDTO) session.getAttribute("usuario");
-        
-        String email = usuario.getEmail();
+        LojaDTO loja = (LojaDTO) session.getAttribute("loja");
         
         LojaService lservice = LojaService.getInstance();
-
-        String nome = request.getParameter("nome");
-
-        String descricao = request.getParameter("descricao");
-
-        LojaDTO loja = new LojaDTO();
-
-        loja.setIdUser(email);
-        loja.setNome(nome);
-        loja.setDescricao(descricao);
-
-        lservice.updateNomeDescricao(loja);
-
-        session.setAttribute("loja", loja);
         
-        RequestDispatcher rd = request.getRequestDispatcher("gerenciarloja.jsp");
-            
-        rd.forward(request, response);
+        int idLoja = loja.getId();
+        
+        String nome = request.getParameter("produto");
+
+        double preco = Double.parseDouble(request.getParameter("valor").replace(".", "").replace(",", "."));
+
+        int quantidade = Integer.parseInt(request.getParameter("quantidade"));
+
+        ProdutoDTO produto = new ProdutoDTO(idLoja, nome, preco, quantidade);
+        
+        lservice.adicionarProduto(produto);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

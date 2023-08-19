@@ -91,36 +91,37 @@
             <div id="h1">
                 <h1>PRODUTOS</h1>
             </div>
-            <div id="container-cria-produtos">
-                <div id="container-img-produtos">
-                    <label class="picture-produtos" for="picture_input-produtos" tabindex="0">
-                        <span class="picture_image-produtos"></span>
-                        <input type="file" name="picture_input-produtos" id="picture_input-produtos" />
-                    </label>
-                </div>
-                <div id="container-forms-produtos">
-                    <form style="display: flex;" action="editarLoja" method="post">
-                        <div id="editaProduto">
-                            <div class="dados-produto">
-                                <label class="labels-produto">Produto:</label>
-                                <input type="text" class="form-control-produto" name="produto" placeholder="">
-                                <label class="labels-produto">R$:</label>
-                                <input type="text" class="form-control-produto" name="valor" placeholder=""
-                                    onKeyPress="return(moeda(this,'.',',',event))">
-                                <label class="labels-produto">Quantidade:</label>
-                                <div id="botoesQuantidade">
-                                    <button class="quantidade-btn" onclick="decrementaQuantidade()">-</button>
-                                    <span id="quantidade">0</span>
-                                    <button class="quantidade-btn" onclick="incrementeQuantidade()">+</button>
+            <div id="produtos">
+                <div class="container-produto">
+                    <div class="container-img-produtos">
+                        <label class="picture-produtos" for="picture_input-produtos" tabindex="0">
+                            <span class="picture_image-produtos"></span>
+                            <input type="file" name="picture_input-produtos" id="picture_input-produtos" />
+                        </label>
+                    </div>
+                    <div class="container-forms-produto">
+                        <form style="display: flex;" action="gerenciarLoja" method="post">
+                            <div>
+                                <div class="dados-produto">
+                                    <label class="labels-produto">Produto:</label>
+                                    <input type="text" class="form-control-produto" name="produto" placeholder="">
+                                    <label class="labels-produto">R$:</label>
+                                    <input type="text" class="form-control-produto" name="valor" placeholder=""
+                                        onKeyPress="return(moeda(this,'.',',',event))">
+                                    <label class="labels-produto">Quantidade:</label>
+                                    <div class="botoesQuantidade">
+                                        <button class="quantidade-btn" type="button">-</button>
+                                        <span class="quantidade" name="quantidade">0</span>
+                                        <button class="quantidade-btn" type="button">+</button>
+                                    </div>
+                                </div>
+                                <div class="botoes-produto">
+                                    <button class="botaoProduto" type="submit" name="submit" value="2">Adicionar</button>
                                 </div>
                             </div>
-                        <div class="botoes-produto">
-                            <button class="botaoProduto" type="submit" name="submit" value="2">Adicionar</button>
-                        </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
-
             </div>
         </div>
     </section>

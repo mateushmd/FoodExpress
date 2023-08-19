@@ -13,9 +13,7 @@ section {
     border: 1px solid rgb(255, 251, 251);
     border-radius: 30px;
     display: flex;
-    padding: 10px;
     flex-direction: column;
-    margin-top: 20px;
     margin-left: 20px;
     margin-bottom: 20px;
 }
@@ -134,7 +132,7 @@ section {
     justify-content: space-evenly;
 }
 
-#h1 h1 {
+#h1 h1{
     margin-left: 250px;
     margin-right: 250px;
     font-size: 38px;
@@ -142,7 +140,7 @@ section {
     color: #0f7496;
 }
 
-#container-cria-produtos {
+.container-produto {
     width: 310px;
     height: 220px;
     background-color: white;
@@ -200,7 +198,7 @@ section {
     max-width: 100%;
 }
 
-#container-forms-produtos {
+.container-forms-produto {
     margin-left: 18px;
     text-align: justify;
 }
@@ -252,6 +250,10 @@ section {
     color: white;
 }
 
+#produtos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
 
 body::-webkit-scrollbar {
     width: 12px;
