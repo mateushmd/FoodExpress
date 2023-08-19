@@ -39,6 +39,14 @@
             <artifactId>javax.mail</artifactId>
             <version>1.6.2</version>
         </dependency>
+        
+        <dependency>
+            <groupId>com.google.firebase</groupId>
+            <artifactId>firebase-admin</artifactId>
+            <version>8.0.0</version> 
+        </dependency>
+        
+        
     </dependencies>
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
