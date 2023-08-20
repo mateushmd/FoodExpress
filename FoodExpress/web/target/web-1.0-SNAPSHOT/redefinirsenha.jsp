@@ -1,13 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<%
-
-    String email = (String) request.getAttribute("email");
-
-%>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,6 +13,7 @@
 </head>
 
 <body>
+    <c:set var="usuario" value="${sessionScope.usuario}"/>
     <main>
         <img src="imgs/logo.png" alt="">
         <div class="container" id="containerRedefinir">
@@ -36,7 +30,7 @@
                     <input type="submit" name="submit" value="REDEFINIR" style="cursor: pointer; font-family: 'Oswald', sans-serif;" id="login">
                 </div>
                 
-                <input type="hidden" name="email" value="${email}">
+                <input type="hidden" name="email" value="${usuario.getEmail()}">
             </form>
         </div>
     </main>

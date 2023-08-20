@@ -83,7 +83,7 @@ public class LojaDAO extends DAOTemplate<LojaDTO> {
     public boolean updateND(LojaDTO obj){
         String sqlUpdate = "UPDATE lojas SET nome = ?, descricao = ? WHERE id_usuario = ?";
         
-        return executeUpdate(sqlUpdate, obj.getNome(), obj.getDescricao());
+        return executeUpdate(sqlUpdate, obj.getNome(), obj.getDescricao(), obj.getIdUser());
     }
     
     public boolean updateA(LojaDTO obj){

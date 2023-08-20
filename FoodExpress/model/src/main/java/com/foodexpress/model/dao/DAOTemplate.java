@@ -19,7 +19,15 @@ public abstract class DAOTemplate<T> {
     protected final Connection conn;
 
     protected DAOTemplate() {
-        conn = ConexaoBD.getConnection();
+        Connection connection = null;
+        
+        try {
+            connection = ConnectionPoolManager.getDataSource().getConnection();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOTemplate.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        conn = connection;
     }
     
     protected abstract T mapResultSetToObject(ResultSet rs) throws SQLException;

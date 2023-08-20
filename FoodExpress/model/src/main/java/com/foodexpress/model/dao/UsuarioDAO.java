@@ -105,6 +105,12 @@ public class UsuarioDAO extends DAOTemplate<UsuarioDTO> {
         
         return executeUpdate(sql, encoder.encode(senha), email);
     }
+    
+    public boolean abrirLoja(String email) {
+        String sql = "UPDATE usuarios SET tipo = 2 WHERE email = ?";
+        
+        return executeUpdate(sql, email);
+    }
    
     public List<UsuarioDTO> ListarUsuarios() throws SQLException {
         String sql = "SELECT * FROM usuarios ORDER BY nome";
