@@ -16,36 +16,43 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="styles/style.css">
         <link rel="stylesheet" href="styles/verificacaoemail.css">
-        <title>Verificação de email</title>
+        <link rel="stylesheet" type="text/css" href="fonts/style.css"/>
+        <title>Verificar E-mail</title>
+        <link rel="icon" type="image/png" href="imgs/icon.png"/>
     </head>
     <body>
         <main>
-            <img src="imgs/logo.png" alt="">
-            <div id="containerVerificacao">
+            <div id="containerRedefinir">
                 <form action="validarEmail" method="post">
                     <h1>Quase lá!</h1>
-                    <p>Para concluir o seu cadastro, digite o código de 6 dígitos enviado para <c:out value = "${email}"/>.</p>
+                    <p>Para concluir o seu cadastro, digite o código de 6 dígitos enviado para
+                        <c:out value="${email}" />.
+                    </p>
                     <fieldset class='number-code'>
                         <legend>Código de verificação</legend>
-                        <div>
-                            <input type="number" name='code' class='code-input' required />
-                            <input type="number" name='code' class='code-input' required />
-                            <input type="number" name='code' class='code-input' required />
-                            <input type="number" name='code' class='code-input' required />
-                            <input type="number" name='code' class='code-input' required />
-                            <input type="number" name='code' class='code-input' required />
+                        <div id="codigo">
+                            <input type="number" name='code' class='code-input' maxlength="1" required />
+                            <input type="number" name='code' class='code-input' maxlength="1" required />
+                            <input type="number" name='code' class='code-input' maxlength="1" required />
+                            <input type="number" name='code' class='code-input' maxlength="1" required />
+                            <input type="number" name='code' class='code-input' maxlength="1" required />
+                            <input type="number" name='code' class='code-input' maxlength="1" required />
                         </div>
                     </fieldset>
                     <input type="hidden" name="email" value="${email}" />
-                    <div class="botao">
-                        <input type="submit" value="REENVIAR CÓDIGO" style="cursor: pointer; font-family: 'Oswald', sans-serif;" id="login">
-                    </div>
-                    <div class="botao">
-                        <input type="submit" value="VERIFICAR" style="cursor: pointer; font-family: 'Oswald', sans-serif;" id="login">
+                    <div class="botoes1" style="margin-bottom: 11px;margin-top: 8px;">
+                        <div class="botao1" style="margin-right: 25px">
+                            <input type="submit" value="REENVIAR CÓDIGO"
+                                   style="cursor: pointer; font-family: 'Oswald', sans-serif;" class="login">
+                        </div>
+                        <div class="botao1">
+                            <input type="submit" value="VERIFICAR"
+                                   style="cursor: pointer; font-family: 'Oswald', sans-serif;" class="login">
+                        </div>
                     </div>
                 </form>
             </div>
         </main>
-        <script src="scripts/codigoverificacao.js"></script>
+        <script src="scripts/codigoVerificacao.js"></script>
     </body>
 </html>

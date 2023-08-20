@@ -9,36 +9,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/style.css">
     <link rel="stylesheet" href="styles/verificacaoemail.css">
-    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="fonts/style.css"/>
+    <title>Redefinir Senha</title>
+    <link rel="icon" type="image/png" href="imgs/icon.png"/>
 </head>
 
 <body>
-    <c:set var="usuario" value="${sessionScope.usuario}"/>
-    <main>
-        <img src="imgs/logo.png" alt="">
-        <div class="container" id="containerRedefinir">
+    <div id="mainSenha">
+        <div id="containerRedefinir">
             <form action="confirmarSenha" method="post">
                 <h1>Quase lá!</h1>
-                <p>Antes de mudar sua senha (<c:out value = "${usuario.getEmail()}"/>), insira a senha atual para confirmarmos se é realmente você.</p>
+                <p id="texto">Antes de mudar sua senha (<c:out value = "${usuario.getEmail()}"/>), insira a senha atual para confirmarmos se é realmente você.
+                </p>
                 <fieldset class='number-code'>
                     <legend>Senha</legend>
                     <input type="password" name="password" id="password">
                 </fieldset>
-                <div class="botao">
-                    <input type="submit" name="submit" value="ENVIAR" style="cursor: pointer; font-family: 'Oswald', sans-serif;" id="login">
+                <div class="botoes1">
+                    <div class="botao1" style="margin-right: 25px">
+                        <input type="submit" name="submit" value="ENVIAR" class="login">
+                    </div>
+                    <div class="botao1">
+                        <input type="submit" name="submit" value="CANCELAR" class="login">
+                    </div>
                 </div>
-                <div class="botao">
-                    <input type="submit" name="submit" value="CANCELAR" style="cursor: pointer; font-family: 'Oswald', sans-serif;" id="login">
-                </div>
-                
-                <c:if test = "${msg != null}">
-                    <p id="aviso"><c:out value = "${msg}"/></p> 
+
+                <c:if test="${msg != null}">
+                    <p id="aviso">
+                        <c:out value="${msg}" />
+                    </p>
                 </c:if>
-                
+
                 <input type="hidden" name="email" value="${usuario.getEmail()}">
             </form>
         </div>
-    </main>
+    </div>
 </body>
 
 </html>
