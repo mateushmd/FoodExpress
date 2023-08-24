@@ -1,3 +1,5 @@
+@import url("../fonts/style.css");
+
 :root {
   --spacing: 8px;
   --background1: #e6f1f5;
@@ -10,11 +12,11 @@
   border-style: solid;
 }
 
-.number-code > div {
+.number-code>div {
   display: flex;
 }
 
-.number-code > div > input:not(:last-child) {
+.number-code>div>input:not(:last-child) {
   margin-right: calc(var(--spacing) * 2);
 }
 
@@ -53,7 +55,7 @@
   -moz-appearence: textfield;
 }
 
-form > p {
+form>p {
   text-align: center;
 }
 
@@ -74,4 +76,79 @@ h1 {
   width: 360px;
   border: solid;
   padding-left: 6px;
+}
+
+#containerRedefinir {
+  border-radius: 5px;
+  background-color: #ffffff;
+  padding: 20px;
+  width: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  -webkit-box-shadow: -11px -6px 37px -20px rgba(204, 87, 95, 1);
+  -moz-box-shadow: -7px 6px 14px -7px rgba(204, 87, 95, 1);
+  box-shadow: -2px 11px 85px -33px rgba(204, 87, 95, 1);
+  flex-wrap: wrap;
+  z-index: 1;
+  color: black;
+}
+
+body {
+  top: 50%;
+  left: 50%;
+  display: flex;
+  background: #f5e9da url(../imgs/capa2.jpg);
+  background-position: 50%;
+  min-width: 61vw;
+  background-repeat: no-repeat;
+  background-size: 126%;
+  align-content: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+#password {
+  background-color: inherit;
+  width: 360px;
+  height: 38px;
+  padding-left: 6px;
+  border-color: #b7b5b5;
+  font-family: iFood RC Titulos, iFood RC Textos, helvetica, sans-serif;
+  color: black;
+}
+
+#password:focus {
+  border: 2px solid #f31111;
+}
+
+.botoes1 {
+  display: flex;
+}
+
+.botao1 input {
+  width: 194px;
+  margin-top: 19px;
+  text-align: center;
+  background-color: #e6f1f5;
+  color: #cc575f;
+  border: 1px solid #e6f1f5;
+  font-size: inherit;
+  border-radius: 6px;
+  height: 29px;
+}
+
+.login {
+  width: 182px;
+  cursor: pointer;
+  font-family: 'Oswald', sans-serif;
+
+}
+
+.login:hover {
+  opacity: 0.4;
+}
+
+#codigo {
+  font-family: iFood RC Titulos,iFood RC Textos,helvetica,sans-serif;
 }
