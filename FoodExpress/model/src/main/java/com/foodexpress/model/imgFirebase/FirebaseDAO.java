@@ -5,13 +5,9 @@
 package com.foodexpress.model.imgFirebase;
 
 import com.google.cloud.storage.Blob;
-import com.google.cloud.storage.StorageException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 /**
  *
@@ -23,8 +19,9 @@ public class FirebaseDAO extends FirebaseStorage {
     public void upload(String imgLocal) throws FileNotFoundException {
         String firebaseStoragePath = generateUniqueFileName();
         Blob blob = bucket.create(firebaseStoragePath, new FileInputStream(imgLocal), "image/png");
-        System.out.println("Upload da imagem concluído: " + blob.getMediaLink());
+       // System.out.println("Upload da imagem concluído: " + blob.getMediaLink());
     }
+    
 
     @Override
     public void delete(String imgLocal) throws FileNotFoundException {
@@ -65,5 +62,10 @@ public class FirebaseDAO extends FirebaseStorage {
             System.out.println("Falha ao obter os dados da imagem.");
         }
     }
+    
+    
+    
+     
+
 
 }
