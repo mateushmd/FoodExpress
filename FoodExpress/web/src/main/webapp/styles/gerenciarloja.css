@@ -1,33 +1,168 @@
+@import url('https://fonts.cdnfonts.com/css/freshwost');
+@import url('https://fonts.cdnfonts.com/css/fox-bebas');
+
 body {
+    padding: 0;
     margin: 0;
+    background-color: #e6f1f5;
+}
+
+header {
+    background-color: #cd606b;
+
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+#logoimg {
+    max-height: 78px;
+    width: auto;
+    height: auto;
+}
+
+.lupa-icon-B {
+    max-height: 19px;
+    width: auto;
+    height: auto;
+}
+
+.lupa-icon-A {
+    max-height: 19px;
+    width: auto;
+    height: auto;
+    display: none;
+}
+
+.nav-bar {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+}
+
+.menu-options {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.menu-options ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+}
+
+.menu-item {
+    margin: 0 35px;
+}
+
+.menu-link {
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-family: 'freshwost', sans-serif;
+    color: #e6f1f5;
+}
+
+.botao-menu {
+    display: none;
+}
+
+.menu-options-mobile {
+    display: none;
+}
+
+
+@media screen and (max-width: 730px) {
+    .nav-bar {
+        padding: 1.5rem 4rem;
+    }
+
+    .menu-item {
+        display: none;
+    }
+
+    .botao-menu {
+        display: block;
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+
+    .botao-menu button {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+    }
+
+    .menu-options-mobile ul {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        padding-bottom: 1rem;
+        padding-left: 0px;
+
+    }
+
+    .menu-options-mobile .menu-item {
+        display: block;
+        padding-top: 1.2rem;
+    }
+
+    .menu-options-mobile ul .menu-item:hover {
+        display: block;
+        margin-top: 1.2rem;
+        background: #0f7496;
+        padding: 7px;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .open {
+        display: block;
+    }
+}
+
+main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1em;
 }
 
 section {
     display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.container-loja {
+
+#container-loja {
     width: 591px;
     height: 500px;
     background-color: white;
     border: 1px solid rgb(255, 251, 251);
     border-radius: 30px;
     display: flex;
+    padding: 10px;
     flex-direction: column;
+    margin-top: 20px;
     margin-left: 20px;
     margin-bottom: 20px;
 }
 
-.container-loja h1 {
+h1 {
+    font-size: 38px;
     font-family: 'Fox Bebas', sans-serif;
     color: #0f7496;
+    text-align: center;
 }
 
-#picture_input-loja {
+#picture-input-loja {
     display: none;
 }
 
-.picture-loja {
+#picture-loja {
     width: 584px;
     height: 214px;
     aspect-ratio: auto;
@@ -46,24 +181,24 @@ section {
     margin-right: auto;
 }
 
-.picture-loja:hover {
+#picture-loja:hover {
     color: #777;
     background: #ccc;
 }
 
-.picture-loja:active {
+#picture-loja:active {
     border-color: #0f7496;
     color: #0f7496;
     background: #eee;
 }
 
-.picture-loja:focus {
+#picture-loja:focus {
     color: #777;
     background: #ccc;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
-.picture_img-loja {
+#picture-img-loja {
     max-width: 100%;
 }
 
@@ -84,7 +219,7 @@ section {
     text-align: justify;
 }
 
-.form-control-loja {
+#form-control-loja {
     font-family: system-ui;
     border-radius: -1px;
     width: 250px;
@@ -103,7 +238,7 @@ section {
     font-family: 'freshwost', sans-serif;
 }
 
-.botoes-loja {
+#botoes-loja {
     display: flex;
     flex-direction: column;
     margin-top: 30px;
@@ -132,12 +267,18 @@ section {
     justify-content: space-evenly;
 }
 
-#h1 h1{
-    margin-left: 250px;
-    margin-right: 250px;
-    font-size: 38px;
-    font-family: 'Fox Bebas', sans-serif;
-    color: #0f7496;
+#container-produtos {
+    max-width: 100%;
+    height: auto;
+    padding-right: 10px;
+}
+
+
+#produtos {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .container-produto {
@@ -155,11 +296,11 @@ section {
     padding: 0;
 }
 
-#picture_input-produtos {
+.picture-input-produto {
     display: none;
 }
 
-.picture-produtos {
+.picture-produto {
     width: 111px;
     height: 105px;
     aspect-ratio: auto;
@@ -177,24 +318,24 @@ section {
     border-radius: 59px;
 }
 
-.picture-produtos:hover {
+.picture-produto:hover {
     color: #777;
     background: #ccc;
 }
 
-.picture-produtos:active {
+.picture-produto:active {
     border-color: #0f7496;
     color: #0f7496;
     background: #eee;
 }
 
-.picture-produtos:focus {
+.picture-produto:focus {
     color: #777;
     background: #ccc;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
-.picture_img-produtos {
+.picture-img-produto {
     max-width: 100%;
 }
 
@@ -215,6 +356,7 @@ section {
 
 .form-control-produto {
     width: 138px;
+    padding: 1px 2px;
     font-family: system-ui;
 }
 
@@ -226,19 +368,19 @@ section {
     background-color: transparent;
 }
 
-#quantidade1{
-    font-family: 'freshwost', sans-serif;
-}
 
 .botoes-produto {
+    min-height: 4.375em;
     display: flex;
-    margin-top: 42px;
-    justify-content: space-around;
+    flex-direction: column;
+    justify-content: end;
+    gap: 5px;
 }
 
-.botaoProduto {
+.botao-produto {
     padding-left: 22px;
     padding-right: 22px;
+    width: 9em;
     padding-top: 4px;
     padding-bottom: 4px;
     font-family: 'freshwost', sans-serif;
@@ -250,9 +392,10 @@ section {
     color: white;
 }
 
-#produtos {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+.botao-produto:disabled {
+    background-color: #064155;
+    color: gray;
+    cursor: default;
 }
 
 body::-webkit-scrollbar {

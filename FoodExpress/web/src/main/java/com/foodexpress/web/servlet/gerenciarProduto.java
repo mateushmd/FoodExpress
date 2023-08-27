@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package com.foodexpress.web.servlet;
 
 import com.foodexpress.model.dto.LojaDTO;
@@ -14,11 +10,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
 
-/**
- *
- * @author chsdi
- */
 @WebServlet(name = "gerenciarProduto", urlPatterns = {"/gerenciarProduto"})
 public class gerenciarProduto extends HttpServlet {
 
@@ -34,24 +27,45 @@ public class gerenciarProduto extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-           
+        
+        request.setCharacterEncoding("UTF-8");
+        
         HttpSession session = request.getSession();
         
         LojaDTO loja = (LojaDTO) session.getAttribute("loja");
         
+        int idLoja = loja.getId();
+        
         LojaService lservice = LojaService.getInstance();
         
-        int idLoja = loja.getId();
+        String submit = request.getParameter("submit");
         
         String nome = request.getParameter("produto");
 
-        double preco = Double.parseDouble(request.getParameter("valor").replace(".", "").replace(",", "."));
+        double preco = Double.parseDouble(request.getParameter("preco").replace(".", "").replace(",", "."));
 
-        int quantidade = Integer.parseInt(request.getParameter("quantidade"));
+        boolean disponivel = Integer.parseInt(request.getParameter("disponibilidade")) != 0;
 
-        ProdutoDTO produto = new ProdutoDTO(idLoja, nome, preco, quantidade);
+        ProdutoDTO produto = new ProdutoDTO(idLoja, nome, preco, disponivel);
         
-        lservice.adicionarProduto(produto);
+        //adicionar produto
+        if(submit.equals("ADICIONAR")) {
+            lservice.adicionarProduto(produto);
+        }
+        //editar produto
+        else if(submit.equals("EDITAR")) {
+            int id = Integer.parseInt(request.getParameter("id"));
+            
+            produto.setId(id);
+            
+            lservice.editarProduto(produto);
+        }
+        
+        ArrayList<ProdutoDTO> produtos = (ArrayList) lservice.listarProdutos(idLoja);
+        
+        session.setAttribute("produtos", produtos);
+        
+        response.sendRedirect("gerenciarloja.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

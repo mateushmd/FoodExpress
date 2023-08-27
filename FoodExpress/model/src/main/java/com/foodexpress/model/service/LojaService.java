@@ -5,6 +5,7 @@ import com.foodexpress.model.dao.ProdutoDAO;
 import com.foodexpress.model.dto.LojaDTO;
 import com.foodexpress.model.dto.ProdutoDTO;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class LojaService {
@@ -50,8 +51,8 @@ public class LojaService {
         ldao.cadastrar(obj);
     }
     
-    public List<LojaDTO> listarLojas() throws SQLException{
-        return ldao.ListarLojas();
+    public ArrayList<LojaDTO> listarLojas() {
+        return (ArrayList) ldao.ListarLojas();
     }
     
     public LojaDTO getLoja(){
@@ -62,12 +63,11 @@ public class LojaService {
         return pdao.cadastrar(obj);
     }
     
-    public List<ProdutoDTO> listarCard(int idLoja) throws SQLException{
-        return ldao.listarCard(idLoja);
-    }
+    public ArrayList<ProdutoDTO> listarProdutos(int idLoja) {
+        return (ArrayList) pdao.listar(idLoja);
+    } 
     
-    public List<ProdutoDTO> listarProd() throws SQLException{
-        return ldao.listarProd();
+    public boolean editarProduto(ProdutoDTO obj) {
+        return pdao.update(obj);
     }
-    
 }

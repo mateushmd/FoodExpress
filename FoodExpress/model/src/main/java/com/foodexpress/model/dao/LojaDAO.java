@@ -92,22 +92,10 @@ public class LojaDAO extends DAOTemplate<LojaDTO> {
         return executeUpdate(sqlUpdate, obj.getAvaliacao());
     }
     
-    public List<LojaDTO> ListarLojas() throws SQLException{
+    public List<LojaDTO> ListarLojas() {
         String sql = "SELECT * FROM lojas ORDER BY nome";
         
         return executeQuery(sql);
-    }
-    
-    public boolean adicionarAoCard(ProdutoDTO obj){
-        return prod.cadastrar(obj);
-    }
-    
-    public List<ProdutoDTO> listarCard(int idLoja) throws SQLException{
-        return prod.ListarPorLoja(idLoja);
-    }
-    
-    public List<ProdutoDTO> listarProd() throws SQLException{
-        return prod.Listar();
     }
     
     public LojaDTO getLoja(){

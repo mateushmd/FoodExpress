@@ -21,7 +21,7 @@
                     <h1>Quase lá!</h1>
                     <p>Estamos finalizando o processo para redefinir sua senha, insira uma nova senha no campo abaixo.</p>
 
-                    <fieldset class='number-code'>
+                    <fieldset class="number-code">
                         <legend>Senha</legend>
                         <input type="password" name="password" id="password">
                     </fieldset>

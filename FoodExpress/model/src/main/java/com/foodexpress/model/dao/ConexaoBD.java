@@ -20,7 +20,7 @@ public class ConexaoBD {
         if (conn == null) {
             try {
                 Class.forName("com.mysql.cj.jdbc.Driver");
-                conn = DriverManager.getConnection("jdbc:mysql://us-cdbr-east-06.cleardb.net:3306/heroku_b695d40b1c0e531?useSSL=false", "b4ef7c73d61cc7", "c101e0f6");
+                conn = DriverManager.getConnection("jdbc:mysql://us-cdbr-east-06.cleardb.net:3306/heroku_b695d40b1c0e531?useSSL=false&useUnicode=true&characterEncoding=UTF-8", "b4ef7c73d61cc7", "c101e0f6");
             } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(ConexaoBD.class.getName()).log(Level.SEVERE, null, ex);
             }

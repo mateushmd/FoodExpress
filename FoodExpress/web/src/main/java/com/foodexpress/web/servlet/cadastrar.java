@@ -55,11 +55,10 @@ public class cadastrar extends HttpServlet {
         uDTO.setTipo(tipo);
 
         uservice.cadastrar(uDTO);
+        
+        String URL = "common?url=verificacaoemail.jsp&action=RD&attrName=email&attrValue=" + uDTO.getEmail();
 
-        request.setAttribute("email", uDTO.getEmail());
-
-        RequestDispatcher dispatcher = request.getRequestDispatcher("verificacaoemail.jsp");
-        dispatcher.forward(request, response);
+        response.sendRedirect(URL);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

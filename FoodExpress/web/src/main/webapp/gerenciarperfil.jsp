@@ -21,17 +21,25 @@
                 box-shadow: 15px 15px 30px #bebebe,
                     -15px -15px 30px #ffffff;
                 transition: 0.2s ease-in-out;
+                overflow: hidden;
             }
-
+            
             .img {
                 width: 100%;
                 height: 50%;
+                object-fit: fill;
                 border-top-left-radius: 30px;
                 border-top-right-radius: 30px;
                 background: linear-gradient(#e66465, #9198e5);
                 display: flex;
                 align-items: top;
                 justify-content: right;
+            }
+            
+            .img img {
+                width: 100%;
+                height: auto;
+                object-fit: cover;
             }
 
             .save {
@@ -161,9 +169,9 @@
                     <h2 id="gpp">GERENCIAR PERFIL</h2>
                     <div class="card" style="left: 13%;position: relative;">
                         <div class="img">
-                            <img src="" alt="" id="imgPerfil" style="width: 300px;">
+                            <img src="" alt="" id="imgPerfil">
                         </div>
-                        <div class="text" style="    right: -19%;position: relative;">
+                        <div class="text" style="right: -19%;position: relative;">
                             <input type="file" id="file-input">
                             <button id="uploadButton" style="width: 117px; margin-top: 20px;">Enviar a Imagem</button>
                         </div>
@@ -316,16 +324,15 @@
                                     </c:otherwise>
                                 </c:choose>
                             </li>
-                            <input type="hidden" name="defName" value="${usuario.getNome()}">
-                            <input type="hidden" name="defTel" value="${usuario.getTelefone()}">
-                            <input type="hidden" name="defMail" value="${usuario.getEmail()}">
+                            <input type="hidden" name="defName" id="def-name" value="${usuario.getNome()}">
+                            <input type="hidden" name="defTel" id="def-tel" value="${usuario.getTelefone()}">
+                            <input type="hidden" name="defMail" id="def-mail" value="${usuario.getEmail()}">
                         </ul>
                     </form>
                 </section>
             </div>
         </main>
 
-        <script src="scripts/barrapesquisa.js"></script>
         <script src="scripts/mascaras.js"></script>
         <script src="scripts/editarperfil.js"></script>
         <script src="scripts/menuinterativo.js"></script>

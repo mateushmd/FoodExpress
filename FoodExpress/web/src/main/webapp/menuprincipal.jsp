@@ -9,12 +9,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>FoodExpress</title>
         <link rel="stylesheet" type="text/css" href="styles/menuprincipal.css">
-        <link rel="stylesheet" type="text/css" href="styles/carrossel.css">
         <link rel="stylesheet" type="text/css" href="styles/header.css">
         <link rel="icon" type="image/png" href="styles/imgs/icon.png"/>
     </head>
     <body>
         <c:set var="usuario" value="${sessionScope.usuario}"/>
+        <c:set var="lojas" value="${sessionScope.lojas}"/>
         <header>
             <nav class="nav-bar">
                 <div class="logo"><a href="menuprincipal.jsp"><img src="imgs/logo2.png" alt="Logo" id="logoimg"></a></div>
@@ -36,7 +36,7 @@
                         <a class="pesquisaBtn">
                             <img class="lupa-icon-B" src="imgs/loupe-white.svg" alt="Lupa">
                             <img class="lupa-icon-A" src="imgs/loupe-blue.svg" alt="Lupa">
-                            
+
                         </a>
                     </div>
                 </div>
@@ -56,32 +56,38 @@
         </header>
 
         <main>
-            <section>
-                <p>DESTAQUES</p>
-                <div class="container">
-                    <button class="handle left-handle">
-                        <div class="text">&#8249;</div>
-                    </button>
-                    <div class="slider">
-                        <img src="imgs/teste/loja1.jpeg">
-                        <img src="imgs/teste/loja2.jpeg">
-                        <img src="imgs/teste/loja3.jpeg">
-                        <img src="imgs/teste/loja4.jpeg">
-                        <img src="imgs/teste/loja5.jpeg">
-                        <img src="imgs/teste/loja6.jpeg">
-                        <img src="imgs/teste/loja7.jpeg">
-                        <img src="imgs/teste/loja8.jpeg">
-                        <img src="imgs/teste/loja9.jpeg">
+            <section class="content">
+                <h1>DESTAQUES</h1>
+                <div class="carousel-container">
+                    <div class="arrow left-arrow"><img src="imgs/arrow-left.png" alt=""></div>
+                    <div class="carousel" data-index="0">
+                        <c:forEach items="${lojas}" var="loja">
+                            <div class="item">
+                                <div class="img-container">
+                                    <img src="imgs/teste/teste.jpg" alt="Sandubao">
+                                </div>
+                                <div class="info-container">
+                                    <h2>${loja.nome}</h2>
+                                    <div class="rate" aria-label="4">
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star">★</span>
+                                    </div>
+                                    <form class="favorite" action="">
+                                        <button type="submit">♥</button>
+                                        <input type="hidden" name="id" value="${loja.id}">
+                                    </form>
+                                </div>
+                            </div>
+                        </c:forEach>
                     </div>
-                    <button class="handle right-handle">
-                        <div class="text">&#8250;</div>
-                    </button>
+                    <div class="arrow right-arrow"><img src="imgs/arrow-right.png" alt=""></div>
                 </div>
             </section>
-
         </main>
 
-        <script src="scripts/barrapesquisa.js"></script>
         <script src="scripts/carrossel.js"></script>
         <script src="scripts/menu.js"></script>
     </body>

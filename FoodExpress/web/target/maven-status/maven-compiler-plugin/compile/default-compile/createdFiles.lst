@@ -1,11 +1,13 @@
 com\foodexpress\web\servlet\gerenciarLoja.class
-com\foodexpress\web\servlet\confirmarSenha.class
 com\foodexpress\web\JakartaRestConfiguration.class
 com\foodexpress\web\servlet\redefinirSenha.class
 com\foodexpress\web\servlet\gerenciarProduto.class
 com\foodexpress\web\servlet\cadastrar.class
-com\foodexpress\web\resources\JakartaEE91Resource.class
 com\foodexpress\web\servlet\gerenciarPerfil.class
 com\foodexpress\web\servlet\login.class
 com\foodexpress\web\servlet\validarEmail.class
+com\foodexpress\web\servlet\confirmarSenha.class
+com\foodexpress\web\servlet\menuPrincipal.class
+com\foodexpress\web\servlet\Common.class
+com\foodexpress\web\resources\JakartaEE91Resource.class
 com\foodexpress\web\servlet\ts.class
