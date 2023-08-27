@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -13,6 +14,8 @@
         <link rel="icon" type="image/png" href="styles/imgs/icon.png" />
     </head>
     <body>
+        <c:set var="loja" value="${requestScope.loja}"/>
+        <c:set var="produtos" value="${requestScope.produtos}"/>
         <header id="navbar">
             <img id="navbar-logo" src="imgs/logo3.png" alt="Logo">
             <div id="navbar-menu">
@@ -39,11 +42,11 @@
         </header>
         <main>
             <section id="banner">
-                <img src="teste.jpg" alt="">
+                <img src="imgs/teste/teste.jpg" alt="">
             </section>
             <section id="info">
-                <img src="teste.jpg" alt="">
-                <h1>NOME DA LOJA</h1>
+                <img src="imgs/teste/teste.jpg" alt="">
+                <h1>${loja.nome}</h1>
                 <div class="rating">
                     <input class="star-input" id="star1" type="radio" name="rating" value="1">
                     <label class="star-label" for="star1" data-star="1">&#9733;</label>
@@ -67,7 +70,7 @@
             </section>
             <section id="pesquisa">
                 <div id="container-input">
-                    <img src="lupa.svg" alt="">
+                    <img src="imgs/lupa-azul.svg" alt="">
                     <input type="text" placeholder="Buscar no cardápio">
                 </div>
                 <div id="container-select">
@@ -82,99 +85,43 @@
             <section id="destaques" class="content">
                 <h1>DESTAQUES</h1>
                 <div class="carousel-container fit-product" data-items="3" data-index="0">
-                    <div class="arrow arrow-rounded left-arrow"><img src="arrow-left.png" alt=""></div>
+                    <div class="arrow arrow-rounded left-arrow"><img src="imgs/arrow-left.png" alt=""></div>
                     <div class="carousel" data-index="0">
-                        <div class="item fit-product">
-                            <div class="img-container">
-                                <img src="teste.jpg" alt="Sandubao">
+                        <c:forEach items="${produtos}" var="produto">
+                            <div class="item fit-product">
+                                <div class="img-container">
+                                    <img src="imgs/teste/teste.jpg" alt="Sandubao">
+                                </div>
+                                <div class="info-container">
+                                    <h2 class="font-707">${produto.nome}</h2>
+                                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Recusandae error blanditiis sit
+                                        nesciunt, impedit consectetur voluptatibus dolores aut vitae excepturi tenetur, labore
+                                        tempore dolor corporis ipsum iure? Beatae, ipsa? Harum?</p>
+                                    <p class="preco">R$<fmt:formatNumber value='${produto.preco}' pattern='0.00' /></p>
+                                </div>
                             </div>
-                            <div class="info-container">
-                                <h2 class="font-707">NOME DO PRODUTO</h2>
-                                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Recusandae error blanditiis sit
-                                    nesciunt, impedit consectetur voluptatibus dolores aut vitae excepturi tenetur, labore
-                                    tempore dolor corporis ipsum iure? Beatae, ipsa? Harum?</p>
-                                <p class="preco">R$10,00</p>
-                            </div>
-                        </div>
-                        <div class="item fit-product">
-                            <div class="img-container">
-                                <img src="teste.jpg" alt="Sandubao">
-                            </div>
-                            <div class="info-container">
-                                <h2 class="font-707">NOME DO PRODUTO</h2>
-                                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Recusandae error blanditiis sit
-                                    nesciunt, impedit consectetur voluptatibus dolores aut vitae excepturi tenetur, labore
-                                    tempore dolor corporis ipsum iure? Beatae, ipsa? Harum?</p>
-                                <p class="preco">R$10,00</p>
-                            </div>
-                        </div>
-                        <div class="item fit-product">
-                            <div class="img-container">
-                                <img src="teste.jpg" alt="Sandubao">
-                            </div>
-                            <div class="info-container">
-                                <h2 class="font-707">NOME DO PRODUTO</h2>
-                                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Recusandae error blanditiis sit
-                                    nesciunt, impedit consectetur voluptatibus dolores aut vitae excepturi tenetur, labore
-                                    tempore dolor corporis ipsum iure? Beatae, ipsa? Harum?</p>
-                                <p class="preco">R$10,00</p>
-                            </div>
-                        </div>
-                        <div class="item fit-product">
-                            <div class="img-container">
-                                <img src="teste.jpg" alt="Sandubao">
-                            </div>
-                            <div class="info-container">
-                                <h2 class="font-707">NOME DO PRODUTO</h2>
-                                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Recusandae error blanditiis sit
-                                    nesciunt, impedit consectetur voluptatibus dolores aut vitae excepturi tenetur, labore
-                                    tempore dolor corporis ipsum iure? Beatae, ipsa? Harum?</p>
-                                <p class="preco">R$10,00</p>
-                            </div>
-                        </div>
+                        </c:forEach>
                     </div>
-                    <div class="arrow arrow-rounded right-arrow"><img src="arrow-right.png" alt=""></div>
+                    <div class="arrow arrow-rounded right-arrow"><img src="imgs/arrow-right.png" alt=""></div>
                 </div>
             </section>
             <section id="produtos">
                 <h1>CATEGORIA 1</h1>
                 <div class="categoria">
-                    <div class="produto">
-                        <div class="info-produto">
-                            <h2 class="font-707">NOME DO PRODUTO</h2>
-                            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt dolorum quod consequuntur
-                                voluptatem mollitia, non nam impedit exercitationem excepturi, eius nesciunt nobis cum quae.
-                                Est alias voluptate facere tempora debitis?</p>
-                            <p class="preco">$10,00</p>
+                    <c:forEach items="${produtos}" var="produto">
+                        <div class="produto">
+                            <div class="info-produto">
+                                <h2 class="font-707">${produto.nome}</h2>
+                                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt dolorum quod consequuntur
+                                    voluptatem mollitia, non nam impedit exercitationem excepturi, eius nesciunt nobis cum quae.
+                                    Est alias voluptate facere tempora debitis?</p>
+                                <p class="preco">R$<fmt:formatNumber value='${produto.preco}' pattern='0.00' /></p>
+                            </div>
+                            <div class="img-produto">
+                                <img src="imgs/teste/teste.jpg" alt="">
+                            </div>
                         </div>
-                        <div class="img-produto">
-                            <img src="teste.jpg" alt="">
-                        </div>
-                    </div>
-                    <div class="produto">
-                        <div class="info-produto">
-                            <h2 class="font-707">NOME DO PRODUTO</h2>
-                            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt dolorum quod consequuntur
-                                voluptatem mollitia, non nam impedit exercitationem excepturi, eius nesciunt nobis cum quae.
-                                Est alias voluptate facere tempora debitis?</p>
-                            <p class="preco">$10,00</p>
-                        </div>
-                        <div class="img-produto">
-                            <img src="teste.jpg" alt="">
-                        </div>
-                    </div>
-                    <div class="produto">
-                        <div class="info-produto">
-                            <h2 class="font-707">NOME DO PRODUTO</h2>
-                            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt dolorum quod consequuntur
-                                voluptatem mollitia, non nam impedit exercitationem excepturi, eius nesciunt nobis cum quae.
-                                Est alias voluptate facere tempora debitis?</p>
-                            <p class="preco">$10,00</p>
-                        </div>
-                        <div class="img-produto">
-                            <img src="teste.jpg" alt="">
-                        </div>
-                    </div>
+                    </c:forEach>
                 </div>
                 <h1>CATEGORIA 2</h1>
                 <div class="categoria">
@@ -187,7 +134,7 @@
                             <p class="preco">$10,00</p>
                         </div>
                         <div class="img-produto">
-                            <img src="teste.jpg" alt="">
+                            <img src="imgs/teste/teste.jpg" alt="">
                         </div>
                     </div>
                     <div class="produto">
@@ -199,7 +146,7 @@
                             <p class="preco">$10,00</p>
                         </div>
                         <div class="img-produto">
-                            <img src="teste.jpg" alt="">
+                            <img src="imgs/teste/teste.jpg" alt="">
                         </div>
                     </div>
                     <div class="produto">
@@ -211,7 +158,7 @@
                             <p class="preco">$10,00</p>
                         </div>
                         <div class="img-produto">
-                            <img src="teste.jpg" alt="">
+                            <img src="imgs/teste/teste.jpg" alt="">
                         </div>
                     </div>
                 </div>

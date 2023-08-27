@@ -19,29 +19,29 @@
         <c:set var="usuario" value="${sessionScope.usuario}"/>
         <c:set var="lojas" value="${sessionScope.lojas}"/>
         <header id="navbar">
-		<img id="navbar-logo" src="imgs/logo3.png" alt="Logo">
-		<div id="navbar-menu">
-			<a class="navbar-link" href="menuprincipal.jsp">Início</a>
-			<a class="navbar-link" href="gerenciarperfil.jsp">Perfil</a>
-			<a class="navbar-link" href="#">Favoritos</a>
-			<a class="navbar-link" href="gerenciarloja.jsp">Loja</a>
-			<a class="navbar-link" href="#">Sobre</a>
-		</div>
-		<div id="search-bar">
-			<img src="imgs/lupa-azul.svg" alt="">
-			<input type="text" placeholder="Pesquisar...">
-		</div>
-		<div id="navbar-icons">
-			<img id="profile-pic" src="imgs/icone-perfil.png" alt="Perfil">
-			<div id="orders">
-				<img id="orders-pic" src="imgs/sacola.png" alt="Pedidos">
-				<div id="orders-info">
-					<p>R$0,00</p>
-					<p>0 itens</p>
-				</div>
-			</div>
-		</div>
-	</header>
+            <img id="navbar-logo" src="imgs/logo3.png" alt="Logo">
+            <div id="navbar-menu">
+                <a class="navbar-link" href="menuprincipal.jsp">Início</a>
+                <a class="navbar-link" href="gerenciarperfil.jsp">Perfil</a>
+                <a class="navbar-link" href="#">Favoritos</a>
+                <a class="navbar-link" href="gerenciarloja.jsp">Loja</a>
+                <a class="navbar-link" href="#">Sobre</a>
+            </div>
+            <div id="search-bar">
+                <img src="imgs/lupa-azul.svg" alt="">
+                <input type="text" placeholder="Pesquisar...">
+            </div>
+            <div id="navbar-icons">
+                <img id="profile-pic" src="imgs/icone-perfil.png" alt="Perfil">
+                <div id="orders">
+                    <img id="orders-pic" src="imgs/sacola.png" alt="Pedidos">
+                    <div id="orders-info">
+                        <p>R$0,00</p>
+                        <p>0 itens</p>
+                    </div>
+                </div>
+            </div>
+        </header>
 
         <main>
             <section class="content">
@@ -50,25 +50,28 @@
                     <div class="arrow arrow-squared left-arrow"><img src="imgs/arrow-left.png" alt=""></div>
                     <div class="carousel" data-index="0" >
                         <c:forEach items="${lojas}" var="loja">
-                            <div class="item">
-                                <div class="img-container">
-                                    <img src="imgs/teste/teste.jpg" alt="Sandubao">
-                                </div>
-                                <div class="info-container">
-                                    <h2>${loja.nome}</h2>
-                                    <div class="carousel-rate" aria-label="4">
-                                        <span class="carousel-star filled">★</span>
-                                        <span class="carousel-star filled">★</span>
-                                        <span class="carousel-star filled">★</span>
-                                        <span class="carousel-star filled">★</span>
-                                        <span class="carousel-star">★</span>
+                            <form action="loja" method="get">
+                                <div class="item">
+                                    <div class="img-container">
+                                        <img src="imgs/teste/teste.jpg" alt="Sandubao">
                                     </div>
-                                    <form class="carousel-favorite" action="">
-                                        <button type="submit">♥</button>
+                                    <div class="info-container">
+                                        <h2>${loja.nome}</h2>
+                                        <div class="carousel-rate" aria-label="4">
+                                            <span class="carousel-star filled">★</span>
+                                            <span class="carousel-star filled">★</span>
+                                            <span class="carousel-star filled">★</span>
+                                            <span class="carousel-star filled">★</span>
+                                            <span class="carousel-star">★</span>
+                                        </div>
+                                        <div class="carousel-favorite">
+                                            <button type="submit" value="FAVORITAR">♥</button>
+                                        </div>
                                         <input type="hidden" name="id" value="${loja.id}">
-                                    </form>
+                                        <input type="hidden" name="submitAction" id="submit-action">
+                                    </div>
                                 </div>
-                            </div>
+                            </form>
                         </c:forEach>
                     </div>
                     <div class="arrow arrow-squared right-arrow"><img src="imgs/arrow-right.png" alt=""></div>
@@ -117,7 +120,7 @@
                 <p class="m-b-footer"> FoodExpress - 2023, todos os direitos reservados.</p>
             </div>
         </footer>
-        
+
         <script src="scripts/carrossel.js"></script>
     </body>
 </html>

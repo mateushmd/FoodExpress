@@ -35,9 +35,17 @@ items.forEach((el) =>
 {
     el.addEventListener('click', (e) =>
     {
-        const inputIdEl = el.querySelector('input');
-
-        //window.location.href = "";
+        const inputSubmitEl = document.querySelector('#submit-action');
+        
+        if(e.target.tagName === 'BUTTON') 
+        {
+            inputSubmitEl.value = 'FAVORITAR';
+            formEl.submit();
+        }
+        
+        inputSubmitEl.value = 'VISUALIZAR'
+        const formEl = el.closest('form');
+        formEl.submit();
     });
 });
 

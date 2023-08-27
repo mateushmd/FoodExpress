@@ -39,6 +39,10 @@ public class LojaService {
         return ldao.getLoja(idUser);
     }
     
+    public LojaDTO getLojaById(String idLoja) {
+        return ldao.getLojaById(idLoja);
+    }
+    
     public boolean updateNomeDescricao(LojaDTO obj){
         return ldao.updateND(obj);
     }
@@ -53,10 +57,6 @@ public class LojaService {
     
     public ArrayList<LojaDTO> listarLojas() {
         return (ArrayList) ldao.ListarLojas();
-    }
-    
-    public LojaDTO getLoja(){
-        return ldao.getLoja();
     }
     
     public boolean adicionarProduto(ProdutoDTO obj){

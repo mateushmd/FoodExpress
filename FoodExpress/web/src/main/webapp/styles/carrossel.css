@@ -159,7 +159,7 @@
     right: -20px;
 }
 
-.favorite {
+.carousel-favorite {
     display: flex;
     flex-direction: column;
     align-items: center;

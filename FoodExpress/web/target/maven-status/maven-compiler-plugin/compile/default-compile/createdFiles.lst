@@ -11,3 +11,4 @@ com\foodexpress\web\servlet\menuPrincipal.class
 com\foodexpress\web\servlet\Common.class
 com\foodexpress\web\resources\JakartaEE91Resource.class
 com\foodexpress\web\servlet\ts.class
+com\foodexpress\web\servlet\loja.class

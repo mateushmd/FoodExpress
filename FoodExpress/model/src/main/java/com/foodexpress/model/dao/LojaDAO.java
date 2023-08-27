@@ -80,6 +80,14 @@ public class LojaDAO extends DAOTemplate<LojaDTO> {
         return lojas.isEmpty() ? null : lojas.get(0);
     }
     
+    public LojaDTO getLojaById(String idLoja) {
+        String sql = "SELECT * FROM lojas WHERE id = ?";
+        
+        List<LojaDTO> lojas = executeQuery(sql, idLoja);
+        
+        return lojas.isEmpty() ? null : lojas.get(0);
+    }
+    
     public boolean updateND(LojaDTO obj){
         String sqlUpdate = "UPDATE lojas SET nome = ?, descricao = ? WHERE id_usuario = ?";
         
