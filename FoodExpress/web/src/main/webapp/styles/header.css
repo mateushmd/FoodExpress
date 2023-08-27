@@ -1,174 +1,111 @@
-@import url('https://fonts.cdnfonts.com/css/freshwost');
+@import url('https://fonts.cdnfonts.com/css/cooper-hewitt?styles=34277,34271');
 
-header {
-    background-color: #cd606b;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-}
-
-#logoimg {
-    max-height: 78px;
-    width: auto;
-    height: auto;
-}
-
-.lupa-icon-B {
-    max-height: 19px;
-    width: auto;
-    height: auto;
-}
-
-.lupa-icon-A {
-    max-height: 19px;
-    width: auto;
-    height: auto;
-    display: none;
-}
-
-.nav-bar {
+#navbar {
+    /*
     display: flex;
     justify-content: space-between;
-    padding: 0.5rem 1rem;
-}
-
-.menu-options {
-    display: flex;
     align-items: center;
-    margin-left: auto;
-    margin-right: auto;
-}
+    */
 
-.menu-options ul {
-    display: flex;
+    display: grid;
+    grid-template-columns: auto 2fr 50% 1fr;
     justify-content: center;
-    list-style: none;
-}
-
-.menu-item {
-    margin: 0 35px;
-}
-
-.menu-link {
-    text-decoration: none;
-    font-size: 1.1rem;
-    font-family: 'freshwost', sans-serif;
-    color: #e6f1f5;
-}
-
-.botao-menu {
-    display: none;
-}
-
-.menu-options-mobile {
-    display: none;
-}
-
-
-.pesquisa-icon {
-    background-color: #cd606b;
-    border-radius: 40px;
-    height: 35px;
-    padding: 1px 9px 1px 9px;
-    text-align: center;
-    display: flex;
-    justify-content: space-between;
     align-items: center;
+
+    background-color: #ffffff;
+    padding: 20px 20px;
+    color: rgb(40, 38, 38);
+    border-bottom: 1px solid #ccc;
 }
 
-.pesquisa-icon:hover .barra-pesquisa {
-    padding-left: 2em;
-    padding-right: 1em;
-    width: 150px;
-}
-
-.pesquisa-icon:hover {
-    background-color: white; 
-}
-
-
-
-.barra-pesquisa {
-    background: none;
-    border: 0;
-    outline: 0;
-    transition: 0.4s;
-    font-size: 15px;
-    font-family: 'freshwost', sans-serif;
-    width: 0;
-    transition: .45s;
-}
-
-.pesquisa-icon:hover > .pesquisaBtn .lupa-icon-B {
-    display: none;
-}
-
-.pesquisa-icon:hover > .pesquisaBtn .lupa-icon-A {
-    display: block;
-}
-
-.pesquisaBtn {
+#navbar-logo {
     width: 50px;
     height: 50px;
+}
+
+#navbar-menu {
     display: flex;
-    justify-content: center;
     align-items: center;
-    transition: .3s;
+    justify-content: space-evenly;
+}
+
+.navbar-link {
+    margin: 0 15px;
+    color: rgb(47, 46, 46);
+    text-decoration: none;
+}
+
+#search-bar {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    padding: 0 7px;
+    align-items: center;
+    height: 40px;
+    margin: 0 15%;
+}
+
+#search-bar input {
+    border: none;
+    height: 70%;
+}
+
+#search-bar input:focus {
+    outline: none;
+}
+
+#search-bar input::placeholder {
+    color: #c0c0c0;
+    opacity: 1;
+}
+
+#search-bar input:-ms-input-placeholder {
+    color: #c0c0c0;
+}
+
+#search-bar input::-ms-input-placeholder {
+    color: #c0c0c0;
+}
+
+#search-bar img {
+    width: 20px;
+    height: auto;
+    margin: 0 20px;
+}
+
+#navbar-icons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+#orders {
+    display: grid;
+    align-items: center;
+    gap: 5px;
+    grid-template-columns: auto 1fr;
+    font-size: .7rem;
+}
+
+#orders-info {
+    padding-top: 3px;
+}
+
+#orders-info p:first-child {
+    margin-bottom: 2px;
+}
+
+#orders-info p {
+    margin: 0;
+}
+
+#profile-pic,
+#orders-pic {
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
     cursor: pointer;
 }
-
-.pesquisaBtn:active {
-    transform: scale(.85);
-}
-
-
-@media screen and (max-width: 730px) {
-    .nav-bar {
-        padding: 1.5rem 4rem;
-    }
-    .menu-item {
-        display: none;
-    }
-    .pesquisa-icon {
-        display: none;
-    }
-
-    .botao-menu {
-        display: block;
-        margin-top: auto;
-        margin-bottom: auto;
-    }
-    .botao-menu button {
-        background-color: transparent;
-        border: none;
-        cursor: pointer;
-    }
-    .menu-options-mobile ul {
-        display: flex;
-        flex-direction: column;
-        text-align: center;
-        padding-bottom: 1rem;
-        padding-left: 0px;
-
-    }
-    .menu-options-mobile .menu-item {
-        display: block;
-        padding-top: 1.2rem;
-    }
-
-    .menu-options-mobile ul .menu-item:hover {
-        display: block;
-        margin-top: 1.2rem;
-        background: #0f7496;
-        padding: 7px;
-        margin-left: 0;
-        margin-right: 0;
-    }
-
-    .open {
-        display: block;
-    }
-}
-

@@ -123,45 +123,30 @@
 
     <body>
         <c:set var="usuario" value="${sessionScope.usuario}"/>
-        <header>
-            <nav class="nav-bar">
-                <div class="logo"><a href="menuprincipal.jsp"><img src="imgs/logo2.png" alt="Logo" id="logoimg"></a></div>
-
-                <div class="menu-options">
-                    <ul>
-                        <li class="menu-item"><a href="menuprincipal.jsp" class="menu-link">INÍCIO</a></li>
-                        <li class="menu-item"><a href="gerenciarperfil.jsp" class="menu-link">PERFIL</a></li>
-                        <li class="menu-item"><a href="#" class="menu-link">PEDIDOS</a></li>
-                        <li class="menu-item"><a href="#" class="menu-link">FAVORITOS</a></li>
-                            <c:if test="${usuario.getTipo() eq 2}">
-                            <li class="menu-item"><a href="gerenciarloja.jsp" class="menu-link">MINHA LOJA</a></li>
-                            </c:if>
-                        <li class="menu-item"><a href="#" class="menu-link">SOBRE</a></li>
-                    </ul>
-
-                    <div class="pesquisa-icon">
-                        <input type="text" class="barra-pesquisa" placeholder="Pesquisar...">
-                        <a class="pesquisaBtn">
-                            <img class="lupa-icon-B" src="imgs/loupe-white.svg" alt="Lupa">
-                            <img class="lupa-icon-A" src="imgs/loupe-blue.svg" alt="Lupa">
-
-                        </a>
-                    </div>
-                </div>
-
-                <div class="botao-menu"><button onclick="menuShow()"><img class="menuBtn" src="imgs/menu_white_36dp.svg"></button></div>
-            </nav>
-
-            <div class="menu-options-mobile">
-                <ul>
-                    <li class="menu-item"><a href="menuprincipal.html" class="menu-link">INÍCIO</a></li>
-                    <li class="menu-item"><a href="perfil.html" class="menu-link">PERFIL</a></li>
-                    <li class="menu-item"><a href="#" class="menu-link">PEDIDOS</a></li>
-                    <li class="menu-item"><a href="#" class="menu-link">FAVORITOS</a></li>
-                    <li class="menu-item"><a href="#" class="menu-link">SOBRE</a></li>
-                </ul>
-            </div>
-        </header>
+        <header id="navbar">
+		<img id="navbar-logo" src="imgs/logo3.png" alt="Logo">
+		<div id="navbar-menu">
+			<a class="navbar-link" href="menuprincipal.jsp">Início</a>
+			<a class="navbar-link" href="gerenciarperfil.jsp">Perfil</a>
+			<a class="navbar-link" href="#">Favoritos</a>
+			<a class="navbar-link" href="gerenciarloja.jsp">Loja</a>
+			<a class="navbar-link" href="#">Sobre</a>
+		</div>
+		<div id="search-bar">
+			<img src="imgs/lupa-azul.svg" alt="">
+			<input type="text" placeholder="Pesquisar...">
+		</div>
+		<div id="navbar-icons">
+			<img id="profile-pic" src="imgs/icone-perfil.png" alt="Perfil">
+			<div id="orders">
+				<img id="orders-pic" src="imgs/sacola.png" alt="Pedidos">
+				<div id="orders-info">
+					<p>R$0,00</p>
+					<p>0 itens</p>
+				</div>
+			</div>
+		</div>
+	</header>
 
         <main>
             <div class="container">
