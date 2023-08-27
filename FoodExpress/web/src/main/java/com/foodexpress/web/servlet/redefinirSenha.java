@@ -12,6 +12,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -42,8 +43,13 @@ public class redefinirSenha extends HttpServlet {
         
         System.out.println(check);
         
+        HttpSession session = request.getSession();
+        
         if(check)
+        {
             request.setAttribute("msg", "Senha redefinida com sucesso!");
+            session.removeAttribute("usuario");
+        }
         
         RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
         

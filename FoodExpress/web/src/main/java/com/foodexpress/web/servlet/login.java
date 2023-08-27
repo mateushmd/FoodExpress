@@ -4,7 +4,10 @@
  */
 package com.foodexpress.web.servlet;
 
+import com.foodexpress.model.dto.LojaDTO;
+import com.foodexpress.model.dto.ProdutoDTO;
 import com.foodexpress.model.dto.UsuarioDTO;
+import com.foodexpress.model.service.LojaService;
 import com.foodexpress.model.service.UsuarioService;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
@@ -13,6 +16,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
 
 @WebServlet(name = "login", urlPatterns = {"/login"})
 public class login extends HttpServlet {
@@ -41,26 +46,49 @@ public class login extends HttpServlet {
 
         int check = uservice.login(email, password);
 
-        RequestDispatcher rd = null;
+        String URL = "common?url=";
 
         if(check < 1) {
+            String msg;
+            
             if(check == 0)
-                request.setAttribute("msg", "O email associado a esta conta não foi verificado.");
+                msg = "O email associado a esta conta não foi verificado.";
             else 
-                request.setAttribute("msg", "Email ou senha incorretos.");
-
-            rd = request.getRequestDispatcher("login.jsp");
-            rd.forward(request, response);
-
+                msg = "Email ou senha incorretos.";
+            
+            URL += "login&action=RD&attrName=msg&attrValue=" + msg;
+            
+            response.sendRedirect(URL);
+            
             return;
         }
         
+        URL += "menuPrincipal&action=F";
+        
         uDTO = uservice.getUsuario(email);
         
-        request.setAttribute("usuario", uDTO);
-
-        rd = request.getRequestDispatcher("perfil.jsp");
+        LojaService lservice = LojaService.getInstance();
+        
+        HttpSession session = request.getSession();
+        
+        session.setAttribute("usuario", uDTO);
+        
+        if(uDTO.getTipo() == 2) {
+            LojaDTO lDTO = lservice.getLoja(uDTO.getEmail());
+            
+            session.setAttribute("loja", lDTO);
+            
+            ArrayList<ProdutoDTO> produtos = (ArrayList) lservice.listarProdutos(lDTO.getId());
+            
+            session.setAttribute("produtos", produtos);
+        }
+        
+        /*
+        rd = request.getRequestDispatcher("menuprincipal.jsp");
         rd.forward(request, response);
+        */
+        
+        response.sendRedirect(URL);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

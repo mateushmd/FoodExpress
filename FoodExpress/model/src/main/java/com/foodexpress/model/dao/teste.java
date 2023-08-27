@@ -1,14 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.foodexpress.model.dao;
+import com.foodexpress.model.dto.*;
+import com.foodexpress.model.service.*;
+import java.sql.SQLException;
 
-
-/**
- *
- * @author Samuel
- */
 public class teste {
-    public static void main(String[] args) {}
+    public static void main(String[] args) throws SQLException {
+        
+    }
 }

@@ -1,0 +1,111 @@
+@import url('https://fonts.cdnfonts.com/css/cooper-hewitt?styles=34277,34271');
+
+#navbar {
+    /*
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    */
+
+    display: grid;
+    grid-template-columns: auto 2fr 50% 1fr;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #ffffff;
+    padding: 20px 20px;
+    color: rgb(40, 38, 38);
+    border-bottom: 1px solid #ccc;
+}
+
+#navbar-logo {
+    width: 50px;
+    height: 50px;
+}
+
+#navbar-menu {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.navbar-link {
+    margin: 0 15px;
+    color: rgb(47, 46, 46);
+    text-decoration: none;
+}
+
+#search-bar {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    padding: 0 7px;
+    align-items: center;
+    height: 40px;
+    margin: 0 15%;
+}
+
+#search-bar input {
+    border: none;
+    height: 70%;
+}
+
+#search-bar input:focus {
+    outline: none;
+}
+
+#search-bar input::placeholder {
+    color: #c0c0c0;
+    opacity: 1;
+}
+
+#search-bar input:-ms-input-placeholder {
+    color: #c0c0c0;
+}
+
+#search-bar input::-ms-input-placeholder {
+    color: #c0c0c0;
+}
+
+#search-bar img {
+    width: 20px;
+    height: auto;
+    margin: 0 20px;
+}
+
+#navbar-icons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+#orders {
+    display: grid;
+    align-items: center;
+    gap: 5px;
+    grid-template-columns: auto 1fr;
+    font-size: .7rem;
+}
+
+#orders-info {
+    padding-top: 3px;
+}
+
+#orders-info p:first-child {
+    margin-bottom: 2px;
+}
+
+#orders-info p {
+    margin: 0;
+}
+
+#profile-pic,
+#orders-pic {
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
+    cursor: pointer;
+}
