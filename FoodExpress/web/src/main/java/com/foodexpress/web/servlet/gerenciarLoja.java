@@ -4,8 +4,9 @@
  */
 package com.foodexpress.web.servlet;
 
+import com.foodexpress.model.dto.LojaDTO;
 import com.foodexpress.model.dto.UsuarioDTO;
-import com.foodexpress.model.service.UsuarioService;
+import com.foodexpress.model.service.LojaService;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -13,13 +14,10 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
-/**
- *
- * @author chsdi
- */
-@WebServlet(name = "editarPerfil", urlPatterns = {"/editarPerfil"})
-public class editarPerfil extends HttpServlet {
+@WebServlet(name = "gerenciarLoja", urlPatterns = {"/gerenciarLoja"})
+public class gerenciarLoja extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,55 +32,30 @@ public class editarPerfil extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        RequestDispatcher rd;
+        HttpSession session = request.getSession();
         
-        String email = request.getParameter("defMail");
+        UsuarioDTO usuario = (UsuarioDTO) session.getAttribute("usuario");
         
-        String submit = request.getParameter("submit");
+        String email = usuario.getEmail();
         
-        if(submit.equals("ALTERAR SENHA")) {
-            request.setAttribute("email", email);
+        LojaService lservice = LojaService.getInstance();
+
+        String nome = request.getParameter("nome");
+
+        String descricao = request.getParameter("descricao");
+
+        LojaDTO loja = new LojaDTO();
+
+        loja.setIdUser(email);
+        loja.setNome(nome);
+        loja.setDescricao(descricao);
+
+        lservice.updateNomeDescricao(loja);
+
+        session.setAttribute("loja", loja);
+        
+        RequestDispatcher rd = request.getRequestDispatcher("gerenciarloja.jsp");
             
-            rd = request.getRequestDispatcher("confirmarsenha.jsp");
-            
-            rd.forward(request, response);
-            
-            return;
-        }
-        
-        UsuarioService uservice = UsuarioService.getInstance();
-        
-        UsuarioDTO uDTO;
-        
-        String nome = request.getParameter("name");
-        
-        String telefone = request.getParameter("tel");
-        
-        String defaultNome = request.getParameter("defName");
-        
-        String defaultTel = request.getParameter("defTel");
-        
-        if(nome == null || nome.isBlank() || nome.isEmpty()) {
-            nome = defaultNome;
-        }
-        
-        if(telefone == null || telefone.length() < 18 || telefone.isBlank()) {
-            telefone = defaultTel;
-        }
-        
-        uDTO = new UsuarioDTO();
-        
-        uDTO.setNome(nome);
-        uDTO.setTelefone(telefone);
-        uDTO.setEmail(email);
-        
-        System.out.println(uservice.update(uDTO));
-        
-        uDTO = uservice.getUsuario(email);
-        
-        request.setAttribute("usuario", uDTO);
-        
-        rd = request.getRequestDispatcher("perfil.jsp");
         rd.forward(request, response);
     }
 

@@ -8,80 +8,22 @@ body {
     background-color: #e6f1f5;
 }
 
-header {
-    background-color: #cd606b;
-    padding: 23px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 50px;
-}
-
-.logo {
-    font-size: 2px;
-    font-weight: bold;
-}
-
-#pesquisa-icon {
-    cursor: pointer;
-}
-
-#barra-pesquisa {
-    display: none;
-    margin-left: 10px;
-}
-
-#barra-pesquisa input {
-    padding: 5px;
-    border-radius: 3px;
-    border: none;
-}
-
-.menu-options ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-}
-
-.menu-options ul li {
-    margin-right: 100px;
-}
-
-.menu-options ul li a {
-    text-decoration: none;
-    color: #ffffff;
-    padding: 5px;
-
-}
-
-.logo img {
-    width: 100px;
-    height: auto;
-    max-height: 100%;
-}
-
-#pesquisa-icon img {
-    width: 30px;
-    height: auto;
-}
-
 .bloco {
     flex: 1;
     height: 100%;
     display: flex;
 }
 
-nav {
+#menu-perfil {
     background-color: #ffffff;
 }
 
-nav>h2:first-of-type {
+#menu-perfil>h2:first-of-type {
     margin: 20px 20px 20px 30px;
     font-weight: 800;
 }
 
-nav>h2:not(:first-of-type) {
+#menu-perfil>h2:not(:first-of-type) {
     padding: 10px 60px 10px 60px;
 
     background: linear-gradient(to right, #cd606b 50%, white 50%);
@@ -90,10 +32,10 @@ nav>h2:not(:first-of-type) {
     transition: all .2s ease-out;
 }
 
-nav>h2:not(:first-of-type):hover,
+#menu-perfil>h2:not(:first-of-type):hover,
 #selected {
-    background-position: left bottom;
-    color: #fff
+    background-position: left bottom !important;
+    color: #fff;
 }
 
 section {
@@ -136,7 +78,7 @@ main {
     margin-bottom: 70px;
 }
 
-#informacoes-conta li:last-of-type {
+#informacoes-conta li:nth-last-of-type(2){
     flex-direction: row;
     gap: 20px;
 }
@@ -210,7 +152,7 @@ main {
 }
 
 @media screen and (max-height: 796px) {
-    nav {
+    #menu-perfil {
         overflow-y: scroll;
     }
 }

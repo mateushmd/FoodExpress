@@ -33,6 +33,7 @@ public class ProdutoDAO extends DAOTemplate<ProdutoDTO>{
             produto.setNome(rs.getString("nome"));
             produto.setPreco(rs.getFloat("preco"));
             produto.setDescricao(rs.getString("descricao"));
+            produto.setDisponivel(rs.getBoolean("disponivel"));
         } catch(SQLException ex){
             java.util.logging.Logger.getLogger(LojaDTO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -41,20 +42,20 @@ public class ProdutoDAO extends DAOTemplate<ProdutoDTO>{
     }
     
     public boolean cadastrar(ProdutoDTO obj){
-        String sql = "INSERT INTO produtos (id_loja, nome, preço, descricao) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO produtos (id_loja, nome, preco, descricao, disponivel) VALUES (?, ?, ?, ?, ?)";
         
-        return executeUpdate(sql, obj.getIdLoja(), obj.getNome(), obj.getPreco(), obj.getDescricao());
+        return executeUpdate(sql, obj.getIdLoja(), obj.getNome(), obj.getPreco(), obj.getDescricao(), obj.getDisponivel());
     }
     
-    public List<ProdutoDTO> ListarPorLoja(int idLoja) throws SQLException {
+    public boolean update(ProdutoDTO obj) {
+        String sql = "UPDATE produtos SET nome = ?, preco = ?, descricao = ?, disponivel = ? WHERE id = ?";
+        
+        return executeUpdate(sql, obj.getNome(), obj.getPreco(), obj.getDescricao(), obj.getDisponivel(), obj.getId());
+    }
+    
+    public List<ProdutoDTO> listar(int idLoja) {
         String sql = "SELECT * FROM produtos WHERE id_loja = ? ORDER BY nome";
         
         return executeQuery(sql, idLoja);
-    }
-    
-    public List<ProdutoDTO> Listar() throws SQLException {
-        String sql = "SELECT * FROM produtos ORDER BY nome";
-        
-        return executeQuery(sql);
     }
 }

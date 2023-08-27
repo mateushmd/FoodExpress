@@ -1,0 +1,174 @@
+@import url('https://fonts.cdnfonts.com/css/freshwost');
+
+header {
+    background-color: #cd606b;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+#logoimg {
+    max-height: 78px;
+    width: auto;
+    height: auto;
+}
+
+.lupa-icon-B {
+    max-height: 19px;
+    width: auto;
+    height: auto;
+}
+
+.lupa-icon-A {
+    max-height: 19px;
+    width: auto;
+    height: auto;
+    display: none;
+}
+
+.nav-bar {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+}
+
+.menu-options {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.menu-options ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+}
+
+.menu-item {
+    margin: 0 35px;
+}
+
+.menu-link {
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-family: 'freshwost', sans-serif;
+    color: #e6f1f5;
+}
+
+.botao-menu {
+    display: none;
+}
+
+.menu-options-mobile {
+    display: none;
+}
+
+
+.pesquisa-icon {
+    background-color: #cd606b;
+    border-radius: 40px;
+    height: 35px;
+    padding: 1px 9px 1px 9px;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pesquisa-icon:hover .barra-pesquisa {
+    padding-left: 2em;
+    padding-right: 1em;
+    width: 150px;
+}
+
+.pesquisa-icon:hover {
+    background-color: white; 
+}
+
+
+
+.barra-pesquisa {
+    background: none;
+    border: 0;
+    outline: 0;
+    transition: 0.4s;
+    font-size: 15px;
+    font-family: 'freshwost', sans-serif;
+    width: 0;
+    transition: .45s;
+}
+
+.pesquisa-icon:hover > .pesquisaBtn .lupa-icon-B {
+    display: none;
+}
+
+.pesquisa-icon:hover > .pesquisaBtn .lupa-icon-A {
+    display: block;
+}
+
+.pesquisaBtn {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: .3s;
+    cursor: pointer;
+}
+
+.pesquisaBtn:active {
+    transform: scale(.85);
+}
+
+
+@media screen and (max-width: 730px) {
+    .nav-bar {
+        padding: 1.5rem 4rem;
+    }
+    .menu-item {
+        display: none;
+    }
+    .pesquisa-icon {
+        display: none;
+    }
+
+    .botao-menu {
+        display: block;
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+    .botao-menu button {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+    }
+    .menu-options-mobile ul {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        padding-bottom: 1rem;
+        padding-left: 0px;
+
+    }
+    .menu-options-mobile .menu-item {
+        display: block;
+        padding-top: 1.2rem;
+    }
+
+    .menu-options-mobile ul .menu-item:hover {
+        display: block;
+        margin-top: 1.2rem;
+        background: #0f7496;
+        padding: 7px;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .open {
+        display: block;
+    }
+}
+

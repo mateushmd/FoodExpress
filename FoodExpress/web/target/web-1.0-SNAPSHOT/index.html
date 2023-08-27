@@ -7,14 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro</title>
     <link rel="stylesheet" type="text/css" href="styles/style.css">
+    <link rel="stylesheet" type="text/css" href="fonts/style.css"/>
     <link rel="icon" type="image/png" href="imgs/icon.png"/>
 </head>
 
 <body>
-    <main>
-        <img src="imgs/logo.png" alt="">
+    <div id="main">
+        <div class="fundo"></div>
         <div class="container">
             <form action="cadastrar" method="post">
+                <img src="imgs/logo-sem-fundo.png" class="logoLog" alt="">
                 <section class="campo">
                     <label for="name" class="label">NOME:</label>
                     <input type="text" id="name" name="name" required>
@@ -29,18 +31,16 @@
                     <label for="password" class="label">SENHA:</label>
                     <input type="password" id="password" name="password" required>
                 </section>
-                
+
                 <section class="campo">
                     <label for="confirm-password" class="label">CONFIRMAR SENHA:</label>
                     <input type="password" id="confirm-password" name="confirm-password" required>
                 </section>
 
-                <p id="msg-password" hidden></p>
-
                 <section class="campo">
                     <label for="phone" class="label">TELEFONE:</label>
-                    <input type="tel" id="phone" name="tel" tabindex="1" placeholder="(xx) xx xxxx-xxxx" value=""
-                        maxlength="18" required>
+                    <input type="tel" id="phone" name="tel" tabindex="1" placeholder="(xx) x xxxx-xxxx" value=""
+                        maxlength="15" required onkeyup="handlePhone(event)">
                 </section>
 
                 <section class="opcoes">
@@ -48,18 +48,19 @@
                         <label><input type="radio" name="opcao" value="1" required>VOU COMPRAR</label>
                     </div>
                     <div id="vender">
-                        <label><input type="radio" name="opcao" value="2">VOU VENDER</label>
+                        <label><input type="radio" name="opcao" value="2">VOU VENDER/COMPRAR</label>
                     </div>
                 </section>
 
                 <div class="botao">
-                    <input type="submit" value="CADASTRAR" style="cursor: pointer; font-family: 'Oswald', sans-serif;" id="cadastro">
-                    <p id="tenhoLogin"><a href="cadastrar" style="font-family: 'Oswald', sans-serif; font-size: 12px;">JÁ TENHO CADASTRO</a></p>
+                    <input type="submit" value="CADASTRAR" id="cadastro">
+                    <p class="parag">Já tem cadastro? <a href="login.jsp"  id="tenhoLogin">Logar</a></p>
                 </div>
             </form>
         </div>
-    </main>
+    </div>
     <script src="scripts/mascaras.js"></script>
-    <script src="scripts/confirmarsenha.js"></script>
 </body>
+
 </html>
+
