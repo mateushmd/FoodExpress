@@ -30,6 +30,8 @@ public class TokenVerificacaoDAO extends DAOTemplate<TokenVerificacaoDTO> {
         if(instance == null)
             instance = new TokenVerificacaoDAO();
         
+        instance.setConnection();
+        
         return instance;
     }
 
