@@ -1,6 +1,7 @@
 com\foodexpress\web\servlet\gerenciarLoja.class
 com\foodexpress\web\JakartaRestConfiguration.class
 com\foodexpress\web\servlet\redefinirSenha.class
+com\foodexpress\web\servlet\processLoja.class
 com\foodexpress\web\servlet\gerenciarProduto.class
 com\foodexpress\web\servlet\cadastrar.class
 com\foodexpress\web\servlet\gerenciarPerfil.class

@@ -50,7 +50,7 @@
                     <div class="arrow arrow-squared left-arrow"><img src="imgs/arrow-left.png" alt=""></div>
                     <div class="carousel" data-index="0" >
                         <c:forEach items="${lojas}" var="loja">
-                            <form action="loja" method="get">
+                            <form action="loja" method="post">
                                 <div class="item">
                                     <div class="img-container">
                                         <img src="imgs/teste/teste.jpg" alt="Sandubao">
@@ -67,8 +67,8 @@
                                         <div class="carousel-favorite">
                                             <button type="submit" value="FAVORITAR">♥</button>
                                         </div>
-                                        <input type="hidden" name="id" value="${loja.id}">
-                                        <input type="hidden" name="submitAction" id="submit-action">
+                                        <input type="hidden" name="id" value="${loja.id}" class="id">
+                                        <input type="hidden" name="submitAction" class="submit-action">
                                     </div>
                                 </div>
                             </form>

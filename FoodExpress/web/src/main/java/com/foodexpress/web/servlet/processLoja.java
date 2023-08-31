@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package com.foodexpress.web.servlet;
 
 import com.foodexpress.model.dto.LojaDTO;
@@ -17,12 +13,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 
-/**
- *
- * @author chsdi
- */
-@WebServlet(name = "loja", urlPatterns = {"/loja"})
-public class loja extends HttpServlet {
+@WebServlet(name = "processLoja", urlPatterns = {"/processLoja"})
+public class processLoja extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,21 +29,22 @@ public class loja extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        String submit = request.getParameter("submitAction");
-        
         String id = request.getParameter("id");
         
-        System.out.println(submit);
+        System.out.println(id);
         
-        String URL = "processLoja?id=" + id;
+        LojaService lservice = LojaService.getInstance();
         
-        //Implementar favoritos
-        if(submit.equals("FAVORITAR")) {
-            response.sendRedirect("menuprincipal.jsp");
-            return;
-        }
+        LojaDTO loja = lservice.getLojaById(id);
         
-        response.sendRedirect(URL);
+        ArrayList<ProdutoDTO> produtos = lservice.listarProdutos(loja.getId());
+        
+        request.setAttribute("loja", loja);
+        request.setAttribute("produtos", produtos);
+        
+        RequestDispatcher rd = request.getRequestDispatcher("loja.jsp");
+        
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -66,7 +59,7 @@ public class loja extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
+        processRequest(request, response);
     }
 
     /**

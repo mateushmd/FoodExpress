@@ -4,6 +4,8 @@ const bodyEl = document.querySelector('body');
 
 resizeArrow();
 
+console.log(document.querySelector('.id').value);
+
 window.addEventListener('resize', (e) =>
 {
     resizeArrow();
@@ -35,7 +37,9 @@ items.forEach((el) =>
 {
     el.addEventListener('click', (e) =>
     {
-        const inputSubmitEl = document.querySelector('#submit-action');
+        const inputSubmitEl = el.querySelector('.submit-action');
+        
+        const formEl = el.closest('form');
         
         if(e.target.tagName === 'BUTTON') 
         {
@@ -43,8 +47,8 @@ items.forEach((el) =>
             formEl.submit();
         }
         
-        inputSubmitEl.value = 'VISUALIZAR'
-        const formEl = el.closest('form');
+        inputSubmitEl.value = 'VISUALIZAR';
+        
         formEl.submit();
     });
 });

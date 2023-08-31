@@ -16,19 +16,7 @@ import java.util.logging.Logger;
 
 
 public abstract class DAOTemplate<T> {
-    protected final Connection conn;
-
-    protected DAOTemplate() {
-        Connection connection = null;
-        
-        try {
-            connection = ConnectionPoolManager.getDataSource().getConnection();
-        } catch (SQLException ex) {
-            Logger.getLogger(DAOTemplate.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        conn = connection;
-    }
+    private Connection conn;
     
     protected abstract T mapResultSetToObject(ResultSet rs) throws SQLException;
     
@@ -68,5 +56,17 @@ public abstract class DAOTemplate<T> {
         for(int i = 0; i < params.length; i++) {
             st.setObject(i + 1, params[i]);
         }
+    }
+    
+    protected final void setConnection() {
+        Connection connection = null;
+        
+        try {
+            connection = ConnectionPoolManager.getDataSource().getConnection();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOTemplate.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        conn = connection;
     }
 }
