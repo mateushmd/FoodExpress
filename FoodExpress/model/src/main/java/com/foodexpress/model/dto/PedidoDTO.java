@@ -13,7 +13,7 @@ import java.util.List;
 public class PedidoDTO {
     int id;
     int idLoja;
-    int idCliente;
+    String idCliente;
     String dhPedido; //Data e hora do pedido
     String lEntrega; //Local entrega
     double pTotal; //Preco total
@@ -25,7 +25,7 @@ public class PedidoDTO {
     public PedidoDTO() {
     }
 
-    public PedidoDTO(int id, int id_loja, int id_cliente, String dhPedido, String lEntrega, double preco_total, String status, String razao_cancelamento, String dhFechamento) {
+    public PedidoDTO(int id, int id_loja, String id_cliente, String dhPedido, String lEntrega, double preco_total, String status, String razao_cancelamento, String dhFechamento) {
         this.id = id;
         this.idLoja = id_loja;
         this.idCliente = id_cliente;
@@ -53,11 +53,11 @@ public class PedidoDTO {
         this.idLoja = idLoja;
     }
 
-    public int getIdCliente() {
+    public String getIdCliente() {
         return idCliente;
     }
 
-    public void setIdCliente(int idCliente) {
+    public void setIdCliente(String idCliente) {
         this.idCliente = idCliente;
     }
 

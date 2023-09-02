@@ -46,4 +46,12 @@ public class ItemPedidoDAO extends DAOTemplate<ItemPedidoDTO> {
         
         return prod.isEmpty() ? null : prod;
     }
+    
+    public void addItens(List<ItemPedidoDTO> itens, int idPedido){
+        for(ItemPedidoDTO i: itens){
+            String sql = "INSERT INTO itens_pedido (id_produto, id_pedido, quantidade, preco_total) VALUES (?, ?, ?, ?)";
+            
+            executeUpdate(sql, i.getIdProduto(), idPedido, i.getQuantidade(), i.getPrecoTotal());
+        }
+    }
 }

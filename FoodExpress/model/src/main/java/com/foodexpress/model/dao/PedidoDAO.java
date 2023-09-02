@@ -1,5 +1,6 @@
 package com.foodexpress.model.dao;
 
+import com.foodexpress.model.dto.ItemPedidoDTO;
 import com.foodexpress.model.dto.PedidoDTO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,7 +32,7 @@ public class PedidoDAO extends DAOTemplate<PedidoDTO> {
             
             pedido.setId(rs.getInt("id"));
             pedido.setIdLoja(rs.getInt("id_loja"));
-            pedido.setIdCliente(rs.getInt("id_cliente"));
+            pedido.setIdCliente(rs.getString("id_cliente"));
             pedido.setDhPedido(rs.getString("data_hora_pedido"));
             pedido.setlEntrega(rs.getString("local_entrega"));
             pedido.setpTotal(rs.getDouble("preco_total"));
@@ -46,10 +47,12 @@ public class PedidoDAO extends DAOTemplate<PedidoDTO> {
         return pedido;
     }
     
-    public boolean realizarPedido(PedidoDTO obj){
+    public boolean realizarPedido(PedidoDTO obj, List<ItemPedidoDTO> itens){
         String sql = "INSERT INTO pedidos (id_cliente, id_loja, data_hora_pedido, local_entrega, preco_total, status, razao_cancelamento, data_hora_fechamento) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        boolean aux = executeUpdate(sql, obj.getIdCliente(), obj.getIdLoja(), obj.getDhPedido(), obj.getlEntrega(), obj.getpTotal(), obj.getStatus(), obj.getrCancelamento(), obj.getDhFechamento());
+        itemDAO.addItens(itens, getPedidoByIdLojaCliente(obj.getIdLoja(), obj.getIdCliente()).getId());
         
-        return executeUpdate(sql, obj.getIdCliente(), obj.getIdLoja(), obj.getDhPedido(), obj.getlEntrega(), obj.getpTotal(), obj.getStatus(), obj.getrCancelamento(), obj.getDhFechamento());
+        return aux; 
     }
     
     public PedidoDTO getPedidoById(int id_pedido){
@@ -60,7 +63,7 @@ public class PedidoDAO extends DAOTemplate<PedidoDTO> {
         return pedidos.isEmpty() ? null : pedidos.get(0);
     }
     
-    public List<PedidoDTO> getPedidoByIdCliente(int idUser) {
+    public List<PedidoDTO> getPedidoByIdCliente(String idUser) {
         String sql = "SELECT * FROM pedidos WHERE id_cliente = ?";
         
         List<PedidoDTO> pedidos = executeQuery(sql, idUser);
@@ -74,5 +77,13 @@ public class PedidoDAO extends DAOTemplate<PedidoDTO> {
         List<PedidoDTO> pedidos = executeQuery(sql, idUser);
         
         return pedidos.isEmpty() ? null : pedidos;
+    }
+    
+    public PedidoDTO getPedidoByIdLojaCliente(int idLoja, String idCliente) {
+        String sql = "SELECT * FROM pedidos WHERE id_cliente = ? AND id_loja = ?";
+        
+        List<PedidoDTO> pedido = executeQuery(sql, idLoja, idCliente);
+        
+        return pedido.isEmpty() ? null : pedido.get(0);
     }
 }

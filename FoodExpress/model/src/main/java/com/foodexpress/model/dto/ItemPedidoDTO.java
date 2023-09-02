@@ -14,6 +14,13 @@ public class ItemPedidoDTO {
         this.quantidade = quantidade;
         this.precoTotal = precoTotal;
     }
+    
+    public ItemPedidoDTO(int idProduto, int idPedido, int quantidade, double precoTotal) {
+        this.idProduto = idProduto;
+        this.idPedido = idPedido;
+        this.quantidade = quantidade;
+        this.precoTotal = precoTotal;
+    }
 
     public ItemPedidoDTO() {
     }
