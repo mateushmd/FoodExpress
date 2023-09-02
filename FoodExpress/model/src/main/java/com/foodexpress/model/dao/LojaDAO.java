@@ -17,18 +17,18 @@ import java.util.logging.Level;
  */
 public class LojaDAO extends DAOTemplate<LojaDTO> {
     private static LojaDAO instance = null;
-    ProdutoDAO prod;
     
     private LojaDTO loja;
     
     private LojaDAO() {
         super();
-        prod = ProdutoDAO.getInstance();
     }
     
     public static synchronized LojaDAO getInstance(){
         if(instance == null)
             instance = new LojaDAO();
+        
+        instance.setConnection();
         
         return instance;
     }
