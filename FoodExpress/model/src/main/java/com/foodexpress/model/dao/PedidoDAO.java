@@ -48,11 +48,30 @@ public class PedidoDAO extends DAOTemplate<PedidoDTO> {
     }
     
     public boolean realizarPedido(PedidoDTO obj, List<ItemPedidoDTO> itens){
-        String sql = "INSERT INTO pedidos (id_cliente, id_loja, data_hora_pedido, local_entrega, preco_total, status, razao_cancelamento, data_hora_fechamento) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        boolean aux = executeUpdate(sql, obj.getIdCliente(), obj.getIdLoja(), obj.getDhPedido(), obj.getlEntrega(), obj.getpTotal(), obj.getStatus(), obj.getrCancelamento(), obj.getDhFechamento());
-        itemDAO.addItens(itens, getPedidoByIdLojaCliente(obj.getIdLoja(), obj.getIdCliente()).getId());
+        String sql = "INSERT INTO pedidos (id_cliente, id_loja, data_hora_pedido, local_entrega, preco_total, status) VALUES (?, ?, ?, ?, ?, ?)";
+        boolean aux = executeUpdate(sql, obj.getIdCliente(), obj.getIdLoja(), obj.getDhPedido(), obj.getlEntrega(), obj.getpTotal(), obj.getStatus());
+        if(!aux)
+            System.out.println("Deu errado! -_-");
+        PedidoDTO ped = getPedidoByIdLojaCliente(obj.getIdLoja(), obj.getIdCliente());
+        itemDAO.addItens(itens, ped.getId());
+        if(!updateValorTotal(calculaValorTotal(itens), ped.getId()))
+            System.out.println("Não foi possível armazenar o valor total");
         
-        return aux; 
+        return aux;
+    }
+    
+    public double calculaValorTotal(List<ItemPedidoDTO> itens){
+        double total = 0;
+        for(ItemPedidoDTO item : itens)
+            total += item.getPrecoTotal();
+        
+        return total;
+    }
+    
+    private boolean updateValorTotal(double valor, int idPedido){
+        String sql = "UPDATE pedidos SET preco_total = ? WHERE id = ?";
+        
+        return executeUpdate(sql, valor, idPedido);
     }
     
     public PedidoDTO getPedidoById(int id_pedido){

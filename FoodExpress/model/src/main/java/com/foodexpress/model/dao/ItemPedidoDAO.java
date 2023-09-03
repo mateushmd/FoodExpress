@@ -1,6 +1,7 @@
 package com.foodexpress.model.dao;
 
 import com.foodexpress.model.dto.ItemPedidoDTO;
+import com.foodexpress.model.dto.ProdutoDTO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;

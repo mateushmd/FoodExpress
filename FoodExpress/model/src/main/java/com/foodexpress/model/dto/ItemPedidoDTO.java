@@ -7,6 +7,7 @@ public class ItemPedidoDTO {
     int quantidade;
     double precoTotal;
 
+    //Resgatar do BD
     public ItemPedidoDTO(int id, int idProduto, int idPedido, int quantidade, double precoTotal) {
         this.id = id;
         this.idProduto = idProduto;
@@ -15,13 +16,14 @@ public class ItemPedidoDTO {
         this.precoTotal = precoTotal;
     }
     
-    public ItemPedidoDTO(int idProduto, int idPedido, int quantidade, double precoTotal) {
+    //Cadastrar no bd
+    public ItemPedidoDTO(int idProduto, int quantidade, double precoTotal) {
         this.idProduto = idProduto;
-        this.idPedido = idPedido;
         this.quantidade = quantidade;
         this.precoTotal = precoTotal;
     }
 
+    //Para criar objeto
     public ItemPedidoDTO() {
     }
 
