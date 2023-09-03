@@ -20,6 +20,8 @@ public class PedidoDAO extends DAOTemplate<PedidoDTO> {
         if(instance == null)
             instance = new PedidoDAO();
         
+        instance.setConnection();
+        
         return instance;
     }
     
@@ -49,11 +51,16 @@ public class PedidoDAO extends DAOTemplate<PedidoDTO> {
     
     public boolean realizarPedido(PedidoDTO obj, List<ItemPedidoDTO> itens){
         String sql = "INSERT INTO pedidos (id_cliente, id_loja, data_hora_pedido, local_entrega, preco_total, status) VALUES (?, ?, ?, ?, ?, ?)";
+        
         boolean aux = executeUpdate(sql, obj.getIdCliente(), obj.getIdLoja(), obj.getDhPedido(), obj.getlEntrega(), obj.getpTotal(), obj.getStatus());
+        
         if(!aux)
             System.out.println("Deu errado! -_-");
+        
         PedidoDTO ped = getPedidoByIdLojaCliente(obj.getIdLoja(), obj.getIdCliente());
+        
         itemDAO.addItens(itens, ped.getId());
+        
         if(!updateValorTotal(calculaValorTotal(itens), ped.getId()))
             System.out.println("Não foi possível armazenar o valor total");
         
@@ -101,7 +108,7 @@ public class PedidoDAO extends DAOTemplate<PedidoDTO> {
     public PedidoDTO getPedidoByIdLojaCliente(int idLoja, String idCliente) {
         String sql = "SELECT * FROM pedidos WHERE id_cliente = ? AND id_loja = ?";
         
-        List<PedidoDTO> pedido = executeQuery(sql, idLoja, idCliente);
+        List<PedidoDTO> pedido = executeQuery(sql, idCliente, idLoja);
         
         return pedido.isEmpty() ? null : pedido.get(0);
     }

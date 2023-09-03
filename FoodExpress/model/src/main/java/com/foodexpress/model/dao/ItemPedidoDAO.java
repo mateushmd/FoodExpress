@@ -18,6 +18,8 @@ public class ItemPedidoDAO extends DAOTemplate<ItemPedidoDTO> {
         if(instance == null)
             instance = new ItemPedidoDAO();
         
+        instance.setConnection();
+        
         return instance;
     }
 
