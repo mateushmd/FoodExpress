@@ -22,9 +22,11 @@ public class PedidoDTO {
     String dhFechamento; //Data e hora fechammento
     List<ItemPedidoDTO> produtos;
 
+    //criar objeto
     public PedidoDTO() {
     }
 
+    //resgatar bd
     public PedidoDTO(int id, int id_loja, String id_cliente, String dhPedido, String lEntrega, double preco_total, String status, String razao_cancelamento, String dhFechamento) {
         this.id = id;
         this.idLoja = id_loja;
@@ -36,6 +38,21 @@ public class PedidoDTO {
         this.rCancelamento = razao_cancelamento;
         this.dhFechamento = dhFechamento;
     }
+
+    //salvar no bd
+    public PedidoDTO(int idLoja, String idCliente, String dhPedido, String lEntrega, double pTotal, String status) {
+        this.idLoja = idLoja;
+        this.idCliente = idCliente;
+        this.dhPedido = dhPedido;
+        this.lEntrega = lEntrega;
+        this.pTotal = pTotal;
+        this.status = status;
+        this.rCancelamento = rCancelamento;
+        this.dhFechamento = dhFechamento;
+        this.produtos = produtos;
+    }
+    
+    
 
     public int getId() {
         return id;

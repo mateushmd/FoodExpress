@@ -1,6 +1,7 @@
 package com.foodexpress.model.dao;
 
 import com.foodexpress.model.dto.ItemPedidoDTO;
+import com.foodexpress.model.dto.ProdutoDTO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -16,6 +17,8 @@ public class ItemPedidoDAO extends DAOTemplate<ItemPedidoDTO> {
     public static synchronized ItemPedidoDAO getInstance(){
         if(instance == null)
             instance = new ItemPedidoDAO();
+        
+        instance.setConnection();
         
         return instance;
     }

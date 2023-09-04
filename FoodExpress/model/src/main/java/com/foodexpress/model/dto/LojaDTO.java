@@ -10,6 +10,7 @@ public class LojaDTO {
     private String idUser;
     private List<ProdutoDTO> cardapio;
 
+    //Resgatar do bd
     public LojaDTO(int id, String nome, String descricao, double avaliacao, String idUser) {
         this.id = id;
         this.nome = nome;
@@ -18,6 +19,7 @@ public class LojaDTO {
         this.idUser = idUser;
     }
 
+    //Salvar no bd
     public LojaDTO(String nome, String descricao, double avaliacao, String idUser) {
         this.nome = nome;
         this.descricao = descricao;
@@ -25,6 +27,7 @@ public class LojaDTO {
         this.idUser = idUser;
     }
     
+    //Criar objeto
     public LojaDTO(){
     }
 
