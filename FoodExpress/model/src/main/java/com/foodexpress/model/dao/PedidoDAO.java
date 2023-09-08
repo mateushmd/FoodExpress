@@ -51,15 +51,25 @@ public class PedidoDAO extends DAOTemplate<PedidoDTO> {
     
     public boolean realizarPedido(PedidoDTO obj, List<ItemPedidoDTO> itens){
         String sql = "INSERT INTO pedidos (id_cliente, id_loja, data_hora_pedido, local_entrega, preco_total, status) VALUES (?, ?, ?, ?, ?, ?)";
+        boolean aux = false;
         
-        boolean aux = executeUpdate(sql, obj.getIdCliente(), obj.getIdLoja(), obj.getDhPedido(), obj.getlEntrega(), obj.getpTotal(), obj.getStatus());
+        PedidoDTO ped = getPedidoByIdLojaCliente(obj.getIdLoja(), obj.getIdCliente());
+        
+        if(ped == null){
+            aux = executeUpdate(sql, obj.getIdCliente(), obj.getIdLoja(), obj.getDhPedido(), obj.getlEntrega(), obj.getpTotal(), obj.getStatus());
+            ped = getPedidoByIdLojaCliente(obj.getIdLoja(), obj.getIdCliente());
+        }
         
         if(!aux)
             System.out.println("Deu errado! -_-");
         
-        PedidoDTO ped = getPedidoByIdLojaCliente(obj.getIdLoja(), obj.getIdCliente());
-        
         itemDAO.addItens(itens, ped.getId());
+        
+        List<ItemPedidoDTO> listAux = itemDAO.getItensPedidoByPedido(ped.getId());
+        
+        if(listAux != null)
+            for(ItemPedidoDTO item : listAux)
+                itens.add(item);
         
         if(!updateValorTotal(calculaValorTotal(itens), ped.getId()))
             System.out.println("Não foi possível armazenar o valor total");

@@ -57,4 +57,12 @@ public class ItemPedidoDAO extends DAOTemplate<ItemPedidoDTO> {
             executeUpdate(sql, i.getIdProduto(), idPedido, i.getQuantidade(), i.getPrecoTotal());
         }
     }
+    
+    public List<ItemPedidoDTO> getItensPedidoByPedido(int idPedido){
+        String sql = "SELEECT * FROM itens_pedido WHERE id_pedido = ?";
+        
+        List<ItemPedidoDTO> prod = executeQuery(sql, idPedido);
+        
+        return prod.isEmpty() ? null : prod;
+    }
 }
