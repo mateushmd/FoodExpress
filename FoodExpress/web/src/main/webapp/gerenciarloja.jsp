@@ -16,31 +16,34 @@
     </head>
 
     <body>
+        <c:set var="loja" value="${sessionScope.loja}"/>
         <c:set var="produtos" value="${sessionScope.produtos}"/>
+        <input type="hidden" id="emailFirebase" value="${usuario.email}">
+
         <header id="navbar">
-		<img id="navbar-logo" src="imgs/logo3.png" alt="Logo">
-		<div id="navbar-menu">
-			<a class="navbar-link" href="menuprincipal.jsp">Início</a>
-			<a class="navbar-link" href="gerenciarperfil.jsp">Perfil</a>
-			<a class="navbar-link" href="#">Favoritos</a>
-			<a class="navbar-link" href="gerenciarloja.jsp">Loja</a>
-			<a class="navbar-link" href="#">Sobre</a>
-		</div>
-		<div id="search-bar">
-			<img src="imgs/lupa-azul.svg" alt="">
-			<input type="text" placeholder="Pesquisar...">
-		</div>
-		<div id="navbar-icons">
-			<img id="profile-pic" src="imgs/icone-perfil.png" alt="Perfil">
-			<div id="orders">
-				<img id="orders-pic" src="imgs/sacola.png" alt="Pedidos">
-				<div id="orders-info">
-					<p>R$0,00</p>
-					<p>0 itens</p>
-				</div>
-			</div>
-		</div>
-	</header>
+            <img id="navbar-logo" src="imgs/logo3.png" alt="Logo">
+            <div id="navbar-menu">
+                <a class="navbar-link" href="menuprincipal.jsp">Início</a>
+                <a class="navbar-link" href="gerenciarperfil.jsp">Perfil</a>
+                <a class="navbar-link" href="#">Favoritos</a>
+                <a class="navbar-link" href="gerenciarloja.jsp">Loja</a>
+                <a class="navbar-link" href="#">Sobre</a>
+            </div>
+            <div id="search-bar">
+                <img src="imgs/lupa-azul.svg" alt="">
+                <input type="text" placeholder="Pesquisar...">
+            </div>
+            <div id="navbar-icons">
+                <img id="profile-pic" src="imgs/icone-perfil.png" alt="Perfil">
+                <div id="orders">
+                    <img id="orders-pic" src="imgs/sacola.png" alt="Pedidos">
+                    <div id="orders-info">
+                        <p>R$0,00</p>
+                        <p>0 itens</p>
+                    </div>
+                </div>
+            </div>
+        </header>
 
         <main>
             <section>
@@ -60,7 +63,7 @@
                                 <div id="editaLoja">
                                     <div class="dados-loja">
                                         <label class="labels-loja">Nome:</label>
-                                        <input type="text" class="form-control-loja" name="nome" placeholder="">
+                                        <input type="text" class="form-control-loja" name="nome" value="${loja.nome}" placeholder="">
                                     </div>
                                     <div class="dados-loja">
                                         <label class="labels-loja">Descrição:</label>
@@ -75,7 +78,7 @@
                                     </div>
                                 </div>
                                 <div id="botoes-loja">
-                                    <button class="botaoLoja">Salvar</button>
+                                    <button class="botaoLoja" id="uploadButton">Salvar</button>
                                     <button class="botaoLoja">Editar</button>
                                 </div>
                             </form>
@@ -164,6 +167,46 @@
                 </div>
             </section>
         </main>
+
+        <script type="module">
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+            import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
+            const firebaseConfig = {
+                apiKey: "AIzaSyC6E9U_uW78MMsIf9oQKBTm5LjvRp6OB2A",
+                authDomain: "restricted-d6b24.firebaseapp.com",
+                databaseURL: "https://restricted-d6b24-default-rtdb.firebaseio.com",
+                projectId: "restricted-d6b24",
+                storageBucket: "restricted-d6b24.appspot.com",
+                messagingSenderId: "351037789777",
+                appId: "1:351037789777:web:5a43c6cd09be7a53d70a70",
+                measurementId: "G-G0VFKP7XGK"
+            };
+            const app = initializeApp(firebaseConfig);
+            async function uploadFile(file) {
+                const storage = getStorage(app);
+                let e = document.getElementById("emailFirebase");
+                const storageRef = ref(storage, 'lojaFoto/' + e.value);//Alteração
+                try {
+                    await uploadBytes(storageRef, file);
+                    // Get the download URL of the uploaded file
+                    const downloadURL = await getDownloadURL(storageRef);
+                    console.log('Uploaded and replaced file:', file.name);
+                    console.log('File available at', downloadURL);
+                } catch (error) {
+                    console.error('Error uploading file:', error);
+                }
+            }
+
+            document.addEventListener("DOMContentLoaded", function () {
+                const fileInput = document.getElementById('picture-input-loja');//Alteração
+                const uploadButton = document.getElementById('uploadButton');
+                uploadButton.addEventListener('click', () => {
+                    const file = fileInput.files[0];
+                    if (file) {
+                        uploadFile(file);
+                    }
+                });
+            });</script>
 
         <script src="scripts/editarloja.js"></script>
         <script src="scripts/menu.js"></script>
