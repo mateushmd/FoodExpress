@@ -2,10 +2,13 @@ package com.foodexpress.model.service;
 
 import com.foodexpress.model.dao.LojaDAO;
 import com.foodexpress.model.dao.ProdutoDAO;
+import com.foodexpress.model.dto.AvaliacaoDTO;
 import com.foodexpress.model.dto.LojaDTO;
 import com.foodexpress.model.dto.ProdutoDTO;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class LojaService {
@@ -39,7 +42,7 @@ public class LojaService {
         return ldao.getLoja(idUser);
     }
     
-    public LojaDTO getLojaById(String idLoja) {
+    public LojaDTO getLojaById(int idLoja) {
         return ldao.getLojaById(idLoja);
     }
     
@@ -47,16 +50,24 @@ public class LojaService {
         return ldao.updateND(obj);
     }
     
-    public boolean updateAvaliacao(LojaDTO obj){
-        return ldao.updateA(obj);
+    public boolean updateAvaliacao(LojaDTO obj, int novaAvaliacao){
+        DecimalFormat df = new DecimalFormat("#.#");
+        
+        obj.setQtdAvaliacoes(obj.getQtdAvaliacoes() + 1);
+        
+        obj.setSomaAvaliacoes(obj.getSomaAvaliacoes() + novaAvaliacao);
+        
+        obj.setAvaliacao((double) obj.getSomaAvaliacoes() / (double) obj.getQtdAvaliacoes());
+        
+        return ldao.updateAvaliacao(obj);
     }
     
     public void cadastrar(LojaDTO obj){
         ldao.cadastrar(obj);
     }
     
-    public ArrayList<LojaDTO> listarLojas() {
-        return (ArrayList) ldao.ListarLojas();
+    public List<LojaDTO> listarLojas() {
+        return ldao.ListarLojas();
     }
     
     public boolean adicionarProduto(ProdutoDTO obj){

@@ -8,6 +8,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>FoodExpress</title>
         <link rel="stylesheet" type="text/css" href="styles/loja.css">
+        <link rel="stylesheet" type="text/css" href="styles/rating.css">
         <link rel="stylesheet" type="text/css" href="styles/header.css">
         <link rel="stylesheet" type="text/css" href="styles/carrossel.css">
         <link rel="stylesheet" type="text/css" href="styles/footer.css">
@@ -16,6 +17,7 @@
     <body>
         <c:set var="loja" value="${requestScope.loja}"/>
         <c:set var="produtos" value="${requestScope.produtos}"/>
+        <c:set var="avaliacoes" value="${requestScope.avaliacoes}"/>
         <input type="hidden" id="emailFirebase" value="${loja.idUser}">
         <header id="navbar">
             <img id="navbar-logo" src="imgs/logo3.png" alt="Logo">
@@ -48,21 +50,21 @@
             <section id="info">
                 <img src="imgs/teste/teste.jpg" alt="" id="imgLojaF">
                 <h1>${loja.nome}</h1>
-                <div class="rating">
+                <div class="rating process-rating trigger" data-rating="<fmt:formatNumber value="${loja.avaliacao}" type="number" maxFractionDigits="0"/>">
                     <input class="star-input" id="star1" type="radio" name="rating" value="1">
-                    <label class="star-label" for="star1" data-star="1">&#9733;</label>
+                    <label class="star-label" for="star1" data-star="1"><img src="imgs/gray-star.svg" alt=""></label>
 
                     <input class="star-input" id="star2" type="radio" name="rating" value="2">
-                    <label class="star-label" for="star2" data-star="2">&#9733;</label>
+                    <label class="star-label" for="star2" data-star="2"><img src="imgs/gray-star.svg" alt=""></label>
 
                     <input class="star-input" id="star3" type="radio" name="rating" value="3">
-                    <label class="star-label" for="star3" data-star="3">&#9733;</label>
+                    <label class="star-label" for="star3" data-star="3"><img src="imgs/gray-star.svg" alt=""></label>
 
                     <input class="star-input" id="star4" type="radio" name="rating" value="4">
-                    <label class="star-label" for="star4" data-star="4">&#9733;</label>
+                    <label class="star-label" for="star4" data-star="4"><img src="imgs/gray-star.svg" alt=""></label>
 
                     <input class="star-input" id="star5" type="radio" name="rating" value="5">
-                    <label class="star-label" for="star5" data-star="5">&#9733;</label>
+                    <label class="star-label" for="star5" data-star="5"><img src="imgs/gray-star.svg" alt=""></label>
                 </div>
                 <form class="favorite" action="">
                     <button type="submit">♥</button>
@@ -164,6 +166,145 @@
                     </div>
                 </div>
             </section>
+            <div id="slider">
+                <button id="close-slider">
+                    <img src="imgs/x-symbol.svg" alt="">
+                </button>
+
+                <div id="slider-ratings">
+                    <div id="slider-ratings-header">
+                        <h2 class="font-707">Avaliações</h2>
+                        <span>NOME DA LOJA</span>
+                        <h1><fmt:formatNumber value="${loja.avaliacao}" type="number" pattern="#,##0.0" /></h1>
+                        <div class="rating process-rating" data-rating="<fmt:formatNumber value="${loja.avaliacao}" type="number" maxFractionDigits="0"/>">
+                            <input class="star-input" type="radio" name="rating" value="1">
+                            <label class="star-label" for="star1" data-star="1"><img src="imgs/gray-star.svg"
+                                                                                     alt=""></label>
+
+                            <input class="star-input" type="radio" name="rating" value="2">
+                            <label class="star-label" for="star2" data-star="2"><img src="imgs/gray-star.svg"
+                                                                                     alt=""></label>
+
+                            <input class="star-input" type="radio" name="rating" value="3">
+                            <label class="star-label" for="star3" data-star="3"><img src="imgs/gray-star.svg"
+                                                                                     alt=""></label>
+
+                            <input class="star-input" type="radio" name="rating" value="4">
+                            <label class="star-label" for="star4" data-star="4"><img src="imgs/gray-star.svg"
+                                                                                     alt=""></label>
+
+                            <input class="star-input" type="radio" name="rating" value="5">
+                            <label class="star-label" for="star5" data-star="5"><img src="imgs/gray-star.svg"
+                                                                                     alt=""></label>
+                        </div>
+                        <span>${loja.qtdAvaliacoes} avaliações</span>
+                    </div>
+                    <div id="slider-ratings-content">
+                        <div id="user-comment">
+                            <form action="avaliacao" method="post">
+                                <h2>Sua avaliação</h2>
+                                <textarea name="comentario" cols="30" rows="4"
+                                          placeholder="Fale sobre sua experiência com a loja"></textarea>
+                                <div id="user-comment-footer">
+                                    <div id="user-rating" class="rating small">
+                                        <input class="star-input" type="radio" name="rating" value="1">
+                                        <label class="star-label" for="star1" data-star="1"><img src="imgs/gray-star.svg"
+                                                                                                 alt=""></label>
+
+                                        <input class="star-input" type="radio" name="rating" value="2">
+                                        <label class="star-label" for="star2" data-star="2"><img src="imgs/gray-star.svg"
+                                                                                                 alt=""></label>
+
+                                        <input class="star-input" type="radio" name="rating" value="3">
+                                        <label class="star-label" for="star3" data-star="3"><img src="imgs/gray-star.svg"
+                                                                                                 alt=""></label>
+
+                                        <input class="star-input" type="radio" name="rating" value="4">
+                                        <label class="star-label" for="star4" data-star="4"><img src="imgs/gray-star.svg"
+                                                                                                 alt=""></label>
+
+                                        <input class="star-input" type="radio" name="rating" value="5">
+                                        <label class="star-label" for="star5" data-star="5"><img src="imgs/gray-star.svg"
+                                                                                                 alt=""></label>
+                                    </div>
+                                    <div class="botao">
+                                        <input type="submit" name="submit" value="ENVIAR" id="rate">
+                                    </div>
+                                </div>
+                                <input type="hidden" id="rating" name="rating">
+                                <input type="hidden" name="idLoja" value="${loja.id}">
+                            </form>
+                        </div>
+                        <div class="slider-ratings-comment">
+                            <c:forEach items="${avaliacoes}" var="avaliacao">
+                                <h2>${avaliacao.idCliente}</h2>
+                                <p>${avaliacao.comentario}</p>
+                                <div class="slider-ratings-comment-footer">
+                                    <div>
+                                        <span>${avaliacao.nota}</span>
+                                        <div class="rating process-rating small" data-rating="${avaliacao.nota}">
+                                            <input class="star-input" type="radio" name="rating" value="1">
+                                            <label class="star-label" for="star1" data-star="1"><img src="imgs/gray-star.svg"
+                                                                                                     alt=""></label>
+
+                                            <input class="star-input" type="radio" name="rating" value="2">
+                                            <label class="star-label" for="star2" data-star="2"><img src="imgs/gray-star.svg"
+                                                                                                     alt=""></label>
+
+                                            <input class="star-input" type="radio" name="rating" value="3">
+                                            <label class="star-label" for="star3" data-star="3"><img src="imgs/gray-star.svg"
+                                                                                                     alt=""></label>
+
+                                            <input class="star-input" type="radio" name="rating" value="4">
+                                            <label class="star-label" for="star4" data-star="4"><img src="imgs/gray-star.svg"
+                                                                                                     alt=""></label>
+
+                                            <input class="star-input" type="radio" name="rating" value="5">
+                                            <label class="star-label" for="star5" data-star="5"><img src="imgs/gray-star.svg"
+                                                                                                     alt=""></label>
+                                        </div>
+                                    </div>
+                                    <span><fmt:formatDate value="${avaliacao.data}" pattern="dd/MM/yyyy"/></span>
+                                </div>
+                            </c:forEach>
+                            <h2>NOME</h2>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique vero facere error
+                                dolore,
+                                a tempore sed blanditiis ex iste eveniet consequatur, ea, possimus eum? Odio sint officiis
+                                deserunt vero natus.
+                            </p>
+                            <div class="slider-ratings-comment-footer">
+                                <div>
+                                    <span>4,0</span>
+                                    <div class="rating process-rating small" data-rating="3">
+                                        <input class="star-input" type="radio" name="rating" value="1">
+                                        <label class="star-label" for="star1" data-star="1"><img src="imgs/gray-star.svg"
+                                                                                                 alt=""></label>
+
+                                        <input class="star-input" type="radio" name="rating" value="2">
+                                        <label class="star-label" for="star2" data-star="2"><img src="imgs/gray-star.svg"
+                                                                                                 alt=""></label>
+
+                                        <input class="star-input" type="radio" name="rating" value="3">
+                                        <label class="star-label" for="star3" data-star="3"><img src="imgs/gray-star.svg"
+                                                                                                 alt=""></label>
+
+                                        <input class="star-input" type="radio" name="rating" value="4">
+                                        <label class="star-label" for="star4" data-star="4"><img src="imgs/gray-star.svg"
+                                                                                                 alt=""></label>
+
+                                        <input class="star-input" type="radio" name="rating" value="5">
+                                        <label class="star-label" for="star5" data-star="5"><img src="imgs/gray-star.svg"
+                                                                                                 alt=""></label>
+                                    </div>
+                                </div>
+                                <span>23/01/2006</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </main>
         <footer>
             <div class="container-footer">
@@ -239,12 +380,17 @@
                 let imageUrl = await getImageUrlByName();
                 const imgElement = document.getElementById('bannerLojaF');
                 const imgElement2 = document.getElementById('imgLojaF');
-                
-                if(imageUrl !== null) {
+
+                if (imageUrl !== null) {
                     imgElement.src = imageUrl;
                     imgElement2.src = imageUrl;
                 }
             });
         </script>
+
+        <script src="scripts/rating.js"></script>
+        <script src="scripts/userRating.js"></script>
+        <script src="scripts/carrossel.js"></script>
+        <script src="scripts/slider.js"></script>
     </body>
 </html>

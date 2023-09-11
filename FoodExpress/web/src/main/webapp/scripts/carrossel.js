@@ -4,8 +4,6 @@ const bodyEl = document.querySelector('body');
 
 resizeArrow();
 
-console.log(document.querySelector('.id').value);
-
 window.addEventListener('resize', (e) =>
 {
     resizeArrow();
@@ -31,9 +29,9 @@ arrows.forEach((el) =>
     });
 });
 
-const items = [...document.querySelectorAll('.item')];
+const itemsLoja = [...document.querySelectorAll('.item-loja')];
 
-items.forEach((el) =>
+itemsLoja.forEach((el) =>
 {
     el.addEventListener('click', (e) =>
     {

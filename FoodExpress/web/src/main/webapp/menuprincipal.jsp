@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -10,6 +11,7 @@
         <title>FoodExpress</title>
         <link rel="stylesheet" type="text/css" href="styles/menuprincipal.css">
         <link rel="stylesheet" type="text/css" href="styles/carrossel.css">
+        <link rel="stylesheet" type="text/css" href="styles/rating.css">
         <link rel="stylesheet" type="text/css" href="styles/header.css">
         <link rel="stylesheet" type="text/css" href="styles/footer.css">
         <link rel="stylesheet" type="text/css" href="styles/scrollbar.css">
@@ -51,18 +53,22 @@
                     <div class="carousel" data-index="0" >
                         <c:forEach items="${lojas}" var="loja">
                             <form action="loja" method="post">
-                                <div class="item">
+                                <div class="item item-loja">
                                     <div class="img-container">
                                         <img src="imgs/teste/teste.jpg" alt="${loja.idUser}" id="imgLojaF">
                                     </div>
                                     <div class="info-container">
                                         <h2>${loja.nome}</h2>
-                                        <div class="carousel-rate" aria-label="4">
-                                            <span class="carousel-star filled">★</span>
-                                            <span class="carousel-star filled">★</span>
-                                            <span class="carousel-star filled">★</span>
-                                            <span class="carousel-star filled">★</span>
-                                            <span class="carousel-star">★</span>
+                                        <div class="rating small process-rating" data-rating="<fmt:formatNumber value="${loja.avaliacao}" type="number" maxFractionDigits="0"/>">
+                                            <label class="star-label" data-star="1"><img src="imgs/gray-star.svg" alt=""></label>
+
+                                            <label class="star-label" data-star="2"><img src="imgs/gray-star.svg" alt=""></label>
+
+                                            <label class="star-label" data-star="3"><img src="imgs/gray-star.svg" alt=""></label>
+
+                                            <label class="star-label" data-star="4"><img src="imgs/gray-star.svg" alt=""></label>
+
+                                            <label class="star-label" data-star="5"><img src="imgs/gray-star.svg" alt=""></label>
                                         </div>
                                         <div class="carousel-favorite">
                                             <button type="submit" value="FAVORITAR">♥</button>
@@ -139,29 +145,30 @@
                 let e = document.getElementById("imgLojaF");
                 const imgElements = document.querySelectorAll('.img-container img');
                 imgElements.forEach(async imgElement => {
-                  const altText = imgElement.getAttribute('alt');
-                  console.log(altText);
+                    const altText = imgElement.getAttribute('alt');
+                    console.log(altText);
 
-                  const storageRef = ref(storage, 'lojaFoto/' + altText);
+                    const storageRef = ref(storage, 'lojaFoto/' + altText);
 
-                  try {
-                    const imageUrl = await getDownloadURL(storageRef);
-                    if (imageUrl) {
-                      imgElement.src = imageUrl;
-                    } else {
-                      console.log("Erro ao carregar a imagem para o email:", altText);
+                    try {
+                        const imageUrl = await getDownloadURL(storageRef);
+                        if (imageUrl) {
+                            imgElement.src = imageUrl;
+                        } else {
+                            console.log("Erro ao carregar a imagem para o email:", altText);
+                        }
+                    } catch (error) {
+                        console.error('Erro ao obter URL de download:', error);
                     }
-                  } catch (error) {
-                    console.error('Erro ao obter URL de download:', error);
-                  }
                 });
             }
 
             document.addEventListener("DOMContentLoaded", async function () {
-               getImageUrlByName();
+                getImageUrlByName();
             });
         </script>
         <script src="scripts/carrossel.js"></script>
+        <script src="scripts/rating.js"></script>
     </body>
 </html>
 

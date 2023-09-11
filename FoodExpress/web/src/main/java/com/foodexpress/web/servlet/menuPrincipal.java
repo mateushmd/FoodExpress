@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -45,7 +46,7 @@ public class menuPrincipal extends HttpServlet {
         if(session.getAttribute("lojas") == null) {
             LojaService lservice = LojaService.getInstance();
         
-            ArrayList<LojaDTO> lojas = lservice.listarLojas();
+            ArrayList<LojaDTO> lojas = (ArrayList<LojaDTO>) lservice.listarLojas();
             
             session.setAttribute("lojas", lojas);
         }

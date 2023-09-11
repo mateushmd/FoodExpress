@@ -1,21 +1,16 @@
-const starInputs = [...document.querySelectorAll('.star-input')];
+const ratingElements = [...document.querySelectorAll('.process-rating')];
 
-const starLabels = [...document.querySelectorAll('.star-label')];
-
-starLabels.forEach((el) =>
+ratingElements.forEach(el =>
 {
-    el.addEventListener('click', (e) =>
+    const starLabels = [...el.querySelectorAll('.star-label')];
+    const rating = el.dataset.rating;
+
+    starLabels.forEach(label =>
     {
-        starLabels.forEach((el) =>
+        if (label.dataset.star <= rating)
         {
-            el.classList.remove('checked');
-        });
-
-        const starAmmount = el.dataset.star;
-
-        for (let i = 0; i < starAmmount; i++)
-        {
-            starLabels[i].classList.add('checked');
+            const imgEl = label.querySelector('img');
+            imgEl.src = 'imgs/star.svg';
         }
-    });
+    })
 });

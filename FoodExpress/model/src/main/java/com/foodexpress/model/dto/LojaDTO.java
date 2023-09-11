@@ -7,16 +7,20 @@ public class LojaDTO {
     private String nome;
     private String descricao;
     private double avaliacao;
+    private int qtdAvaliacoes;
+    private int somaAvaliacoes;
     private String idUser;
     private List<ProdutoDTO> cardapio;
 
     //Resgatar do bd
-    public LojaDTO(int id, String nome, String descricao, double avaliacao, String idUser) {
+    public LojaDTO(int id, String nome, String descricao, double avaliacao, String idUser, int qtdAvaliacoes, int somaAvaliacoes) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.avaliacao = avaliacao;
         this.idUser = idUser;
+        this.qtdAvaliacoes = qtdAvaliacoes;
+        this.somaAvaliacoes = somaAvaliacoes;
     }
 
     //Salvar no bd
@@ -69,5 +73,21 @@ public class LojaDTO {
 
     public void setIdUser(String idUser) {
         this.idUser = idUser;
+    }
+
+    public int getQtdAvaliacoes() {
+        return qtdAvaliacoes;
+    }
+
+    public void setQtdAvaliacoes(int qtdAvaliacoes) {
+        this.qtdAvaliacoes = qtdAvaliacoes;
+    }
+
+    public int getSomaAvaliacoes() {
+        return somaAvaliacoes;
+    }
+
+    public void setSomaAvaliacoes(int somaAvaliacoes) {
+        this.somaAvaliacoes = somaAvaliacoes;
     }
 }
