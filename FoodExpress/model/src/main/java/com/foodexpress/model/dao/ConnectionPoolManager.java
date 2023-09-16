@@ -10,7 +10,7 @@ public class ConnectionPoolManager {
         dataSource = new BasicDataSource();
         
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://us-cdbr-east-06.cleardb.net:3306/heroku_b695d40b1c0e531?useSSL=false");
+        dataSource.setUrl("jdbc:mysql://us-cdbr-east-06.cleardb.net:3306/heroku_b695d40b1c0e531?useSSL=false&useUnicode=true&characterEncoding=UTF-8");
         dataSource.setUsername("b4ef7c73d61cc7");
         dataSource.setPassword("c101e0f6");
         

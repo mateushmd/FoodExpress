@@ -235,8 +235,9 @@
                                 <input type="hidden" name="idLoja" value="${loja.id}">
                             </form>
                         </div>
-                        <div class="slider-ratings-comment">
-                            <c:forEach items="${avaliacoes}" var="avaliacao">
+                            
+                        <c:forEach items="${avaliacoes}" var="avaliacao">
+                            <div class="slider-ratings-comment">
                                 <h2>${avaliacao.idCliente}</h2>
                                 <p>${avaliacao.comentario}</p>
                                 <div class="slider-ratings-comment-footer">
@@ -266,7 +267,9 @@
                                     </div>
                                     <span><fmt:formatDate value="${avaliacao.data}" pattern="dd/MM/yyyy"/></span>
                                 </div>
-                            </c:forEach>
+                            </div>
+                        </c:forEach>
+                        <div class="slider-ratings-comment">
                             <h2>NOME</h2>
                             <p>
                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique vero facere error
@@ -305,92 +308,93 @@
                     </div>
                 </div>
             </div>
-        </main>
-        <footer>
-            <div class="container-footer">
-                <div class="row-footer">
-                    <div class="footer-col">
-                        <h4>Menu</h4>
-                        <ul>
-                            <li><a href="menuprincipal.jsp"> Inicio</a></li>
-                            <li><a href="gerenciarperfil.jsp"> Perfil</a></li>
-                            <li><a href="sobre.jsp">Sobre</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-col">
-                        <h4>Obter ajuda</h4>
-                        <ul>
-                            <li><a href="faq.jsp">FAQ</a></li>
-                            <li><a href="ajuda.jsp">Ajuda</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-col">
-                        <h4>Informações</h4>
-                        <ul>
-                            <li><a href="privacidade.jsp">Politica de privacidade</a></li>
-                            <li><a href="uso.jsp">Politica de uso</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-col">
-                        <h4>Inscreva-se!</h4>
+        </div>
+    </main>
+    <footer>
+        <div class="container-footer">
+            <div class="row-footer">
+                <div class="footer-col">
+                    <h4>Menu</h4>
+                    <ul>
+                        <li><a href="menuprincipal.jsp"> Inicio</a></li>
+                        <li><a href="gerenciarperfil.jsp"> Perfil</a></li>
+                        <li><a href="sobre.jsp">Sobre</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Obter ajuda</h4>
+                    <ul>
+                        <li><a href="faq.jsp">FAQ</a></li>
+                        <li><a href="ajuda.jsp">Ajuda</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Informações</h4>
+                    <ul>
+                        <li><a href="privacidade.jsp">Politica de privacidade</a></li>
+                        <li><a href="uso.jsp">Politica de uso</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Inscreva-se!</h4>
 
-                        <div class="medias-socias">
-                            <a href="#"> <i class="fa fa-facebook"></i> </a>
-                            <a href="#"> <i class="fa fa-instagram"></i> </a>
-                            <a href="#"> <i class="fa fa-twitter"></i> </a>
-                            <a href="#"> <i class="fa fa-linkedin"></i> </a>
-                        </div>
+                    <div class="medias-socias">
+                        <a href="#"> <i class="fa fa-facebook"></i> </a>
+                        <a href="#"> <i class="fa fa-instagram"></i> </a>
+                        <a href="#"> <i class="fa fa-twitter"></i> </a>
+                        <a href="#"> <i class="fa fa-linkedin"></i> </a>
                     </div>
                 </div>
             </div>
-            <div class="main_footer_copy">
-                <p class="m-b-footer"> FoodExpress - 2023, todos os direitos reservados.</p>
-            </div>
-        </footer>
+        </div>
+        <div class="main_footer_copy">
+            <p class="m-b-footer"> FoodExpress - 2023, todos os direitos reservados.</p>
+        </div>
+    </footer>
 
-        <script type="module">
-            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-            import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
-            const firebaseConfig = {
-                apiKey: "AIzaSyC6E9U_uW78MMsIf9oQKBTm5LjvRp6OB2A",
-                authDomain: "restricted-d6b24.firebaseapp.com",
-                databaseURL: "https://restricted-d6b24-default-rtdb.firebaseio.com",
-                projectId: "restricted-d6b24",
-                storageBucket: "restricted-d6b24.appspot.com",
-                messagingSenderId: "351037789777",
-                appId: "1:351037789777:web:5a43c6cd09be7a53d70a70",
-                measurementId: "G-G0VFKP7XGK"
-            };
-            const app = initializeApp(firebaseConfig);
-            function getImageUrlByName() {
-                const storage = getStorage(app); // Corrigido para usar 'app' em vez de 'firebaseApp'
-                let e = document.getElementById("emailFirebase");
-                const storageRef = ref(storage, 'lojaFoto/' + e.value);//Alteração
-                return getDownloadURL(storageRef)
-                        .then(downloadURL => {
-                            return downloadURL;
-                        })
-                        .catch(error => {
-                            console.error('Error getting download URL:', error);
-                            return null;
-                        });
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+        import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
+        const firebaseConfig = {
+            apiKey: "AIzaSyC6E9U_uW78MMsIf9oQKBTm5LjvRp6OB2A",
+            authDomain: "restricted-d6b24.firebaseapp.com",
+            databaseURL: "https://restricted-d6b24-default-rtdb.firebaseio.com",
+            projectId: "restricted-d6b24",
+            storageBucket: "restricted-d6b24.appspot.com",
+            messagingSenderId: "351037789777",
+            appId: "1:351037789777:web:5a43c6cd09be7a53d70a70",
+            measurementId: "G-G0VFKP7XGK"
+        };
+        const app = initializeApp(firebaseConfig);
+        function getImageUrlByName() {
+            const storage = getStorage(app); // Corrigido para usar 'app' em vez de 'firebaseApp'
+            let e = document.getElementById("emailFirebase");
+            const storageRef = ref(storage, 'lojaFoto/' + e.value);//Alteração
+            return getDownloadURL(storageRef)
+                    .then(downloadURL => {
+                        return downloadURL;
+                    })
+                    .catch(error => {
+                        console.error('Error getting download URL:', error);
+                        return null;
+                    });
+        }
+
+        document.addEventListener("DOMContentLoaded", async function () {
+            let imageUrl = await getImageUrlByName();
+            const imgElement = document.getElementById('bannerLojaF');
+            const imgElement2 = document.getElementById('imgLojaF');
+
+            if (imageUrl !== null) {
+                imgElement.src = imageUrl;
+                imgElement2.src = imageUrl;
             }
+        });
+    </script>
 
-            document.addEventListener("DOMContentLoaded", async function () {
-                let imageUrl = await getImageUrlByName();
-                const imgElement = document.getElementById('bannerLojaF');
-                const imgElement2 = document.getElementById('imgLojaF');
-
-                if (imageUrl !== null) {
-                    imgElement.src = imageUrl;
-                    imgElement2.src = imageUrl;
-                }
-            });
-        </script>
-
-        <script src="scripts/rating.js"></script>
-        <script src="scripts/userRating.js"></script>
-        <script src="scripts/carrossel.js"></script>
-        <script src="scripts/slider.js"></script>
-    </body>
+    <script src="scripts/rating.js"></script>
+    <script src="scripts/userRating.js"></script>
+    <script src="scripts/carrossel.js"></script>
+    <script src="scripts/slider.js"></script>
+</body>
 </html>

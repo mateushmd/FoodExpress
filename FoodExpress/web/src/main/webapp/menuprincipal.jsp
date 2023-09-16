@@ -82,6 +82,76 @@
                     </div>
                     <div class="arrow arrow-squared right-arrow"><img src="imgs/arrow-right.png" alt=""></div>
                 </div>
+                <h1 style="margin-top: 50px;">NOVIDADES</h1>
+                <div class="carousel-container realign" data-items="2">
+                    <div class="arrow arrow-squared left-arrow"><img src="imgs/arrow-left.png" alt=""></div>
+                    <div class="carousel" data-index="0" >
+                        <c:forEach items="${lojas}" var="loja">
+                            <form action="loja" method="post">
+                                <div class="item item-loja">
+                                    <div class="img-container">
+                                        <img src="imgs/teste/teste.jpg" alt="${loja.idUser}" id="imgLojaF">
+                                    </div>
+                                    <div class="info-container">
+                                        <h2>${loja.nome}</h2>
+                                        <div class="rating small process-rating" data-rating="<fmt:formatNumber value="${loja.avaliacao}" type="number" maxFractionDigits="0"/>">
+                                            <label class="star-label" data-star="1"><img src="imgs/gray-star.svg" alt=""></label>
+
+                                            <label class="star-label" data-star="2"><img src="imgs/gray-star.svg" alt=""></label>
+
+                                            <label class="star-label" data-star="3"><img src="imgs/gray-star.svg" alt=""></label>
+
+                                            <label class="star-label" data-star="4"><img src="imgs/gray-star.svg" alt=""></label>
+
+                                            <label class="star-label" data-star="5"><img src="imgs/gray-star.svg" alt=""></label>
+                                        </div>
+                                        <div class="carousel-favorite">
+                                            <button type="submit" value="FAVORITAR">♥</button>
+                                        </div>
+                                        <input type="hidden" name="id" value="${loja.id}" class="id">
+                                        <input type="hidden" name="submitAction" class="submit-action">
+                                    </div>
+                                </div>
+                            </form>
+                        </c:forEach>
+                    </div>
+                    <div class="arrow arrow-squared right-arrow"><img src="imgs/arrow-right.png" alt=""></div>
+                </div>
+                <h1 style="margin-top: 50px;">MAIS BEM AVALIADOS</h1>
+                <div class="carousel-container realign" data-items="2">
+                    <div class="arrow arrow-squared left-arrow"><img src="imgs/arrow-left.png" alt=""></div>
+                    <div class="carousel" data-index="0" >
+                        <c:forEach items="${lojas}" var="loja">
+                            <form action="loja" method="post">
+                                <div class="item item-loja">
+                                    <div class="img-container">
+                                        <img src="imgs/teste/teste.jpg" alt="${loja.idUser}" id="imgLojaF">
+                                    </div>
+                                    <div class="info-container">
+                                        <h2>${loja.nome}</h2>
+                                        <div class="rating small process-rating" data-rating="<fmt:formatNumber value="${loja.avaliacao}" type="number" maxFractionDigits="0"/>">
+                                            <label class="star-label" data-star="1"><img src="imgs/gray-star.svg" alt=""></label>
+
+                                            <label class="star-label" data-star="2"><img src="imgs/gray-star.svg" alt=""></label>
+
+                                            <label class="star-label" data-star="3"><img src="imgs/gray-star.svg" alt=""></label>
+
+                                            <label class="star-label" data-star="4"><img src="imgs/gray-star.svg" alt=""></label>
+
+                                            <label class="star-label" data-star="5"><img src="imgs/gray-star.svg" alt=""></label>
+                                        </div>
+                                        <div class="carousel-favorite">
+                                            <button type="submit" value="FAVORITAR">♥</button>
+                                        </div>
+                                        <input type="hidden" name="id" value="${loja.id}" class="id">
+                                        <input type="hidden" name="submitAction" class="submit-action">
+                                    </div>
+                                </div>
+                            </form>
+                        </c:forEach>
+                    </div>
+                    <div class="arrow arrow-squared right-arrow"><img src="imgs/arrow-right.png" alt=""></div>
+                </div>
             </section>
         </main>
         <footer>

@@ -14,3 +14,7 @@ body {
 main {
     padding: 8px 120px;
 }
+
+.content > h1 {
+    font-size: 100px;
+}

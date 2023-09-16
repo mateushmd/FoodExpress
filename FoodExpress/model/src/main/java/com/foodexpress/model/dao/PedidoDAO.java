@@ -20,8 +20,6 @@ public class PedidoDAO extends DAOTemplate<PedidoDTO> {
         if(instance == null)
             instance = new PedidoDAO();
         
-        instance.setConnection();
-        
         return instance;
     }
     

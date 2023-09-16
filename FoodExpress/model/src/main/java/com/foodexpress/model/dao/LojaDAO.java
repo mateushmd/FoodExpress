@@ -30,8 +30,6 @@ public class LojaDAO extends DAOTemplate<LojaDTO> {
         if(instance == null)
             instance = new LojaDAO();
         
-        instance.setConnection();
-        
         return instance;
     }
     
