@@ -22,7 +22,7 @@
         <div id="mainLogin">
             <div class="fundo"></div>
             <div class="containerLogin">
-                <img src="imgs/logo_semfundo.png" class="logoLog" alt="">
+                <img src="imgs/logo-sem-fundo.png" class="logoLog" alt="">
                 <form action="login" method="post">
                     <section class="campo">
                         <label for="email" class="label">E-MAIL:</label>

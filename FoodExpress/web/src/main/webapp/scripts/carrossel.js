@@ -1,97 +1,70 @@
-document.addEventListener("click", e => {
-    let handle
-    if (e.target.matches(".handle")) {
-        handle = e.target
-    } else {
-        handle = e.target.closest(".handle")
-    }
-    if (handle != null) onHandleClick(handle)
-})
+const arrows = [...document.querySelectorAll('.arrow')];
 
-/*
-const throttleProgressBar = throttle(() => {
-    document.querySelectorAll(".progress-bar").forEach(calculateProgressBar)
-}, 250)
-window.addEventListener("resize", throttleProgressBar)
+const bodyEl = document.querySelector('body');
 
-document.querySelectorAll(".progress-bar").forEach(calculateProgressBar)
+resizeArrow();
 
-function calculateProgressBar(progressBar) {
-    progressBar.innerHTML = ""
-    const slider = progressBar.closest(".row").querySelector(".slider")
-    const itemCount = slider.children.length
-    const itemsPerScreen = parseInt(
-        getComputedStyle(slider).getPropertyValue("--items-per-screen")
-    )
-    let sliderIndex = parseInt(
-        getComputedStyle(slider).getPropertyValue("--slider-index")
-    )
-    const progressBarItemCount = Math.ceil(itemCount / itemsPerScreen)
+window.addEventListener('resize', (e) =>
+{
+    resizeArrow();
+});
 
-    if (sliderIndex >= progressBarItemCount) {
-        slider.style.setProperty("--slider-index", progressBarItemCount - 1)
-        sliderIndex = progressBarItemCount - 1
-    }
+arrows.forEach((el) =>
+{
+    el.addEventListener('click', (e) =>
+    {
+        const itemsInScreen = parseInt(el.closest('.carousel-container').dataset.items);
 
-    for (let i = 0; i < progressBarItemCount; i++) {
-        const barItem = document.createElement("div")
-        barItem.classList.add("progress-item")
-        if (i === sliderIndex) {
-            barItem.classList.add("active")
+        let axis = el.classList.contains('left-arrow') ? 1 : -1;
+
+        let carrosselEl = axis === 1 ? el.nextElementSibling : el.previousElementSibling;
+
+        let itemSize = getComputedStyle(document.documentElement).getPropertyValue('--item-width');
+
+        let index = parseInt(carrosselEl.dataset.index);
+
+        index = carrosselEl.dataset.index = index - axis > -1 ? (index - axis < carrosselEl.children.length - itemsInScreen ? index - axis : carrosselEl.children.length - itemsInScreen) : 0;
+
+        carrosselEl.style.transform = `translateX(calc(((${itemSize} + 20px) * ${index}) * -1))`;
+    });
+});
+
+const itemsLoja = [...document.querySelectorAll('.item-loja')];
+
+itemsLoja.forEach((el) =>
+{
+    el.addEventListener('click', (e) =>
+    {
+        const inputSubmitEl = el.querySelector('.submit-action');
+        
+        const formEl = el.closest('form');
+        
+        if(e.target.tagName === 'BUTTON') 
+        {
+            inputSubmitEl.value = 'FAVORITAR';
+            formEl.submit();
         }
-        progressBar.append(barItem)
-    }
-}
-*/
+        
+        inputSubmitEl.value = 'VISUALIZAR';
+        
+        formEl.submit();
+    });
+});
 
-function onHandleClick(handle) {
-    const slider = handle.closest(".container").querySelector(".slider")
-    const itemCount = slider.childElementCount; 
-    const sliderIndex = parseInt(
-        getComputedStyle(slider).getPropertyValue("--slider-index")
-    )
-    const itemsPerScreen = parseInt(
-        getComputedStyle(slider).getPropertyValue("--items-per-screen")
-    )
-    const sets = Math.ceil(itemCount / itemsPerScreen)
-    if (handle.classList.contains("left-handle")) {
-        if (sliderIndex - 1 < 0) {
-            slider.style.setProperty("--slider-index", sets - 1)
-        } else {
-            slider.style.setProperty("--slider-index", sliderIndex - 1)
-        }
-    }
+function resizeArrow() 
+{
+    if (bodyEl.scrollHeight <= bodyEl.clientHeight)
+        return;
 
-    if (handle.classList.contains("right-handle")) {
-        if (sliderIndex + 1 >= sets) {
-            slider.style.setProperty("--slider-index", 0)
-        } else {
-            slider.style.setProperty("--slider-index", sliderIndex + 1)
-        }
-    }
-}
+    arrows.forEach((el) =>
+    {
+        if (!el.classList.contains('right-arrow') || !el.classList.contains('arrow-squared'))
+            return;
 
-function throttle(cb, delay = 1000) {
-    let shouldWait = false
-    let waitingArgs
-    const timeoutFunc = () => {
-        if (waitingArgs == null) {
-            shouldWait = false
-        } else {
-            cb(...waitingArgs)
-            waitingArgs = null
-            setTimeout(timeoutFunc, delay)
-        }
-    }
+        const itemWidth = getComputedStyle(document.documentElement).getPropertyValue('--item-width');
 
-    return (...args) => {
-        if (shouldWait) {
-            waitingArgs = args
-            return
-        }
+        const rightArrowEl = arrows[1];
 
-        cb(...args)
-        shouldWait = true
-        setTimeout(timeoutFunc, delay)
-    }
+        rightArrowEl.style.width = `calc(${itemWidth} / 2.2 - .6vw)`;
+    });
 }

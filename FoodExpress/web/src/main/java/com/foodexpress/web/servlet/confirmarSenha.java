@@ -43,9 +43,7 @@ public class confirmarSenha extends HttpServlet {
         String email = request.getParameter("email");
         
         if(submit.equals("CANCELAR")) {
-            rd = request.getRequestDispatcher("gerenciarperfil.jsp");
-            
-            rd.forward(request, response);
+            response.sendRedirect("gerenciarperfil.jsp");
             
             return;
         }

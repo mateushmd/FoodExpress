@@ -1,14 +1,20 @@
 @import url('https://fonts.cdnfonts.com/css/cooper-hewitt?styles=34277,34271');
 
 body {
-    font-family: 'Cooper Hewitt', sans-serif;
     margin: 0;
-    height: 100%;
-    background-color: #e6f1f5;
+    height: 100vh;
+    background-color: white;
+    overflow-x: hidden;
+    font-family: 'Cooper Hewitt', sans-serif;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: 100vw;
 }
 
-section p {
-    font-weight: 800;
-    font-size: 2em;
-    margin-left: 55px;
+main {
+    padding: 8px 120px;
+}
+
+.content > h1 {
+    font-size: 100px;
 }

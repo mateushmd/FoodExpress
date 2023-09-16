@@ -6,17 +6,17 @@ public class ProdutoDTO {
     String nome;
     double preco;
     String descricao;
-    int quantidade;
+    boolean disponivel;
 
-    public ProdutoDTO(int idLoja, String nome, double preco, int quantidade) {
+    public ProdutoDTO(int idLoja, String nome, double preco, boolean disponivel) {
         this.idLoja = idLoja;
         this.nome = nome;
         this.preco = preco;
-        this.quantidade = quantidade;
+        this.disponivel = disponivel;
     }
     
-    public ProdutoDTO(int idLoja, String nome, double preco, int quantidade, String descricao) {
-        this(idLoja, nome, preco, quantidade);
+    public ProdutoDTO(int idLoja, String nome, double preco, boolean disponivel, String descricao) {
+        this(idLoja, nome, preco, disponivel);
         this.descricao = descricao;
     }
             
@@ -63,11 +63,11 @@ public class ProdutoDTO {
         this.preco = preco;
     }
     
-    public int getQuantidade() {
-        return quantidade;
+    public boolean getDisponivel() {
+        return disponivel;
     }
     
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
+    public void setDisponivel(boolean disponivel) {
+        this.disponivel = disponivel;
     }
 }

@@ -8,6 +8,8 @@ import com.foodexpress.model.dto.LojaDTO;
 import com.foodexpress.model.dto.ProdutoDTO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -17,13 +19,11 @@ import java.util.logging.Level;
  */
 public class LojaDAO extends DAOTemplate<LojaDTO> {
     private static LojaDAO instance = null;
-    ProdutoDAO prod;
     
     private LojaDTO loja;
     
     private LojaDAO() {
         super();
-        prod = ProdutoDAO.getInstance();
     }
     
     public static synchronized LojaDAO getInstance(){
@@ -45,6 +45,8 @@ public class LojaDAO extends DAOTemplate<LojaDTO> {
             loja.setDescricao(rs.getString("descricao"));
             loja.setAvaliacao(rs.getDouble("avaliacao"));
             loja.setIdUser(rs.getString("id_usuario"));
+            loja.setQtdAvaliacoes(rs.getInt("qtd_avaliacoes"));
+            loja.setSomaAvaliacoes(rs.getInt("soma_avaliacoes"));
         } catch(SQLException ex){
             java.util.logging.Logger.getLogger(LojaDTO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -80,34 +82,30 @@ public class LojaDAO extends DAOTemplate<LojaDTO> {
         return lojas.isEmpty() ? null : lojas.get(0);
     }
     
+    public LojaDTO getLojaById(int idLoja) {
+        String sql = "SELECT * FROM lojas WHERE id = ?";
+        
+        List<LojaDTO> lojas = executeQuery(sql, idLoja);
+        
+        return lojas.isEmpty() ? null : lojas.get(0);
+    }
+    
     public boolean updateND(LojaDTO obj){
         String sqlUpdate = "UPDATE lojas SET nome = ?, descricao = ? WHERE id_usuario = ?";
         
         return executeUpdate(sqlUpdate, obj.getNome(), obj.getDescricao(), obj.getIdUser());
     }
     
-    public boolean updateA(LojaDTO obj){
-        String sqlUpdate = "UPDATE lojas SET avaliacao = ? WHERE id_usuario = ?";
+    public boolean updateAvaliacao(LojaDTO obj){
+        String sqlUpdate = "UPDATE lojas SET avaliacao = ?, qtd_avaliacoes = ?, soma_avaliacoes = ? WHERE id = ?";
         
-        return executeUpdate(sqlUpdate, obj.getAvaliacao());
+        return executeUpdate(sqlUpdate, obj.getAvaliacao(), obj.getQtdAvaliacoes(), obj.getSomaAvaliacoes(), obj.getId());
     }
     
-    public List<LojaDTO> ListarLojas() throws SQLException{
+    public List<LojaDTO> ListarLojas() {
         String sql = "SELECT * FROM lojas ORDER BY nome";
         
         return executeQuery(sql);
-    }
-    
-    public boolean adicionarAoCard(ProdutoDTO obj){
-        return prod.cadastrar(obj);
-    }
-    
-    public List<ProdutoDTO> listarCard(int idLoja) throws SQLException{
-        return prod.ListarPorLoja(idLoja);
-    }
-    
-    public List<ProdutoDTO> listarProd() throws SQLException{
-        return prod.Listar();
     }
     
     public LojaDTO getLoja(){

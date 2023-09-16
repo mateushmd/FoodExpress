@@ -1,4 +1,5 @@
 com\foodexpress\model\dto\UsuarioDTO.class
+com\foodexpress\model\dao\AvaliacaoDAO.class
 com\foodexpress\model\imgFirebase\teste.class
 com\foodexpress\model\dao\ProdutoDAO.class
 com\foodexpress\model\dao\UsuarioDAO.class
@@ -8,15 +9,21 @@ com\foodexpress\model\dto\LojaDTO.class
 com\foodexpress\model\encoder\EmailEncoder.class
 com\foodexpress\model\encoder\TokenGenerator.class
 com\foodexpress\model\dao\LojaDAO.class
+com\foodexpress\model\dao\ItemPedidoDAO.class
 com\foodexpress\model\email\TLSEmailAuth.class
 com\foodexpress\model\dto\TokenVerificacaoDTO.class
 com\foodexpress\model\email\EmailUtil.class
 com\foodexpress\model\dto\IDTO.class
+com\foodexpress\model\dto\PedidoDTO.class
 com\foodexpress\model\imgFirebase\FirebaseDAO.class
+com\foodexpress\model\service\AvaliacaoService.class
 com\foodexpress\model\dao\teste.class
 com\foodexpress\model\encoder\Argon2Encoder.class
 com\foodexpress\model\imgFirebase\FirebaseStorage.class
+com\foodexpress\model\dto\AvaliacaoDTO.class
 com\foodexpress\model\service\UsuarioService.class
+com\foodexpress\model\dao\PedidoDAO.class
+com\foodexpress\model\dto\ItemPedidoDTO.class
 com\foodexpress\model\dao\ConexaoBD.class
 com\foodexpress\model\dao\TokenVerificacaoDAO.class
 com\foodexpress\model\email\EmailTemplates.class
