@@ -6,9 +6,11 @@ import java.util.List;
 
 public class teste {
     public static void main(String[] args) throws SQLException {
-        AvaliacaoDAO ava = AvaliacaoDAO.getInstance();
+        PedidoDAO dao = PedidoDAO.getInstance();
+        List<ItemPedidoDTO> itens = new ArrayList<>();
+        itens.add(new ItemPedidoDTO(134, 5, 22.5));
+        itens.add(new ItemPedidoDTO(114, 1, 4.5));
         
-        if(ava.updateNotaComentario(5, "Melhor atendimento", 4))
-            System.out.println("Passou!!!");
+        dao.realizarPedido(new PedidoDTO(24, "washingtonwagner2020@gmail.com", "2023-09-22 18:31:45", "hall p20", 0, "Pendente"), itens);
     }
 }

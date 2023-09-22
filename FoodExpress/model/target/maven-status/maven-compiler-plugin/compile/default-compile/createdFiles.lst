@@ -27,5 +27,6 @@ com\foodexpress\model\dto\ItemPedidoDTO.class
 com\foodexpress\model\dao\ConexaoBD.class
 com\foodexpress\model\dao\TokenVerificacaoDAO.class
 com\foodexpress\model\email\EmailTemplates.class
+com\foodexpress\model\dto\ProdutoDTO.class
 com\foodexpress\model\dao\DAOTemplate.class
 com\foodexpress\model\service\LojaService.class
