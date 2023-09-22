@@ -10,6 +10,7 @@ com\foodexpress\web\servlet\validarEmail.class
 com\foodexpress\web\servlet\confirmarSenha.class
 com\foodexpress\web\servlet\menuPrincipal.class
 com\foodexpress\web\servlet\Common.class
+com\foodexpress\web\servlet\avaliacao.class
 com\foodexpress\web\resources\JakartaEE91Resource.class
 com\foodexpress\web\servlet\ts.class
 com\foodexpress\web\servlet\loja.class

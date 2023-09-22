@@ -19,9 +19,7 @@ public class PedidoDAO extends DAOTemplate<PedidoDTO> {
     public static synchronized PedidoDAO getInstance(){
         if(instance == null)
             instance = new PedidoDAO();
-        
-        instance.setConnection();
-        
+
         return instance;
     }
     
@@ -48,6 +46,7 @@ public class PedidoDAO extends DAOTemplate<PedidoDTO> {
         
         return pedido;
     }
+    
     
     public boolean realizarPedido(PedidoDTO obj, List<ItemPedidoDTO> itens){
         String sql = "INSERT INTO pedidos (id_cliente, id_loja, data_hora_pedido, local_entrega, preco_total, status) VALUES (?, ?, ?, ?, ?, ?)";

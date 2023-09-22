@@ -18,8 +18,6 @@ public class ProdutoDAO extends DAOTemplate<ProdutoDTO>{
         if(instance == null)
             instance = new ProdutoDAO();
         
-        instance.setConnection();
-        
         return instance;
     }
 

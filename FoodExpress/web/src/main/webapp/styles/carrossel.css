@@ -182,18 +182,3 @@
 .carousel-favorite button:hover {
     color: red;
 }
-
-.carousel-rate {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    font-size: 1.4vw;
-    padding: 0 30%;
-}
-
-.carousel-star {
-    color: var(--default-carousel-button-color);
-}
-
-.carousel-star.filled {
-    color: gold;
-}

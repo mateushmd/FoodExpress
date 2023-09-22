@@ -6,17 +6,18 @@ public class AvaliacaoDTO {
     int id;
     int idLoja;
     String idCliente;
+    String nomeCliente;
     int nota;
     String comentario;
-    Date horario;
+    Date data;
 
-    public AvaliacaoDTO(int id, int idLoja, String idCliente, int nota, String comentario, Date horario) {
+    public AvaliacaoDTO(int id, int idLoja, String idCliente, int nota, String comentario, Date data) {
         this.id = id;
         this.idLoja = idLoja;
         this.idCliente = idCliente;
         this.nota = nota;
         this.comentario = comentario;
-        this.horario = horario;
+        this.data = data;
     }
 
     public AvaliacaoDTO(int idLoja, String idCliente, int nota, String comentario) {
@@ -69,13 +70,11 @@ public class AvaliacaoDTO {
         this.comentario = comentario;
     }
 
-    public Date getHorario() {
-        return horario;
+    public Date getData() {
+        return data;
     }
 
-    public void setHorario(Date horario) {
-        this.horario = horario;
+    public void setData(Date data) {
+        this.data = data;
     }
-    
-    
 }

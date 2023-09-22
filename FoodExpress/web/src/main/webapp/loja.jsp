@@ -8,6 +8,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>FoodExpress</title>
         <link rel="stylesheet" type="text/css" href="styles/loja.css">
+        <link rel="stylesheet" type="text/css" href="styles/rating.css">
         <link rel="stylesheet" type="text/css" href="styles/header.css">
         <link rel="stylesheet" type="text/css" href="styles/carrossel.css">
         <link rel="stylesheet" type="text/css" href="styles/footer.css">
@@ -16,6 +17,7 @@
     <body>
         <c:set var="loja" value="${requestScope.loja}"/>
         <c:set var="produtos" value="${requestScope.produtos}"/>
+        <c:set var="avaliacoes" value="${requestScope.avaliacoes}"/>
         <input type="hidden" id="emailFirebase" value="${loja.idUser}">
         <header id="navbar">
             <img id="navbar-logo" src="imgs/logo3.png" alt="Logo">
@@ -48,21 +50,21 @@
             <section id="info">
                 <img src="imgs/teste/teste.jpg" alt="" id="imgLojaF">
                 <h1>${loja.nome}</h1>
-                <div class="rating">
+                <div class="rating process-rating trigger" data-rating="<fmt:formatNumber value="${loja.avaliacao}" type="number" maxFractionDigits="0"/>">
                     <input class="star-input" id="star1" type="radio" name="rating" value="1">
-                    <label class="star-label" for="star1" data-star="1">&#9733;</label>
+                    <label class="star-label" for="star1" data-star="1"><img src="imgs/gray-star.svg" alt=""></label>
 
                     <input class="star-input" id="star2" type="radio" name="rating" value="2">
-                    <label class="star-label" for="star2" data-star="2">&#9733;</label>
+                    <label class="star-label" for="star2" data-star="2"><img src="imgs/gray-star.svg" alt=""></label>
 
                     <input class="star-input" id="star3" type="radio" name="rating" value="3">
-                    <label class="star-label" for="star3" data-star="3">&#9733;</label>
+                    <label class="star-label" for="star3" data-star="3"><img src="imgs/gray-star.svg" alt=""></label>
 
                     <input class="star-input" id="star4" type="radio" name="rating" value="4">
-                    <label class="star-label" for="star4" data-star="4">&#9733;</label>
+                    <label class="star-label" for="star4" data-star="4"><img src="imgs/gray-star.svg" alt=""></label>
 
                     <input class="star-input" id="star5" type="radio" name="rating" value="5">
-                    <label class="star-label" for="star5" data-star="5">&#9733;</label>
+                    <label class="star-label" for="star5" data-star="5"><img src="imgs/gray-star.svg" alt=""></label>
                 </div>
                 <form class="favorite" action="">
                     <button type="submit">♥</button>
@@ -164,87 +166,235 @@
                     </div>
                 </div>
             </section>
-        </main>
-        <footer>
-            <div class="container-footer">
-                <div class="row-footer">
-                    <div class="footer-col">
-                        <h4>Menu</h4>
-                        <ul>
-                            <li><a href="menuprincipal.jsp"> Inicio</a></li>
-                            <li><a href="gerenciarperfil.jsp"> Perfil</a></li>
-                            <li><a href="sobre.jsp">Sobre</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-col">
-                        <h4>Obter ajuda</h4>
-                        <ul>
-                            <li><a href="faq.jsp">FAQ</a></li>
-                            <li><a href="ajuda.jsp">Ajuda</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-col">
-                        <h4>Informações</h4>
-                        <ul>
-                            <li><a href="privacidade.jsp">Politica de privacidade</a></li>
-                            <li><a href="uso.jsp">Politica de uso</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-col">
-                        <h4>Inscreva-se!</h4>
+            <div id="slider">
+                <button id="close-slider">
+                    <img src="imgs/x-symbol.svg" alt="">
+                </button>
 
-                        <div class="medias-socias">
-                            <a href="#"> <i class="fa fa-facebook"></i> </a>
-                            <a href="#"> <i class="fa fa-instagram"></i> </a>
-                            <a href="#"> <i class="fa fa-twitter"></i> </a>
-                            <a href="#"> <i class="fa fa-linkedin"></i> </a>
+                <div id="slider-ratings">
+                    <div id="slider-ratings-header">
+                        <h2 class="font-707">Avaliações</h2>
+                        <span>NOME DA LOJA</span>
+                        <h1><fmt:formatNumber value="${loja.avaliacao}" type="number" pattern="#,##0.0" /></h1>
+                        <div class="rating process-rating" data-rating="<fmt:formatNumber value="${loja.avaliacao}" type="number" maxFractionDigits="0"/>">
+                            <input class="star-input" type="radio" name="rating" value="1">
+                            <label class="star-label" for="star1" data-star="1"><img src="imgs/gray-star.svg"
+                                                                                     alt=""></label>
+
+                            <input class="star-input" type="radio" name="rating" value="2">
+                            <label class="star-label" for="star2" data-star="2"><img src="imgs/gray-star.svg"
+                                                                                     alt=""></label>
+
+                            <input class="star-input" type="radio" name="rating" value="3">
+                            <label class="star-label" for="star3" data-star="3"><img src="imgs/gray-star.svg"
+                                                                                     alt=""></label>
+
+                            <input class="star-input" type="radio" name="rating" value="4">
+                            <label class="star-label" for="star4" data-star="4"><img src="imgs/gray-star.svg"
+                                                                                     alt=""></label>
+
+                            <input class="star-input" type="radio" name="rating" value="5">
+                            <label class="star-label" for="star5" data-star="5"><img src="imgs/gray-star.svg"
+                                                                                     alt=""></label>
+                        </div>
+                        <span>${loja.qtdAvaliacoes} avaliações</span>
+                    </div>
+                    <div id="slider-ratings-content">
+                        <div id="user-comment">
+                            <form action="avaliacao" method="post">
+                                <h2>Sua avaliação</h2>
+                                <textarea name="comentario" cols="30" rows="4"
+                                          placeholder="Fale sobre sua experiência com a loja"></textarea>
+                                <div id="user-comment-footer">
+                                    <div id="user-rating" class="rating small">
+                                        <input class="star-input" type="radio" name="rating" value="1">
+                                        <label class="star-label" for="star1" data-star="1"><img src="imgs/gray-star.svg"
+                                                                                                 alt=""></label>
+
+                                        <input class="star-input" type="radio" name="rating" value="2">
+                                        <label class="star-label" for="star2" data-star="2"><img src="imgs/gray-star.svg"
+                                                                                                 alt=""></label>
+
+                                        <input class="star-input" type="radio" name="rating" value="3">
+                                        <label class="star-label" for="star3" data-star="3"><img src="imgs/gray-star.svg"
+                                                                                                 alt=""></label>
+
+                                        <input class="star-input" type="radio" name="rating" value="4">
+                                        <label class="star-label" for="star4" data-star="4"><img src="imgs/gray-star.svg"
+                                                                                                 alt=""></label>
+
+                                        <input class="star-input" type="radio" name="rating" value="5">
+                                        <label class="star-label" for="star5" data-star="5"><img src="imgs/gray-star.svg"
+                                                                                                 alt=""></label>
+                                    </div>
+                                    <div class="botao">
+                                        <input type="submit" name="submit" value="ENVIAR" id="rate">
+                                    </div>
+                                </div>
+                                <input type="hidden" id="rating" name="rating">
+                                <input type="hidden" name="idLoja" value="${loja.id}">
+                            </form>
+                        </div>
+                            
+                        <c:forEach items="${avaliacoes}" var="avaliacao">
+                            <div class="slider-ratings-comment">
+                                <h2>${avaliacao.idCliente}</h2>
+                                <p>${avaliacao.comentario}</p>
+                                <div class="slider-ratings-comment-footer">
+                                    <div>
+                                        <span>${avaliacao.nota}</span>
+                                        <div class="rating process-rating small" data-rating="${avaliacao.nota}">
+                                            <input class="star-input" type="radio" name="rating" value="1">
+                                            <label class="star-label" for="star1" data-star="1"><img src="imgs/gray-star.svg"
+                                                                                                     alt=""></label>
+
+                                            <input class="star-input" type="radio" name="rating" value="2">
+                                            <label class="star-label" for="star2" data-star="2"><img src="imgs/gray-star.svg"
+                                                                                                     alt=""></label>
+
+                                            <input class="star-input" type="radio" name="rating" value="3">
+                                            <label class="star-label" for="star3" data-star="3"><img src="imgs/gray-star.svg"
+                                                                                                     alt=""></label>
+
+                                            <input class="star-input" type="radio" name="rating" value="4">
+                                            <label class="star-label" for="star4" data-star="4"><img src="imgs/gray-star.svg"
+                                                                                                     alt=""></label>
+
+                                            <input class="star-input" type="radio" name="rating" value="5">
+                                            <label class="star-label" for="star5" data-star="5"><img src="imgs/gray-star.svg"
+                                                                                                     alt=""></label>
+                                        </div>
+                                    </div>
+                                    <span><fmt:formatDate value="${avaliacao.data}" pattern="dd/MM/yyyy"/></span>
+                                </div>
+                            </div>
+                        </c:forEach>
+                        <div class="slider-ratings-comment">
+                            <h2>NOME</h2>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique vero facere error
+                                dolore,
+                                a tempore sed blanditiis ex iste eveniet consequatur, ea, possimus eum? Odio sint officiis
+                                deserunt vero natus.
+                            </p>
+                            <div class="slider-ratings-comment-footer">
+                                <div>
+                                    <span>4,0</span>
+                                    <div class="rating process-rating small" data-rating="3">
+                                        <input class="star-input" type="radio" name="rating" value="1">
+                                        <label class="star-label" for="star1" data-star="1"><img src="imgs/gray-star.svg"
+                                                                                                 alt=""></label>
+
+                                        <input class="star-input" type="radio" name="rating" value="2">
+                                        <label class="star-label" for="star2" data-star="2"><img src="imgs/gray-star.svg"
+                                                                                                 alt=""></label>
+
+                                        <input class="star-input" type="radio" name="rating" value="3">
+                                        <label class="star-label" for="star3" data-star="3"><img src="imgs/gray-star.svg"
+                                                                                                 alt=""></label>
+
+                                        <input class="star-input" type="radio" name="rating" value="4">
+                                        <label class="star-label" for="star4" data-star="4"><img src="imgs/gray-star.svg"
+                                                                                                 alt=""></label>
+
+                                        <input class="star-input" type="radio" name="rating" value="5">
+                                        <label class="star-label" for="star5" data-star="5"><img src="imgs/gray-star.svg"
+                                                                                                 alt=""></label>
+                                    </div>
+                                </div>
+                                <span>23/01/2006</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="main_footer_copy">
-                <p class="m-b-footer"> FoodExpress - 2023, todos os direitos reservados.</p>
+        </div>
+    </main>
+    <footer>
+        <div class="container-footer">
+            <div class="row-footer">
+                <div class="footer-col">
+                    <h4>Menu</h4>
+                    <ul>
+                        <li><a href="menuprincipal.jsp"> Inicio</a></li>
+                        <li><a href="gerenciarperfil.jsp"> Perfil</a></li>
+                        <li><a href="sobre.jsp">Sobre</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Obter ajuda</h4>
+                    <ul>
+                        <li><a href="faq.jsp">FAQ</a></li>
+                        <li><a href="ajuda.jsp">Ajuda</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Informações</h4>
+                    <ul>
+                        <li><a href="privacidade.jsp">Politica de privacidade</a></li>
+                        <li><a href="uso.jsp">Politica de uso</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Inscreva-se!</h4>
+
+                    <div class="medias-socias">
+                        <a href="#"> <i class="fa fa-facebook"></i> </a>
+                        <a href="#"> <i class="fa fa-instagram"></i> </a>
+                        <a href="#"> <i class="fa fa-twitter"></i> </a>
+                        <a href="#"> <i class="fa fa-linkedin"></i> </a>
+                    </div>
+                </div>
             </div>
-        </footer>
+        </div>
+        <div class="main_footer_copy">
+            <p class="m-b-footer"> FoodExpress - 2023, todos os direitos reservados.</p>
+        </div>
+    </footer>
 
-        <script type="module">
-            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-            import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
-            const firebaseConfig = {
-                apiKey: "AIzaSyC6E9U_uW78MMsIf9oQKBTm5LjvRp6OB2A",
-                authDomain: "restricted-d6b24.firebaseapp.com",
-                databaseURL: "https://restricted-d6b24-default-rtdb.firebaseio.com",
-                projectId: "restricted-d6b24",
-                storageBucket: "restricted-d6b24.appspot.com",
-                messagingSenderId: "351037789777",
-                appId: "1:351037789777:web:5a43c6cd09be7a53d70a70",
-                measurementId: "G-G0VFKP7XGK"
-            };
-            const app = initializeApp(firebaseConfig);
-            function getImageUrlByName() {
-                const storage = getStorage(app); // Corrigido para usar 'app' em vez de 'firebaseApp'
-                let e = document.getElementById("emailFirebase");
-                const storageRef = ref(storage, 'lojaFoto/' + e.value);//Alteração
-                return getDownloadURL(storageRef)
-                        .then(downloadURL => {
-                            return downloadURL;
-                        })
-                        .catch(error => {
-                            console.error('Error getting download URL:', error);
-                            return null;
-                        });
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+        import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
+        const firebaseConfig = {
+            apiKey: "AIzaSyC6E9U_uW78MMsIf9oQKBTm5LjvRp6OB2A",
+            authDomain: "restricted-d6b24.firebaseapp.com",
+            databaseURL: "https://restricted-d6b24-default-rtdb.firebaseio.com",
+            projectId: "restricted-d6b24",
+            storageBucket: "restricted-d6b24.appspot.com",
+            messagingSenderId: "351037789777",
+            appId: "1:351037789777:web:5a43c6cd09be7a53d70a70",
+            measurementId: "G-G0VFKP7XGK"
+        };
+        const app = initializeApp(firebaseConfig);
+        function getImageUrlByName() {
+            const storage = getStorage(app); // Corrigido para usar 'app' em vez de 'firebaseApp'
+            let e = document.getElementById("emailFirebase");
+            const storageRef = ref(storage, 'lojaFoto/' + e.value);//Alteração
+            return getDownloadURL(storageRef)
+                    .then(downloadURL => {
+                        return downloadURL;
+                    })
+                    .catch(error => {
+                        console.error('Error getting download URL:', error);
+                        return null;
+                    });
+        }
+
+        document.addEventListener("DOMContentLoaded", async function () {
+            let imageUrl = await getImageUrlByName();
+            const imgElement = document.getElementById('bannerLojaF');
+            const imgElement2 = document.getElementById('imgLojaF');
+
+            if (imageUrl !== null) {
+                imgElement.src = imageUrl;
+                imgElement2.src = imageUrl;
             }
+        });
+    </script>
 
-            document.addEventListener("DOMContentLoaded", async function () {
-                let imageUrl = await getImageUrlByName();
-                const imgElement = document.getElementById('bannerLojaF');
-                const imgElement2 = document.getElementById('imgLojaF');
-                
-                if(imageUrl !== null) {
-                    imgElement.src = imageUrl;
-                    imgElement2.src = imageUrl;
-                }
-            });
-        </script>
-    </body>
+    <script src="scripts/rating.js"></script>
+    <script src="scripts/userRating.js"></script>
+    <script src="scripts/carrossel.js"></script>
+    <script src="scripts/slider.js"></script>
+</body>
 </html>

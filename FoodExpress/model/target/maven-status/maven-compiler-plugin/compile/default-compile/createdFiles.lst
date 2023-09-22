@@ -16,6 +16,7 @@ com\foodexpress\model\email\EmailUtil.class
 com\foodexpress\model\dto\IDTO.class
 com\foodexpress\model\dto\PedidoDTO.class
 com\foodexpress\model\imgFirebase\FirebaseDAO.class
+com\foodexpress\model\service\AvaliacaoService.class
 com\foodexpress\model\dao\teste.class
 com\foodexpress\model\encoder\Argon2Encoder.class
 com\foodexpress\model\imgFirebase\FirebaseStorage.class

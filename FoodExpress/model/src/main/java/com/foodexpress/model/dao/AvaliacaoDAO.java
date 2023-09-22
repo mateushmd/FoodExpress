@@ -19,8 +19,6 @@ public class AvaliacaoDAO extends DAOTemplate<AvaliacaoDTO> {
         if(instance == null)
             instance = new AvaliacaoDAO();
         
-        instance.setConnection();
-        
         return instance;
     }
     
@@ -36,7 +34,7 @@ public class AvaliacaoDAO extends DAOTemplate<AvaliacaoDTO> {
             item.setIdLoja(rs.getInt("id_loja"));
             item.setNota(rs.getInt("nota"));
             item.setComentario(rs.getString("comentario"));
-            item.setHorario(rs.getDate("data_hora_comentario"));
+            item.setData(rs.getDate("data_hora_comentario"));
         } catch(SQLException ex){
             java.util.logging.Logger.getLogger(ItemPedidoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -105,5 +103,13 @@ public class AvaliacaoDAO extends DAOTemplate<AvaliacaoDTO> {
         String sql = "UPDATE avaliacoes SET nota = ?, comentario = ? WHERE id = ?";
         
         return executeUpdate(sql, nota, comentario, idAvaliacao);
+    }
+    
+    public boolean comentou(String idCliente, int idLoja) {
+        String sql = "SELECT * FROM avaliacoes WHERE id_cliente = ? AND id_loja = ?";
+        
+        List<AvaliacaoDTO> avaliacao = executeQuery(sql, idCliente, idLoja);
+        
+        return avaliacao.isEmpty() ? false : true;
     }
 }

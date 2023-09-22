@@ -1,24 +1,20 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.foodexpress.model.service;
 
 import com.foodexpress.model.dao.AvaliacaoDAO;
 import com.foodexpress.model.dto.AvaliacaoDTO;
+import com.foodexpress.model.dto.LojaDTO;
 import java.util.List;
 
-/**
- *
- * @author washi
- */
 public class AvaliacaoService {
     private AvaliacaoDAO dao;
+    
+    private LojaService lService = null;
     
     private static AvaliacaoService instance = null;
     
     private AvaliacaoService() {
         dao = AvaliacaoDAO.getInstance();
+        lService = LojaService.getInstance();
     }
     
     public static AvaliacaoService getInstance() {
@@ -28,8 +24,15 @@ public class AvaliacaoService {
         return instance;
     }
     
-    public boolean cadastrarAvaliacao(AvaliacaoDTO obj){
-        return dao.cadastrarAvaliacao(obj);
+    public boolean cadastrarAvaliacao(AvaliacaoDTO avaliacao, LojaDTO loja){
+        boolean check = dao.cadastrarAvaliacao(avaliacao);
+        
+        if(!check)
+            return check;
+        
+        check = lService.updateAvaliacao(loja, avaliacao.getNota());
+        
+        return check;
     }
     
     public AvaliacaoDTO getAvaliacaoById(int id){
@@ -64,5 +67,9 @@ public class AvaliacaoService {
     public boolean updateNotaComentario(int nota, String comentario, int idAvaliacao){
         
         return dao.updateNotaComentario(nota, comentario, idAvaliacao);
+    }
+    
+    public boolean comentou(String idCliente, int idLoja) {
+        return dao.comentou(idCliente, idLoja);
     }
 }

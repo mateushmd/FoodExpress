@@ -25,8 +25,6 @@ public class UsuarioDAO extends DAOTemplate<UsuarioDTO> {
         if(instance == null)
             instance = new UsuarioDAO();
         
-        instance.setConnection();
-        
         return instance;
     }
     
