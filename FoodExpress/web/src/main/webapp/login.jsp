@@ -19,7 +19,7 @@
         <link rel="icon" type="image/png" href="imgs/icon.png"/>
     </head>
     <body>
-        <div id="mainLogin">
+        <div class="main">
             <div class="fundo"></div>
             <div class="containerLogin">
                 <img src="imgs/logo-sem-fundo.png" class="logoLog" alt="">

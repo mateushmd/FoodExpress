@@ -1,8 +1,8 @@
 :root {
-    --item-width: calc(100vw / 3);
+    --item-width: 700px;
     --item-height: calc(var(--item-width) * 50 / 107);
 
-    --fit-product-width: calc(400px);
+    --fit-product-width: 400px;
     --fit-product-height: calc(var(--fit-product-width) * 20 / 19);
 
     --default-carousel-button-color: #ccc;
@@ -124,7 +124,7 @@
 }
 
 .arrow-rounded {
-    width: 40px;
+    width: 40px !important;
     height: 40px;
     background-color: rgba(0, 0, 0, .3);
     border-radius: 100%;

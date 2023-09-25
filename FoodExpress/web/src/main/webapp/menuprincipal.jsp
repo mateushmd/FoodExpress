@@ -49,7 +49,7 @@
             <section class="content">
                 <h1>DESTAQUES</h1>
                 <div class="carousel-container realign" data-items="2">
-                    <div class="arrow arrow-squared left-arrow"><img src="imgs/arrow-left.png" alt=""></div>
+                    <div class="arrow arrow-rounded left-arrow"><img src="imgs/arrow-left.png" alt=""></div>
                     <div class="carousel" data-index="0" >
                         <c:forEach items="${lojas}" var="loja">
                             <form action="loja" method="post">
@@ -80,7 +80,7 @@
                             </form>
                         </c:forEach>
                     </div>
-                    <div class="arrow arrow-squared right-arrow"><img src="imgs/arrow-right.png" alt=""></div>
+                    <div class="arrow arrow-rounded right-arrow"><img src="imgs/arrow-right.png" alt=""></div>
                 </div>
                 <h1 style="margin-top: 50px;">NOVIDADES</h1>
                 <div class="carousel-container realign" data-items="2">

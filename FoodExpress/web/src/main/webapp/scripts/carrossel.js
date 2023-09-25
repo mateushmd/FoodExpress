@@ -25,7 +25,7 @@ arrows.forEach((el) =>
 
         index = carrosselEl.dataset.index = index - axis > -1 ? (index - axis < carrosselEl.children.length - itemsInScreen ? index - axis : carrosselEl.children.length - itemsInScreen) : 0;
 
-        carrosselEl.style.transform = `translateX(calc(((${itemSize} + 20px) * ${index}) * -1))`;
+        carrosselEl.style.transform = `translateX(calc(((${itemSize} + 40px) * ${index}) * -1))`;
     });
 });
 
