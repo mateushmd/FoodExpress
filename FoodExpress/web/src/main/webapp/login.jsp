@@ -15,12 +15,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Login</title>
         <link rel="stylesheet" type="text/css" href="styles/style.css">
+        <link rel="stylesheet" type="text/css" href="fonts/style.css"/>
         <link rel="icon" type="image/png" href="imgs/icon.png"/>
     </head>
     <body>
-        <main>
-            <img src="imgs/logo.png" alt="">
-            <div class="container" id="containerLogin">
+        <div class="main">
+            <div class="fundo"></div>
+            <div class="containerLogin">
+                <img src="imgs/logo-sem-fundo.png" class="logoLog" alt="">
                 <form action="login" method="post">
                     <section class="campo">
                         <label for="email" class="label">E-MAIL:</label>
@@ -30,11 +32,12 @@
                     <section class="campo">
                         <label for="password" class="label">SENHA:</label>
                         <input type="password" id="password" name="password">
+                        <a href="#" id="senhaBtn">  Esqueci minha senha</a>
                     </section>
 
                     <div class="botao">
                         <input type="submit" value="LOGAR" style="cursor: pointer; font-family: 'Oswald', sans-serif;" id="login">
-                        <p><a href="index.html" id="cadastroBtn">Cadastrar</a>  | <a href="#" id="senhaBtn">  Esqueci minha senha</a></p>
+                        <p class="parag">Não tem cadastro? <a href="index.html" id="cadastroBtn">Cadastrar</a></p>
                     </div>
 
                     <c:if test = "${msg != null}">
@@ -42,6 +45,7 @@
                     </c:if>
                 </form> 
             </div>
-        </main>
+        </div>
     </body>
 </html>
+

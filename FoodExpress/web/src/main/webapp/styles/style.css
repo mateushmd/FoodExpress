@@ -1,85 +1,70 @@
 @import url('https://fonts.cdnfonts.com/css/cooper-hewitt?styles=34277,34271');
 @import url(' https://fonts.cdnfonts.com/css/oswald-4 ');
 @import url('https://fonts.cdnfonts.com/css/freshwost');
+@import url("../fonts/style.css");
+
+html {
+    height: 100%;
+}
 
 body {
     font-family: 'Cooper Hewitt', sans-serif;
     margin: 0;
+    padding: 0;
     height: 100%;
+    width: 100%;
     background-color: #e6f1f5;
     color: #e6f1f5;
-}
-
-main {
-    top: 50%;
-    left: 50%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    height: 95vh;
-}
-
-main img {
-    align-self: center;
-    width: 700px;
-    height: auto;
+    overflow: hidden;
 }
 
 .container {
-    margin-top: 50px;
-    background-color: #cc575f;
-    margin-right: 50px;
-    border: 1px solid #e6f1f5;
+    background-color: #ffffff;
     padding: 20px;
-    border-radius: 47px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    -webkit-box-shadow: -11px -6px 37px -20px rgba(204,87,95,1);
+    -moz-box-shadow: -7px 6px 14px -7px rgba(204,87,95,1);
+    box-shadow: -8px 17px 161px -10px rgba(204,87,95,1);
+    flex-wrap: wrap;
+    z-index: 1;
+    flex-direction: column;
+}
+
+.logoLog {
+    width: 244px;
+}
+
+.fundo {
+    opacity: 0.6;
+    background-color: #3d3d3d;
+}
+
+.main {
+    display: grid;
+    grid-template-columns: 75% auto;
+    min-height: 100%;
+    width: 100%;
+    background: #f5e9da url("../imgs/capa.jpg");
+    background-position: 47%;
+    background-repeat: no-repeat;
+    background-size: 126%;
+}
+
+.containerLogin {
+    background-color: #ffffff;
+    padding: 20px;
     width: 500px;
-    height: 550px;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-#containerLogin {
-    margin-top: 50px;
-    background-color: #cc575f;
-    margin-right: 50px;
-    border: 1px solid #e6f1f5;
-    padding: 20px 46px 20px 46px;
-    border-radius: 47px;
-    width: 465px;
-    height: 278px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#containerVerificacao {
-    margin-top: 50px;
-    background-color: #cc575f;
-    margin-right: 50px;
-    border: 1px solid #e6f1f5;
-    padding: 20px 46px 20px 46px;
-    border-radius: 47px;
-    width: 440px;
-    height: 400px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#containerRedefinir {
-    margin-top: 50px;
-    background-color: #cc575f;
-    margin-right: 50px;
-    border: 1px solid #e6f1f5;
-    padding: 20px 46px 20px 46px;
-    border-radius: 47px;
-    width: 440px;
-    height: 330px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    -webkit-box-shadow: -11px -6px 37px -20px rgba(204,87,95,1);
+    -moz-box-shadow: -7px 6px 14px -7px rgba(204,87,95,1);
+    box-shadow: -8px 17px 161px -10px rgba(204,87,95,1);
+    flex-wrap: wrap;
+    z-index: 1;
+    flex-direction: column;
 }
 
 form {
@@ -112,8 +97,15 @@ input:focus {
 .campo input {
     background-color: inherit;
     width: 360px;
-    border: solid;
+    height: 38px;
     padding-left: 6px;
+    border-color: #b7b5b5;
+    font-family: iFood RC Titulos,iFood RC Textos,helvetica,sans-serif;
+    color: black;
+}
+
+.campo input:focus {
+    border: 2px solid #f31111;
 }
 
 .botao {
@@ -121,17 +113,21 @@ input:focus {
 }
 
 .botao input {
-    width: 200px;
+    width: 259px;
     text-align: center;
     background-color: #e6f1f5;
     color: #cc575f;
     border: 1px solid #e6f1f5;
     font-size: inherit;
+    border-radius: 6px;
+    height: 29px;
 }
 
 .opcoes {
     display: flex;
-    font-size: 13px;
+    font-size: 11px;
+    font-family: iFood RC Titulos,iFood RC Textos,helvetica,sans-serif;
+    color: black;
 }
 
 .opcoes input {
@@ -157,38 +153,65 @@ form a {
     color: #9e9e9e;
 }
 
-#tenhoLogin:hover {
-    text-decoration: underline;
-    text-decoration-color: white;
+#tenhoLogin {
+    font-family: 'Oswald', sans-serif; 
+    font-size: 11px;
+    color: #000000;
+    font-size: 11px;
 }
 
+#tenhoLogin:hover {
+    text-decoration: underline;
+}
+
+.parag {
+    font-family: 'Oswald', sans-serif; 
+    font-size: 11px;
+    color: #b7b5b5;
+    font-size: 11px;
+    margin-top: 2px;
+}
+
+#cadastro {
+    cursor: pointer;
+    font-family: 'Oswald', sans-serif; 
+}
 #cadastro:hover {
     color: #ffffff;
     background-color: #0f7496;
-    border-color: #cc575f;
-}
-
-#cadastro:disabled {
-    background-color: #bcc6ca;
-    color: black;
-    border-color: #e6f1f5;
-    cursor: default;
 }
 
 #login:hover {
     color: #ffffff;
     background-color: #0f7496;
-    border-color: #cc575f;
+}
+
+#login {
+    cursor: pointer;
+    font-family: 'Oswald', sans-serif; 
+}
+
+#cadastroBtn {
+    font-family: 'Oswald', sans-serif; 
+    font-size: 11px;
+    color: #000000;
+    font-size: 11px;
 }
 
 #cadastroBtn:hover {
     text-decoration: underline;
-    text-decoration-color: white;
+}
+
+#senhaBtn {
+    color: #adadad;
+    padding-left: 6px;
+    padding-top: 6px;
+    font-size: 11px;
 }
 
 #senhaBtn:hover {
     text-decoration: underline;
-    text-decoration-color: white;
+    text-decoration-color: black;
 }
 
 a {
@@ -198,15 +221,12 @@ a {
 }
 
 .label {
-    font-family: 'freshwost', sans-serif;
-    font-size: 15px;
+    font-family: iFood RC Titulos,iFood RC Textos,helvetica,sans-serif;
+    font-size: 12px;
     padding-bottom: 3px;
+    color: #adadad;
 }
 
 #aviso {
-    margin: 0px;
-}
-
-#msg-password {
-    margin-top: 0px; 
+    color: black;
 }

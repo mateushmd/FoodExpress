@@ -1,64 +1,20 @@
-@import url('https://fonts.cdnfonts.com/css/cooper-hewitt?styles=34277');
-body{
+@import url('https://fonts.cdnfonts.com/css/cooper-hewitt?styles=34277,34271');
+
+body {
     margin: 0;
-    height: 100%;
-    background-color: #e6f1f5;
+    height: 100vh;
+    background-color: white;
+    overflow-x: hidden;
+    font-family: 'Cooper Hewitt', sans-serif;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: 100vw;
 }
 
-header {
-    background-color: #cd606b;
-    padding: 23px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 50px;
+main {
+    padding: 30px 250px;
 }
 
-.logo {
-    font-size: 2px;
-    font-weight: bold;
-}
-
-#pesquisa-icon {
-    cursor: pointer;
-}
-
-#barra-pesquisa  {
-    display: none;
-    margin-left: 10px;
-}
-
-#barra-pesquisa input {
-    padding: 5px;
-    border-radius: 3px;
-    border: none;
-}
-
-.menu-options ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-}
-
-.menu-options ul li {
-    margin-right: 100px;
-}
-
-.menu-options ul li a {
-    text-decoration: none;
-    color: #ffffff;
-    padding: 5px;
-
-}
-
-.logo img {
-    width: 100px;
-    height: auto;
-    max-height: 100%;
-}
-
-#pesquisa-icon img {
-    width: 30px;
-    height: auto;
+.content > h1 {
+    font-size: 100px;
 }

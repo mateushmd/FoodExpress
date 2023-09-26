@@ -16,39 +16,53 @@ import java.util.logging.Logger;
 
 
 public abstract class DAOTemplate<T> {
-    protected final Connection conn;
-
-    protected DAOTemplate() {
-        conn = ConexaoBD.getConnection();
-    }
+    private Connection conn;
     
     protected abstract T mapResultSetToObject(ResultSet rs) throws SQLException;
     
     protected List<T> executeQuery(String sql, Object... params) {
+        setConnection();
+        
         List<T> results = new ArrayList<>();
         ResultSet rs = null;
+        PreparedStatement st = null;
         
-        try (PreparedStatement st = conn.prepareStatement(sql)) {
+        try {
+            st = conn.prepareStatement(sql);
+            
             setStatementParameters(st, params);
+            
             rs = st.executeQuery();
+            
             while (rs.next()) {
                 results.add(mapResultSetToObject(rs));
             }
+            
+            if(rs != null) rs.close();
+            if(st != null) st.close();
+            if(conn != null) conn.close();
         } catch (SQLException ex) {
             Logger.getLogger(DAOTemplate.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            ConexaoBD.closeResultSet(rs);
         }
+        
         return results;
     }
     
     protected boolean executeUpdate(String sql, Object... params) {
-        int affectedLines = 0;
+        setConnection();
         
-        try(PreparedStatement st = conn.prepareStatement(sql)) {
+        int affectedLines = 0;
+        PreparedStatement st = null;
+        
+        try {
+            st = conn.prepareStatement(sql);
+            
             setStatementParameters(st, params);
             
             affectedLines = st.executeUpdate();
+            
+            if(st != null) st.close();
+            if(conn != null) conn.close();
         } catch(SQLException ex) {
             Logger.getLogger(DAOTemplate.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -60,5 +74,17 @@ public abstract class DAOTemplate<T> {
         for(int i = 0; i < params.length; i++) {
             st.setObject(i + 1, params[i]);
         }
+    }
+    
+    protected final void setConnection() {
+        Connection connection = null;
+        
+        try {
+            connection = ConnectionPoolManager.getDataSource().getConnection();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOTemplate.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        conn = connection;
     }
 }
