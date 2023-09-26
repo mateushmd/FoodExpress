@@ -41,7 +41,7 @@ public class ItemPedidoDAO extends DAOTemplate<ItemPedidoDTO> {
     }
     
     public List<ItemPedidoDTO> getItensPedidoById(int id){
-        String sql = "SELEECT * FROM itens_pedido WHERE id = ?";
+        String sql = "SELECT * FROM itens_pedido WHERE id = ?";
         
         List<ItemPedidoDTO> prod = executeQuery(sql, id);
         
@@ -57,7 +57,7 @@ public class ItemPedidoDAO extends DAOTemplate<ItemPedidoDTO> {
     }
     
     public List<ItemPedidoDTO> getItensPedidoByPedido(int idPedido){
-        String sql = "SELEECT * FROM itens_pedido WHERE id_pedido = ?";
+        String sql = "SELECT * FROM itens_pedido WHERE id_pedido = ?";
         
         List<ItemPedidoDTO> prod = executeQuery(sql, idPedido);
         
