@@ -100,9 +100,13 @@ public class AvaliacaoDAO extends DAOTemplate<AvaliacaoDTO> {
     }
     
     public boolean updateNotaComentario(int nota, String comentario, int idAvaliacao){
-        String sql = "UPDATE avaliacoes SET nota = ?, comentario = ? WHERE id = ?";
-        
-        return executeUpdate(sql, nota, comentario, idAvaliacao);
+        String sql = "UPDATE avaliacoes SET nota = ?, comentario = ?, data_hora_comentario = ? WHERE id = ?";
+
+        Date data = new Date();
+
+        String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(data);
+
+        return executeUpdate(sql, nota, comentario, date, idAvaliacao);
     }
     
     public boolean comentou(String idCliente, int idLoja) {
@@ -110,6 +114,13 @@ public class AvaliacaoDAO extends DAOTemplate<AvaliacaoDTO> {
         
         List<AvaliacaoDTO> avaliacao = executeQuery(sql, idCliente, idLoja);
         
-        return avaliacao.isEmpty() ? false : true;
+        return !avaliacao.isEmpty();
+    }
+
+    public boolean removerAvaliacao(int idAvaliacao)
+    {
+        String sql = "DELETE FROM avaliacoes WHERE id = ?";
+
+        return executeUpdate(sql, idAvaliacao);
     }
 }

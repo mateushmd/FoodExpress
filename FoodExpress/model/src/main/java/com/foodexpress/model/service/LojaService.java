@@ -51,14 +51,32 @@ public class LojaService {
     }
     
     public boolean updateAvaliacao(LojaDTO obj, int novaAvaliacao){
-        DecimalFormat df = new DecimalFormat("#.#");
-        
         obj.setQtdAvaliacoes(obj.getQtdAvaliacoes() + 1);
         
         obj.setSomaAvaliacoes(obj.getSomaAvaliacoes() + novaAvaliacao);
         
         obj.setAvaliacao((double) obj.getSomaAvaliacoes() / (double) obj.getQtdAvaliacoes());
         
+        return ldao.updateAvaliacao(obj);
+    }
+
+    public boolean mudarAvaliacao(LojaDTO obj, int avaliacaoAntiga, int novaAvaliacao)
+    {
+        obj.setSomaAvaliacoes((obj.getSomaAvaliacoes() - avaliacaoAntiga) + novaAvaliacao);
+
+        obj.setAvaliacao((double) obj.getSomaAvaliacoes() / (double) obj.getQtdAvaliacoes());
+
+        return ldao.updateAvaliacao(obj);
+    }
+
+    public boolean removerAvaliacao(LojaDTO obj, int avaliacao)
+    {
+        obj.setSomaAvaliacoes(obj.getSomaAvaliacoes() - avaliacao);
+
+        obj.setQtdAvaliacoes(obj.getQtdAvaliacoes() - 1);
+
+        obj.setAvaliacao((double) obj.getSomaAvaliacoes() / (double) obj.getQtdAvaliacoes());
+
         return ldao.updateAvaliacao(obj);
     }
     

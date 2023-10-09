@@ -54,6 +54,36 @@ main {
 	font-size: 2em;
 }
 
+.rating {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 5px;
+	z-index: 9999;
+}
+
+.rating input {
+	display: none;
+}
+
+.rating label {
+	cursor: pointer;
+	transition: color 0.3s;
+}
+
+.rating label img {
+	width: 30px;
+	height: auto;
+}
+
+.rating.small label img {
+	width: 20px;
+}
+
+.rating .checked {
+	color: #ffc700;
+}
+
 .favorite {
 	display: flex;
 	flex-direction: column;
@@ -273,6 +303,23 @@ main {
 	padding-bottom: 20px;
 }
 
+#user-comment-header {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	padding-right: 10px;
+}
+
+#user-comment-header img {
+	width: 25px;
+	height: auto;
+}
+
+#user-comment-header img:hover {
+	cursor: pointer;
+}
+
 #user-comment form,
 #slider-ratings-content {
 	display: flex;
@@ -289,12 +336,20 @@ main {
 	margin-bottom: 9px;
 }
 
-.botao {
-	text-align: center;
+#user-comment textarea:disabled {
+	border-color: rgba(0, 0, 0, 0);
+	background-color: inherit;
 }
 
-#rate {
-	width: 150px;
+.button-container {
+	display: flex;
+	flex-direction: row;
+	gap: 20px;
+}
+
+.botao>input {
+	text-align: center;
+	width: 100px;
 	text-align: center;
 	background-color: #e6f1f5;
 	color: #cc575f;
@@ -305,7 +360,7 @@ main {
 	cursor: pointer;
 }
 
-#rate:hover {
+.botao>input:hover {
 	color: white;
 	background-color: #0f7496;
 }
@@ -338,4 +393,8 @@ main {
 	display: flex;
 	flex-direction: row;
 	gap: 10px;
+}
+
+.hidden {
+	display: none;
 }

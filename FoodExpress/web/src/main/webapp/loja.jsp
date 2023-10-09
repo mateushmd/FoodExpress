@@ -18,6 +18,11 @@
         <c:set var="loja" value="${requestScope.loja}"/>
         <c:set var="produtos" value="${requestScope.produtos}"/>
         <c:set var="avaliacoes" value="${requestScope.avaliacoes}"/>
+        <c:set var="avaliacaoUsuario" value="${requestScope.avaliacaoUsuario}"/>
+
+        <c:set var="ratingClass" value="${not empty avaliacaoUsuario ? 'process-rating disabled' : ''}"/>
+        <c:set var="ratingValue" value="${not empty avaliacaoUsuario ? avaliacaoUsuario.nota : 0}"/>
+
         <input type="hidden" id="emailFirebase" value="${loja.idUser}">
         <header id="navbar">
             <img id="navbar-logo" src="imgs/logo3.png" alt="Logo">
@@ -201,12 +206,17 @@
                     </div>
                     <div id="slider-ratings-content">
                         <div id="user-comment">
-                            <form action="avaliacao" method="post">
-                                <h2>Sua avaliação</h2>
-                                <textarea name="comentario" cols="30" rows="4"
-                                          placeholder="Fale sobre sua experiência com a loja"></textarea>
+                            <form action="avaliacao" method="post" id="user-rating-form">
+                                <div id="user-comment-header">
+                                    <h2>Sua avaliação</h2>
+                                    <c:if test="${not empty avaliacaoUsuario}">
+                                        <img src="imgs/lixeira.svg" alt="" id="delete">
+                                    </c:if>
+                                </div>
+                                <textarea name="comentario" cols="30" rows="4" id="comment"
+                                          placeholder="Fale sobre sua experiência com a loja" ${not empty avaliacaoUsuario ? "disabled" : ''}>${not empty avaliacaoUsuario ? avaliacaoUsuario.comentario : ''}</textarea>
                                 <div id="user-comment-footer">
-                                    <div id="user-rating" class="rating small">
+                                    <div id="user-rating" class="rating small ${ratingClass}" data-rating="${ratingValue}">
                                         <input class="star-input" type="radio" name="rating" value="1">
                                         <label class="star-label" for="star1" data-star="1"><img src="imgs/gray-star.svg"
                                                                                                  alt=""></label>
@@ -227,84 +237,67 @@
                                         <label class="star-label" for="star5" data-star="5"><img src="imgs/gray-star.svg"
                                                                                                  alt=""></label>
                                     </div>
-                                    <div class="botao">
-                                        <input type="submit" name="submit" value="ENVIAR" id="rate">
+
+                                    <div class="button-container">
+                                        <c:choose>
+                                            <c:when test="${not empty avaliacaoUsuario}">
+                                                <div class="botao">
+                                                    <input type="submit" value="SALVAR" id="save" class="hidden" name="submit">
+                                                </div>
+                                                <div class="botao">
+                                                    <input type="submit" value="EDITAR" id="edit">
+                                                </div>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <div class="botao">
+                                                    <input type="submit" name="submit" value="ENVIAR" id="rate">
+                                                </div>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </div>
                                 </div>
-                                <input type="hidden" id="rating" name="rating">
+                                <input type="hidden" id="rating" name="rating" value="${not empty avaliacaoUsuario ? avaliacaoUsuario.nota : ''}">
+                                <input type="hidden" id="default-message" value="${not empty avaliacaoUsuario ? avaliacaoUsuario.comentario : ''}">
+                                <input type="hidden" id="default-rating" name="default-rating" value="${not empty avaliacaoUsuario ? avaliacaoUsuario.nota : ''}">
                                 <input type="hidden" name="idLoja" value="${loja.id}">
                             </form>
                         </div>
                             
                         <c:forEach items="${avaliacoes}" var="avaliacao">
-                            <div class="slider-ratings-comment">
-                                <h2>${avaliacao.idCliente}</h2>
-                                <p>${avaliacao.comentario}</p>
-                                <div class="slider-ratings-comment-footer">
-                                    <div>
-                                        <span>${avaliacao.nota}</span>
-                                        <div class="rating process-rating small" data-rating="${avaliacao.nota}">
-                                            <input class="star-input" type="radio" name="rating" value="1">
-                                            <label class="star-label" for="star1" data-star="1"><img src="imgs/gray-star.svg"
-                                                                                                     alt=""></label>
+                            <c:if test="${avaliacao.id ne avaliacaoUsuario.id}">
+                                <div class="slider-ratings-comment">
+                                    <h2>${avaliacao.idCliente}</h2>
+                                    <p>${avaliacao.comentario}</p>
+                                    <div class="slider-ratings-comment-footer">
+                                        <div>
+                                            <span>${avaliacao.nota}</span>
+                                            <div class="rating process-rating small" data-rating="${avaliacao.nota}">
+                                                <input class="star-input" type="radio" name="rating" value="1">
+                                                <label class="star-label" for="star1" data-star="1"><img src="imgs/gray-star.svg"
+                                                                                                         alt=""></label>
 
-                                            <input class="star-input" type="radio" name="rating" value="2">
-                                            <label class="star-label" for="star2" data-star="2"><img src="imgs/gray-star.svg"
-                                                                                                     alt=""></label>
+                                                <input class="star-input" type="radio" name="rating" value="2">
+                                                <label class="star-label" for="star2" data-star="2"><img src="imgs/gray-star.svg"
+                                                                                                         alt=""></label>
 
-                                            <input class="star-input" type="radio" name="rating" value="3">
-                                            <label class="star-label" for="star3" data-star="3"><img src="imgs/gray-star.svg"
-                                                                                                     alt=""></label>
+                                                <input class="star-input" type="radio" name="rating" value="3">
+                                                <label class="star-label" for="star3" data-star="3"><img src="imgs/gray-star.svg"
+                                                                                                         alt=""></label>
 
-                                            <input class="star-input" type="radio" name="rating" value="4">
-                                            <label class="star-label" for="star4" data-star="4"><img src="imgs/gray-star.svg"
-                                                                                                     alt=""></label>
+                                                <input class="star-input" type="radio" name="rating" value="4">
+                                                <label class="star-label" for="star4" data-star="4"><img src="imgs/gray-star.svg"
+                                                                                                         alt=""></label>
 
-                                            <input class="star-input" type="radio" name="rating" value="5">
-                                            <label class="star-label" for="star5" data-star="5"><img src="imgs/gray-star.svg"
-                                                                                                     alt=""></label>
+                                                <input class="star-input" type="radio" name="rating" value="5">
+                                                <label class="star-label" for="star5" data-star="5"><img src="imgs/gray-star.svg"
+                                                                                                         alt=""></label>
+                                            </div>
                                         </div>
+                                        <span><fmt:formatDate value="${avaliacao.data}" pattern="dd/MM/yyyy"/></span>
                                     </div>
-                                    <span><fmt:formatDate value="${avaliacao.data}" pattern="dd/MM/yyyy"/></span>
                                 </div>
-                            </div>
+                            </c:if>
                         </c:forEach>
-                        <div class="slider-ratings-comment">
-                            <h2>NOME</h2>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique vero facere error
-                                dolore,
-                                a tempore sed blanditiis ex iste eveniet consequatur, ea, possimus eum? Odio sint officiis
-                                deserunt vero natus.
-                            </p>
-                            <div class="slider-ratings-comment-footer">
-                                <div>
-                                    <span>4,0</span>
-                                    <div class="rating process-rating small" data-rating="3">
-                                        <input class="star-input" type="radio" name="rating" value="1">
-                                        <label class="star-label" for="star1" data-star="1"><img src="imgs/gray-star.svg"
-                                                                                                 alt=""></label>
-
-                                        <input class="star-input" type="radio" name="rating" value="2">
-                                        <label class="star-label" for="star2" data-star="2"><img src="imgs/gray-star.svg"
-                                                                                                 alt=""></label>
-
-                                        <input class="star-input" type="radio" name="rating" value="3">
-                                        <label class="star-label" for="star3" data-star="3"><img src="imgs/gray-star.svg"
-                                                                                                 alt=""></label>
-
-                                        <input class="star-input" type="radio" name="rating" value="4">
-                                        <label class="star-label" for="star4" data-star="4"><img src="imgs/gray-star.svg"
-                                                                                                 alt=""></label>
-
-                                        <input class="star-input" type="radio" name="rating" value="5">
-                                        <label class="star-label" for="star5" data-star="5"><img src="imgs/gray-star.svg"
-                                                                                                 alt=""></label>
-                                    </div>
-                                </div>
-                                <span>23/01/2006</span>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>

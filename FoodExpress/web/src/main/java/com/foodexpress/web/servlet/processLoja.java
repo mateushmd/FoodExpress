@@ -48,12 +48,12 @@ public class processLoja extends HttpServlet {
         
         ArrayList<AvaliacaoDTO> avaliacoes = (ArrayList<AvaliacaoDTO>) aService.getAvaliacaoByIdLoja(loja.getId());
         
-        boolean comentou = aService.comentou( ((UsuarioDTO) session.getAttribute("usuario")).getEmail(), id);
+        AvaliacaoDTO avaliacaoUsuario = aService.getAvaliacaoByIdLojaCliente(loja.getId(), ((UsuarioDTO) session.getAttribute("usuario")).getEmail());
         
         request.setAttribute("loja", loja);
         request.setAttribute("produtos", produtos);
         request.setAttribute("avaliacoes", avaliacoes);
-        request.setAttribute("comentou", comentou);
+        request.setAttribute("avaliacaoUsuario", avaliacaoUsuario);
         
         RequestDispatcher rd = request.getRequestDispatcher("loja.jsp");
         

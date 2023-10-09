@@ -44,9 +44,9 @@ public class AvaliacaoService {
         return dao.getAvaliacaoByIdCliente(id);
     }
     
-    public List<AvaliacaoDTO> getAvaliacaoByIdLoja(int id){
+    public List<AvaliacaoDTO> getAvaliacaoByIdLoja(int idLoja){
         
-        return dao.getAvaliacaoByIdLoja(id);
+        return dao.getAvaliacaoByIdLoja(idLoja);
     }
     
     public AvaliacaoDTO getAvaliacaoByIdLojaCliente(int idLoja, String idCliente){
@@ -64,12 +64,26 @@ public class AvaliacaoService {
         return dao.updateComentario(comentario, idAvaliacao);
     }
     
-    public boolean updateNotaComentario(int nota, String comentario, int idAvaliacao){
-        
-        return dao.updateNotaComentario(nota, comentario, idAvaliacao);
+    public boolean updateNotaComentario(AvaliacaoDTO avaliacao, LojaDTO loja, int avaliacaoAntiga){
+        boolean check = dao.updateNotaComentario(avaliacao.getNota(), avaliacao.getComentario(), avaliacao.getId());
+
+        if(!check)
+            return check;
+
+        return lService.mudarAvaliacao(loja, avaliacaoAntiga, avaliacao.getNota());
     }
     
     public boolean comentou(String idCliente, int idLoja) {
         return dao.comentou(idCliente, idLoja);
+    }
+
+    public boolean removerAvaliacao(AvaliacaoDTO avaliacao, LojaDTO loja)
+    {
+        boolean check = dao.removerAvaliacao(avaliacao.getId());
+
+        if(!check)
+            return check;
+
+        return lService.removerAvaliacao(loja, avaliacao.getNota());
     }
 }
