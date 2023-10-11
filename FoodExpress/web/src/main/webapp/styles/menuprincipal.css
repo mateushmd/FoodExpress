@@ -12,5 +12,9 @@ body {
 }
 
 main {
-    padding: 8px 120px;
+    padding: 30px 250px;
+}
+
+.content > h1 {
+    font-size: 100px;
 }

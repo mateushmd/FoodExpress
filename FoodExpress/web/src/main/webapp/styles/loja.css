@@ -1,13 +1,12 @@
 @import url('https://fonts.cdnfonts.com/css/cooper-hewitt?styles=34277,34279,34271');
 
-
 :root {
 	--profile-pic-size: 80px;
 }
 
 body {
 	margin: 0;
-	height: 100vh;
+	height: 100%;
 	overflow-x: hidden;
 	font-family: 'Cooper Hewitt', sans-serif;
 }
@@ -17,6 +16,7 @@ main {
 	display: flex;
 	flex-direction: column;
 	gap: 20px;
+	position: relative;
 }
 
 .font-707 {
@@ -42,7 +42,7 @@ main {
 	align-items: center;
 }
 
-#info img {
+#info>img {
 	width: var(--profile-pic-size);
 	height: var(--profile-pic-size);
 	border-radius: 100%;
@@ -58,6 +58,8 @@ main {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	gap: 5px;
+	z-index: 9999;
 }
 
 .rating input {
@@ -65,10 +67,17 @@ main {
 }
 
 .rating label {
-	font-size: 30px;
-	color: gray;
 	cursor: pointer;
 	transition: color 0.3s;
+}
+
+.rating label img {
+	width: 30px;
+	height: auto;
+}
+
+.rating.small label img {
+	width: 20px;
 }
 
 .rating .checked {
@@ -214,4 +223,178 @@ main {
 	height: 100%;
 	object-fit: cover;
 	transition: transform .5s cubic-bezier(0, 0, 0, 0.90);
+}
+
+/*Slider*/
+
+#slider {
+	position: fixed;
+	top: 91px;
+	right: -500px;
+	width: 412px;
+	padding: 30px;
+	height: calc(100vh - 150px);
+	background-color: white;
+	z-index: 9999;
+	transition: all .6s;
+}
+
+#slider.open {
+	top: 91px;
+	right: 0;
+}
+
+#close-slider {
+	background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+	position: absolute;
+
+	width: 24px;
+	height: 24px;
+
+	top: 8px;
+	left: 8px;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#close-slider img {
+	width: 20px;
+	height: 20px;
+}
+
+#slider-ratings {
+	display: flex;
+	flex-direction: column;
+	height: inherit;
+	overflow-y: auto;
+	padding-right: 10px;
+}
+
+#slider-ratings-header {
+	text-align: center;
+	width: 100%;
+	padding-bottom: 30px;
+	border-bottom: 1px solid #ccc;
+}
+
+#slider-ratings-header h2 {
+	margin-bottom: 5px;
+}
+
+#slider-ratings-header span {
+	margin: 0;
+	color: gray;
+}
+
+#slider-ratings-header h1 {
+	font-weight: 800;
+}
+
+#user-comment {
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 20px;
+}
+
+#user-comment-header {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	padding-right: 10px;
+}
+
+#user-comment-header img {
+	width: 25px;
+	height: auto;
+}
+
+#user-comment-header img:hover {
+	cursor: pointer;
+}
+
+#user-comment form,
+#slider-ratings-content {
+	display: flex;
+	flex-direction: column;
+	text-align: justify;
+}
+
+#user-comment textarea {
+	font: inherit;
+	font-size: .9rem;
+	resize: none;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	margin-bottom: 9px;
+}
+
+#user-comment textarea:disabled {
+	border-color: rgba(0, 0, 0, 0);
+	background-color: inherit;
+}
+
+.button-container {
+	display: flex;
+	flex-direction: row;
+	gap: 20px;
+}
+
+.botao>input {
+	text-align: center;
+	width: 100px;
+	text-align: center;
+	background-color: #e6f1f5;
+	color: #cc575f;
+	border: 1px solid #e6f1f5;
+	font-size: inherit;
+	border-radius: 6px;
+	height: 29px;
+	cursor: pointer;
+}
+
+.botao>input:hover {
+	color: white;
+	background-color: #0f7496;
+}
+
+#user-comment-footer {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.slider-ratings-comment {
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 20px;
+}
+
+.slider-ratings-comment p {
+	font-size: .9rem;
+}
+
+.slider-ratings-comment-footer {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+}
+
+.slider-ratings-comment-footer>span {
+	text-align: right;
+}
+
+.slider-ratings-comment-footer>div {
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
+}
+
+.hidden {
+	display: none;
 }

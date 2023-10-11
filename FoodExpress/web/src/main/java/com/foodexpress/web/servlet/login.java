@@ -83,11 +83,6 @@ public class login extends HttpServlet {
             session.setAttribute("produtos", produtos);
         }
         
-        /*
-        rd = request.getRequestDispatcher("menuprincipal.jsp");
-        rd.forward(request, response);
-        */
-        
         response.sendRedirect(URL);
     }
 

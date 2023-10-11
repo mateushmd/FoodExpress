@@ -25,19 +25,29 @@ arrows.forEach((el) =>
 
         index = carrosselEl.dataset.index = index - axis > -1 ? (index - axis < carrosselEl.children.length - itemsInScreen ? index - axis : carrosselEl.children.length - itemsInScreen) : 0;
 
-        carrosselEl.style.transform = `translateX(calc(((${itemSize} + 20px) * ${index}) * -1))`;
+        carrosselEl.style.transform = `translateX(calc(((${itemSize} + 40px) * ${index}) * -1))`;
     });
 });
 
-const items = [...document.querySelectorAll('.item')];
+const itemsLoja = [...document.querySelectorAll('.item-loja')];
 
-items.forEach((el) =>
+itemsLoja.forEach((el) =>
 {
     el.addEventListener('click', (e) =>
     {
-        const inputIdEl = el.querySelector('input');
-
-        //window.location.href = "";
+        const inputSubmitEl = el.querySelector('.submit-action');
+        
+        const formEl = el.closest('form');
+        
+        if(e.target.tagName === 'BUTTON') 
+        {
+            inputSubmitEl.value = 'FAVORITAR';
+            formEl.submit();
+        }
+        
+        inputSubmitEl.value = 'VISUALIZAR';
+        
+        formEl.submit();
     });
 });
 
