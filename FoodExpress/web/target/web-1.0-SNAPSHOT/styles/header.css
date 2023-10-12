@@ -1,15 +1,9 @@
 @import url('https://fonts.cdnfonts.com/css/cooper-hewitt?styles=34277,34271');
 
 #navbar {
-    /*
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    */
-    
     position: sticky;
     top: 0;
-    
+
     z-index: 1001;
 
     display: grid;
@@ -21,8 +15,6 @@
     padding: 20px 20px;
     color: rgb(40, 38, 38);
     border-bottom: 1px solid #ccc;
-    
-    font-family: 'Cooper Hewitt', sans-serif;
 }
 
 #navbar-logo {
@@ -107,6 +99,7 @@
 
 #orders-info p {
     margin: 0;
+    font-size: 1.1em;
 }
 
 #profile-pic,
@@ -115,4 +108,62 @@
     height: 30px;
     margin-left: 10px;
     cursor: pointer;
+}
+
+#profile {
+    position: relative;
+}
+
+#modal-perfil {
+    position: absolute;
+    right: 10%;
+    overflow: hidden;
+    background-color: white;
+    color: gray;
+    border-radius: 2%;
+    box-shadow: 1px 1px 4px 1px #c0c0c0;
+    margin-top: 20px;
+    padding: 30px 40px;
+    transition: max-height 1s ease-in;
+    max-height: auto;
+}
+
+#modal-perfil h2 {
+    margin: 0;
+    color: black;
+    font-size: 1.8em;
+}
+
+#modal-perfil ul {
+    list-style-type: none;
+    padding: 0;
+    font-size: 1.3em;
+    margin-top: 25px;
+}
+
+#modal-perfil li {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 40px;
+    cursor: pointer;
+}
+
+#modal-perfil li:hover {
+    filter: invert(59%) sepia(47%) saturate(4279%) hue-rotate(317deg) brightness(88%) contrast(80%);
+}
+
+#modal-perfil img {
+    width: 25px;
+    height: 25px;
+}
+
+#modal-perfil.hidden {
+    max-height: 0;
+    transition: max-height 1s ease-out;
+}
+
+.hidden {
+    display: none !important;
 }

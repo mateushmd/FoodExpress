@@ -15,6 +15,7 @@
         <link rel="icon" type="image/png" href="styles/imgs/icon.png" />
     </head>
     <body>
+        <c:set var="usuario" value="${sessionScope.usuario}"/>
         <c:set var="loja" value="${requestScope.loja}"/>
         <c:set var="produtos" value="${requestScope.produtos}"/>
         <c:set var="avaliacoes" value="${requestScope.avaliacoes}"/>
@@ -22,13 +23,14 @@
 
         <c:set var="ratingClass" value="${not empty avaliacaoUsuario ? 'process-rating disabled' : ''}"/>
         <c:set var="ratingValue" value="${not empty avaliacaoUsuario ? avaliacaoUsuario.nota : 0}"/>
-
+        
         <input type="hidden" id="emailFirebase" value="${loja.idUser}">
+        <input type="hidden" id="avaliacao" value="<fmt:formatNumber value="${loja.avaliacao}" type="number" pattern="#,##0.0" />">
+        
         <header id="navbar">
             <img id="navbar-logo" src="imgs/logo3.png" alt="Logo">
             <div id="navbar-menu">
                 <a class="navbar-link" href="menuprincipal.jsp">Início</a>
-                <a class="navbar-link" href="gerenciarperfil.jsp">Perfil</a>
                 <a class="navbar-link" href="#">Favoritos</a>
                 <a class="navbar-link" href="gerenciarloja.jsp">Loja</a>
                 <a class="navbar-link" href="#">Sobre</a>
@@ -38,16 +40,85 @@
                 <input type="text" placeholder="Pesquisar...">
             </div>
             <div id="navbar-icons">
-                <img id="profile-pic" src="imgs/icone-perfil.png" alt="Perfil">
+                <div id="profile">
+                    <img id="profile-pic" class="modal-trigger" data-modal-index="0" src="imgs/header/icone-perfil.png"
+                         alt="Perfil">
+                    <div id="modal-perfil" class="modal hidden" data-modal-index="0">
+                        <h2>Olá ${usuario.nome}</h2>
+                        <ul>
+                            <li><img src="imgs/header/engrenagem.svg" alt="">Dados</li>
+                            <li><img src="imgs/header/pedido.svg" alt="">Pedidos</li>
+                            <li><img src="imgs/header/chat.svg" alt="">Conversas</li>
+                            <li><img src="imgs/header/coracao.svg" alt="">Favoritos</li>
+                            <li><img src="imgs/header/acessibilidade.svg" alt="">Acessibilidade</li>
+                            <li><img src="imgs/header/sair.svg" alt="">Sair</li>
+                        </ul>
+                    </div>
+                </div>
                 <div id="orders">
-                    <img id="orders-pic" src="imgs/sacola.png" alt="Pedidos">
+                    <img id="orders-pic" src="imgs/header/sacola.png" alt="Pedidos">
                     <div id="orders-info">
-                        <p>R$0,00</p>
+                        <p>R$ 0,00</p>
                         <p>0 itens</p>
                     </div>
                 </div>
             </div>
         </header>
+
+        <div id="overlay" class="hidden"></div>
+
+        <div id="modal-produto" class="modal hidden" data-modal-index="1" data-lock-screen="true">
+            <button id="close-modal-produto" class="modal-produto-botao">
+                <img src="imgs/x-symbol.svg" alt="">
+            </button>
+            <div id="modal-produto-main">
+                <div id="modal-produto-info">
+                    <div id="modal-produto-header">
+                        <h2 id="modal-produto-nome" class="font-707">NOME DO PRODUTO</h2>
+                    </div>
+                    <div id="modal-produto-body">
+                        <p id="modal-produto-descricao">DESCRIÇÃO DO PRODUTO</p>
+                        <h2 class="font-707">Resumo:</h2>
+                        <div id="modal-produto-resumo" class="font-707">
+                            <div>
+                                <p id="modal-produto-nome-loja">NOME DA LOJA</p>
+                                <div id="modal-produto-avaliacao">
+                                    <img src="imgs/star.svg" alt="">
+                                    <p>5</p>
+                                </div>
+                            </div>
+                            <div>
+                                <p>PREÇO INDIVIDUAL: R$ <span id="modal-produto-preco">PREÇO INDIVIDUAL</span></p>
+                                <p>QUANTIDADE: <span class="modal-produto-quantidade">1</span></p>
+                            </div>
+                            <div>
+                                <p>TOTAL: R$ <span class="modal-produto-preco-total">PREÇO TOTAL</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="modal-produto-footer">
+                        <button id="modal-produto-adicionar" class="modal-produto-botao">
+                            <p>Adicionar</p>
+                            <p>R$ <span class="modal-produto-preco-total">PREÇO TOTAL</span></p>
+                        </button>
+
+                        <div id="modal-produto-quantidade">
+                            <button class="modal-produto-botao modal-produto-botao-quantidade" data-operacao="-1">
+                                <img src="imgs/loja/menos.svg" alt="">
+                            </button>
+                            <p class="font-707 modal-produto-quantidade">1</p>
+                            <button class="modal-produto-botao modal-produto-botao-quantidade" data-operacao="1">
+                                <img src="imgs/loja/mais.svg" alt="">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div id="modal-produto-img-container">
+                    <img src="imgs/teste/teste.jpg" alt="">
+                </div>
+            </div>
+        </div>
+
         <main>
             <section id="banner">
                 <img src="imgs/teste/teste.jpg" alt="" id="bannerLojaF">
@@ -96,16 +167,22 @@
                     <div class="arrow arrow-rounded left-arrow"><img src="imgs/arrow-left.png" alt=""></div>
                     <div class="carousel" data-index="0">
                         <c:forEach items="${produtos}" var="produto">
-                            <div class="item fit-product">
+                            <div class="item fit-product modal-trigger" data-modal-index="1">
                                 <div class="img-container">
                                     <img src="imgs/teste/teste.jpg" alt="Sandubao">
                                 </div>
                                 <div class="info-container">
-                                    <h2 class="font-707">${produto.nome}</h2>
-                                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Recusandae error blanditiis sit
+                                    <div class="info-container-header">
+                                        <h2 class="font-707 nome">${produto.nome}</h2>
+                                    </div>
+                                    <div class="info-container-body">
+                                        <p class="descricao">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Recusandae error blanditiis sit
                                         nesciunt, impedit consectetur voluptatibus dolores aut vitae excepturi tenetur, labore
                                         tempore dolor corporis ipsum iure? Beatae, ipsa? Harum?</p>
-                                    <p class="preco">R$<fmt:formatNumber value='${produto.preco}' pattern='0.00' /></p>
+                                    </div>
+                                    <div class="info-container-footer">
+                                        <p class="preco">R$<fmt:formatNumber value='${produto.preco}' pattern='0.00' /></p>
+                                    </div>
                                 </div>
                             </div>
                         </c:forEach>
@@ -119,8 +196,8 @@
                     <c:forEach items="${produtos}" var="produto">
                         <div class="produto">
                             <div class="info-produto">
-                                <h2 class="font-707">${produto.nome}</h2>
-                                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt dolorum quod consequuntur
+                                <h2 class="font-707 nome">${produto.nome}</h2>
+                                <p class="descricao">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt dolorum quod consequuntur
                                     voluptatem mollitia, non nam impedit exercitationem excepturi, eius nesciunt nobis cum quae.
                                     Est alias voluptate facere tempora debitis?</p>
                                 <p class="preco">R$<fmt:formatNumber value='${produto.preco}' pattern='0.00' /></p>
@@ -135,8 +212,8 @@
                 <div class="categoria">
                     <div class="produto">
                         <div class="info-produto">
-                            <h2 class="font-707">NOME DO PRODUTO</h2>
-                            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt dolorum quod consequuntur
+                            <h2 class="font-707 nome">NOME DO PRODUTO</h2>
+                            <p class="descricao">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt dolorum quod consequuntur
                                 voluptatem mollitia, non nam impedit exercitationem excepturi, eius nesciunt nobis cum quae.
                                 Est alias voluptate facere tempora debitis?</p>
                             <p class="preco">$10,00</p>
@@ -147,8 +224,8 @@
                     </div>
                     <div class="produto">
                         <div class="info-produto">
-                            <h2 class="font-707">NOME DO PRODUTO</h2>
-                            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt dolorum quod consequuntur
+                            <h2 class="font-707 nome">NOME DO PRODUTO</h2>
+                            <p class="descricao">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt dolorum quod consequuntur
                                 voluptatem mollitia, non nam impedit exercitationem excepturi, eius nesciunt nobis cum quae.
                                 Est alias voluptate facere tempora debitis?</p>
                             <p class="preco">$10,00</p>
@@ -159,8 +236,8 @@
                     </div>
                     <div class="produto">
                         <div class="info-produto">
-                            <h2 class="font-707">NOME DO PRODUTO</h2>
-                            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt dolorum quod consequuntur
+                            <h2 class="font-707 nome">NOME DO PRODUTO</h2>
+                            <p class="descricao">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt dolorum quod consequuntur
                                 voluptatem mollitia, non nam impedit exercitationem excepturi, eius nesciunt nobis cum quae.
                                 Est alias voluptate facere tempora debitis?</p>
                             <p class="preco">$10,00</p>
@@ -262,7 +339,7 @@
                                 <input type="hidden" name="idLoja" value="${loja.id}">
                             </form>
                         </div>
-                            
+
                         <c:forEach items="${avaliacoes}" var="avaliacao">
                             <c:if test="${avaliacao.id ne avaliacaoUsuario.id}">
                                 <div class="slider-ratings-comment">
@@ -389,5 +466,6 @@
     <script src="scripts/userRating.js"></script>
     <script src="scripts/carrossel.js"></script>
     <script src="scripts/slider.js"></script>
+    <script src="scripts/modal.js"></script>
 </body>
 </html>

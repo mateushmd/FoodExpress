@@ -104,6 +104,18 @@
     font-size: 1.4vw;
     font-weight: 800;
     margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.item.fit-product .info-container p {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    text-align: justify;
+    overflow: hidden;
 }
 
 .arrow-squared,

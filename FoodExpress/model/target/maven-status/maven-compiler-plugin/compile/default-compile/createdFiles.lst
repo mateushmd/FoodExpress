@@ -3,7 +3,6 @@ com\foodexpress\model\dao\AvaliacaoDAO.class
 com\foodexpress\model\imgFirebase\teste.class
 com\foodexpress\model\dao\ProdutoDAO.class
 com\foodexpress\model\dao\UsuarioDAO.class
-com\foodexpress\model\email\TLSEmailAuth$1.class
 com\foodexpress\model\dao\ConnectionPoolManager.class
 com\foodexpress\model\dto\LojaDTO.class
 com\foodexpress\model\encoder\EmailEncoder.class

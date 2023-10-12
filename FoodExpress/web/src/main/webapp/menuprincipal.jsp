@@ -20,11 +20,11 @@
     <body>
         <c:set var="usuario" value="${sessionScope.usuario}"/>
         <c:set var="lojas" value="${sessionScope.lojas}"/>
+        
         <header id="navbar">
             <img id="navbar-logo" src="imgs/logo3.png" alt="Logo">
             <div id="navbar-menu">
                 <a class="navbar-link" href="menuprincipal.jsp">Início</a>
-                <a class="navbar-link" href="gerenciarperfil.jsp">Perfil</a>
                 <a class="navbar-link" href="#">Favoritos</a>
                 <a class="navbar-link" href="gerenciarloja.jsp">Loja</a>
                 <a class="navbar-link" href="#">Sobre</a>
@@ -34,11 +34,25 @@
                 <input type="text" placeholder="Pesquisar...">
             </div>
             <div id="navbar-icons">
-                <img id="profile-pic" src="imgs/icone-perfil.png" alt="Perfil">
+                <div id="profile">
+                    <img id="profile-pic" class="modal-trigger" data-modal-index="0" src="imgs/header/icone-perfil.png"
+                         alt="Perfil">
+                    <div id="modal-perfil" class="modal hidden" data-modal-index="0">
+                        <h2>Olá ${usuario.nome}</h2>
+                        <ul>
+                            <li><img src="imgs/header/engrenagem.svg" alt="">Dados</li>
+                            <li><img src="imgs/header/pedido.svg" alt="">Pedidos</li>
+                            <li><img src="imgs/header/chat.svg" alt="">Conversas</li>
+                            <li><img src="imgs/header/coracao.svg" alt="">Favoritos</li>
+                            <li><img src="imgs/header/acessibilidade.svg" alt="">Acessibilidade</li>
+                            <li><img src="imgs/header/sair.svg" alt="">Sair</li>
+                        </ul>
+                    </div>
+                </div>
                 <div id="orders">
-                    <img id="orders-pic" src="imgs/sacola.png" alt="Pedidos">
+                    <img id="orders-pic" src="imgs/header/sacola.png" alt="Pedidos">
                     <div id="orders-info">
-                        <p>R$0,00</p>
+                        <p>R$ 0,00</p>
                         <p>0 itens</p>
                     </div>
                 </div>
@@ -239,6 +253,7 @@
         </script>
         <script src="scripts/carrossel.js"></script>
         <script src="scripts/rating.js"></script>
+        <script src="scripts/modal.js"></script>
     </body>
 </html>
 
