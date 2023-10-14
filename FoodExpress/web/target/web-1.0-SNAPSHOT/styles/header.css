@@ -1,5 +1,3 @@
-@import url('https://fonts.cdnfonts.com/css/cooper-hewitt?styles=34277,34271');
-
 #navbar {
     position: sticky;
     top: 0;
@@ -7,14 +5,14 @@
     z-index: 1001;
 
     display: grid;
-    grid-template-columns: auto 2fr 50% 1fr;
+    grid-template-columns: auto 2fr calc(50% / var(--escala-menor)) 1fr;
     justify-content: center;
     align-items: center;
 
-    background-color: #ffffff;
+    background-color: var(--cor-fundo);
     padding: 20px 20px;
-    color: rgb(40, 38, 38);
-    border-bottom: 1px solid #ccc;
+    color: var(--cor-fonte-1);
+    border-bottom: 1px solid var(--cor-borda);
 }
 
 #navbar-logo {
@@ -30,13 +28,13 @@
 
 .navbar-link {
     margin: 0 15px;
-    color: rgb(47, 46, 46);
+    color: var(--cor-fonte-1);
     text-decoration: none;
 }
 
 #search-bar {
     padding: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--cor-borda);
     border-radius: 5px;
     display: grid;
     grid-template-columns: auto 1fr;
@@ -49,6 +47,9 @@
 #search-bar input {
     border: none;
     height: 70%;
+    width: calc(100% / var(--escala-menor));
+    font-size: calc(0.81em * var(--escala-menor));
+    background-color: var(--cor-fundo);
 }
 
 #search-bar input:focus {
@@ -99,18 +100,19 @@
 
 #orders-info p {
     margin: 0;
-    font-size: 1.1em;
+    font-size: calc(1.1em * var(--escala-menor));
 }
 
 #profile-pic,
 #orders-pic {
     width: 30px;
     height: 30px;
-    margin-left: 10px;
     cursor: pointer;
 }
 
 #profile {
+    width: 30px;
+    height: 30px;
     position: relative;
 }
 
@@ -162,8 +164,4 @@
 #modal-perfil.hidden {
     max-height: 0;
     transition: max-height 1s ease-out;
-}
-
-.hidden {
-    display: none !important;
 }
