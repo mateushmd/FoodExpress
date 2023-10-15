@@ -9,6 +9,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>FoodExpress</title>
+        <link rel="stylesheet" type="text/css" href="styles/main.css">
         <link rel="stylesheet" type="text/css" href="styles/menuprincipal.css">
         <link rel="stylesheet" type="text/css" href="styles/carrossel.css">
         <link rel="stylesheet" type="text/css" href="styles/rating.css">
@@ -20,11 +21,11 @@
     <body>
         <c:set var="usuario" value="${sessionScope.usuario}"/>
         <c:set var="lojas" value="${sessionScope.lojas}"/>
+
         <header id="navbar">
             <img id="navbar-logo" src="imgs/logo3.png" alt="Logo">
             <div id="navbar-menu">
                 <a class="navbar-link" href="menuprincipal.jsp">Início</a>
-                <a class="navbar-link" href="gerenciarperfil.jsp">Perfil</a>
                 <a class="navbar-link" href="#">Favoritos</a>
                 <a class="navbar-link" href="gerenciarloja.jsp">Loja</a>
                 <a class="navbar-link" href="#">Sobre</a>
@@ -34,11 +35,25 @@
                 <input type="text" placeholder="Pesquisar...">
             </div>
             <div id="navbar-icons">
-                <img id="profile-pic" src="imgs/icone-perfil.png" alt="Perfil">
+                <div id="profile">
+                    <img id="profile-pic" class="modal-trigger" data-modal-index="0" src="imgs/header/icone-perfil.png"
+                         alt="Perfil">
+                    <div id="modal-perfil" class="modal hidden" data-modal-index="0">
+                        <h2>Olá ${usuario.nome}</h2>
+                        <ul>
+                            <li><img src="imgs/header/engrenagem.svg" alt="">Dados</li>
+                            <li><img src="imgs/header/pedido.svg" alt="">Pedidos</li>
+                            <li><img src="imgs/header/chat.svg" alt="">Conversas</li>
+                            <li><img src="imgs/header/coracao.svg" alt="">Favoritos</li>
+                            <li><img src="imgs/header/acessibilidade.svg" alt="">Acessibilidade</li>
+                            <li><img src="imgs/header/sair.svg" alt="">Sair</li>
+                        </ul>
+                    </div>
+                </div>
                 <div id="orders">
-                    <img id="orders-pic" src="imgs/sacola.png" alt="Pedidos">
+                    <img id="orders-pic" src="imgs/header/sacola.png" alt="Pedidos">
                     <div id="orders-info">
-                        <p>R$0,00</p>
+                        <p>R$ 0,00</p>
                         <p>0 itens</p>
                     </div>
                 </div>
@@ -49,7 +64,7 @@
             <section class="content">
                 <h1>DESTAQUES</h1>
                 <div class="carousel-container realign" data-items="2">
-                    <div class="arrow arrow-rounded left-arrow"><img src="imgs/arrow-left.png" alt=""></div>
+                    <div class="arrow arrow-rounded left-arrow"><img src="imgs/menu-principal/seta.svg" alt=""></div>
                     <div class="carousel" data-index="0" >
                         <c:forEach items="${lojas}" var="loja">
                             <form action="loja" method="post">
@@ -80,11 +95,11 @@
                             </form>
                         </c:forEach>
                     </div>
-                    <div class="arrow arrow-rounded right-arrow"><img src="imgs/arrow-right.png" alt=""></div>
+                    <div class="arrow arrow-rounded right-arrow"><img src="imgs/menu-principal/seta.svg" alt=""></div>
                 </div>
                 <h1 style="margin-top: 50px;">NOVIDADES</h1>
                 <div class="carousel-container realign" data-items="2">
-                    <div class="arrow arrow-squared left-arrow"><img src="imgs/arrow-left.png" alt=""></div>
+                    <div class="arrow arrow-squared left-arrow"><img src="imgs/menu-principal/seta.svg" alt=""></div>
                     <div class="carousel" data-index="0" >
                         <c:forEach items="${lojas}" var="loja">
                             <form action="loja" method="post">
@@ -115,11 +130,11 @@
                             </form>
                         </c:forEach>
                     </div>
-                    <div class="arrow arrow-squared right-arrow"><img src="imgs/arrow-right.png" alt=""></div>
+                    <div class="arrow arrow-squared right-arrow"><img src="imgs/menu-principal/seta.svg" alt=""></div>
                 </div>
                 <h1 style="margin-top: 50px;">MAIS BEM AVALIADOS</h1>
                 <div class="carousel-container realign" data-items="2">
-                    <div class="arrow arrow-squared left-arrow"><img src="imgs/arrow-left.png" alt=""></div>
+                    <div class="arrow arrow-squared left-arrow"><img src="imgs/menu-principal/seta.svg" alt=""></div>
                     <div class="carousel" data-index="0" >
                         <c:forEach items="${lojas}" var="loja">
                             <form action="loja" method="post">
@@ -150,7 +165,7 @@
                             </form>
                         </c:forEach>
                     </div>
-                    <div class="arrow arrow-squared right-arrow"><img src="imgs/arrow-right.png" alt=""></div>
+                    <div class="arrow arrow-squared right-arrow"><img src="imgs/menu-principal/seta.svg" alt=""></div>
                 </div>
             </section>
         </main>
@@ -237,8 +252,18 @@
                 getImageUrlByName();
             });
         </script>
+        <script>
+            const configuracoesAcessibilidade = [
+                false,
+                false,
+                false,
+                1
+            ];
+        </script>
         <script src="scripts/carrossel.js"></script>
         <script src="scripts/rating.js"></script>
+        <script src="scripts/modal.js"></script>
+        <script src="scripts/acessibilidade.js"></script>
     </body>
 </html>
 

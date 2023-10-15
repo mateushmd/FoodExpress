@@ -1,28 +1,18 @@
-@import url('https://fonts.cdnfonts.com/css/cooper-hewitt?styles=34277,34271');
-
 #navbar {
-    /*
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    */
-    
     position: sticky;
     top: 0;
-    
+
     z-index: 1001;
 
     display: grid;
-    grid-template-columns: auto 2fr 50% 1fr;
+    grid-template-columns: auto 2fr calc(50% / var(--escala-menor)) 1fr;
     justify-content: center;
     align-items: center;
 
-    background-color: #ffffff;
+    background-color: var(--cor-fundo);
     padding: 20px 20px;
-    color: rgb(40, 38, 38);
-    border-bottom: 1px solid #ccc;
-    
-    font-family: 'Cooper Hewitt', sans-serif;
+    color: var(--cor-fonte-1);
+    border-bottom: 1px solid var(--cor-borda);
 }
 
 #navbar-logo {
@@ -38,13 +28,13 @@
 
 .navbar-link {
     margin: 0 15px;
-    color: rgb(47, 46, 46);
+    color: var(--cor-fonte-1);
     text-decoration: none;
 }
 
 #search-bar {
     padding: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--cor-borda);
     border-radius: 5px;
     display: grid;
     grid-template-columns: auto 1fr;
@@ -57,6 +47,10 @@
 #search-bar input {
     border: none;
     height: 70%;
+    width: calc(100% / var(--escala-menor));
+    font-size: calc(0.81em * var(--escala-menor));
+    background-color: var(--cor-fundo);
+    color: var(--cor-fonte-1);
 }
 
 #search-bar input:focus {
@@ -64,16 +58,19 @@
 }
 
 #search-bar input::placeholder {
-    color: #c0c0c0;
+    color: var(--cor-placeholder);
     opacity: 1;
+    font-weight: var(--font-weight);
 }
 
 #search-bar input:-ms-input-placeholder {
-    color: #c0c0c0;
+    color: var(--cor-placeholder);
+    font-weight: var(--font-weight);
 }
 
-#search-bar input::-ms-input-placeholder {
-    color: #c0c0c0;
+#search-bar input::-moz-placeholder {
+    color: var(--cor-placeholder);
+    font-weight: var(--font-weight);
 }
 
 #search-bar img {
@@ -107,12 +104,69 @@
 
 #orders-info p {
     margin: 0;
+    font-size: calc(1.1em * var(--escala-menor));
 }
 
 #profile-pic,
 #orders-pic {
     width: 30px;
     height: 30px;
-    margin-left: 10px;
     cursor: pointer;
+}
+
+#profile {
+    width: 30px;
+    height: 30px;
+    position: relative;
+}
+
+#modal-perfil {
+    position: absolute;
+    right: 10%;
+    overflow: hidden;
+    background-color: var(--cor-fundo);
+    color: gray;
+    border-radius: 2%;
+    box-shadow: 1px 1px 4px 1px #c0c0c0;
+    margin-top: 20px;
+    padding: 30px 40px;
+    transition: max-height 1s ease-in;
+    max-height: auto;
+}
+
+#modal-perfil h2 {
+    margin: 0;
+    color: var(--cor-fonte-1);
+    font-size: 1.8em;
+
+}
+
+#modal-perfil ul {
+    list-style-type: none;
+    padding: 0;
+    font-size: 1.3em;
+    margin-top: 25px;
+}
+
+#modal-perfil li {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 40px;
+    cursor: pointer;
+}
+
+#modal-perfil li:hover {
+    filter: invert(59%) sepia(47%) saturate(4279%) hue-rotate(317deg) brightness(88%) contrast(80%);
+}
+
+#modal-perfil img {
+    width: 25px;
+    height: 25px;
+}
+
+#modal-perfil.hidden {
+    max-height: 0;
+    transition: max-height 1s ease-out;
 }
