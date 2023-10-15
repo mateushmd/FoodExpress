@@ -9,6 +9,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>FoodExpress</title>
+        <link rel="stylesheet" type="text/css" href="styles/main.css">
         <link rel="stylesheet" type="text/css" href="styles/menuprincipal.css">
         <link rel="stylesheet" type="text/css" href="styles/carrossel.css">
         <link rel="stylesheet" type="text/css" href="styles/rating.css">
@@ -20,7 +21,7 @@
     <body>
         <c:set var="usuario" value="${sessionScope.usuario}"/>
         <c:set var="lojas" value="${sessionScope.lojas}"/>
-        
+
         <header id="navbar">
             <img id="navbar-logo" src="imgs/logo3.png" alt="Logo">
             <div id="navbar-menu">
@@ -63,7 +64,7 @@
             <section class="content">
                 <h1>DESTAQUES</h1>
                 <div class="carousel-container realign" data-items="2">
-                    <div class="arrow arrow-rounded left-arrow"><img src="imgs/arrow-left.png" alt=""></div>
+                    <div class="arrow arrow-rounded left-arrow"><img src="imgs/menu-principal/seta.svg" alt=""></div>
                     <div class="carousel" data-index="0" >
                         <c:forEach items="${lojas}" var="loja">
                             <form action="loja" method="post">
@@ -94,11 +95,11 @@
                             </form>
                         </c:forEach>
                     </div>
-                    <div class="arrow arrow-rounded right-arrow"><img src="imgs/arrow-right.png" alt=""></div>
+                    <div class="arrow arrow-rounded right-arrow"><img src="imgs/menu-principal/seta.svg" alt=""></div>
                 </div>
                 <h1 style="margin-top: 50px;">NOVIDADES</h1>
                 <div class="carousel-container realign" data-items="2">
-                    <div class="arrow arrow-squared left-arrow"><img src="imgs/arrow-left.png" alt=""></div>
+                    <div class="arrow arrow-squared left-arrow"><img src="imgs/menu-principal/seta.svg" alt=""></div>
                     <div class="carousel" data-index="0" >
                         <c:forEach items="${lojas}" var="loja">
                             <form action="loja" method="post">
@@ -129,11 +130,11 @@
                             </form>
                         </c:forEach>
                     </div>
-                    <div class="arrow arrow-squared right-arrow"><img src="imgs/arrow-right.png" alt=""></div>
+                    <div class="arrow arrow-squared right-arrow"><img src="imgs/menu-principal/seta.svg" alt=""></div>
                 </div>
                 <h1 style="margin-top: 50px;">MAIS BEM AVALIADOS</h1>
                 <div class="carousel-container realign" data-items="2">
-                    <div class="arrow arrow-squared left-arrow"><img src="imgs/arrow-left.png" alt=""></div>
+                    <div class="arrow arrow-squared left-arrow"><img src="imgs/menu-principal/seta.svg" alt=""></div>
                     <div class="carousel" data-index="0" >
                         <c:forEach items="${lojas}" var="loja">
                             <form action="loja" method="post">
@@ -164,7 +165,7 @@
                             </form>
                         </c:forEach>
                     </div>
-                    <div class="arrow arrow-squared right-arrow"><img src="imgs/arrow-right.png" alt=""></div>
+                    <div class="arrow arrow-squared right-arrow"><img src="imgs/menu-principal/seta.svg" alt=""></div>
                 </div>
             </section>
         </main>
@@ -251,9 +252,18 @@
                 getImageUrlByName();
             });
         </script>
+        <script>
+            const configuracoesAcessibilidade = [
+                false,
+                false,
+                false,
+                1
+            ];
+        </script>
         <script src="scripts/carrossel.js"></script>
         <script src="scripts/rating.js"></script>
         <script src="scripts/modal.js"></script>
+        <script src="scripts/acessibilidade.js"></script>
     </body>
 </html>
 

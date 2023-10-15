@@ -51,7 +51,8 @@ main {
 
 #info h1 {
     font-weight: 800;
-    font-size: 2em;
+    font-size: calc(32px * var(--escala-menor));
+    margin: 0;
 }
 
 .rating {
@@ -115,6 +116,26 @@ main {
     gap: 20px;
 }
 
+#pesquisa input {
+    color: var(--cor-fonte-1);
+}
+
+#pesquisa input::placeholder {
+    color: var(--cor-placeholder);
+    opacity: 1;
+    font-weight: var(--font-weight);
+}
+
+#pesquisa input:-ms-input-placeholder {
+    color: var(--cor-placeholder);
+    font-weight: var(--font-weight);
+}
+
+#pesquisa input::-moz-placeholder {
+    color: var(--cor-placeholder);
+    font-weight: var(--font-weight);
+}
+
 #container-input,
 #container-select {
     border: 1px solid #ccc;
@@ -143,8 +164,12 @@ main {
 #container-select select {
     background: none;
     border: none;
-    font-size: 1rem;
+    font-size: calc(1rem * var(--escala-menor));
     height: 70%;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 #container-select select {
@@ -188,10 +213,11 @@ main {
 }
 
 .produto {
-    height: 205px;
+    height: calc(205px * var(--escala-menor));
     border: 1px solid #ccc;
     display: grid;
     grid-template-columns: 60% 40%;
+    grid-template-rows: 100%;
 }
 
 .produto:hover img {
@@ -203,11 +229,18 @@ main {
     padding-left: 10px;
 }
 
+.info-produto h2 {
+    font-size: calc(1.5em / var(--escala-menor));
+    margin: 19px 0px;
+}
+
 .info-produto p {
+    font-size: calc(1em * var(--escala-menor));
     display: -webkit-box;
-    -webkit-line-clamp: 4;
+    -webkit-line-clamp: calc(4 / (var(--escala) * var(--escala-menor)));
     -webkit-box-orient: vertical;
     overflow: hidden;
+    margin: 0px 0px 16px 0px
 }
 
 .img-produto {
@@ -234,7 +267,7 @@ main {
     width: 412px;
     padding: 30px;
     height: calc(100vh - 150px);
-    background-color: white;
+    background-color: var(--cor-fundo);
     z-index: 9999;
     transition: all .6s;
 }
@@ -275,6 +308,7 @@ main {
     flex-direction: column;
     height: inherit;
     overflow-y: auto;
+    overflow-x: hidden;
     padding-right: 10px;
 }
 
@@ -311,6 +345,10 @@ main {
     padding-right: 10px;
 }
 
+#user-comment-header h2 {
+    font-weight: var(--font-weight);
+}
+
 #user-comment-header img {
     width: 25px;
     height: auto;
@@ -329,17 +367,20 @@ main {
 
 #user-comment textarea {
     font: inherit;
-    font-size: .9rem;
+    font-size: calc(.9rem * var(--escala-menor));
     resize: none;
-    border: 1px solid #ccc;
+    border: 1px solid var(--cor-borda);
     border-radius: 5px;
     margin-bottom: 9px;
+    background-color: var(--cor-fundo);
+    color: var(--cor-fonte-1);
 }
 
 #user-comment textarea:disabled {
     border-color: rgba(0, 0, 0, 0);
     background-color: inherit;
 }
+
 
 .button-container {
     display: flex;
@@ -349,14 +390,14 @@ main {
 
 .botao>input {
     text-align: center;
-    width: 100px;
+    width: calc(100px * var(--escala-menor));
     text-align: center;
-    background-color: #e6f1f5;
+    background-color: var(--cor-fundo);
     color: #cc575f;
-    border: 1px solid #e6f1f5;
+    border: 1px solid var(--cor-borda);
     font-size: inherit;
     border-radius: 6px;
-    height: 29px;
+    height: calc(29px * var(--escala-menor));
     cursor: pointer;
 }
 
@@ -376,8 +417,15 @@ main {
     padding-bottom: 20px;
 }
 
+.slider-ratings-comment h2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
 .slider-ratings-comment p {
-    font-size: .9rem;
+    font-size: calc(0.9rem * var(--escala));
 }
 
 .slider-ratings-comment-footer {
@@ -472,6 +520,7 @@ main {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    gap: 80px;
 }
 
 #modal-produto-resumo>div:not(:first-child) {
@@ -513,6 +562,7 @@ main {
 #modal-produto-adicionar {
     font-size: 1.3em;
     display: flex;
+    align-items: center;
     gap: 20px;
     border: 1px solid #cc575f;
     border-radius: 5px;
@@ -528,6 +578,10 @@ main {
 #modal-produto-adicionar p {
     margin: 0;
     font-weight: 707;
+}
+
+#modal-produto-adicionar>p:last-child {
+    font-size: calc(1.3em * (var(--escala-menor) / var(--escala)));
 }
 
 #modal-produto-quantidade {

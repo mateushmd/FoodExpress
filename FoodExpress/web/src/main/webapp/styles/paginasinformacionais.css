@@ -2,13 +2,10 @@
 
 body {
     margin: 0;
-    height: 100vh;
+    min-height: 100vh;
 
     display: grid;
     grid-template-rows: auto 1fr auto;
-
-    background-color: #e6f1f5;
-    
     font-family: 'Cooper Hewitt', sans-serif;
 }
 
@@ -26,22 +23,20 @@ section {
     max-width: 800px;
     margin: 50px auto 30px auto;
     padding-right: 20px;
-    color: #860e0e;
+    color: #cc575f;
 }
 
 section details {
-    font-size: 18px;
+    font-size: 1em;
 }
 
 section details summary {
-    background-color: #e6f1f5;
     padding: 2%;
-    border-bottom: 2px solid #282828;
+    border-bottom: 2px solid var(--cor-borda);
     cursor: pointer;
 }
 
 section details p {
-    background-color: #e6f1f5;
     padding: 2%;
     transition: all 0.5s;
     text-align: justify;

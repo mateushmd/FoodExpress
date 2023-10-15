@@ -17,7 +17,7 @@
 
     <body>
         <c:set var="usuario" value="${sessionScope.usuario}"/>
-        
+
         <header id="navbar">
             <img id="navbar-logo" src="imgs/logo3.png" alt="Logo">
             <div id="navbar-menu">
@@ -55,7 +55,7 @@
                 </div>
             </div>
         </header>
-                        
+
         <main>
             <section>
                 <h1>Acessibilidade</h1>
@@ -97,10 +97,12 @@
         </main>
 
         <script>
-            const temaEscuro = false;
-            const contraste = false;
-            const negrito = false;
-            const tamanho = 1;
+            const configuracoesAcessibilidade = [
+                false,
+                false,
+                false,
+                1
+            ];
         </script>
         <script src="scripts/modal.js"></script>
         <script src="scripts/rangeinput.js"></script>

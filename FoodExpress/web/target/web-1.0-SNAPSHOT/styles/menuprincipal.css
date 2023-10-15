@@ -3,7 +3,7 @@
 body {
     margin: 0;
     height: 100vh;
-    background-color: white;
+    background-color: var(--cor-fundo);
     overflow-x: hidden;
     font-family: 'Cooper Hewitt', sans-serif;
     display: grid;
@@ -15,6 +15,8 @@ main {
     padding: 30px 250px;
 }
 
-.content > h1 {
-    font-size: 100px;
+.content>h1 {
+    font-size:
+        /*calc(3.15em * var(--escala-menor))*/
+        3.15em;
 }

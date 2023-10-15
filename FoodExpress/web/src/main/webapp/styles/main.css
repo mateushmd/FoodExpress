@@ -13,6 +13,9 @@
 
     --cor-placeholder: #c0c0c0;
 
+    --cor-seta: rgb(39, 39, 39, .4);
+    --cor-seta-hover: #272727;
+
     --font-weight: 100;
 }
 
@@ -23,7 +26,6 @@ body {
     font-size: calc(1em * var(--escala));
 }
 
-
 .hidden {
-    display: none;
+    display: none !important;
 }

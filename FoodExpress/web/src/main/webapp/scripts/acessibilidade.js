@@ -11,9 +11,17 @@ const corFonte2Padrao = '#e6f1f5';
 const corBordaPadrao = '#ccc';
 const corBordaEscuro = '#585858';
 const corBordaContraste = '#000';
+const corBordaContrasteEscuro = '#fff';
 
 const corPlaceholderPadrao = '#c0c0c0';
 const corPlaceholderContraste = '#000';
+const corPlaceholderContrasteEscuro = '#fff';
+
+const corSetaPadrao = '#27272766';
+const corSetaPadraoHover = '#272727';
+
+const corSetaEscuro = '#ffffff4d';
+const corSetaEscuroHover = '#ffffff';
 
 const fontWeightPadrao = 100;
 const fontWeightContraste = 707;
@@ -24,6 +32,8 @@ const rootStyle = rootEl.style;
 const rangeEscalaEl = document.querySelector('#range-escala');
 
 const acessibilidadeInputElements = [...document.querySelectorAll('.acessibilidade')];
+
+const setaElements = [...document.querySelectorAll('.arrow>img')];
 
 aplicarConfiguracoes();
 
@@ -39,11 +49,25 @@ function aplicarConfiguracoes()
         rootStyle.setProperty('--cor-fundo', corFundoEscuro);
         rootStyle.setProperty('--cor-fonte-1', corFonte1Escuro);
         rootStyle.setProperty('--cor-borda', corBordaEscuro);
+        rootStyle.setProperty('--cor-seta', corSetaEscuro);
+        rootStyle.setProperty('--cor-seta-hover', corSetaEscuroHover);
+
+        setaElements.forEach(el =>
+        {
+            el.src = 'imgs/menu-principal/seta-escuro.svg';
+        });
     }
 
     if (configuracoesAcessibilidade[1])
     {
+        rootStyle.setProperty('--cor-borda', corBordaContraste);
+        rootStyle.setProperty('--cor-placeholder', corPlaceholderContraste);
+    }
 
+    if (configuracoesAcessibilidade[0] && configuracoesAcessibilidade[1])
+    {
+        rootStyle.setProperty('--cor-borda', corBordaContrasteEscuro);
+        rootStyle.setProperty('--cor-placeholder', corPlaceholderContrasteEscuro);
     }
 
     if (configuracoesAcessibilidade[2])
@@ -73,7 +97,15 @@ function reiniciarConfiguracoes()
 
     rootStyle.setProperty('--cor-placeholder', corPlaceholderPadrao);
 
+    rootStyle.setProperty('--cor-seta', corSetaPadrao);
+    rootStyle.setProperty('--cor-seta-hover', corSetaPadraoHover);
+
     rootStyle.setProperty('--font-weight', fontWeightPadrao);
+
+    setaElements.forEach(el =>
+    {
+        el.src = 'imgs/menu-principal/seta.svg';
+    });
 }
 
 if (acessibilidadeInputElements.length > 0)

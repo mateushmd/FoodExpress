@@ -39,8 +39,8 @@
 
 .item,
 .item.fit-product {
-    background-color: white;
-    border: 1px solid #ccc;
+    background-color: var(--cor-fundo);
+    border: 1px solid var(--cor-borda);
     border-radius: 5px;
     display: grid;
     cursor: pointer;
@@ -56,6 +56,12 @@
     aspect-ratio: 20/19;
     width: var(--fit-product-width);
     grid-template-rows: 45% 55%;
+    grid-template-columns: 100%;
+}
+
+.img-container {
+    overflow: hidden;
+    border-bottom: 5px solid var(--cor-fonte-1);
 }
 
 .img-container img {
@@ -67,11 +73,6 @@
 
 .item:hover img {
     transform: scale(1.15);
-}
-
-.img-container {
-    overflow: hidden;
-    border-bottom: 5px solid black;
 }
 
 .info-container,
@@ -90,20 +91,26 @@
     padding: 0px 20px;
     margin: 0;
     display: grid;
-    grid-template-columns: 33% 55% 11%;
+    grid-template-columns: 44% 44% 11%;
     align-items: center;
+    overflow: visible;
 }
 
 .item.fit-product .info-container {
     padding-top: 10px;
     align-items: baseline;
     grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 100%;
 }
 
 .info-container h2 {
-    font-size: 1.4vw;
+    font-size: 1em;
     font-weight: 800;
     margin: 0;
+}
+
+.item.fit-product .info-container h2 {
+    font-size: calc(1.5em / var(--escala-menor));
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
@@ -111,8 +118,9 @@
 }
 
 .item.fit-product .info-container p {
+    font-size: calc(1em / var(--escala-menor));
     display: -webkit-box;
-    -webkit-line-clamp: 4;
+    -webkit-line-clamp: calc(4 / var(--escala));
     -webkit-box-orient: vertical;
     text-align: justify;
     overflow: hidden;
@@ -138,12 +146,12 @@
 .arrow-rounded {
     width: 40px !important;
     height: 40px;
-    background-color: rgba(0, 0, 0, .3);
+    background-color: var(--cor-seta);
     border-radius: 100%;
 }
 
-.arrow-squared:hover {
-    background-color: rgba(0, 0, 0, .3);
+.arrow-rounded:hover {
+    background-color: var(--cor-seta-hover);
 }
 
 .arrow-squared img,
@@ -151,6 +159,10 @@
     width: 70%;
     height: 70%;
     object-fit: contain;
+}
+
+.left-arrow {
+    transform: scale(-100%);
 }
 
 .left-arrow.arrow-squared {

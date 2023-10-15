@@ -7,6 +7,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>FoodExpress</title>
+        <link rel="stylesheet" type="text/css" href="styles/main.css">
         <link rel="stylesheet" type="text/css" href="styles/loja.css">
         <link rel="stylesheet" type="text/css" href="styles/rating.css">
         <link rel="stylesheet" type="text/css" href="styles/header.css">
@@ -461,11 +462,19 @@
             }
         });
     </script>
-
+    <script>
+        const configuracoesAcessibilidade = [
+            false,
+            false,
+            false,
+            1
+        ];
+    </script>
     <script src="scripts/rating.js"></script>
     <script src="scripts/userRating.js"></script>
     <script src="scripts/carrossel.js"></script>
     <script src="scripts/slider.js"></script>
     <script src="scripts/modal.js"></script>
+    <script src="scripts/acessibilidade.js"></script>
 </body>
 </html>

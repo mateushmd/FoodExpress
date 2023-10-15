@@ -40,12 +40,16 @@ modalTriggerElements.forEach(el =>
     });
 });
 
-closeModalButtonEl.addEventListener('click', e =>
+if (closeModalButtonEl !== null)
 {
-    const modalEl = closeModalButtonEl.parentElement;
-    modalEl.classList.add('hidden');
-    overlayEl.classList.toggle('hidden');
-});
+    closeModalButtonEl.addEventListener('click', e =>
+    {
+        const modalEl = closeModalButtonEl.parentElement;
+        modalEl.classList.add('hidden');
+        overlayEl.classList.toggle('hidden');
+    });
+}
+
 
 modalProdutoBotaoQuantidadeElements.forEach(el =>
 {

@@ -50,6 +50,7 @@
     width: calc(100% / var(--escala-menor));
     font-size: calc(0.81em * var(--escala-menor));
     background-color: var(--cor-fundo);
+    color: var(--cor-fonte-1);
 }
 
 #search-bar input:focus {
@@ -57,16 +58,19 @@
 }
 
 #search-bar input::placeholder {
-    color: #c0c0c0;
+    color: var(--cor-placeholder);
     opacity: 1;
+    font-weight: var(--font-weight);
 }
 
 #search-bar input:-ms-input-placeholder {
-    color: #c0c0c0;
+    color: var(--cor-placeholder);
+    font-weight: var(--font-weight);
 }
 
-#search-bar input::-ms-input-placeholder {
-    color: #c0c0c0;
+#search-bar input::-moz-placeholder {
+    color: var(--cor-placeholder);
+    font-weight: var(--font-weight);
 }
 
 #search-bar img {
@@ -120,7 +124,7 @@
     position: absolute;
     right: 10%;
     overflow: hidden;
-    background-color: white;
+    background-color: var(--cor-fundo);
     color: gray;
     border-radius: 2%;
     box-shadow: 1px 1px 4px 1px #c0c0c0;
@@ -132,8 +136,9 @@
 
 #modal-perfil h2 {
     margin: 0;
-    color: black;
+    color: var(--cor-fonte-1);
     font-size: 1.8em;
+
 }
 
 #modal-perfil ul {

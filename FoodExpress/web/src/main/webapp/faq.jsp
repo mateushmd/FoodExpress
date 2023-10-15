@@ -9,6 +9,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>FoodExpress</title>
+        <link rel="stylesheet" type="text/css" href="styles/main.css">
         <link rel="stylesheet" type="text/css" href="styles/header.css">
         <link rel="stylesheet" type="text/css" href="styles/footer.css">
         <link rel="stylesheet" type="text/css" href="styles/paginasinformacionais.css">
@@ -17,7 +18,7 @@
 
     <body>
         <c:set var="usuario" value="${sessionScope.usuario}"/>
-        
+
         <header id="navbar">
             <img id="navbar-logo" src="imgs/logo3.png" alt="Logo">
             <div id="navbar-menu">
@@ -151,7 +152,16 @@
                 <p class="m-b-footer"> FoodExpress - 2023, todos os direitos reservados.</p>
             </div>
         </footer>
-        
+
+        <script>
+            const configuracoesAcessibilidade = [
+                false,
+                false,
+                false,
+                1
+            ];
+        </script>
         <script src="scripts/modal.js"></script>
+        <script src="scripts/acessibilidade.js"></script>
     </body>
 </html>
