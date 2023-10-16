@@ -12,13 +12,8 @@ import java.util.List;
 
 public class teste {
     public static void main(String[] args) throws SQLException {
-        AcessibilidadeService acessibilidadeService = AcessibilidadeService.getInstance();
-
-        AcessibilidadeDTO a = acessibilidadeService.getConfiguracoes("chenri48155@gmail.com");
-
-        System.out.println(a.getTemaEscuro());
-        System.out.println(a.getContraste());
-        System.out.println(a.getVisibilidadeTexto());
-        System.out.println(a.getTamanhoTexto());
+        FavoritosDAO fav = FavoritosDAO.getInstance();
+        
+        System.out.println("\n\n\nOlha isso: " + fav.searchFav("washingtonwagner2020@gmail.com", 34).getIdCliente());
     }
 }
