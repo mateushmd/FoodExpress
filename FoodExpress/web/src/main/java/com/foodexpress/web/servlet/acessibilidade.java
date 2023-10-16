@@ -37,9 +37,9 @@ public class acessibilidade extends HttpServlet {
 
         AcessibilidadeDTO aDTO = (AcessibilidadeDTO) session.getAttribute("acessibilidade");
 
-        boolean temaEscuro = request.getParameter("tema").equals("on");
-        boolean contraste = request.getParameter("contraste").equals("on");
-        boolean visibilidadeTexto = request.getParameter("visibilidade").equals("on");
+        boolean temaEscuro = request.getParameter("tema") != null;
+        boolean contraste = request.getParameter("contraste") != null;
+        boolean visibilidadeTexto = request.getParameter("visibilidade") != null;
         int tamanhoTexto = Integer.parseInt(request.getParameter("tamanho"));
 
         aDTO.setTemaEscuro(temaEscuro);
