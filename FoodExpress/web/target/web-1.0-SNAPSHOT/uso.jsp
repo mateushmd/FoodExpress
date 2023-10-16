@@ -19,6 +19,7 @@
 
     <body>
         <c:set var="usuario" value="${sessionScope.usuario}"/>
+        <c:set var="acessibilidade" value="${sessionScope.acessibilidade}"/>
 
         <header id="navbar">
             <img id="navbar-logo" src="imgs/logo3.png" alt="Logo">
@@ -39,12 +40,12 @@
                     <div id="modal-perfil" class="modal hidden" data-modal-index="0">
                         <h2>Olá ${usuario.nome}</h2>
                         <ul>
-                            <li><img src="imgs/header/engrenagem.svg" alt="">Dados</li>
-                            <li><img src="imgs/header/pedido.svg" alt="">Pedidos</li>
-                            <li><img src="imgs/header/chat.svg" alt="">Conversas</li>
-                            <li><img src="imgs/header/coracao.svg" alt="">Favoritos</li>
-                            <li><img src="imgs/header/acessibilidade.svg" alt="">Acessibilidade</li>
-                            <li><img src="imgs/header/sair.svg" alt="">Sair</li>
+                            <li><a href=""><img src="imgs/header/engrenagem.svg" alt="">Dados</a></li>
+                            <li><a href=""><img src="imgs/header/pedido.svg" alt="">Pedidos</a></li>
+                            <li><a href=""><img src="imgs/header/chat.svg" alt="">Conversas</a></li>
+                            <li><a href=""><img src="imgs/header/coracao.svg" alt="">Favoritos</a></li>
+                            <li><a href="acessibilidade.jsp"><img src="imgs/header/acessibilidade.svg" alt="">Acessibilidade</a></li>
+                            <li><a href=""><img src="imgs/header/sair.svg" alt="">Sair</a></li>
                         </ul>
                     </div>
                 </div>
@@ -147,10 +148,10 @@
 
         <script>
             const configuracoesAcessibilidade = [
-                false,
-                false,
-                false,
-                1
+                '${acessibilidade.temaEscuro}' !== 'false',
+                '${acessibilidade.contraste}' !== 'false',
+                '${acessibilidade.visibilidadeTexto}' !== 'false',
+                (parseInt('${acessibilidade.tamanhoTexto}') / 100)
             ];
         </script>
         <script src="scripts/modal.js"></script>
