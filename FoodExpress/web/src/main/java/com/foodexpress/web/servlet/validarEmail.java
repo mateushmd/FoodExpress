@@ -5,6 +5,7 @@
 package com.foodexpress.web.servlet;
 
 import com.foodexpress.model.dto.TokenVerificacaoDTO;
+import com.foodexpress.model.service.AcessibilidadeService;
 import com.foodexpress.model.service.UsuarioService;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
@@ -63,8 +64,12 @@ public class validarEmail extends HttpServlet {
             
             return;
         }
+
+        AcessibilidadeService aservice = AcessibilidadeService.getInstance();
+
+        aservice.inserirConfiguracoes(request.getParameter("email"));
         
-        request.setAttribute("msg", "Email verificado e cadastro feito! Aproveite o nosso site!");
+        request.setAttribute("msg", "Email verificado e cadastro feito!");
         
         rd = request.getRequestDispatcher("login.jsp");
         rd.forward(request, response);

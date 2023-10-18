@@ -5,6 +5,7 @@
 package com.foodexpress.web.servlet;
 
 import com.foodexpress.model.dto.UsuarioDTO;
+import com.foodexpress.model.service.AcessibilidadeService;
 import com.foodexpress.model.service.UsuarioService;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;

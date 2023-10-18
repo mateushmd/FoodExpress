@@ -4,9 +4,11 @@
  */
 package com.foodexpress.web.servlet;
 
+import com.foodexpress.model.dto.AcessibilidadeDTO;
 import com.foodexpress.model.dto.LojaDTO;
 import com.foodexpress.model.dto.ProdutoDTO;
 import com.foodexpress.model.dto.UsuarioDTO;
+import com.foodexpress.model.service.AcessibilidadeService;
 import com.foodexpress.model.service.LojaService;
 import com.foodexpress.model.service.UsuarioService;
 import jakarta.servlet.RequestDispatcher;
@@ -41,6 +43,9 @@ public class login extends HttpServlet {
         UsuarioService uservice = UsuarioService.getInstance();
         UsuarioDTO uDTO;
 
+        AcessibilidadeService aservice = AcessibilidadeService.getInstance();
+        AcessibilidadeDTO aDTO;
+
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
@@ -66,12 +71,16 @@ public class login extends HttpServlet {
         URL += "menuPrincipal&action=F";
         
         uDTO = uservice.getUsuario(email);
+
+        aDTO = aservice.getConfiguracoes(email);
         
         LojaService lservice = LojaService.getInstance();
         
         HttpSession session = request.getSession();
         
         session.setAttribute("usuario", uDTO);
+
+        session.setAttribute("acessibilidade", aDTO);
         
         if(uDTO.getTipo() == 2) {
             LojaDTO lDTO = lservice.getLoja(uDTO.getEmail());
