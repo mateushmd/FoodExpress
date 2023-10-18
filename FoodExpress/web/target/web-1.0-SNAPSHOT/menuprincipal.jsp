@@ -42,10 +42,10 @@
                     <div id="modal-perfil" class="modal hidden" data-modal-index="0">
                         <h2>Olá ${usuario.nome}</h2>
                         <ul>
-                            <li><a href=""><img src="imgs/header/engrenagem.svg" alt="">Dados</a></li>
+                            <li><a href="dados.jsp"><img src="imgs/header/engrenagem.svg" alt="">Dados</a></li>
                             <li><a href=""><img src="imgs/header/pedido.svg" alt="">Pedidos</a></li>
                             <li><a href=""><img src="imgs/header/chat.svg" alt="">Conversas</a></li>
-                            <li><a href=""><img src="imgs/header/coracao.svg" alt="">Favoritos</a></li>
+                            <li><a href="favoritos.jsp"><img src="imgs/header/coracao.svg" alt="">Favoritos</a></li>
                             <li><a href="acessibilidade.jsp"><img src="imgs/header/acessibilidade.svg" alt="">Acessibilidade</a></li>
                             <li><a href=""><img src="imgs/header/sair.svg" alt="">Sair</a></li>
                         </ul>

@@ -32,6 +32,10 @@
     text-decoration: none;
 }
 
+.navbar-link:hover {
+    color: #cc575f;
+}
+
 #search-bar {
     padding: 5px;
     border: 1px solid var(--cor-borda);
@@ -109,8 +113,8 @@
 
 #profile-pic,
 #orders-pic {
-    width: 30px;
-    height: 30px;
+    width: calc(30px * var(--escala-menor));
+    height: calc(30px * var(--escala-menor));
     cursor: pointer;
 }
 

@@ -18,6 +18,7 @@ li>p {
 
 section h1 {
     margin: 40px 0px;
+    text-align: center;
 }
 
 section p {
@@ -45,6 +46,23 @@ section li>p {
     align-items: center;
     justify-content: space-between;
     gap: 20px;
+}
+
+.opcao-body input[type=text] {
+    width: calc(368px * var(--escala-menor));
+    height: calc(20px * var(--escala-menor));
+
+    padding: 13px 20px;
+
+    border: 1px solid var(--cor-borda);
+    border-radius: 5px;
+
+    font-weight: 707;
+    font-family: inherit;
+    font-size: calc(1.2em * var(--escala-menor));
+    color: var(--cor-fonte-1);
+
+    background-color: var(--cor-fundo);
 }
 
 .range-container {
@@ -185,12 +203,18 @@ section li>p {
     clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
 }
 
+#botao-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
+
 .botao {
     margin-top: 16px;
 }
 
 .botao>input {
-    width: calc(100px * var(--escala));
     height: calc(29px * var(--escala));
     text-align: center;
     background-color: var(--cor-fundo);
