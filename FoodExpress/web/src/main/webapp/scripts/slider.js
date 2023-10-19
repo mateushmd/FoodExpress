@@ -2,7 +2,7 @@ const sliderEl = document.querySelector('#slider');
 
 const closeSliderButtonEl = document.querySelector('#close-slider');
 
-const sliderTriggers = [...document.querySelectorAll('.trigger')];
+const sliderTriggers = [...document.querySelectorAll('.slider-trigger')];
 
 closeSliderButtonEl.addEventListener('click', (e) =>
 {

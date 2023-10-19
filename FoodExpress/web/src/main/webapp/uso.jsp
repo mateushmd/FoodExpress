@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="styles/header.css">
         <link rel="stylesheet" href="styles/footer.css">
         <link rel="stylesheet" type="text/css" href="styles/paginasinformacionais.css">
+        <link rel="stylesheet" type="text/css" href="styles/slider.css">
         <link rel="icon" type="image/png" href="imgs/icon.png" />
     </head>
 
@@ -48,7 +49,7 @@
                     </div>
                 </div>
                 <div id="orders">
-                    <img id="orders-pic" src="imgs/header/sacola.png" alt="Pedidos">
+                    <img id="orders-pic" src="imgs/header/sacola.svg" class="slider-trigger" alt="Pedidos">
                     <div id="orders-info">
                         <p>R$ 0,00</p>
                         <p>0 itens</p>
@@ -144,6 +145,104 @@
             </div>
         </footer>
 
+        <div id="slider">
+            <button id="close-slider">
+                <img src="imgs/x-symbol.svg" alt="">
+            </button>
+
+            <div class="slider-content">
+                <!-- QUANDO A SACOLA ESTÁ VAZIA!!!!
+                <div id="empty-bag">
+                    <div id="empty-bag-img-container">
+                        <img src="imgs/header/sacola.svg" alt="">
+                        <img src="imgs/x-symbol.svg" alt="">
+                    </div>
+                    <h2>Sua sacola está vazia</h2>
+                    <p>Adicione itens para comprar</p>
+                </div>
+                -->
+
+                <div id="bag">
+                    <div id="bag-header">
+                        <p>Seu pedido</p>
+                        <div>
+                            <h2>Lojinha do Mateus Mateus do lojinha</h2>
+                            <a href="">Ir para a loja</a>
+                        </div>
+                    </div>
+                    <div id="bag-body">
+                        <div class="bag-categoria">
+                            <p>Categoria 1</p>
+                            <div class="bag-produto">
+                                <div class="bag-produto-header">
+                                    <p>Nome Produto</p>
+                                    <p class="preco">R$ 99,99</p>
+                                </div>
+                                <div class="bag-produto-body">
+                                    <p>Um produto bem produzido de comer bem gostoso to de buchin xei</p>
+                                </div>
+                                <div class="bag-produto-footer">
+                                    <input type="submit" value="Editar">
+                                    <input type="submit" value="Remover">
+                                </div>
+                            </div>
+                            <div class="bag-produto">
+                                <div class="bag-produto-header">
+                                    <p>Nome Produto</p>
+                                    <p class="preco">R$ 99,99</p>
+                                </div>
+                                <div class="bag-produto-body">
+                                    <p>Um produto bem produzido de comer bem gostoso to de buchin xei</p>
+                                </div>
+                                <div class="bag-produto-footer">
+                                    <input type="submit" value="Editar">
+                                    <input type="submit" value="Remover">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bag-categoria">
+                            <p>Categoria 2</p>
+                            <div class="bag-produto">
+                                <div class="bag-produto-header">
+                                    <p>Nome Produto</p>
+                                    <p class="preco">R$ 99,99</p>
+                                </div>
+                                <div class="bag-produto-body">
+                                    <p>Um produto bem produzido de comer bem gostoso to de buchin xei</p>
+                                </div>
+                                <div class="bag-produto-footer">
+                                    <input type="submit" value="Editar">
+                                    <input type="submit" value="Remover">
+                                </div>
+                            </div>
+                            <div class="bag-produto">
+                                <div class="bag-produto-header">
+                                    <p>Nome Produto</p>
+                                    <p class="preco">R$ 99,99</p>
+                                </div>
+                                <div class="bag-produto-body">
+                                    <p>Um produto bem produzido de comer bem gostoso to de buchin xei</p>
+                                </div>
+                                <div class="bag-produto-footer">
+                                    <input type="submit" value="Editar">
+                                    <input type="submit" value="Remover">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="bag-footer">
+                        <div>
+                            <p>Total</p>
+                            <p class="preco">R$ 399,96</p>
+                        </div>
+                        <button>
+                            <p>Realizar pedido</p>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <script>
             const configuracoesAcessibilidade = [
                 '${acessibilidade.temaEscuro}' !== 'false',
@@ -154,6 +253,7 @@
         </script>
         <script src="scripts/modal.js"></script>
         <script src="scripts/acessibilidade.js"></script>
+        <script src="scripts/slider.js"></script>
     </body>
 
 </html>
