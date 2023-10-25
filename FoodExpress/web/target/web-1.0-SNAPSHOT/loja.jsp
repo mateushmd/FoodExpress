@@ -13,7 +13,8 @@
         <link rel="stylesheet" type="text/css" href="styles/header.css">
         <link rel="stylesheet" type="text/css" href="styles/carrossel.css">
         <link rel="stylesheet" type="text/css" href="styles/footer.css">
-        <link rel="icon" type="image/png" href="styles/imgs/icon.png" />
+        <link rel="stylesheet" type="text/css" href="styles/slider.css">
+        <link rel="icon" type="image/png" href="imgs/icon.png" />
     </head>
     <body>
         <c:set var="usuario" value="${sessionScope.usuario}"/>
@@ -25,10 +26,10 @@
 
         <c:set var="ratingClass" value="${not empty avaliacaoUsuario ? 'process-rating disabled' : ''}"/>
         <c:set var="ratingValue" value="${not empty avaliacaoUsuario ? avaliacaoUsuario.nota : 0}"/>
-        
+
         <input type="hidden" id="emailFirebase" value="${loja.idUser}">
         <input type="hidden" id="avaliacao" value="<fmt:formatNumber value="${loja.avaliacao}" type="number" pattern="#,##0.0" />">
-        
+
         <header id="navbar">
             <img id="navbar-logo" src="imgs/logo3.png" alt="Logo">
             <div id="navbar-menu">
@@ -51,14 +52,14 @@
                             <li><a href=""><img src="imgs/header/engrenagem.svg" alt="">Dados</a></li>
                             <li><a href=""><img src="imgs/header/pedido.svg" alt="">Pedidos</a></li>
                             <li><a href=""><img src="imgs/header/chat.svg" alt="">Conversas</a></li>
-                            <li><a href=""><img src="imgs/header/coracao.svg" alt="">Favoritos</a></li>
+                            <li><a href="favoritos.jsp"><img src="imgs/header/coracao.svg" alt="">Favoritos</a></li>
                             <li><a href="acessibilidade.jsp"><img src="imgs/header/acessibilidade.svg" alt="">Acessibilidade</a></li>
                             <li><a href=""><img src="imgs/header/sair.svg" alt="">Sair</a></li>
                         </ul>
                     </div>
                 </div>
                 <div id="orders">
-                    <img id="orders-pic" src="imgs/header/sacola.png" alt="Pedidos">
+                    <img id="orders-pic" src="imgs/header/sacola.svg" class="slider-trigger" alt="Pedidos">
                     <div id="orders-info">
                         <p>R$ 0,00</p>
                         <p>0 itens</p>
@@ -128,7 +129,7 @@
             <section id="info">
                 <img src="imgs/teste/teste.jpg" alt="" id="imgLojaF">
                 <h1>${loja.nome}</h1>
-                <div class="rating process-rating trigger" data-rating="<fmt:formatNumber value="${loja.avaliacao}" type="number" maxFractionDigits="0"/>">
+                <div class="rating process-rating slider-trigger" data-rating="<fmt:formatNumber value="${loja.avaliacao}" type="number" maxFractionDigits="0"/>">
                     <input class="star-input" id="star1" type="radio" name="rating" value="1">
                     <label class="star-label" for="star1" data-star="1"><img src="imgs/gray-star.svg" alt=""></label>
 
@@ -179,8 +180,8 @@
                                     </div>
                                     <div class="info-container-body">
                                         <p class="descricao">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Recusandae error blanditiis sit
-                                        nesciunt, impedit consectetur voluptatibus dolores aut vitae excepturi tenetur, labore
-                                        tempore dolor corporis ipsum iure? Beatae, ipsa? Harum?</p>
+                                            nesciunt, impedit consectetur voluptatibus dolores aut vitae excepturi tenetur, labore
+                                            tempore dolor corporis ipsum iure? Beatae, ipsa? Harum?</p>
                                     </div>
                                     <div class="info-container-footer">
                                         <p class="preco">R$<fmt:formatNumber value='${produto.preco}' pattern='0.00' /></p>
@@ -250,11 +251,153 @@
                     </div>
                 </div>
             </section>
-            <div id="slider">
-                <button id="close-slider">
-                    <img src="imgs/x-symbol.svg" alt="">
-                </button>
+        </main>
+        <footer>
+            <div class="container-footer">
+                <div class="row-footer">
+                    <div class="footer-col">
+                        <h4>Menu</h4>
+                        <ul>
+                            <li><a href="menuprincipal.jsp"> Inicio</a></li>
+                            <li><a href="gerenciarperfil.jsp"> Perfil</a></li>
+                            <li><a href="sobre.jsp">Sobre</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Obter ajuda</h4>
+                        <ul>
+                            <li><a href="faq.jsp">FAQ</a></li>
+                            <li><a href="ajuda.jsp">Ajuda</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Informações</h4>
+                        <ul>
+                            <li><a href="privacidade.jsp">Politica de privacidade</a></li>
+                            <li><a href="uso.jsp">Politica de uso</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Inscreva-se!</h4>
 
+                        <div class="medias-socias">
+                            <a href="#"> <i class="fa fa-facebook"></i> </a>
+                            <a href="#"> <i class="fa fa-instagram"></i> </a>
+                            <a href="#"> <i class="fa fa-twitter"></i> </a>
+                            <a href="#"> <i class="fa fa-linkedin"></i> </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="main_footer_copy">
+                <p class="m-b-footer"> FoodExpress - 2023, todos os direitos reservados.</p>
+            </div>
+        </footer>
+
+        <div id="slider">
+            <button id="close-slider">
+                <img src="imgs/x-symbol.svg" alt="">
+            </button>
+
+            <div class="slider-content">
+                <!-- QUANDO A SACOLA ESTÁ VAZIA!!!!
+                <div id="empty-bag">
+                    <div id="empty-bag-img-container">
+                        <img src="imgs/header/sacola.svg" alt="">
+                        <img src="imgs/x-symbol.svg" alt="">
+                    </div>
+                    <h2>Sua sacola está vazia</h2>
+                    <p>Adicione itens para comprar</p>
+                </div>
+                -->
+
+                <div id="bag">
+                    <div id="bag-header">
+                        <p>Seu pedido</p>
+                        <div>
+                            <h2>Lojinha do Mateus Mateus do lojinha</h2>
+                            <a href="">Ir para a loja</a>
+                        </div>
+                    </div>
+                    <div id="bag-body">
+                        <div class="bag-categoria">
+                            <p>Categoria 1</p>
+                            <div class="bag-produto">
+                                <div class="bag-produto-header">
+                                    <p>Nome Produto</p>
+                                    <p class="preco">R$ 99,99</p>
+                                </div>
+                                <div class="bag-produto-body">
+                                    <p>Um produto bem produzido de comer bem gostoso to de buchin xei</p>
+                                </div>
+                                <div class="bag-produto-footer">
+                                    <input type="submit" value="Editar">
+                                    <input type="submit" value="Remover">
+                                </div>
+                            </div>
+                            <div class="bag-produto">
+                                <div class="bag-produto-header">
+                                    <p>Nome Produto</p>
+                                    <p class="preco">R$ 99,99</p>
+                                </div>
+                                <div class="bag-produto-body">
+                                    <p>Um produto bem produzido de comer bem gostoso to de buchin xei</p>
+                                </div>
+                                <div class="bag-produto-footer">
+                                    <input type="submit" value="Editar">
+                                    <input type="submit" value="Remover">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bag-categoria">
+                            <p>Categoria 2</p>
+                            <div class="bag-produto">
+                                <div class="bag-produto-header">
+                                    <p>Nome Produto</p>
+                                    <p class="preco">R$ 99,99</p>
+                                </div>
+                                <div class="bag-produto-body">
+                                    <p>Um produto bem produzido de comer bem gostoso to de buchin xei</p>
+                                </div>
+                                <div class="bag-produto-footer">
+                                    <input type="submit" value="Editar">
+                                    <input type="submit" value="Remover">
+                                </div>
+                            </div>
+                            <div class="bag-produto">
+                                <div class="bag-produto-header">
+                                    <p>Nome Produto</p>
+                                    <p class="preco">R$ 99,99</p>
+                                </div>
+                                <div class="bag-produto-body">
+                                    <p>Um produto bem produzido de comer bem gostoso to de buchin xei</p>
+                                </div>
+                                <div class="bag-produto-footer">
+                                    <input type="submit" value="Editar">
+                                    <input type="submit" value="Remover">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="bag-footer">
+                        <div>
+                            <p>Total</p>
+                            <p class="preco">R$ 399,96</p>
+                        </div>
+                        <button>
+                            <p>Realizar pedido</p>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="slider">
+            <button id="close-slider">
+                <img src="imgs/x-symbol.svg" alt="">
+            </button>
+
+            <div id="slider-content">
                 <div id="slider-ratings">
                     <div id="slider-ratings-header">
                         <h2 class="font-707">Avaliações</h2>
@@ -381,101 +524,60 @@
                 </div>
             </div>
         </div>
-    </main>
-    <footer>
-        <div class="container-footer">
-            <div class="row-footer">
-                <div class="footer-col">
-                    <h4>Menu</h4>
-                    <ul>
-                        <li><a href="menuprincipal.jsp"> Inicio</a></li>
-                        <li><a href="gerenciarperfil.jsp"> Perfil</a></li>
-                        <li><a href="sobre.jsp">Sobre</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Obter ajuda</h4>
-                    <ul>
-                        <li><a href="faq.jsp">FAQ</a></li>
-                        <li><a href="ajuda.jsp">Ajuda</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Informações</h4>
-                    <ul>
-                        <li><a href="privacidade.jsp">Politica de privacidade</a></li>
-                        <li><a href="uso.jsp">Politica de uso</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Inscreva-se!</h4>
 
-                    <div class="medias-socias">
-                        <a href="#"> <i class="fa fa-facebook"></i> </a>
-                        <a href="#"> <i class="fa fa-instagram"></i> </a>
-                        <a href="#"> <i class="fa fa-twitter"></i> </a>
-                        <a href="#"> <i class="fa fa-linkedin"></i> </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="main_footer_copy">
-            <p class="m-b-footer"> FoodExpress - 2023, todos os direitos reservados.</p>
-        </div>
-    </footer>
-
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-        import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
-        const firebaseConfig = {
-            apiKey: "AIzaSyC6E9U_uW78MMsIf9oQKBTm5LjvRp6OB2A",
-            authDomain: "restricted-d6b24.firebaseapp.com",
-            databaseURL: "https://restricted-d6b24-default-rtdb.firebaseio.com",
-            projectId: "restricted-d6b24",
-            storageBucket: "restricted-d6b24.appspot.com",
-            messagingSenderId: "351037789777",
-            appId: "1:351037789777:web:5a43c6cd09be7a53d70a70",
-            measurementId: "G-G0VFKP7XGK"
-        };
-        const app = initializeApp(firebaseConfig);
-        function getImageUrlByName() {
-            const storage = getStorage(app); // Corrigido para usar 'app' em vez de 'firebaseApp'
-            let e = document.getElementById("emailFirebase");
-            const storageRef = ref(storage, 'lojaFoto/' + e.value);//Alteração
-            return getDownloadURL(storageRef)
-                    .then(downloadURL => {
-                        return downloadURL;
-                    })
-                    .catch(error => {
-                        console.error('Error getting download URL:', error);
-                        return null;
-                    });
-        }
-
-        document.addEventListener("DOMContentLoaded", async function () {
-            let imageUrl = await getImageUrlByName();
-            const imgElement = document.getElementById('bannerLojaF');
-            const imgElement2 = document.getElementById('imgLojaF');
-
-            if (imageUrl !== null) {
-                imgElement.src = imageUrl;
-                imgElement2.src = imageUrl;
+        <script type="module">
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+            import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
+            const firebaseConfig = {
+                apiKey: "AIzaSyC6E9U_uW78MMsIf9oQKBTm5LjvRp6OB2A",
+                authDomain: "restricted-d6b24.firebaseapp.com",
+                databaseURL: "https://restricted-d6b24-default-rtdb.firebaseio.com",
+                projectId: "restricted-d6b24",
+                storageBucket: "restricted-d6b24.appspot.com",
+                messagingSenderId: "351037789777",
+                appId: "1:351037789777:web:5a43c6cd09be7a53d70a70",
+                measurementId: "G-G0VFKP7XGK"
+            };
+            const app = initializeApp(firebaseConfig);
+            function getImageUrlByName() {
+                const storage = getStorage(app); // Corrigido para usar 'app' em vez de 'firebaseApp'
+                let e = document.getElementById("emailFirebase");
+                const storageRef = ref(storage, 'lojaFoto/' + e.value);//Alteração
+                return getDownloadURL(storageRef)
+                        .then(downloadURL => {
+                            return downloadURL;
+                        })
+                        .catch(error => {
+                            console.error('Error getting download URL:', error);
+                            return null;
+                        });
             }
-        });
-    </script>
-    <script>
-        const configuracoesAcessibilidade = [
-            '${acessibilidade.temaEscuro}' !== 'false',
-            '${acessibilidade.contraste}' !== 'false',
-            '${acessibilidade.visibilidadeTexto}' !== 'false',
-            (parseInt('${acessibilidade.tamanhoTexto}') / 100)
-        ];
-    </script>
-    <script src="scripts/rating.js"></script>
-    <script src="scripts/userRating.js"></script>
-    <script src="scripts/carrossel.js"></script>
-    <script src="scripts/slider.js"></script>
-    <script src="scripts/modal.js"></script>
-    <script src="scripts/acessibilidade.js"></script>
-</body>
+
+            document.addEventListener("DOMContentLoaded", async function () {
+                let imageUrl = await getImageUrlByName();
+                const imgElement = document.getElementById('bannerLojaF');
+                const imgElement2 = document.getElementById('imgLojaF');
+
+                if (imageUrl !== null) {
+                    imgElement.src = imageUrl;
+                    imgElement2.src = imageUrl;
+                }
+            });
+        </script>
+        <script>
+            const configuracoesAcessibilidade = [
+                '${acessibilidade.temaEscuro}' !== 'false',
+                '${acessibilidade.contraste}' !== 'false',
+                '${acessibilidade.visibilidadeTexto}' !== 'false',
+                (parseInt('${acessibilidade.tamanhoTexto}') / 100)
+            ];
+        </script>
+        <script src="scripts/rating.js"></script>
+        <script src="scripts/userRating.js"></script>
+        <script src="scripts/carrossel.js"></script>
+        <script src="scripts/slider.js"></script>
+        <script src="scripts/modal.js"></script>
+        <script src="scripts/acessibilidade.js"></script>
+        <script src="scripts/slider.js"></script>
+    </body>
 </html>

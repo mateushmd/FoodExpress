@@ -1,0 +1,57 @@
+.loja {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+
+    transition: all .2s ease;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.loja:not(:last-child) {
+    border-bottom: 1px solid var(--cor-borda);
+}
+
+.loja:hover {
+    box-shadow: 1px 1px 4px 1px #c0c0c0;
+    transform: scale(1.02);
+}
+
+.loja,
+.loja h2 {
+    font-weight: 707;
+}
+
+.img-loja {
+    width: calc(100px * var(--escala));
+    height: calc(100px * var(--escala));
+    object-fit: cover;
+    border-radius: 10%;
+}
+
+.loja-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.avaliacao {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+}
+
+.avaliacao img {
+    width: 20px;
+    height: 20px;
+}
+
+.remover {
+    width: calc(18px * var(--escala-menor));
+    height: calc(18px * var(--escala-menor));
+    object-fit: cover;
+    margin-left: 30px;
+    cursor: pointer;
+}
