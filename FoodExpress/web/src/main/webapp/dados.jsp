@@ -5,8 +5,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>FoodExpress</title>
-        <link rel="stylesheet" type="text/css" href="styles/main.css">
-        <link rel="stylesheet" type="text/css" href="styles/header.css">
+        <link rel="stylesheet" type="text/css" href="styles/main/main.css">
+        <link rel="stylesheet" type="text/css" href="styles/main/header.css">
         <link rel="stylesheet" type="text/css" href="styles/gerenciarconta.css">
         <link rel="stylesheet" type="text/css" href="styles/slider.css">
         <link rel="icon" type="image/png" href="imgs/icon.png" />
@@ -16,8 +16,8 @@
         <header id="navbar">
             <img id="navbar-logo" src="imgs/logo3.png" alt="Logo">
             <div id="navbar-menu">
-                <a class="navbar-link" href="menuprincipal.jsp">Início</a>
-                <a class="navbar-link" href="#">Favoritos</a>
+                <a class="navbar-link" href="menuprincipal.jsp">InÃ­cio</a>
+                <a class="navbar-link" href="meus-favoritos">Favoritos</a>
                 <a class="navbar-link" href="gerenciarloja.jsp">Loja</a>
                 <a class="navbar-link" href="#">Sobre</a>
             </div>
@@ -30,12 +30,12 @@
                     <img id="profile-pic" class="modal-trigger" data-modal-index="0" src="imgs/header/icone-perfil.png"
                          alt="Perfil">
                     <div id="modal-perfil" class="modal hidden" data-modal-index="0">
-                        <h2>Olá ${usuario.nome}</h2>
+                        <h2>OlÃ¡ ${usuario.nome}</h2>
                         <ul>
                             <li><a href="dados.jsp"><img src="imgs/header/engrenagem.svg" alt="">Dados</a></li>
                             <li><a href=""><img src="imgs/header/pedido.svg" alt="">Pedidos</a></li>
                             <li><a href=""><img src="imgs/header/chat.svg" alt="">Conversas</a></li>
-                            <li><a href="favoritos.jsp"><img src="imgs/header/coracao.svg" alt="">Favoritos</a></li>
+                            <li><a href="meus-favoritos"><img src="imgs/header/coracao.svg" alt="">Favoritos</a></li>
                             <li><a href="acessibilidade.jsp"><img src="imgs/header/acessibilidade.svg" alt="">Acessibilidade</a></li>
                             <li><a href=""><img src="imgs/header/sair.svg" alt="">Sair</a></li>
                         </ul>
@@ -96,13 +96,13 @@
             </button>
 
             <div class="slider-content">
-                <!-- QUANDO A SACOLA ESTÁ VAZIA!!!!
+                <!-- QUANDO A SACOLA ESTï¿½ VAZIA!!!!
                 <div id="empty-bag">
                     <div id="empty-bag-img-container">
                         <img src="imgs/header/sacola.svg" alt="">
                         <img src="imgs/x-symbol.svg" alt="">
                     </div>
-                    <h2>Sua sacola está vazia</h2>
+                    <h2>Sua sacola estï¿½ vazia</h2>
                     <p>Adicione itens para comprar</p>
                 </div>
                 -->
@@ -196,10 +196,10 @@
                 1
             ];
         </script>
-        <script src="scripts/modal.js"></script>
-        <script src="scripts/acessibilidade.js"></script>
+        <script src="scripts/janelas-modais/modal.js"></script>
+        <script src="scripts/acessibilidade/acessibilidade.js"></script>
         <script src="scripts/alterarDados.js"></script>
-        <script src="scripts/slider.js"></script>
+        <script src="scripts/janelas-modais/slider.js"></script>
     </body>
 
 </html>

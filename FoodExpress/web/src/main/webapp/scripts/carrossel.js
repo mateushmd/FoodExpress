@@ -39,14 +39,6 @@ itemsLoja.forEach((el) =>
         
         const formEl = el.closest('form');
         
-        if(e.target.tagName === 'BUTTON') 
-        {
-            inputSubmitEl.value = 'FAVORITAR';
-            formEl.submit();
-        }
-        
-        inputSubmitEl.value = 'VISUALIZAR';
-        
         formEl.submit();
     });
 });

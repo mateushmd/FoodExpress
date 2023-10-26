@@ -42,6 +42,12 @@ public class FavoritosDAO extends DAOTemplate<FavoritosDTO> {
         
         return executeUpdate(sql, cliente, loja);
     }
+
+    public boolean removerFav(String cliente, int loja) {
+        String sql = "DELETE FROM favoritos WHERE id_cliente = ? AND id_loja = ?";
+
+        return executeUpdate(sql, cliente, loja);
+    }
     
     public List<FavoritosDTO> getFav(String cliente){
         String sql = "SELECT * FROM favoritos WHERE id_cliente = ?";

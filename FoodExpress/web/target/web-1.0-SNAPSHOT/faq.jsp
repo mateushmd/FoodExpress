@@ -9,9 +9,9 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>FoodExpress</title>
-        <link rel="stylesheet" type="text/css" href="styles/main.css">
-        <link rel="stylesheet" type="text/css" href="styles/header.css">
-        <link rel="stylesheet" type="text/css" href="styles/footer.css">
+        <link rel="stylesheet" type="text/css" href="styles/main/main.css">
+        <link rel="stylesheet" type="text/css" href="styles/main/header.css">
+        <link rel="stylesheet" type="text/css" href="styles/main/footer.css">
         <link rel="stylesheet" type="text/css" href="styles/paginasinformacionais.css">
         <link rel="stylesheet" type="text/css" href="styles/slider.css">
         <link rel="icon" type="image/png" href="imgs/icon.png"/>
@@ -25,7 +25,7 @@
             <img id="navbar-logo" src="imgs/logo3.png" alt="Logo">
             <div id="navbar-menu">
                 <a class="navbar-link" href="menuprincipal.jsp">Início</a>
-                <a class="navbar-link" href="#">Favoritos</a>
+                <a class="navbar-link" href="meus-favoritos">Favoritos</a>
                 <a class="navbar-link" href="gerenciarloja.jsp">Loja</a>
                 <a class="navbar-link" href="#">Sobre</a>
             </div>
@@ -43,7 +43,7 @@
                             <li><a href=""><img src="imgs/header/engrenagem.svg" alt="">Dados</a></li>
                             <li><a href=""><img src="imgs/header/pedido.svg" alt="">Pedidos</a></li>
                             <li><a href=""><img src="imgs/header/chat.svg" alt="">Conversas</a></li>
-                            <li><a href="favoritos.jsp"><img src="imgs/header/coracao.svg" alt="">Favoritos</a></li>
+                            <li><a href="meus-favoritos"><img src="imgs/header/coracao.svg" alt="">Favoritos</a></li>
                             <li><a href="acessibilidade.jsp"><img src="imgs/header/acessibilidade.svg" alt="">Acessibilidade</a></li>
                             <li><a href=""><img src="imgs/header/sair.svg" alt="">Sair</a></li>
                         </ul>
@@ -261,8 +261,8 @@
                 (parseInt('${acessibilidade.tamanhoTexto}') / 100)
             ];
         </script>
-        <script src="scripts/modal.js"></script>
-        <script src="scripts/acessibilidade.js"></script>
-        <script src="scripts/slider.js"></script>
+        <script src="scripts/janelas-modais/modal.js"></script>
+        <script src="scripts/acessibilidade/acessibilidade.js"></script>
+        <script src="scripts/janelas-modais/slider.js"></script>
     </body>
 </html>

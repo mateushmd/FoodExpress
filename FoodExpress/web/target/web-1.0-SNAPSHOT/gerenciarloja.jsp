@@ -11,7 +11,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>FoodExpress</title>
         <link rel="stylesheet" type="text/css" href="styles/gerenciarloja.css">
-        <link rel="stylesheet" type="text/css" href="styles/header.css">
+        <link rel="stylesheet" type="text/css" href="styles/main/header.css">
         <link rel="icon" type="image/png" href="imgs/icon.png" />
     </head>
 
@@ -25,7 +25,7 @@
             <div id="navbar-menu">
                 <a class="navbar-link" href="menuprincipal.jsp">Início</a>
                 <a class="navbar-link" href="gerenciarperfil.jsp">Perfil</a>
-                <a class="navbar-link" href="#">Favoritos</a>
+                <a class="navbar-link" href="meus-favoritos">Favoritos</a>
                 <a class="navbar-link" href="gerenciarloja.jsp">Loja</a>
                 <a class="navbar-link" href="#">Sobre</a>
             </div>

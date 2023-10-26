@@ -9,13 +9,13 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>FoodExpress</title>
-        <link rel="stylesheet" type="text/css" href="styles/main.css">
+        <link rel="stylesheet" type="text/css" href="styles/main/main.css">
         <link rel="stylesheet" type="text/css" href="styles/menuprincipal.css">
         <link rel="stylesheet" type="text/css" href="styles/carrossel.css">
         <link rel="stylesheet" type="text/css" href="styles/rating.css">
-        <link rel="stylesheet" type="text/css" href="styles/header.css">
-        <link rel="stylesheet" type="text/css" href="styles/footer.css">
-        <link rel="stylesheet" type="text/css" href="styles/scrollbar.css">
+        <link rel="stylesheet" type="text/css" href="styles/main/header.css">
+        <link rel="stylesheet" type="text/css" href="styles/main/footer.css">
+        <link rel="stylesheet" type="text/css" href="styles/main/scrollbar.css">
         <link rel="stylesheet" type="text/css" href="styles/slider.css">
         <link rel="icon" type="image/png" href="imgs/icon.png"/>
     </head>
@@ -28,7 +28,7 @@
             <img id="navbar-logo" src="imgs/logo3.png" alt="Logo">
             <div id="navbar-menu">
                 <a class="navbar-link" href="menuprincipal.jsp">Início</a>
-                <a class="navbar-link" href="#">Favoritos</a>
+                <a class="navbar-link" href="meus-favoritos">Favoritos</a>
                 <a class="navbar-link" href="gerenciarloja.jsp">Loja</a>
                 <a class="navbar-link" href="#">Sobre</a>
             </div>
@@ -46,7 +46,7 @@
                             <li><a href="dados.jsp"><img src="imgs/header/engrenagem.svg" alt="">Dados</a></li>
                             <li><a href=""><img src="imgs/header/pedido.svg" alt="">Pedidos</a></li>
                             <li><a href=""><img src="imgs/header/chat.svg" alt="">Conversas</a></li>
-                            <li><a href="favoritos.jsp"><img src="imgs/header/coracao.svg" alt="">Favoritos</a></li>
+                            <li><a href="meus-favoritos"><img src="imgs/header/coracao.svg" alt="">Favoritos</a></li>
                             <li><a href="acessibilidade.jsp"><img src="imgs/header/acessibilidade.svg" alt="">Acessibilidade</a></li>
                             <li><a href=""><img src="imgs/header/sair.svg" alt="">Sair</a></li>
                         </ul>
@@ -66,10 +66,10 @@
             <section class="content">
                 <h1>DESTAQUES</h1>
                 <div class="carousel-container realign" data-items="2">
-                    <div class="arrow arrow-rounded left-arrow"><img src="imgs/menu-principal/seta.svg" alt=""></div>
+                    <div class="arrow arrow-rounded left-arrow"><img src="imgs/carrossel/seta.svg" alt=""></div>
                     <div class="carousel" data-index="0" >
                         <c:forEach items="${lojas}" var="loja">
-                            <form action="loja" method="post">
+                            <form action="loja" method="get">
                                 <div class="item item-loja">
                                     <div class="img-container">
                                         <img src="imgs/teste/teste.jpg" alt="${loja.idUser}" id="imgLojaF">
@@ -91,17 +91,16 @@
                                             <button type="submit" value="FAVORITAR">♥</button>
                                         </div>
                                         <input type="hidden" name="id" value="${loja.id}" class="id">
-                                        <input type="hidden" name="submitAction" class="submit-action">
                                     </div>
                                 </div>
                             </form>
                         </c:forEach>
                     </div>
-                    <div class="arrow arrow-rounded right-arrow"><img src="imgs/menu-principal/seta.svg" alt=""></div>
+                    <div class="arrow arrow-rounded right-arrow"><img src="imgs/carrossel/seta.svg" alt=""></div>
                 </div>
                 <h1 style="margin-top: 50px;">NOVIDADES</h1>
                 <div class="carousel-container realign" data-items="2">
-                    <div class="arrow arrow-squared left-arrow"><img src="imgs/menu-principal/seta.svg" alt=""></div>
+                    <div class="arrow arrow-rounded left-arrow"><img src="imgs/carrossel/seta.svg" alt=""></div>
                     <div class="carousel" data-index="0" >
                         <c:forEach items="${lojas}" var="loja">
                             <form action="loja" method="post">
@@ -132,11 +131,11 @@
                             </form>
                         </c:forEach>
                     </div>
-                    <div class="arrow arrow-squared right-arrow"><img src="imgs/menu-principal/seta.svg" alt=""></div>
+                    <div class="arrow arrow-rounded right-arrow"><img src="imgs/carrossel/seta.svg" alt=""></div>
                 </div>
                 <h1 style="margin-top: 50px;">MAIS BEM AVALIADOS</h1>
                 <div class="carousel-container realign" data-items="2">
-                    <div class="arrow arrow-squared left-arrow"><img src="imgs/menu-principal/seta.svg" alt=""></div>
+                    <div class="arrow arrow-rounded left-arrow"><img src="imgs/carrossel/seta.svg" alt=""></div>
                     <div class="carousel" data-index="0" >
                         <c:forEach items="${lojas}" var="loja">
                             <form action="loja" method="post">
@@ -167,7 +166,7 @@
                             </form>
                         </c:forEach>
                     </div>
-                    <div class="arrow arrow-squared right-arrow"><img src="imgs/menu-principal/seta.svg" alt=""></div>
+                    <div class="arrow arrow-rounded right-arrow"><img src="imgs/carrossel/seta.svg" alt=""></div>
                 </div>
             </section>
         </main>
@@ -363,10 +362,10 @@
         </script>
         <script src="scripts/carrossel.js"></script>
         <script src="scripts/rating.js"></script>
-        <script src="scripts/modal.js"></script>
-        <script src="scripts/acessibilidade.js"></script>
-        <script src="scripts/slider.js"></script>
-        <script src="scripts/slider.js"></script>
+        <script src="scripts/janelas-modais/modal.js"></script>
+        <script src="scripts/acessibilidade/acessibilidade.js"></script>
+        <script src="scripts/janelas-modais/slider.js"></script>
+        <script src="scripts/janelas-modais/slider.js"></script>
     </body>
 </html>
 

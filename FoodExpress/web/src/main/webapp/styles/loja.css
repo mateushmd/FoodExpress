@@ -106,7 +106,8 @@ main {
     transition: color .3s;
 }
 
-.favorite button:hover {
+.favorite button:hover,
+.favorite button.active {
     color: red;
 }
 

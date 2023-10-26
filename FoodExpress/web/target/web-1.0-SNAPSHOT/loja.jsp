@@ -7,12 +7,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>FoodExpress</title>
-        <link rel="stylesheet" type="text/css" href="styles/main.css">
+        <link rel="stylesheet" type="text/css" href="styles/main/main.css">
         <link rel="stylesheet" type="text/css" href="styles/loja.css">
         <link rel="stylesheet" type="text/css" href="styles/rating.css">
-        <link rel="stylesheet" type="text/css" href="styles/header.css">
+        <link rel="stylesheet" type="text/css" href="styles/main/header.css">
         <link rel="stylesheet" type="text/css" href="styles/carrossel.css">
-        <link rel="stylesheet" type="text/css" href="styles/footer.css">
+        <link rel="stylesheet" type="text/css" href="styles/main/footer.css">
         <link rel="stylesheet" type="text/css" href="styles/slider.css">
         <link rel="icon" type="image/png" href="imgs/icon.png" />
     </head>
@@ -23,18 +23,20 @@
         <c:set var="produtos" value="${requestScope.produtos}"/>
         <c:set var="avaliacoes" value="${requestScope.avaliacoes}"/>
         <c:set var="avaliacaoUsuario" value="${requestScope.avaliacaoUsuario}"/>
+        <c:set var="favorito" value="${requestScope.favorito}"/>
 
         <c:set var="ratingClass" value="${not empty avaliacaoUsuario ? 'process-rating disabled' : ''}"/>
         <c:set var="ratingValue" value="${not empty avaliacaoUsuario ? avaliacaoUsuario.nota : 0}"/>
 
         <input type="hidden" id="emailFirebase" value="${loja.idUser}">
         <input type="hidden" id="avaliacao" value="<fmt:formatNumber value="${loja.avaliacao}" type="number" pattern="#,##0.0" />">
+        <input type="hidden" id="id-usuario" value="${usuario.email}">
 
         <header id="navbar">
             <img id="navbar-logo" src="imgs/logo3.png" alt="Logo">
             <div id="navbar-menu">
                 <a class="navbar-link" href="menuprincipal.jsp">Início</a>
-                <a class="navbar-link" href="#">Favoritos</a>
+                <a class="navbar-link" href="meus-favoritos">Favoritos</a>
                 <a class="navbar-link" href="gerenciarloja.jsp">Loja</a>
                 <a class="navbar-link" href="#">Sobre</a>
             </div>
@@ -52,7 +54,7 @@
                             <li><a href=""><img src="imgs/header/engrenagem.svg" alt="">Dados</a></li>
                             <li><a href=""><img src="imgs/header/pedido.svg" alt="">Pedidos</a></li>
                             <li><a href=""><img src="imgs/header/chat.svg" alt="">Conversas</a></li>
-                            <li><a href="favoritos.jsp"><img src="imgs/header/coracao.svg" alt="">Favoritos</a></li>
+                            <li><a href="meus-favoritos"><img src="imgs/header/coracao.svg" alt="">Favoritos</a></li>
                             <li><a href="acessibilidade.jsp"><img src="imgs/header/acessibilidade.svg" alt="">Acessibilidade</a></li>
                             <li><a href=""><img src="imgs/header/sair.svg" alt="">Sair</a></li>
                         </ul>
@@ -145,10 +147,10 @@
                     <input class="star-input" id="star5" type="radio" name="rating" value="5">
                     <label class="star-label" for="star5" data-star="5"><img src="imgs/gray-star.svg" alt=""></label>
                 </div>
-                <form class="favorite" action="">
-                    <button type="submit">♥</button>
+                <div class="favorite">
+                    <button type="submit" class="${favorito eq true ? 'active' : ''}">♥</button>
                     <input type="hidden" name="id" value="${loja.id}">
-                </form>
+                </div>
             </section>
             <section id="pesquisa">
                 <div id="container-input">
@@ -167,7 +169,7 @@
             <section id="destaques" class="content">
                 <h1>DESTAQUES</h1>
                 <div class="carousel-container fit-product" data-items="3" data-index="0">
-                    <div class="arrow arrow-rounded left-arrow"><img src="imgs/arrow-left.png" alt=""></div>
+                    <div class="arrow arrow-rounded left-arrow"><img src="imgs/carrossel/seta.svg" alt=""></div>
                     <div class="carousel" data-index="0">
                         <c:forEach items="${produtos}" var="produto">
                             <div class="item fit-product modal-trigger" data-modal-index="1">
@@ -190,7 +192,7 @@
                             </div>
                         </c:forEach>
                     </div>
-                    <div class="arrow arrow-rounded right-arrow"><img src="imgs/arrow-right.png" alt=""></div>
+                    <div class="arrow arrow-rounded right-arrow"><img src="imgs/carrossel/seta.svg" alt=""></div>
                 </div>
             </section>
             <section id="produtos">
@@ -525,6 +527,8 @@
             </div>
         </div>
 
+        <script src="scripts/jquery/jquery.js"></script>
+
         <script type="module">
             import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
             import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
@@ -564,6 +568,7 @@
                 }
             });
         </script>
+
         <script>
             const configuracoesAcessibilidade = [
                 '${acessibilidade.temaEscuro}' !== 'false',
@@ -572,12 +577,13 @@
                 (parseInt('${acessibilidade.tamanhoTexto}') / 100)
             ];
         </script>
+
         <script src="scripts/rating.js"></script>
-        <script src="scripts/userRating.js"></script>
+        <script src="scripts/loja/favoritar.js"></script>
+        <script src="scripts/loja/userRating.js"></script>
         <script src="scripts/carrossel.js"></script>
-        <script src="scripts/slider.js"></script>
-        <script src="scripts/modal.js"></script>
-        <script src="scripts/acessibilidade.js"></script>
-        <script src="scripts/slider.js"></script>
+        <script src="scripts/janelas-modais/slider.js"></script>
+        <script src="scripts/janelas-modais/modal.js"></script>
+        <script src="scripts/acessibilidade/acessibilidade.js"></script>
     </body>
 </html>
