@@ -1,0 +1,7 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Run config" type="CompoundRunConfigurationType">
+    <toRun name="GlassFish 6.2.5" type="GlassfishConfiguration" />
+    <toRun name="index.js" type="NodeJSConfigurationType" />
+    <method v="2" />
+  </configuration>
+</component>

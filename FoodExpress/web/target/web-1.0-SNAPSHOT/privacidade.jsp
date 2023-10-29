@@ -39,7 +39,7 @@
                     <div id="modal-perfil" class="modal hidden" data-modal-index="0">
                         <h2>Olá ${usuario.nome}</h2>
                         <ul>
-                            <li><a href=""><img src="imgs/header/engrenagem.svg" alt="">Dados</a></li>
+                            <li><a href="dados.jsp"><img src="imgs/header/engrenagem.svg" alt="">Dados</a></li>
                             <li><a href=""><img src="imgs/header/pedido.svg" alt="">Pedidos</a></li>
                             <li><a href=""><img src="imgs/header/chat.svg" alt="">Conversas</a></li>
                             <li><a href="meus-favoritos"><img src="imgs/header/coracao.svg" alt="">Favoritos</a></li>
@@ -49,7 +49,7 @@
                     </div>
                 </div>
                 <div id="orders">
-                    <img id="orders-pic" src="imgs/header/sacola.svg" class="slider-trigger" alt="Pedidos">
+                    <img id="orders-pic" src="imgs/header/sacola.svg" class="slider-trigger" data-slider-index="0" alt="Pedidos">
                     <div id="orders-info">
                         <p>R$ 0,00</p>
                         <p>0 itens</p>

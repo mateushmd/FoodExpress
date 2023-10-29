@@ -1,3 +1,6 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 
@@ -13,6 +16,9 @@
     </head>
 
     <body>
+        <c:set var="usuario" value="${sessionScope.usuario}"/>
+        <c:set var="acessibilidade" value="${sessionScope.acessibilidade}"/>
+
         <header id="navbar">
             <img id="navbar-logo" src="imgs/logo3.png" alt="Logo">
             <div id="navbar-menu">
@@ -42,7 +48,7 @@
                     </div>
                 </div>
                 <div id="orders">
-                    <img id="orders-pic" src="imgs/header/sacola.svg" class="slider-trigger" alt="Pedidos">
+                    <img id="orders-pic" src="imgs/header/sacola.svg" class="slider-trigger" data-slider-index="0" alt="Pedidos">
                     <div id="orders-info">
                         <p>R$ 0,00</p>
                         <p>0 itens</p>
@@ -53,40 +59,38 @@
 
         <main>
             <section>
-                <form action="">
-                    <h1>Dados pessoais</h1>
-                    <ul>
-                        <li>
-                            <p>Nome</p>
-                            <div class="opcao-body">
-                                <input type="text" class="editavel">
-                            </div>
-                        </li>
-                        <li>
-                            <p>E-mail</p>
-                            <div class="opcao-body">
-                                <input type="text" value="chenri48155@gmail.com" disabled>
-                            </div>
-                        </li>
-                        <li>
-                            <p>Telefone</p>
-                            <div class="opcao-body">
-                                <input type="text" class="editavel">
-                            </div>
-                        </li>
-                    </ul>
-                    <div id="botao-container">
-                        <div class="botao">
-                            <input type="submit" value="ALTERAR SENHA" id="senha">
+                <h1>Dados pessoais</h1>
+                <ul>
+                    <li>
+                        <p>Nome</p>
+                        <div class="opcao-body">
+                            <input type="text" class="editavel" id="name">
                         </div>
-                        <div class="botao">
-                            <input type="submit" value="SALVAR" id="save" class="hidden" name="SUBMIT">
+                    </li>
+                    <li>
+                        <p>E-mail</p>
+                        <div class="opcao-body">
+                            <input type="text" value="${usuario.email}" disabled>
                         </div>
+                    </li>
+                    <li>
+                        <p>Telefone</p>
+                        <div class="opcao-body">
+                            <input type="text" class="editavel" id="phone">
+                        </div>
+                    </li>
+                </ul>
+                <div id="botao-container">
+                    <div class="botao">
+                        <input type="submit" value="ALTERAR SENHA" id="senha">
                     </div>
+                    <div class="botao">
+                        <input type="submit" value="SALVAR" id="save" class="hidden" name="SUBMIT">
+                    </div>
+                </div>
 
-                    <input type="hidden" value="Mateus Henrique" id="default-nome" class="default">
-                    <input type="hidden" value="31 99389-5154" id="default-telefone" class="default">
-                </form>
+                <input type="hidden" value="${usuario.nome}" id="default-nome" class="default">
+                <input type="hidden" value="${usuario.telefone}" id="default-telefone" class="default">
             </section>
         </main>
 
@@ -190,16 +194,19 @@
 
         <script>
             const configuracoesAcessibilidade = [
-                false,
-                false,
-                false,
-                1
+                '${acessibilidade.temaEscuro}' !== 'false',
+                '${acessibilidade.contraste}' !== 'false',
+                '${acessibilidade.visibilidadeTexto}' !== 'false',
+                (parseInt('${acessibilidade.tamanhoTexto}') / 100)
             ];
         </script>
+        <script src="scripts/jquery/jquery.js"></script>
         <script src="scripts/janelas-modais/modal.js"></script>
         <script src="scripts/acessibilidade/acessibilidade.js"></script>
-        <script src="scripts/alterarDados.js"></script>
+        <script src="scripts/dados/editarDados.js"></script>
+        <script src="scripts/dados/alterarDados.js"></script>
         <script src="scripts/janelas-modais/slider.js"></script>
+        <script src="scripts/mascaras.js"></script>
     </body>
 
 </html>

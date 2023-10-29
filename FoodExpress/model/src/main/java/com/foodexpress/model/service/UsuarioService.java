@@ -51,8 +51,8 @@ public class UsuarioService {
         return check;
     }
     
-    public boolean update(UsuarioDTO obj) {
-        return dao.update(obj);
+    public boolean alterarDados(String email, String novoNome, String novoTelefone) {
+        return dao.alterarDados(email, novoNome, novoTelefone);
     }
 
     public UsuarioDTO getUsuario(String email) {

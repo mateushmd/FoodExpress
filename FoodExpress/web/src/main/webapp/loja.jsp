@@ -51,7 +51,7 @@
                     <div id="modal-perfil" class="modal hidden" data-modal-index="0">
                         <h2>Olá ${usuario.nome}</h2>
                         <ul>
-                            <li><a href=""><img src="imgs/header/engrenagem.svg" alt="">Dados</a></li>
+                            <li><a href="dados.jsp"><img src="imgs/header/engrenagem.svg" alt="">Dados</a></li>
                             <li><a href=""><img src="imgs/header/pedido.svg" alt="">Pedidos</a></li>
                             <li><a href=""><img src="imgs/header/chat.svg" alt="">Conversas</a></li>
                             <li><a href="meus-favoritos"><img src="imgs/header/coracao.svg" alt="">Favoritos</a></li>
@@ -61,7 +61,7 @@
                     </div>
                 </div>
                 <div id="orders">
-                    <img id="orders-pic" src="imgs/header/sacola.svg" class="slider-trigger" alt="Pedidos">
+                    <img id="orders-pic" src="imgs/header/sacola.svg" class="slider-trigger" data-slider-index="0" alt="Pedidos">
                     <div id="orders-info">
                         <p>R$ 0,00</p>
                         <p>0 itens</p>
@@ -73,6 +73,7 @@
         <div id="overlay" class="hidden"></div>
 
         <div id="modal-produto" class="modal hidden" data-modal-index="1" data-lock-screen="true">
+            <input type="hidden" id="modal-produto-id" value="">
             <button id="close-modal-produto" class="modal-produto-botao">
                 <img src="imgs/x-symbol.svg" alt="">
             </button>
@@ -131,7 +132,7 @@
             <section id="info">
                 <img src="imgs/teste/teste.jpg" alt="" id="imgLojaF">
                 <h1>${loja.nome}</h1>
-                <div class="rating process-rating slider-trigger" data-rating="<fmt:formatNumber value="${loja.avaliacao}" type="number" maxFractionDigits="0"/>">
+                <div class="rating process-rating slider-trigger" data-rating="<fmt:formatNumber value="${loja.avaliacao}" type="number" maxFractionDigits="0"/>" data-slider-index="1">
                     <input class="star-input" id="star1" type="radio" name="rating" value="1">
                     <label class="star-label" for="star1" data-star="1"><img src="imgs/gray-star.svg" alt=""></label>
 
@@ -173,6 +174,7 @@
                     <div class="carousel" data-index="0">
                         <c:forEach items="${produtos}" var="produto">
                             <div class="item fit-product modal-trigger" data-modal-index="1">
+                                <input type="hidden" class="id-produto" value="${produto.id}">
                                 <div class="img-container">
                                     <img src="imgs/teste/teste.jpg" alt="Sandubao">
                                 </div>
@@ -301,106 +303,60 @@
                 <img src="imgs/x-symbol.svg" alt="">
             </button>
 
-            <div class="slider-content">
-                <!-- QUANDO A SACOLA ESTÁ VAZIA!!!!
-                <div id="empty-bag">
-                    <div id="empty-bag-img-container">
-                        <img src="imgs/header/sacola.svg" alt="">
-                        <img src="imgs/x-symbol.svg" alt="">
-                    </div>
-                    <h2>Sua sacola está vazia</h2>
-                    <p>Adicione itens para comprar</p>
-                </div>
-                -->
-
-                <div id="bag">
-                    <div id="bag-header">
-                        <p>Seu pedido</p>
-                        <div>
-                            <h2>Lojinha do Mateus Mateus do lojinha</h2>
-                            <a href="">Ir para a loja</a>
-                        </div>
-                    </div>
-                    <div id="bag-body">
-                        <div class="bag-categoria">
-                            <p>Categoria 1</p>
-                            <div class="bag-produto">
-                                <div class="bag-produto-header">
-                                    <p>Nome Produto</p>
-                                    <p class="preco">R$ 99,99</p>
-                                </div>
-                                <div class="bag-produto-body">
-                                    <p>Um produto bem produzido de comer bem gostoso to de buchin xei</p>
-                                </div>
-                                <div class="bag-produto-footer">
-                                    <input type="submit" value="Editar">
-                                    <input type="submit" value="Remover">
-                                </div>
-                            </div>
-                            <div class="bag-produto">
-                                <div class="bag-produto-header">
-                                    <p>Nome Produto</p>
-                                    <p class="preco">R$ 99,99</p>
-                                </div>
-                                <div class="bag-produto-body">
-                                    <p>Um produto bem produzido de comer bem gostoso to de buchin xei</p>
-                                </div>
-                                <div class="bag-produto-footer">
-                                    <input type="submit" value="Editar">
-                                    <input type="submit" value="Remover">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bag-categoria">
-                            <p>Categoria 2</p>
-                            <div class="bag-produto">
-                                <div class="bag-produto-header">
-                                    <p>Nome Produto</p>
-                                    <p class="preco">R$ 99,99</p>
-                                </div>
-                                <div class="bag-produto-body">
-                                    <p>Um produto bem produzido de comer bem gostoso to de buchin xei</p>
-                                </div>
-                                <div class="bag-produto-footer">
-                                    <input type="submit" value="Editar">
-                                    <input type="submit" value="Remover">
-                                </div>
-                            </div>
-                            <div class="bag-produto">
-                                <div class="bag-produto-header">
-                                    <p>Nome Produto</p>
-                                    <p class="preco">R$ 99,99</p>
-                                </div>
-                                <div class="bag-produto-body">
-                                    <p>Um produto bem produzido de comer bem gostoso to de buchin xei</p>
-                                </div>
-                                <div class="bag-produto-footer">
-                                    <input type="submit" value="Editar">
-                                    <input type="submit" value="Remover">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="bag-footer">
-                        <div>
-                            <p>Total</p>
-                            <p class="preco">R$ 399,96</p>
-                        </div>
-                        <button>
-                            <p>Realizar pedido</p>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="slider">
-            <button id="close-slider">
-                <img src="imgs/x-symbol.svg" alt="">
-            </button>
-
             <div id="slider-content">
-                <div id="slider-ratings">
+                <div class="slider-container hidden">
+                    <!-- QUANDO A SACOLA ESTÁ VAZIA!!!!
+                    <div id="empty-bag">
+                        <div id="empty-bag-img-container">
+                            <img src="imgs/header/sacola.svg" alt="">
+                            <img src="imgs/x-symbol.svg" alt="">
+                        </div>
+                        <h2>Sua sacola está vazia</h2>
+                        <p>Adicione itens para comprar</p>
+                    </div>
+                    -->
+                    <div id="bag">
+                        <div id="bag-header">
+                            <p>Seu pedido</p>
+                            <div>
+                                <h2>Lojinha do Mateus Mateus do lojinha</h2>
+                                <a href="">Ir para a loja</a>
+                            </div>
+                        </div>
+                        <div id="bag-body">
+                            <c:forEach>
+                                <div class="bag-categoria">
+                                    <p>Categoria </p>
+                                    <c:forEach>
+                                        <div class="bag-produto">
+                                            <div class="bag-produto-header">
+                                                <p>Quantidadex Nome Produto</p>
+                                                <p class="preco">R$ 99,99</p>
+                                            </div>
+                                            <div class="bag-produto-body">
+                                                <p>Um produto bem produzido de comer bem gostoso to de buchin xei</p>
+                                            </div>
+                                            <div class="bag-produto-footer">
+                                                <input type="submit" value="Editar">
+                                                <input type="submit" value="Remover">
+                                            </div>
+                                        </div>
+                                    </c:forEach>
+                                </div>
+                            </c:forEach>
+                        </div>
+                        <div id="bag-footer">
+                            <div>
+                                <p>Total</p>
+                                <p class="preco">R$ 399,96</p>
+                            </div>
+                            <button>
+                                <p>Realizar pedido</p>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="slider-container hidden">
                     <div id="slider-ratings-header">
                         <h2 class="font-707">Avaliações</h2>
                         <span>NOME DA LOJA</span>
@@ -578,6 +534,7 @@
             ];
         </script>
 
+        <script src="scripts/jquery/jquery.js"></script>
         <script src="scripts/rating.js"></script>
         <script src="scripts/loja/favoritar.js"></script>
         <script src="scripts/loja/userRating.js"></script>

@@ -86,10 +86,10 @@ public class UsuarioDAO extends DAOTemplate<UsuarioDTO> {
         return executeUpdate(sqlUpdate, true, email);
     }
 
-    public boolean update(UsuarioDTO obj) {
+    public boolean alterarDados(String email, String novoNome, String novoTelefone) {
         String sqlUpdate = "UPDATE usuarios SET nome = ?, telefone = ? WHERE email = ?";
         
-        return executeUpdate(sqlUpdate, obj.getNome(), obj.getTelefone(), obj.getEmail());
+        return executeUpdate(sqlUpdate, novoNome, novoTelefone, email);
     }
 
     public UsuarioDTO getUsuario(String email) {

@@ -53,7 +53,7 @@
                     </div>
                 </div>
                 <div id="orders">
-                    <img id="orders-pic" src="imgs/header/sacola.svg" class="slider-trigger" alt="Pedidos">
+                    <img id="orders-pic" src="imgs/header/sacola.svg" class="slider-trigger" data-slider-index="0" alt="Pedidos">
                     <div id="orders-info">
                         <p>R$ 0,00</p>
                         <p>0 itens</p>
@@ -66,7 +66,7 @@
             <section class="content">
                 <h1>DESTAQUES</h1>
                 <div class="carousel-container realign" data-items="2">
-                    <div class="arrow arrow-rounded left-arrow"><img src="imgs/carrossel/seta.svg" alt=""></div>
+                    <div class="arrow arrow-rounded left-arrow"><img alt="" src="imgs/carrossel/seta.svg"></div>
                     <div class="carousel" data-index="0" >
                         <c:forEach items="${lojas}" var="loja">
                             <form action="loja" method="get">
@@ -219,93 +219,95 @@
             </button>
 
             <div class="slider-content">
-                <!-- QUANDO A SACOLA ESTÁ VAZIA!!!!
-                <div id="empty-bag">
-                    <div id="empty-bag-img-container">
-                        <img src="imgs/header/sacola.svg" alt="">
-                        <img src="imgs/x-symbol.svg" alt="">
+                <div class="slider-container hidden">
+                    <!-- QUANDO A SACOLA ESTÁ VAZIA!!!!
+                    <div id="empty-bag">
+                        <div id="empty-bag-img-container">
+                            <img src="imgs/header/sacola.svg" alt="">
+                            <img src="imgs/x-symbol.svg" alt="">
+                        </div>
+                        <h2>Sua sacola está vazia</h2>
+                        <p>Adicione itens para comprar</p>
                     </div>
-                    <h2>Sua sacola está vazia</h2>
-                    <p>Adicione itens para comprar</p>
-                </div>
-                -->
+                    -->
 
-                <div id="bag">
-                    <div id="bag-header">
-                        <p>Seu pedido</p>
-                        <div>
-                            <h2>Lojinha do Mateus Mateus do lojinha</h2>
-                            <a href="">Ir para a loja</a>
-                        </div>
-                    </div>
-                    <div id="bag-body">
-                        <div class="bag-categoria">
-                            <p>Categoria 1</p>
-                            <div class="bag-produto">
-                                <div class="bag-produto-header">
-                                    <p>Nome Produto</p>
-                                    <p class="preco">R$ 99,99</p>
-                                </div>
-                                <div class="bag-produto-body">
-                                    <p>Um produto bem produzido de comer bem gostoso to de buchin xei</p>
-                                </div>
-                                <div class="bag-produto-footer">
-                                    <input type="submit" value="Editar">
-                                    <input type="submit" value="Remover">
-                                </div>
-                            </div>
-                            <div class="bag-produto">
-                                <div class="bag-produto-header">
-                                    <p>Nome Produto</p>
-                                    <p class="preco">R$ 99,99</p>
-                                </div>
-                                <div class="bag-produto-body">
-                                    <p>Um produto bem produzido de comer bem gostoso to de buchin xei</p>
-                                </div>
-                                <div class="bag-produto-footer">
-                                    <input type="submit" value="Editar">
-                                    <input type="submit" value="Remover">
-                                </div>
+                    <div id="bag">
+                        <div id="bag-header">
+                            <p>Seu pedido</p>
+                            <div>
+                                <h2>Lojinha do Mateus Mateus do lojinha</h2>
+                                <a href="">Ir para a loja</a>
                             </div>
                         </div>
-                        <div class="bag-categoria">
-                            <p>Categoria 2</p>
-                            <div class="bag-produto">
-                                <div class="bag-produto-header">
-                                    <p>Nome Produto</p>
-                                    <p class="preco">R$ 99,99</p>
+                        <div id="bag-body">
+                            <div class="bag-categoria">
+                                <p>Categoria 1</p>
+                                <div class="bag-produto">
+                                    <div class="bag-produto-header">
+                                        <p>Nome Produto</p>
+                                        <p class="preco">R$ 99,99</p>
+                                    </div>
+                                    <div class="bag-produto-body">
+                                        <p>Um produto bem produzido de comer bem gostoso to de buchin xei</p>
+                                    </div>
+                                    <div class="bag-produto-footer">
+                                        <input type="submit" value="Editar">
+                                        <input type="submit" value="Remover">
+                                    </div>
                                 </div>
-                                <div class="bag-produto-body">
-                                    <p>Um produto bem produzido de comer bem gostoso to de buchin xei</p>
-                                </div>
-                                <div class="bag-produto-footer">
-                                    <input type="submit" value="Editar">
-                                    <input type="submit" value="Remover">
+                                <div class="bag-produto">
+                                    <div class="bag-produto-header">
+                                        <p>Nome Produto</p>
+                                        <p class="preco">R$ 99,99</p>
+                                    </div>
+                                    <div class="bag-produto-body">
+                                        <p>Um produto bem produzido de comer bem gostoso to de buchin xei</p>
+                                    </div>
+                                    <div class="bag-produto-footer">
+                                        <input type="submit" value="Editar">
+                                        <input type="submit" value="Remover">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="bag-produto">
-                                <div class="bag-produto-header">
-                                    <p>Nome Produto</p>
-                                    <p class="preco">R$ 99,99</p>
+                            <div class="bag-categoria">
+                                <p>Categoria 2</p>
+                                <div class="bag-produto">
+                                    <div class="bag-produto-header">
+                                        <p>Nome Produto</p>
+                                        <p class="preco">R$ 99,99</p>
+                                    </div>
+                                    <div class="bag-produto-body">
+                                        <p>Um produto bem produzido de comer bem gostoso to de buchin xei</p>
+                                    </div>
+                                    <div class="bag-produto-footer">
+                                        <input type="submit" value="Editar">
+                                        <input type="submit" value="Remover">
+                                    </div>
                                 </div>
-                                <div class="bag-produto-body">
-                                    <p>Um produto bem produzido de comer bem gostoso to de buchin xei</p>
-                                </div>
-                                <div class="bag-produto-footer">
-                                    <input type="submit" value="Editar">
-                                    <input type="submit" value="Remover">
+                                <div class="bag-produto">
+                                    <div class="bag-produto-header">
+                                        <p>Nome Produto</p>
+                                        <p class="preco">R$ 99,99</p>
+                                    </div>
+                                    <div class="bag-produto-body">
+                                        <p>Um produto bem produzido de comer bem gostoso to de buchin xei</p>
+                                    </div>
+                                    <div class="bag-produto-footer">
+                                        <input type="submit" value="Editar">
+                                        <input type="submit" value="Remover">
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div id="bag-footer">
-                        <div>
-                            <p>Total</p>
-                            <p class="preco">R$ 399,96</p>
+                        <div id="bag-footer">
+                            <div>
+                                <p>Total</p>
+                                <p class="preco">R$ 399,96</p>
+                            </div>
+                            <button>
+                                <p>Realizar pedido</p>
+                            </button>
                         </div>
-                        <button>
-                            <p>Realizar pedido</p>
-                        </button>
                     </div>
                 </div>
             </div>
@@ -362,10 +364,9 @@
         </script>
         <script src="scripts/carrossel.js"></script>
         <script src="scripts/rating.js"></script>
-        <script src="scripts/janelas-modais/modal.js"></script>
         <script src="scripts/acessibilidade/acessibilidade.js"></script>
         <script src="scripts/janelas-modais/slider.js"></script>
-        <script src="scripts/janelas-modais/slider.js"></script>
+        <script src="scripts/janelas-modais/modal.js"></script>
     </body>
 </html>
 

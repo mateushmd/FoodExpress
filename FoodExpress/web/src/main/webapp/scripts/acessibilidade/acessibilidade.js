@@ -54,7 +54,7 @@ function aplicarConfiguracoes()
 
         setaElements.forEach(el =>
         {
-            el.src = 'imgs/menu-principal/seta-escuro.svg';
+            el.src = 'imgs/carrossel/seta-escuro.svg';
         });
     }
 
@@ -104,7 +104,7 @@ function reiniciarConfiguracoes()
 
     setaElements.forEach(el =>
     {
-        el.src = 'imgs/menu-principal/seta.svg';
+        el.src = 'imgs/carrossel/seta.svg';
     });
 }
 

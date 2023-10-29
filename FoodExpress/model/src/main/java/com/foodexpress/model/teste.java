@@ -1,4 +1,5 @@
-package com.foodexpress.model.dao;
+package com.foodexpress.model;
+import com.foodexpress.model.dao.FavoritosDAO;
 import com.foodexpress.model.dto.*;
 import com.foodexpress.model.email.EmailUtil;
 import com.foodexpress.model.service.AcessibilidadeService;
@@ -12,8 +13,6 @@ import java.util.List;
 
 public class teste {
     public static void main(String[] args) throws SQLException {
-        FavoritosDAO fav = FavoritosDAO.getInstance();
-        
-        System.out.println("\n\n\nOlha isso: " + fav.searchFav("washingtonwagner2020@gmail.com", 34).getIdCliente());
+        EmailUtil.sendEmailVerificacao(new TokenVerificacaoDTO("chenri48155@gmail.com", "123456"));
     }
 }

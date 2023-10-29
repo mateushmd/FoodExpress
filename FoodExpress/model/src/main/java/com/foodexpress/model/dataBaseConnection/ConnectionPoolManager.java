@@ -1,4 +1,4 @@
-package com.foodexpress.model.dao;
+package com.foodexpress.model.dataBaseConnection;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 
