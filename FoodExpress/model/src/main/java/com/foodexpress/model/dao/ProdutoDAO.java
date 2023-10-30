@@ -58,4 +58,12 @@ public class ProdutoDAO extends DAOTemplate<ProdutoDTO>{
         
         return executeQuery(sql, idLoja);
     }
+
+    public ProdutoDTO getProdutoById(int id) {
+        String sql = "SELECT * FROM produtos WHERE id = ?";
+
+        List<ProdutoDTO> produto= executeQuery(sql, id);
+
+        return produto.isEmpty() ? null : produto.get(0);
+    }
 }

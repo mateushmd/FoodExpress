@@ -87,7 +87,14 @@ public class login extends HttpServlet {
         
         session.setAttribute("usuario", uDTO);
 
-        session.setAttribute("sacola", itensSacola);
+        if(itensSacola.isEmpty()) {
+            session.setAttribute("sacola", new SacolaViewDTO());
+        } else {
+            ProdutoDTO produto = lservice.getProdutoById(itensSacola.get(0).getProdutoId());
+            LojaDTO loja = lservice.getLojaById(produto.getIdLoja());
+
+            session.setAttribute("sacola", new SacolaViewDTO(loja.getId(), loja.getNome(), itensSacola));
+        }
 
         session.setAttribute("acessibilidade", aDTO);
         

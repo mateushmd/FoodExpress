@@ -18,10 +18,10 @@ closeSliderButtonEl.addEventListener('click', (e) =>
 
 sliderTriggers.forEach((el) =>
 {
-    resetContainersState();
-
     el.addEventListener('click', (e) =>
     {
+        resetContainersState();
+
         containerElements[el.dataset.sliderIndex].classList.remove('hidden');
 
         if (sliderEl.classList.contains('open'))

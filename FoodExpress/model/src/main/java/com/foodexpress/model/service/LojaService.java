@@ -99,4 +99,8 @@ public class LojaService {
     public boolean editarProduto(ProdutoDTO obj) {
         return pdao.update(obj);
     }
+
+    public ProdutoDTO getProdutoById(int id) {
+        return pdao.getProdutoById(id);
+    }
 }

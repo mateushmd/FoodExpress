@@ -343,7 +343,7 @@
     cursor: pointer;
 }
 
-#bag-footer button:hover {
+#bag-footer input:hover {
     background-color: red;
 }
 

@@ -202,7 +202,7 @@
                 <h1>CATEGORIA 1</h1>
                 <div class="categoria">
                     <c:forEach items="${produtos}" var="produto">
-                        <div class="produto">
+                        <div class="produto modal-trigger" data-modal-index="1">
                             <input type="hidden" class="id-produto" value="${produto.id}">
                             <div class="info-produto">
                                 <h2 class="font-707 nome">${produto.nome}</h2>
@@ -272,28 +272,18 @@
 
             <div id="slider-content">
                 <div class="slider-container hidden">
-                    <!-- QUANDO A SACOLA ESTÁ VAZIA!!!!
-                    <div id="empty-bag">
-                        <div id="empty-bag-img-container">
-                            <img src="imgs/header/sacola.svg" alt="">
-                            <img src="imgs/x-symbol.svg" alt="">
-                        </div>
-                        <h2>Sua sacola está vazia</h2>
-                        <p>Adicione itens para comprar</p>
-                    </div>
-                    -->
                     <div id="bag">
                         <div id="bag-header">
                             <p>Seu pedido</p>
                             <div>
-                                <h2>Lojinha do Mateus Mateus do lojinha</h2>
+                                <h2>${sacola.nomeLoja}</h2>
                                 <a href="">Ir para a loja</a>
                             </div>
                         </div>
                         <div id="bag-body">
                             <div class="bag-categoria">
                                 <p>Categoria </p>
-                                <c:forEach items="${sacola}" var="item">
+                                <c:forEach items="${sacola.itens}" var="item">
                                     <div class="bag-produto">
                                         <div class="bag-produto-header">
                                             <p>${item.quantidade}x ${item.produtoNome}</p>
@@ -303,7 +293,6 @@
                                             <p>${item.produtoDescricao}</p>
                                         </div>
                                         <div class="bag-produto-footer">
-                                            <input type="submit" value="Editar">
                                             <input type="submit" value="Remover">
                                         </div>
                                     </div>
@@ -313,18 +302,70 @@
                         <div id="bag-footer">
                             <div>
                                 <p>Total</p>
-                                <p class="preco">R$ 399,96</p>
+                                <p class="preco">R$ <fmt:formatNumber value='${sacola.total}' pattern='0.00'/></p>
                             </div>
                             <button>
                                 <p>Realizar pedido</p>
                             </button>
                         </div>
+                        <!--
+                        <c:choose>
+                            <c:when test="${sacola.idLoja eq -1}">
+                                <div id="empty-bag">
+                                    <div id="empty-bag-img-container">
+                                        <img src="imgs/header/sacola.svg" alt="">
+                                        <img src="imgs/x-symbol.svg" alt="">
+                                    </div>
+                                    <h2>Sua sacola está vazia</h2>
+                                    <p>Adicione itens para comprar</p>
+                                </div>
+                            </c:when>
+                            <c:otherwise>
+                                <div id="bag-header">
+                                    <p>Seu pedido</p>
+                                    <div>
+                                        <h2>${sacola.nomeLoja}</h2>
+                                        <a href="">Ir para a loja</a>
+                                    </div>
+                                </div>
+                                <div id="bag-body">
+                                    <div class="bag-categoria">
+                                        <p>Categoria </p>
+                                        <c:forEach items="${sacola.itens}" var="item">
+                                            <div class="bag-produto">
+                                                <div class="bag-produto-header">
+                                                    <p>${item.quantidade}x ${item.produtoNome}</p>
+                                                    <p class="preco">R$ <fmt:formatNumber value='${item.precoTotal}' pattern='0.00' /></p>
+                                                </div>
+                                                <div class="bag-produto-body">
+                                                    <p>${item.produtoDescricao}</p>
+                                                </div>
+                                                <div class="bag-produto-footer">
+                                                    <input type="submit" value="Editar">
+                                                    <input type="submit" value="Remover">
+                                                </div>
+                                            </div>
+                                        </c:forEach>
+                                    </div>
+                                </div>
+                                <div id="bag-footer">
+                                    <div>
+                                        <p>Total</p>
+                                        <p class="preco">R$ <fmt:formatNumber value='${sacola.total}' pattern='0.00'/></p>
+                                    </div>
+                                    <button>
+                                        <p>Realizar pedido</p>
+                                    </button>
+                                </div>
+                            </c:otherwise>
+                        </c:choose>
+                        -->
                     </div>
                 </div>
                 <div class="slider-container hidden">
                     <div id="slider-ratings-header">
                         <h2 class="font-707">Avaliações</h2>
-                        <span>NOME DA LOJA</span>
+                        <span>${loja.nome}</span>
                         <h1><fmt:formatNumber value="${loja.avaliacao}" type="number" pattern="#,##0.0" /></h1>
                         <div class="rating process-rating" data-rating="<fmt:formatNumber value="${loja.avaliacao}" type="number" maxFractionDigits="0"/>">
                             <input class="star-input" type="radio" name="rating" value="1">

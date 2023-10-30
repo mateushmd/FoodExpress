@@ -2,6 +2,7 @@ package com.foodexpress.web.servlet.sacola;
 
 import com.foodexpress.model.dto.ItemSacolaDTO;
 import com.foodexpress.model.dto.ItemSacolaViewDTO;
+import com.foodexpress.model.dto.SacolaViewDTO;
 import com.foodexpress.model.dto.UsuarioDTO;
 import com.foodexpress.model.service.ItemSacolaService;
 import com.google.gson.Gson;
@@ -42,18 +43,18 @@ public class adicionarSacola extends HttpServlet {
 
         Object sacolaSessionObject = session.getAttribute("sacola");
 
-        if(!(sacolaSessionObject instanceof List))
-            Logger.getAnonymousLogger().warning("'sacola' não é do tipo List");
+        if(!(sacolaSessionObject instanceof SacolaViewDTO))
+            Logger.getAnonymousLogger().warning("sacola não é do tipo SacolaViewDTO");
 
-        List<ItemSacolaViewDTO> sacola;
+        SacolaViewDTO sacola;
 
-        sacola = (List<ItemSacolaViewDTO>) sacolaSessionObject;
+        sacola = (SacolaViewDTO) sacolaSessionObject;
 
         iService.addItem(item);
 
-        ItemSacolaViewDTO itemAdicionado = iService.getNovoItens(idCliente, sacola).get(0);
+        ItemSacolaViewDTO itemAdicionado = iService.getNovoItens(idCliente, sacola.getItens()).get(0);
 
-        sacola.add(itemAdicionado);
+        sacola.addItem(itemAdicionado);
 
         session.setAttribute("sacola", sacola);
 
@@ -62,7 +63,6 @@ public class adicionarSacola extends HttpServlet {
         String jsonData = gson.toJson(itemAdicionado);
 
         response.setContentType("application/json");
-
         response.getWriter().write(jsonData);
     }
 

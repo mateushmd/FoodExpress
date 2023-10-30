@@ -53,6 +53,6 @@
                 </form>
             </div>
         </main>
-        <script src="scripts/codigoVerificacao.js"></script>
+        <script src="scripts/codigoverificacao.js"></script>
     </body>
 </html>

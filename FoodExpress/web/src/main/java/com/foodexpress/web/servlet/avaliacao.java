@@ -47,7 +47,7 @@ public class avaliacao extends HttpServlet {
         
         int idLoja = Integer.parseInt(request.getParameter("idLoja"));
 
-        String URL = "processLoja?id=" + idLoja;
+        String URL = "loja?id=" + idLoja;
         
         LojaService lService = LojaService.getInstance();
 
