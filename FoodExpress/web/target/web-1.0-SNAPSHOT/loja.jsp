@@ -18,6 +18,7 @@
     </head>
     <body>
         <c:set var="usuario" value="${sessionScope.usuario}"/>
+        <c:set var="sacola" value="${sessionScope.sacola}"/>
         <c:set var="acessibilidade" value="${sessionScope.acessibilidade}"/>
         <c:set var="loja" value="${requestScope.loja}"/>
         <c:set var="produtos" value="${requestScope.produtos}"/>
@@ -73,6 +74,7 @@
         <div id="overlay" class="hidden"></div>
 
         <div id="modal-produto" class="modal hidden" data-modal-index="1" data-lock-screen="true">
+            <input type="hidden" id="modal-produto-id" value="">
             <button id="close-modal-produto" class="modal-produto-botao">
                 <img src="imgs/x-symbol.svg" alt="">
             </button>
@@ -173,6 +175,7 @@
                     <div class="carousel" data-index="0">
                         <c:forEach items="${produtos}" var="produto">
                             <div class="item fit-product modal-trigger" data-modal-index="1">
+                                <input type="hidden" class="id-produto" value="${produto.id}">
                                 <div class="img-container">
                                     <img src="imgs/teste/teste.jpg" alt="Sandubao">
                                 </div>
@@ -200,6 +203,7 @@
                 <div class="categoria">
                     <c:forEach items="${produtos}" var="produto">
                         <div class="produto">
+                            <input type="hidden" class="id-produto" value="${produto.id}">
                             <div class="info-produto">
                                 <h2 class="font-707 nome">${produto.nome}</h2>
                                 <p class="descricao">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt dolorum quod consequuntur
@@ -215,42 +219,7 @@
                 </div>
                 <h1>CATEGORIA 2</h1>
                 <div class="categoria">
-                    <div class="produto">
-                        <div class="info-produto">
-                            <h2 class="font-707 nome">NOME DO PRODUTO</h2>
-                            <p class="descricao">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt dolorum quod consequuntur
-                                voluptatem mollitia, non nam impedit exercitationem excepturi, eius nesciunt nobis cum quae.
-                                Est alias voluptate facere tempora debitis?</p>
-                            <p class="preco">$10,00</p>
-                        </div>
-                        <div class="img-produto">
-                            <img src="imgs/teste/teste.jpg" alt="">
-                        </div>
-                    </div>
-                    <div class="produto">
-                        <div class="info-produto">
-                            <h2 class="font-707 nome">NOME DO PRODUTO</h2>
-                            <p class="descricao">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt dolorum quod consequuntur
-                                voluptatem mollitia, non nam impedit exercitationem excepturi, eius nesciunt nobis cum quae.
-                                Est alias voluptate facere tempora debitis?</p>
-                            <p class="preco">$10,00</p>
-                        </div>
-                        <div class="img-produto">
-                            <img src="imgs/teste/teste.jpg" alt="">
-                        </div>
-                    </div>
-                    <div class="produto">
-                        <div class="info-produto">
-                            <h2 class="font-707 nome">NOME DO PRODUTO</h2>
-                            <p class="descricao">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt dolorum quod consequuntur
-                                voluptatem mollitia, non nam impedit exercitationem excepturi, eius nesciunt nobis cum quae.
-                                Est alias voluptate facere tempora debitis?</p>
-                            <p class="preco">$10,00</p>
-                        </div>
-                        <div class="img-produto">
-                            <img src="imgs/teste/teste.jpg" alt="">
-                        </div>
-                    </div>
+
                 </div>
             </section>
         </main>
@@ -323,62 +292,22 @@
                         </div>
                         <div id="bag-body">
                             <div class="bag-categoria">
-                                <p>Categoria 1</p>
-                                <div class="bag-produto">
-                                    <div class="bag-produto-header">
-                                        <p>Nome Produto</p>
-                                        <p class="preco">R$ 99,99</p>
+                                <p>Categoria </p>
+                                <c:forEach items="${sacola}" var="item">
+                                    <div class="bag-produto">
+                                        <div class="bag-produto-header">
+                                            <p>${item.quantidade}x ${item.produtoNome}</p>
+                                            <p class="preco">R$ <fmt:formatNumber value='${item.precoTotal}' pattern='0.00' /></p>
+                                        </div>
+                                        <div class="bag-produto-body">
+                                            <p>${item.produtoDescricao}</p>
+                                        </div>
+                                        <div class="bag-produto-footer">
+                                            <input type="submit" value="Editar">
+                                            <input type="submit" value="Remover">
+                                        </div>
                                     </div>
-                                    <div class="bag-produto-body">
-                                        <p>Um produto bem produzido de comer bem gostoso to de buchin xei</p>
-                                    </div>
-                                    <div class="bag-produto-footer">
-                                        <input type="submit" value="Editar">
-                                        <input type="submit" value="Remover">
-                                    </div>
-                                </div>
-                                <div class="bag-produto">
-                                    <div class="bag-produto-header">
-                                        <p>Nome Produto</p>
-                                        <p class="preco">R$ 99,99</p>
-                                    </div>
-                                    <div class="bag-produto-body">
-                                        <p>Um produto bem produzido de comer bem gostoso to de buchin xei</p>
-                                    </div>
-                                    <div class="bag-produto-footer">
-                                        <input type="submit" value="Editar">
-                                        <input type="submit" value="Remover">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="bag-categoria">
-                                <p>Categoria 2</p>
-                                <div class="bag-produto">
-                                    <div class="bag-produto-header">
-                                        <p>Nome Produto</p>
-                                        <p class="preco">R$ 99,99</p>
-                                    </div>
-                                    <div class="bag-produto-body">
-                                        <p>Um produto bem produzido de comer bem gostoso to de buchin xei</p>
-                                    </div>
-                                    <div class="bag-produto-footer">
-                                        <input type="submit" value="Editar">
-                                        <input type="submit" value="Remover">
-                                    </div>
-                                </div>
-                                <div class="bag-produto">
-                                    <div class="bag-produto-header">
-                                        <p>Nome Produto</p>
-                                        <p class="preco">R$ 99,99</p>
-                                    </div>
-                                    <div class="bag-produto-body">
-                                        <p>Um produto bem produzido de comer bem gostoso to de buchin xei</p>
-                                    </div>
-                                    <div class="bag-produto-footer">
-                                        <input type="submit" value="Editar">
-                                        <input type="submit" value="Remover">
-                                    </div>
-                                </div>
+                                </c:forEach>
                             </div>
                         </div>
                         <div id="bag-footer">
@@ -570,7 +499,9 @@
             ];
         </script>
 
+        <script src="scripts/jquery/jquery.js"></script>
         <script src="scripts/rating.js"></script>
+        <script src="scripts/loja/adicionarSacola.js"></script>
         <script src="scripts/loja/favoritar.js"></script>
         <script src="scripts/loja/userRating.js"></script>
         <script src="scripts/carrossel.js"></script>

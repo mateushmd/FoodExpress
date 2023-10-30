@@ -19,6 +19,13 @@ public class ItemSacolaService {
         itemSacolaViewDAO = ItemSacolaViewDAO.getInstance();
     }
 
+    public static ItemSacolaService getInstance(){
+        if(instance == null)
+            instance = new ItemSacolaService();
+
+        return instance;
+    }
+
     public void addItem(ItemSacolaDTO item) {
         itemSacolaDAO.addItem(item);
     }
@@ -33,5 +40,9 @@ public class ItemSacolaService {
 
     public List<ItemSacolaViewDTO> getItensView(String idUsuario) {
         return itemSacolaViewDAO.getItensView(idUsuario);
+    }
+
+    public List<ItemSacolaViewDTO> getNovoItens(String idUsuario, List<ItemSacolaViewDTO> itensAtuais) {
+        return itemSacolaViewDAO.getNovoItens(idUsuario, itensAtuais);
     }
 }

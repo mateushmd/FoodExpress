@@ -28,10 +28,11 @@ public class ItemSacolaViewDAO extends DAOTemplate<ItemSacolaViewDTO> {
         try{
             item = new ItemSacolaViewDTO();
 
+            item.setUsuarioId(rs.getString("usuario_id"));
             item.setItemSacolaId(rs.getInt("item_id"));
             item.setProdutoId(rs.getInt("produto_id"));
             item.setProdutoNome(rs.getString("produto_nome"));
-            item.setProdutoDescricao(rs.getString("produto_rdescricao"));
+            item.setProdutoDescricao(rs.getString("produto_descricao"));
             item.setPreco(rs.getDouble("produto_preco"));
             item.setQuantidade(rs.getInt("item_quantidade"));
             item.setPrecoTotal(rs.getDouble("item_preco_total"));
@@ -44,30 +45,29 @@ public class ItemSacolaViewDAO extends DAOTemplate<ItemSacolaViewDTO> {
     }
 
     public List<ItemSacolaViewDTO> getItensView(String idUsuario) {
-        String sql = """
-                SELECT
-                    p.id AS produto_id,
-                    p.nome AS produto_nome,
-                    p.descricao AS produto_descricao,
-                    p.id_loja AS produto_id_loja,
-                    p.preco AS produto_preco,
-                    i.id AS item_id,
-                    i.quantidade AS item_quantidade,
-                    i.preco_total AS item_preco_total
-                FROM
-                    Produtos p
-                JOIN
-                    Itens_sacola i ON p.id = i.id_produto
-                WHERE
-                    i.id_usuario = ?;
-                    """;
+        String sql = "SELECT * from item_sacola_view WHERE usuario_id = ?";
 
         List<ItemSacolaViewDTO> lista = executeQuery(sql, idUsuario);
 
         return lista.isEmpty() ? null : lista;
     }
 
-    public List<ItemSacolaViewDTO> getNovoItens() {
-        return null;
+    public List<ItemSacolaViewDTO> getNovoItens(String idUsuario, List<ItemSacolaViewDTO> itensAtuais) {
+        if(itensAtuais == null || itensAtuais.size() < 1)
+            return getItensView(idUsuario);
+
+        StringBuilder sql = new StringBuilder("SELECT * from item_sacola_view WHERE usuario_id = ? AND item_id NOT IN (");
+
+        for(int i = 0; i < itensAtuais.size(); i++) {
+            sql.append(itensAtuais.get(i).getItemSacolaId());
+
+            if(i < itensAtuais.size() - 1) sql.append(", ");
+        }
+
+        sql.append(")");
+
+        List<ItemSacolaViewDTO> novosItens = executeQuery(sql.toString(), idUsuario);
+
+        return novosItens.isEmpty() ? null : novosItens;
     }
 }

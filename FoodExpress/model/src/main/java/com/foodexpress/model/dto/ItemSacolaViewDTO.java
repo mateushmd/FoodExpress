@@ -1,19 +1,21 @@
 package com.foodexpress.model.dto;
 
 public class ItemSacolaViewDTO {
-    int itemSacolaId;
-    int produtoId;
-    String produtoNome;
-    String produtoDescricao;
-    double preco;
-    int quantidade;
-    double precoTotal;
+    private String usuarioId;
+    private int itemSacolaId;
+    private int produtoId;
+    private String produtoNome;
+    private String produtoDescricao;
+    private double preco;
+    private int quantidade;
+    private double precoTotal;
 
     public ItemSacolaViewDTO() {
 
     }
 
-    public ItemSacolaViewDTO(int itemSacolaId, int produtoId, String produtoNome, String produtoDescricao, double preco, int quantidade, double precoTotal) {
+    public ItemSacolaViewDTO(String usuarioId, int itemSacolaId, int produtoId, String produtoNome, String produtoDescricao, double preco, int quantidade, double precoTotal) {
+        this.usuarioId = usuarioId;
         this.itemSacolaId = itemSacolaId;
         this.produtoId = produtoId;
         this.produtoNome = produtoNome;
@@ -77,5 +79,13 @@ public class ItemSacolaViewDTO {
 
     public void setPrecoTotal(double precoTotal) {
         this.precoTotal = precoTotal;
+    }
+    
+    public String getUsuarioId() {
+        return usuarioId;
+    }
+
+    public void setUsuarioId(String usuarioId) {
+        this.usuarioId = usuarioId;
     }
 }

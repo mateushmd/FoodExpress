@@ -24,10 +24,12 @@ modalTriggerElements.forEach(el =>
                 if (parseInt(mEl.dataset.modalIndex) === 1)
                 {
                     const avaliacao = document.querySelector('#avaliacao').value;
+                    const produtoId = el.querySelector('.id-produto').value;
                     const produtoNome = el.querySelector('.nome').innerHTML;
                     const produtoDescricao = el.querySelector('.descricao').innerHTML;
                     const produtoPreco = el.querySelector('.preco').innerHTML.replace('R$', '');
 
+                    document.querySelector('#modal-produto-id').value = produtoId;
                     document.querySelector('#modal-produto-avaliacao').querySelector('p').innerHTML = avaliacao;
                     document.querySelector('#modal-produto-nome').innerHTML = produtoNome;
                     document.querySelector('#modal-produto-descricao').innerHTML = produtoDescricao;

@@ -4,11 +4,9 @@
  */
 package com.foodexpress.web.servlet;
 
-import com.foodexpress.model.dto.AcessibilidadeDTO;
-import com.foodexpress.model.dto.LojaDTO;
-import com.foodexpress.model.dto.ProdutoDTO;
-import com.foodexpress.model.dto.UsuarioDTO;
+import com.foodexpress.model.dto.*;
 import com.foodexpress.model.service.AcessibilidadeService;
+import com.foodexpress.model.service.ItemSacolaService;
 import com.foodexpress.model.service.LojaService;
 import com.foodexpress.model.service.UsuarioService;
 import jakarta.servlet.RequestDispatcher;
@@ -20,6 +18,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.Objects;
 
 @WebServlet(name = "login", urlPatterns = {"/login"})
 public class login extends HttpServlet {
@@ -40,16 +39,20 @@ public class login extends HttpServlet {
 
         System.out.println("passei pelo login");
 
-        UsuarioService uservice = UsuarioService.getInstance();
+        UsuarioService uService = UsuarioService.getInstance();
         UsuarioDTO uDTO;
 
-        AcessibilidadeService aservice = AcessibilidadeService.getInstance();
+        ItemSacolaService iService = ItemSacolaService.getInstance();
+        ArrayList<ItemSacolaViewDTO> lista;
+        ArrayList<ItemSacolaViewDTO> itensSacola;
+
+        AcessibilidadeService aService = AcessibilidadeService.getInstance();
         AcessibilidadeDTO aDTO;
 
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-        int check = uservice.login(email, password);
+        int check = uService.login(email, password);
 
         String URL = "common?url=";
 
@@ -70,15 +73,21 @@ public class login extends HttpServlet {
         
         URL += "menuPrincipal&action=F";
         
-        uDTO = uservice.getUsuario(email);
+        uDTO = uService.getUsuario(email);
 
-        aDTO = aservice.getConfiguracoes(email);
+        lista = (ArrayList<ItemSacolaViewDTO>) iService.getItensView(uDTO.getEmail());
+
+        itensSacola = Objects.requireNonNullElseGet(lista, ArrayList::new);
+
+        aDTO = aService.getConfiguracoes(email);
         
         LojaService lservice = LojaService.getInstance();
         
         HttpSession session = request.getSession();
         
         session.setAttribute("usuario", uDTO);
+
+        session.setAttribute("sacola", itensSacola);
 
         session.setAttribute("acessibilidade", aDTO);
         
@@ -87,7 +96,7 @@ public class login extends HttpServlet {
             
             session.setAttribute("loja", lDTO);
             
-            ArrayList<ProdutoDTO> produtos = (ArrayList) lservice.listarProdutos(lDTO.getId());
+            ArrayList<ProdutoDTO> produtos = lservice.listarProdutos(lDTO.getId());
             
             session.setAttribute("produtos", produtos);
         }
