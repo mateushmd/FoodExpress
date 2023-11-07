@@ -1,6 +1,5 @@
 package com.foodexpress.model.dao;
 
-import com.foodexpress.model.dto.ItemSacolaDTO;
 import com.foodexpress.model.dto.ItemSacolaViewDTO;
 
 import java.sql.ResultSet;
@@ -52,9 +51,13 @@ public class ItemSacolaViewDAO extends DAOTemplate<ItemSacolaViewDTO> {
         return lista.isEmpty() ? null : lista;
     }
 
-    public List<ItemSacolaViewDTO> getNovoItens(String idUsuario, List<ItemSacolaViewDTO> itensAtuais) {
-        if(itensAtuais == null || itensAtuais.size() < 1)
-            return getItensView(idUsuario);
+    public ItemSacolaViewDTO getItemNovo(String idUsuario, List<ItemSacolaViewDTO> itensAtuais) {
+        List<ItemSacolaViewDTO> lista;
+
+        if(itensAtuais.isEmpty()) {
+            lista = getItensView(idUsuario);
+            return lista != null ? lista.get(0) : null;
+        }
 
         StringBuilder sql = new StringBuilder("SELECT * from item_sacola_view WHERE usuario_id = ? AND item_id NOT IN (");
 
@@ -66,8 +69,8 @@ public class ItemSacolaViewDAO extends DAOTemplate<ItemSacolaViewDTO> {
 
         sql.append(")");
 
-        List<ItemSacolaViewDTO> novosItens = executeQuery(sql.toString(), idUsuario);
+        lista = executeQuery(sql.toString(), idUsuario);
 
-        return novosItens.isEmpty() ? null : novosItens;
+        return lista.isEmpty() ? null : lista.get(0);
     }
 }

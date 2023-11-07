@@ -7,6 +7,7 @@ import com.foodexpress.model.dto.UsuarioDTO;
 import com.foodexpress.model.service.AvaliacaoService;
 import com.foodexpress.model.service.FavoritosService;
 import com.foodexpress.model.service.LojaService;
+import com.foodexpress.model.service.ProdutoService;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -38,10 +39,12 @@ public class loja extends HttpServlet {
         System.out.println(id);
         
         LojaService lService = LojaService.getInstance();
-        
-        AvaliacaoService aService = AvaliacaoService.getInstance();
 
-        FavoritosService fService = FavoritosService.getInstance();
+        ProdutoService produtoService = ProdutoService.getInstance();
+        
+        AvaliacaoService avaliacaoService = AvaliacaoService.getInstance();
+
+        FavoritosService favoritosService = FavoritosService.getInstance();
         
         HttpSession session = request.getSession();
         
@@ -49,13 +52,13 @@ public class loja extends HttpServlet {
 
         UsuarioDTO usuario = ((UsuarioDTO) session.getAttribute("usuario"));
         
-        ArrayList<ProdutoDTO> produtos = lService.listarProdutos(loja.getId());
+        ArrayList<ProdutoDTO> produtos = (ArrayList<ProdutoDTO>) produtoService.listarProdutos(loja.getId());
         
-        ArrayList<AvaliacaoDTO> avaliacoes = (ArrayList<AvaliacaoDTO>) aService.getAvaliacaoByIdLoja(loja.getId());
+        ArrayList<AvaliacaoDTO> avaliacoes = (ArrayList<AvaliacaoDTO>) avaliacaoService.getAvaliacaoByIdLoja(loja.getId());
 
-        AvaliacaoDTO avaliacaoUsuario = aService.getAvaliacaoByIdLojaCliente(loja.getId(), usuario.getEmail());
+        AvaliacaoDTO avaliacaoUsuario = avaliacaoService.getAvaliacaoByIdLojaCliente(loja.getId(), usuario.getEmail());
 
-        boolean favorito = fService.checkFavorito(usuario.getEmail(), loja.getId());
+        boolean favorito = favoritosService.checkFavorito(usuario.getEmail(), loja.getId());
         
         request.setAttribute("loja", loja);
         request.setAttribute("produtos", produtos);

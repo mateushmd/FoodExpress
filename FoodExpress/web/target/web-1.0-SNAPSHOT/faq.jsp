@@ -19,6 +19,7 @@
 
     <body>
         <c:set var="usuario" value="${sessionScope.usuario}"/>
+        <c:set var="sacola" value="${sessionScope.sacola}"/>
         <c:set var="acessibilidade" value="${sessionScope.acessibilidade}"/>
 
         <header id="navbar">
@@ -52,8 +53,8 @@
                 <div id="orders">
                     <img id="orders-pic" src="imgs/header/sacola.svg" class="slider-trigger" data-slider-index="0" alt="Pedidos">
                     <div id="orders-info">
-                        <p>R$ 0,00</p>
-                        <p>0 itens</p>
+                        <p>R$ <span id="orders-preco"><fmt:formatNumber value="${sacola.total}" type="number" pattern="0.00" /></span></p>
+                        <p><span id="orders-quantidade">${sacola.quantidade}</span> ${sacola.quantidade eq 1 ? 'item' : 'itens'}</p>
                     </div>
                 </div>
             </div>
@@ -161,93 +162,53 @@
             </button>
 
             <div class="slider-content">
-                <!-- QUANDO A SACOLA ESTÁ VAZIA!!!!
-                <div id="empty-bag">
-                    <div id="empty-bag-img-container">
-                        <img src="imgs/header/sacola.svg" alt="">
-                        <img src="imgs/x-symbol.svg" alt="">
-                    </div>
-                    <h2>Sua sacola está vazia</h2>
-                    <p>Adicione itens para comprar</p>
-                </div>
-                -->
-
-                <div id="bag">
-                    <div id="bag-header">
-                        <p>Seu pedido</p>
-                        <div>
-                            <h2>Lojinha do Mateus Mateus do lojinha</h2>
-                            <a href="">Ir para a loja</a>
+                <div class="slider-container">
+                    <div id="bag">
+                        <div id="empty-bag" class="${empty sacola.itens ? '' : 'hidden'}">
+                            <div id="empty-bag-img-container">
+                                <img src="imgs/header/sacola.svg" alt="">
+                                <img src="imgs/x-symbol.svg" alt="">
+                            </div>
+                            <h2>Sua sacola está vazia</h2>
+                            <p>Adicione itens para comprar</p>
                         </div>
-                    </div>
-                    <div id="bag-body">
-                        <div class="bag-categoria">
-                            <p>Categoria 1</p>
-                            <div class="bag-produto">
-                                <div class="bag-produto-header">
-                                    <p>Nome Produto</p>
-                                    <p class="preco">R$ 99,99</p>
-                                </div>
-                                <div class="bag-produto-body">
-                                    <p>Um produto bem produzido de comer bem gostoso to de buchin xei</p>
-                                </div>
-                                <div class="bag-produto-footer">
-                                    <input type="submit" value="Editar">
-                                    <input type="submit" value="Remover">
+                        <div id="bag-container" class="${empty sacola.itens ? 'hidden' : ''}">
+                            <div id="bag-header">
+                                <p>Seu pedido</p>
+                                <div>
+                                    <h2>${sacola.nomeLoja}</h2>
+                                    <a href="loja?id=${sacola.idLoja}">Ir para a loja</a>
                                 </div>
                             </div>
-                            <div class="bag-produto">
-                                <div class="bag-produto-header">
-                                    <p>Nome Produto</p>
-                                    <p class="preco">R$ 99,99</p>
-                                </div>
-                                <div class="bag-produto-body">
-                                    <p>Um produto bem produzido de comer bem gostoso to de buchin xei</p>
-                                </div>
-                                <div class="bag-produto-footer">
-                                    <input type="submit" value="Editar">
-                                    <input type="submit" value="Remover">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bag-categoria">
-                            <p>Categoria 2</p>
-                            <div class="bag-produto">
-                                <div class="bag-produto-header">
-                                    <p>Nome Produto</p>
-                                    <p class="preco">R$ 99,99</p>
-                                </div>
-                                <div class="bag-produto-body">
-                                    <p>Um produto bem produzido de comer bem gostoso to de buchin xei</p>
-                                </div>
-                                <div class="bag-produto-footer">
-                                    <input type="submit" value="Editar">
-                                    <input type="submit" value="Remover">
+                            <div id="bag-body">
+                                <div class="bag-produtos">
+                                    <p>Produtos</p>
+                                    <c:forEach items="${sacola.itens}" var="item">
+                                        <div class="bag-produto" data-id-produto="${item.produtoId}" data-id-item="${item.itemSacolaId}">
+                                            <div class="bag-produto-header">
+                                                <p><span class="bag-produto-quantidade">${item.quantidade}</span>x <span class="bag-produto-nome">${item.produtoNome}</span></p>
+                                                <p class="preco">R$ <span class="bag-produto-preco"><fmt:formatNumber value='${item.precoTotal}' pattern='0.00' /></span></p>
+                                            </div>
+                                            <div class="bag-produto-body">
+                                                <p class="bag-produto-descricao">${item.produtoDescricao}</p>
+                                            </div>
+                                            <div class="bag-produto-footer">
+                                                <input type="submit" value="Remover" class="bag-remover-produto">
+                                            </div>
+                                        </div>
+                                    </c:forEach>
                                 </div>
                             </div>
-                            <div class="bag-produto">
-                                <div class="bag-produto-header">
-                                    <p>Nome Produto</p>
-                                    <p class="preco">R$ 99,99</p>
+                            <div id="bag-footer">
+                                <div>
+                                    <p>Total</p>
+                                    <p class="preco">R$ <span id="bag-preco"><fmt:formatNumber value='${sacola.total}' pattern='0.00'/></span></p>
                                 </div>
-                                <div class="bag-produto-body">
-                                    <p>Um produto bem produzido de comer bem gostoso to de buchin xei</p>
-                                </div>
-                                <div class="bag-produto-footer">
-                                    <input type="submit" value="Editar">
-                                    <input type="submit" value="Remover">
-                                </div>
+                                <button>
+                                    <p>Realizar pedido</p>
+                                </button>
                             </div>
                         </div>
-                    </div>
-                    <div id="bag-footer">
-                        <div>
-                            <p>Total</p>
-                            <p class="preco">R$ 399,96</p>
-                        </div>
-                        <button>
-                            <p>Realizar pedido</p>
-                        </button>
                     </div>
                 </div>
             </div>
@@ -261,6 +222,9 @@
                 (parseInt('${acessibilidade.tamanhoTexto}') / 100)
             ];
         </script>
+
+        <script src="scripts/jquery/jquery.js"></script>
+        <script type="module" src="scripts/sacola/removerSacola.js"></script>
         <script src="scripts/janelas-modais/modal.js"></script>
         <script src="scripts/acessibilidade/acessibilidade.js"></script>
         <script src="scripts/janelas-modais/slider.js"></script>

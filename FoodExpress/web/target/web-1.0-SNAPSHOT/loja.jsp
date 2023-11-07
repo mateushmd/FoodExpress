@@ -64,8 +64,8 @@
                 <div id="orders">
                     <img id="orders-pic" src="imgs/header/sacola.svg" class="slider-trigger" data-slider-index="0" alt="Pedidos">
                     <div id="orders-info">
-                        <p>R$ 0,00</p>
-                        <p>0 itens</p>
+                        <p>R$ <span id="orders-preco"><fmt:formatNumber value="${sacola.total}" type="number" pattern="0.00" /></span></p>
+                        <p><span id="orders-quantidade">${sacola.quantidade}</span> ${sacola.quantidade eq 1 ? 'item' : 'itens'}</p>
                     </div>
                 </div>
             </div>
@@ -184,9 +184,7 @@
                                         <h2 class="font-707 nome">${produto.nome}</h2>
                                     </div>
                                     <div class="info-container-body">
-                                        <p class="descricao">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Recusandae error blanditiis sit
-                                            nesciunt, impedit consectetur voluptatibus dolores aut vitae excepturi tenetur, labore
-                                            tempore dolor corporis ipsum iure? Beatae, ipsa? Harum?</p>
+                                        <p class="descricao">${produto.descricao}</p>
                                     </div>
                                     <div class="info-container-footer">
                                         <p class="preco">R$<fmt:formatNumber value='${produto.preco}' pattern='0.00' /></p>
@@ -206,9 +204,7 @@
                             <input type="hidden" class="id-produto" value="${produto.id}">
                             <div class="info-produto">
                                 <h2 class="font-707 nome">${produto.nome}</h2>
-                                <p class="descricao">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt dolorum quod consequuntur
-                                    voluptatem mollitia, non nam impedit exercitationem excepturi, eius nesciunt nobis cum quae.
-                                    Est alias voluptate facere tempora debitis?</p>
+                                <p class="descricao">${produto.descricao}</p>
                                 <p class="preco">R$<fmt:formatNumber value='${produto.preco}' pattern='0.00' /></p>
                             </div>
                             <div class="img-produto">
@@ -273,93 +269,65 @@
             <div id="slider-content">
                 <div class="slider-container hidden">
                     <div id="bag">
-                        <div id="bag-header">
-                            <p>Seu pedido</p>
-                            <div>
-                                <h2>${sacola.nomeLoja}</h2>
-                                <a href="">Ir para a loja</a>
+                        <!--Template para clonagem em scripts-->
+                        <div class="bag-produto clone hidden">
+                            <div class="bag-produto-header">
+                                <p><span class="bag-produto-quantidade">0</span>x <span class="bag-produto-nome"></span></p>
+                                <p class="preco">R$ <span class="bag-produto-preco"></span></p>
+                            </div>
+                            <div class="bag-produto-body">
+                                <p class="bag-produto-descricao"></p>
+                            </div>
+                            <div class="bag-produto-footer">
+                                <input type="submit" value="Remover" class="bag-remover-produto">
                             </div>
                         </div>
-                        <div id="bag-body">
-                            <div class="bag-categoria">
-                                <p>Categoria </p>
-                                <c:forEach items="${sacola.itens}" var="item">
-                                    <div class="bag-produto">
-                                        <div class="bag-produto-header">
-                                            <p>${item.quantidade}x ${item.produtoNome}</p>
-                                            <p class="preco">R$ <fmt:formatNumber value='${item.precoTotal}' pattern='0.00' /></p>
-                                        </div>
-                                        <div class="bag-produto-body">
-                                            <p>${item.produtoDescricao}</p>
-                                        </div>
-                                        <div class="bag-produto-footer">
-                                            <input type="submit" value="Remover">
-                                        </div>
-                                    </div>
-                                </c:forEach>
+
+                        <div id="empty-bag" class="${empty sacola.itens ? '' : 'hidden'}">
+                            <div id="empty-bag-img-container">
+                                <img src="imgs/header/sacola.svg" alt="">
+                                <img src="imgs/x-symbol.svg" alt="">
                             </div>
+                            <h2>Sua sacola está vazia</h2>
+                            <p>Adicione itens para comprar</p>
                         </div>
-                        <div id="bag-footer">
-                            <div>
-                                <p>Total</p>
-                                <p class="preco">R$ <fmt:formatNumber value='${sacola.total}' pattern='0.00'/></p>
-                            </div>
-                            <button>
-                                <p>Realizar pedido</p>
-                            </button>
-                        </div>
-                        <!--
-                        <c:choose>
-                            <c:when test="${sacola.idLoja eq -1}">
-                                <div id="empty-bag">
-                                    <div id="empty-bag-img-container">
-                                        <img src="imgs/header/sacola.svg" alt="">
-                                        <img src="imgs/x-symbol.svg" alt="">
-                                    </div>
-                                    <h2>Sua sacola está vazia</h2>
-                                    <p>Adicione itens para comprar</p>
+                        <div id="bag-container" class="${empty sacola.itens ? 'hidden' : ''}">
+                            <div id="bag-header">
+                                <p>Seu pedido</p>
+                                <div>
+                                    <h2 id="bag-nome">${sacola.nomeLoja}</h2>
+                                    <a id="bag-anchor" href="loja?id=${sacola.idLoja}">Ir para a loja</a>
                                 </div>
-                            </c:when>
-                            <c:otherwise>
-                                <div id="bag-header">
-                                    <p>Seu pedido</p>
-                                    <div>
-                                        <h2>${sacola.nomeLoja}</h2>
-                                        <a href="">Ir para a loja</a>
-                                    </div>
-                                </div>
-                                <div id="bag-body">
-                                    <div class="bag-categoria">
-                                        <p>Categoria </p>
-                                        <c:forEach items="${sacola.itens}" var="item">
-                                            <div class="bag-produto">
-                                                <div class="bag-produto-header">
-                                                    <p>${item.quantidade}x ${item.produtoNome}</p>
-                                                    <p class="preco">R$ <fmt:formatNumber value='${item.precoTotal}' pattern='0.00' /></p>
-                                                </div>
-                                                <div class="bag-produto-body">
-                                                    <p>${item.produtoDescricao}</p>
-                                                </div>
-                                                <div class="bag-produto-footer">
-                                                    <input type="submit" value="Editar">
-                                                    <input type="submit" value="Remover">
-                                                </div>
+                            </div>
+                            <div id="bag-body">
+                                <div class="bag-produtos">
+                                    <p>Produtos</p>
+                                    <c:forEach items="${sacola.itens}" var="item">
+                                        <div class="bag-produto" data-id-produto="${item.produtoId}" data-id-item="${item.itemSacolaId}">
+                                            <div class="bag-produto-header">
+                                                <p><span class="bag-produto-quantidade">${item.quantidade}</span>x <span class="bag-produto-nome">${item.produtoNome}</span></p>
+                                                <p class="preco">R$ <span class="bag-produto-preco"><fmt:formatNumber value='${item.precoTotal}' pattern='0.00' /></span></p>
                                             </div>
-                                        </c:forEach>
-                                    </div>
+                                            <div class="bag-produto-body">
+                                                <p class="bag-produto-descricao">${item.produtoDescricao}</p>
+                                            </div>
+                                            <div class="bag-produto-footer">
+                                                <input type="submit" value="Remover" class="bag-remover-produto">
+                                            </div>
+                                        </div>
+                                    </c:forEach>
                                 </div>
-                                <div id="bag-footer">
-                                    <div>
-                                        <p>Total</p>
-                                        <p class="preco">R$ <fmt:formatNumber value='${sacola.total}' pattern='0.00'/></p>
-                                    </div>
-                                    <button>
-                                        <p>Realizar pedido</p>
-                                    </button>
+                            </div>
+                            <div id="bag-footer">
+                                <div>
+                                    <p>Total</p>
+                                    <p class="preco">R$ <span id="bag-preco"><fmt:formatNumber value='${sacola.total}' pattern='0.00'/></span></p>
                                 </div>
-                            </c:otherwise>
-                        </c:choose>
-                        -->
+                                <button>
+                                    <p>Realizar pedido</p>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="slider-container hidden">
@@ -542,7 +510,8 @@
 
         <script src="scripts/jquery/jquery.js"></script>
         <script src="scripts/rating.js"></script>
-        <script src="scripts/loja/adicionarSacola.js"></script>
+        <script type="module" src="scripts/sacola/adicionarSacola.js"></script>
+        <script type="module" src="scripts/sacola/removerSacola.js"></script>
         <script src="scripts/loja/favoritar.js"></script>
         <script src="scripts/loja/userRating.js"></script>
         <script src="scripts/carrossel.js"></script>

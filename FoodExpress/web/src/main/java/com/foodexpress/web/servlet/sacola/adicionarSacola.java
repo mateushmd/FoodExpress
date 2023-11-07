@@ -1,11 +1,14 @@
 package com.foodexpress.web.servlet.sacola;
 
-import com.foodexpress.model.dto.ItemSacolaDTO;
-import com.foodexpress.model.dto.ItemSacolaViewDTO;
-import com.foodexpress.model.dto.SacolaViewDTO;
-import com.foodexpress.model.dto.UsuarioDTO;
+import com.foodexpress.model.dto.*;
 import com.foodexpress.model.service.ItemSacolaService;
+import com.foodexpress.model.service.LojaService;
+import com.foodexpress.model.service.ProdutoService;
+import com.foodexpress.model.util.JsonHandler;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -14,12 +17,13 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.logging.Logger;
+import java.util.Map;
 
 @WebServlet(name = "adicionar-sacola", urlPatterns = {"/sacola/adicionar-sacola"})
 public class adicionarSacola extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("application/json");
+
         HttpSession session = request.getSession();
 
         String idCliente = ((UsuarioDTO) session.getAttribute("usuario")).getEmail();
@@ -28,9 +32,13 @@ public class adicionarSacola extends HttpServlet {
 
         int quantidade = Integer.parseInt(request.getParameter("quantidade"));
 
-        double precoItem = Double.parseDouble(request.getParameter("precoItem"));
+        ProdutoService produtoService = ProdutoService.getInstance();
 
-        double precoTotal = Double.parseDouble(request.getParameter("precoTotal"));
+        ProdutoDTO produto = produtoService.getProdutoById(idProduto);
+
+        double precoItem = produto.getPreco();
+
+        double precoTotal = precoItem * quantidade;
 
         ItemSacolaDTO item = new ItemSacolaDTO();
         item.setIdUsuario(idCliente);
@@ -41,29 +49,58 @@ public class adicionarSacola extends HttpServlet {
 
         ItemSacolaService iService = ItemSacolaService.getInstance();
 
-        Object sacolaSessionObject = session.getAttribute("sacola");
-
-        if(!(sacolaSessionObject instanceof SacolaViewDTO))
-            Logger.getAnonymousLogger().warning("sacola não é do tipo SacolaViewDTO");
-
-        SacolaViewDTO sacola;
-
-        sacola = (SacolaViewDTO) sacolaSessionObject;
-
         iService.addItem(item);
 
-        ItemSacolaViewDTO itemAdicionado = iService.getNovoItens(idCliente, sacola.getItens()).get(0);
+        SacolaViewDTO sacola = (SacolaViewDTO) session.getAttribute("sacola");
+
+        ItemSacolaViewDTO itemAdicionado = iService.getItemNovo(idCliente, sacola.getItens());
+
+        JsonObject responseData = new JsonObject();
+
+        if(itemAdicionado == null) {
+            sacola.updateItem(item.getIdProduto(), item.getQuantidade(), item.getPrecoTotal());
+
+            session.setAttribute("sacola", sacola);
+
+            responseData.addProperty("responseType", "atualizar");
+            responseData.addProperty("idItem", item.getId());
+            responseData.addProperty("quantidade", item.getQuantidade());
+            responseData.addProperty("precoTotal", item.getPrecoTotal());
+
+            System.out.println("atualizando item");
+
+            response.getWriter().write(responseData.toString());
+
+            return;
+        }
+
+        if(sacola.getIdLoja() == -1) {
+            responseData.addProperty("responseType", "gerarSacola");
+
+            LojaService lojaService = LojaService.getInstance();
+
+            LojaDTO loja = lojaService.getLojaById(produto.getIdLoja());
+
+            responseData.addProperty("idLoja", loja.getId());
+            responseData.addProperty("nomeLoja", loja.getNome());
+
+            sacola.setIdLoja(loja.getId());
+            sacola.setNomeLoja(loja.getNome());
+
+            System.out.println("gerando sacola");
+        } else {
+            responseData.addProperty("responseType", "adicionar");
+
+            System.out.println("adicionando à sacola");
+        }
 
         sacola.addItem(itemAdicionado);
 
         session.setAttribute("sacola", sacola);
 
-        Gson gson = new Gson();
+        responseData = JsonHandler.addToJson(itemAdicionado, responseData);
 
-        String jsonData = gson.toJson(itemAdicionado);
-
-        response.setContentType("application/json");
-        response.getWriter().write(jsonData);
+        response.getWriter().write(responseData.toString());
     }
 
     @Override

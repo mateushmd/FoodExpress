@@ -87,20 +87,4 @@ public class LojaService {
     public List<LojaDTO> listarLojas() {
         return ldao.ListarLojas();
     }
-    
-    public boolean adicionarProduto(ProdutoDTO obj){
-        return pdao.cadastrar(obj);
-    }
-    
-    public ArrayList<ProdutoDTO> listarProdutos(int idLoja) {
-        return (ArrayList) pdao.listar(idLoja);
-    } 
-    
-    public boolean editarProduto(ProdutoDTO obj) {
-        return pdao.update(obj);
-    }
-
-    public ProdutoDTO getProdutoById(int id) {
-        return pdao.getProdutoById(id);
-    }
 }

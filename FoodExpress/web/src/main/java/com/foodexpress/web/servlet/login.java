@@ -5,10 +5,7 @@
 package com.foodexpress.web.servlet;
 
 import com.foodexpress.model.dto.*;
-import com.foodexpress.model.service.AcessibilidadeService;
-import com.foodexpress.model.service.ItemSacolaService;
-import com.foodexpress.model.service.LojaService;
-import com.foodexpress.model.service.UsuarioService;
+import com.foodexpress.model.service.*;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -17,8 +14,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.Objects;
 
 @WebServlet(name = "login", urlPatterns = {"/login"})
 public class login extends HttpServlet {
@@ -34,80 +29,55 @@ public class login extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         response.setContentType("text/html;charset=UTF-8");
 
-        System.out.println("passei pelo login");
+        HttpSession session = request.getSession();
 
-        UsuarioService uService = UsuarioService.getInstance();
-        UsuarioDTO uDTO;
+        UsuarioService usuarioService = UsuarioService.getInstance();
+        UsuarioDTO usuario;
 
-        ItemSacolaService iService = ItemSacolaService.getInstance();
-        ArrayList<ItemSacolaViewDTO> lista;
-        ArrayList<ItemSacolaViewDTO> itensSacola;
+        SacolaService sacolaService = SacolaService.getInstance();
+        SacolaViewDTO sacola;
 
-        AcessibilidadeService aService = AcessibilidadeService.getInstance();
-        AcessibilidadeDTO aDTO;
+        AcessibilidadeService acessibilidadeService = AcessibilidadeService.getInstance();
+        AcessibilidadeDTO acessibilidade;
 
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-        int check = uService.login(email, password);
+        int check = usuarioService.login(email, password);
 
         String URL = "common?url=";
 
         if(check < 1) {
             String msg;
-            
+
             if(check == 0)
                 msg = "O email associado a esta conta não foi verificado.";
-            else 
+            else
                 msg = "Email ou senha incorretos.";
-            
+
             URL += "login&action=RD&attrName=msg&attrValue=" + msg;
-            
+
             response.sendRedirect(URL);
-            
+
             return;
         }
-        
-        URL += "menuPrincipal&action=F";
-        
-        uDTO = uService.getUsuario(email);
 
-        lista = (ArrayList<ItemSacolaViewDTO>) iService.getItensView(uDTO.getEmail());
+        URL += "inicio&action=F";
 
-        itensSacola = Objects.requireNonNullElseGet(lista, ArrayList::new);
+        usuario = usuarioService.getUsuario(email);
 
-        aDTO = aService.getConfiguracoes(email);
-        
-        LojaService lservice = LojaService.getInstance();
-        
-        HttpSession session = request.getSession();
-        
-        session.setAttribute("usuario", uDTO);
+        sacola = sacolaService.getSacola(usuario.getEmail());
 
-        if(itensSacola.isEmpty()) {
-            session.setAttribute("sacola", new SacolaViewDTO());
-        } else {
-            ProdutoDTO produto = lservice.getProdutoById(itensSacola.get(0).getProdutoId());
-            LojaDTO loja = lservice.getLojaById(produto.getIdLoja());
+        acessibilidade = acessibilidadeService.getConfiguracoes(email);
 
-            session.setAttribute("sacola", new SacolaViewDTO(loja.getId(), loja.getNome(), itensSacola));
-        }
+        session.setAttribute("usuario", usuario);
 
-        session.setAttribute("acessibilidade", aDTO);
-        
-        if(uDTO.getTipo() == 2) {
-            LojaDTO lDTO = lservice.getLoja(uDTO.getEmail());
-            
-            session.setAttribute("loja", lDTO);
-            
-            ArrayList<ProdutoDTO> produtos = lservice.listarProdutos(lDTO.getId());
-            
-            session.setAttribute("produtos", produtos);
-        }
-        
+        session.setAttribute("sacola", sacola);
+
+        session.setAttribute("acessibilidade", acessibilidade);
+
         response.sendRedirect(URL);
     }
 

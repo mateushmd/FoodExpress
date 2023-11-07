@@ -26,12 +26,12 @@ public class ItemSacolaService {
         return instance;
     }
 
-    public void addItem(ItemSacolaDTO item) {
-        itemSacolaDAO.addItem(item);
+    public boolean addItem(ItemSacolaDTO item) {
+        return itemSacolaDAO.addItem(item);
     }
 
-    public void removerItem(int id) {
-        itemSacolaDAO.removerItem(id);
+    public boolean removerItem(int id) {
+        return itemSacolaDAO.removerItem(id);
     }
 
     public List<ItemSacolaDTO> getItens(String idUsuario) {
@@ -42,7 +42,7 @@ public class ItemSacolaService {
         return itemSacolaViewDAO.getItensView(idUsuario);
     }
 
-    public List<ItemSacolaViewDTO> getNovoItens(String idUsuario, List<ItemSacolaViewDTO> itensAtuais) {
-        return itemSacolaViewDAO.getNovoItens(idUsuario, itensAtuais);
+    public ItemSacolaViewDTO getItemNovo(String idUsuario, List<ItemSacolaViewDTO> itensAtuais) {
+        return itemSacolaViewDAO.getItemNovo(idUsuario, itensAtuais);
     }
 }

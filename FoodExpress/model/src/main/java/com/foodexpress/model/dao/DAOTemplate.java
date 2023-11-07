@@ -39,9 +39,9 @@ public abstract class DAOTemplate<T> {
             while (rs.next()) {
                 results.add(mapResultSetToObject(rs));
             }
-            
-            if(rs != null) rs.close();
-            if(st != null) st.close();
+
+            rs.close();
+            st.close();
             if(conn != null) conn.close();
         } catch (SQLException ex) {
             Logger.getLogger(DAOTemplate.class.getName()).log(Level.SEVERE, null, ex);
@@ -62,8 +62,8 @@ public abstract class DAOTemplate<T> {
             setStatementParameters(st, params);
             
             affectedLines = st.executeUpdate();
-            
-            if(st != null) st.close();
+
+            st.close();
             if(conn != null) conn.close();
         } catch(SQLException ex) {
             Logger.getLogger(DAOTemplate.class.getName()).log(Level.SEVERE, null, ex);

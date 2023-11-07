@@ -51,7 +51,7 @@ public class menuPrincipal extends HttpServlet {
             session.setAttribute("lojas", lojas);
         }
         
-        response.sendRedirect("menuprincipal.jsp");
+        response.sendRedirect("inicio.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

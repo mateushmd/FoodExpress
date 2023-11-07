@@ -41,16 +41,28 @@ public class ItemSacolaDAO extends DAOTemplate<ItemSacolaDTO> {
         return item;
     }
 
-    public void addItem(ItemSacolaDTO item) {
+    public boolean addItem(ItemSacolaDTO item) {
+        ItemSacolaDTO itemExistente = getItem(item.getIdUsuario(), item.getIdProduto());
+
+        if(itemExistente != null) {
+            String sql = "UPDATE itens_sacola SET quantidade = quantidade + ?, preco_total = preco_total + ? WHERE id = ?";
+
+            executeUpdate(sql, item.getQuantidade(), item.getPrecoTotal(), itemExistente.getId());
+
+            return false;
+        }
+
         String sql = "INSERT INTO itens_sacola (id_usuario, id_produto, quantidade, preco_item, preco_total) VALUES(?, ?, ?, ?, ?)";
 
         executeUpdate(sql, item.getIdUsuario(), item.getIdProduto(), item.getQuantidade(), item.getPrecoItem(), item.getPrecoTotal());
+
+        return true;
     }
 
-    public void removerItem(int id) {
+    public boolean removerItem(int id) {
         String sql = "DELETE FROM itens_sacola WHERE id = ?";
 
-        executeUpdate(sql, id);
+        return executeUpdate(sql, id);
     }
 
     public List<ItemSacolaDTO> getItens(String idUsuario) {
@@ -61,5 +73,12 @@ public class ItemSacolaDAO extends DAOTemplate<ItemSacolaDTO> {
         return lista.isEmpty() ? null : lista;
     }
 
+    public ItemSacolaDTO getItem(String idUsuario, int idProduto) {
+        String sql = "SELECT * FROM itens_sacola WHERE id_usuario = ? AND id_produto = ?";
+
+        List<ItemSacolaDTO> item = executeQuery(sql, idUsuario, idProduto);
+
+        return item.isEmpty() ? null : item.get(0);
+    }
 
 }
