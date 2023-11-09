@@ -1,5 +1,5 @@
 package com.foodexpress.model;
-import com.foodexpress.model.dao.FavoritosDAO;
+import com.foodexpress.model.dao.*;
 import com.foodexpress.model.dto.*;
 import com.foodexpress.model.email.EmailUtil;
 import com.foodexpress.model.service.AcessibilidadeService;
@@ -13,6 +13,17 @@ import java.util.List;
 
 public class teste {
     public static void main(String[] args) throws SQLException {
-        EmailUtil.sendEmailVerificacao(new TokenVerificacaoDTO("chenri48155@gmail.com", "123456"));
+        PontoEncontroDAO pe = PontoEncontroDAO.getInstance();
+        PontoEncontroDTO p = new PontoEncontroDTO(24, "Hall p20");
+        
+        pe.cadastrar(p);
+        
+        List<PontoEncontroDTO> ls = pe.listarPontos();
+        for(PontoEncontroDTO ps : ls)
+            System.out.println(ps.getNome());
+        
+        ls = pe.getByLoja(24);
+        for(PontoEncontroDTO ps : ls)
+            System.out.println(ps.getNome());
     }
 }
