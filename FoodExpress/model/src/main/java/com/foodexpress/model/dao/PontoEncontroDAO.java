@@ -20,20 +20,21 @@ public class PontoEncontroDAO extends DAOTemplate<PontoEncontroDTO> {
         return instance;
     }
     
+    @Override
     protected PontoEncontroDTO mapResultSetToObject(ResultSet rs) throws SQLException {
-        PontoEncontroDTO loja = null;
+        PontoEncontroDTO pe = null;
         
         try{
-            loja = new PontoEncontroDTO();
+            pe = new PontoEncontroDTO();
             
-            loja.setId(rs.getInt("id"));
-            loja.setIdLoja(rs.getInt("id_loja"));
-            loja.setNome(rs.getString("nome"));
+            pe.setId(rs.getInt("id"));
+            pe.setIdLoja(rs.getInt("id_loja"));
+            pe.setNome(rs.getString("nome"));
         } catch(SQLException ex){
             java.util.logging.Logger.getLogger(PontoEncontroDTO.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        return loja;
+        return pe;
     }
     
     public boolean cadastrar(PontoEncontroDTO obj){
