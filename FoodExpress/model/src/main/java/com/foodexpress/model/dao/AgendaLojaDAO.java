@@ -41,8 +41,70 @@ public class AgendaLojaDAO extends DAOTemplate<AgendaLojaDTO>{
     }
     
     public boolean cadastrar(AgendaLojaDTO obj){
-        String sql = "INSERT INTO pontos_encontro (id_loja, dia_semana, abertura, fechamento, campus_1, campus_1) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO agenda_lojas (id_loja, dia_semana, abertura, fechamento, campus_1, campus_2) VALUES (?, ?, ?, ?, ?, ?)";
         
         return executeUpdate(sql, obj.getIdLoja(), obj.getDiaSemana(), obj.getAbertura(), obj.getFechamento(), obj.isCampus1(), obj.isCampus2());
+    }
+    
+    public List<AgendaLojaDTO> getAgendas(){
+        String sql = "SELECT * FROM agenda_lojas ORDER BY id_loja";
+        
+        return executeQuery(sql);
+    }
+    
+    public List<AgendaLojaDTO> getAgendasByLoja(int idLoja){
+        String sql = "SELECT * FROM agenda_lojas WHERE id_loja = ?";
+        
+        return executeQuery(sql, idLoja);
+    }
+    
+    public List<AgendaLojaDTO> getAgendasByDiaSemana(String dia){
+        String sql = "SELECT * FROM agenda_lojas WHERE dia_semana = ?";
+        
+        return executeQuery(sql, dia);
+    }
+    
+    public List<AgendaLojaDTO> getAgendaCampus1(){
+        String sql = "SELECT * FROM agenda_lojas WHERE campus_1 = true";
+        
+        return executeQuery(sql);
+    }
+    
+    public List<AgendaLojaDTO> getAgendaCampus2(){
+        String sql = "SELECT * FROM agenda_lojas WHERE campus_1 = true";
+        
+        return executeQuery(sql);
+    }
+    
+    public boolean updateAbertura(AgendaLojaDTO ag, String ab){
+        String sql = "UPDATE agenda_lojas SET abertura = ? WHERE id_loja = ?";
+        
+        return executeUpdate(sql, ab, ag.getIdLoja());
+    }
+    
+    public boolean updateFechamento(AgendaLojaDTO ag, String fc){
+        String sql = "UPDATE agenda_lojas SET fechamento = ? WHERE id_loja = ?";
+        
+        return executeUpdate(sql, fc, ag.getIdLoja());
+    }
+    
+    public boolean updateDiaSemana(AgendaLojaDTO ag, String dia){
+        String sql = "UPDATE agenda_lojas SET dia_semana = ? WHERE id_loja = ?";
+        
+        return executeUpdate(sql, dia, ag.getIdLoja());
+    }
+    
+    //Alterna entre true e false
+    public boolean switchCampus1(AgendaLojaDTO ag){
+        String sql = "UPDATE agenda_lojas SET campus_1 = ? WHERE id_loja = ?";
+        
+        return executeUpdate(sql, !ag.isCampus1(), ag.getIdLoja());
+    }
+    
+    //Alterna entre true e false
+    public boolean switchCampus2(AgendaLojaDTO ag){
+        String sql = "UPDATE agenda_lojas SET campus_2 = ? WHERE id_loja = ?";
+        
+        return executeUpdate(sql, !ag.isCampus2(), ag.getIdLoja());
     }
 }
