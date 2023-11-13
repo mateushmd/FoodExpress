@@ -1,7 +1,7 @@
 const modalElements = [...document.querySelectorAll('.modal')];
 const modalTriggerElements = [...document.querySelectorAll('.modal-trigger')];
 const overlayEl = document.querySelector('#overlay');
-const closeModalButtonEl = document.querySelector('#close-modal-produto');
+const closeModalButtonEl = document.querySelector('#close-modal');
 
 const modalProdutoBotaoQuantidadeElements = [...document.querySelectorAll('.modal-produto-botao-quantidade')];
 
@@ -11,7 +11,6 @@ modalTriggerElements.forEach(el =>
     {
         modalElements.forEach(mEl =>
         {
-
             if (mEl.dataset.modalIndex === el.dataset.modalIndex)
             {
                 mEl.classList.toggle('hidden');
@@ -36,6 +35,21 @@ modalTriggerElements.forEach(el =>
                     document.querySelector('#modal-produto-preco').innerHTML = produtoPreco;
                     document.querySelectorAll('.modal-produto-preco-total').forEach(el => el.innerHTML = produtoPreco);
                     document.querySelectorAll('.modal-produto-quantidade').forEach(el => el.innerHTML = 1);
+                }
+                //Janela modal edição de produto
+                else if (parseInt(mEl.dataset.modalIndex) === 2)
+                {
+                    const parent = el.parentElement;
+
+                    const nome = parent.querySelector('.nome').innerHTML;
+                    const descricao = parent.querySelector('.descricao').innerHTML;
+                    const preco = parent.querySelector('.preco').value.replace('.', ',');
+                    const quantidade = parent.querySelector('.quantidade').value;
+
+                    document.querySelector('#modal-produto-nome').value = nome;
+                    document.querySelector('#modal-produto-descricao').value = descricao;
+                    document.querySelector('#modal-produto-preco').value = preco;
+                    document.querySelector('#modal-produto-quantidade').value = quantidade;
                 }
             }
         });

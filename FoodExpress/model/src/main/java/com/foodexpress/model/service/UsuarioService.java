@@ -11,12 +11,15 @@ import java.util.List;
 
 public class UsuarioService {
 
-    private UsuarioDAO dao;
+    private final UsuarioDAO dao;
+
+    private final TokenVerificacaoService tokenVerificacaoService;
     
     private static UsuarioService instance = null;
     
     private UsuarioService() {
         dao = UsuarioDAO.getInstance();
+        tokenVerificacaoService = TokenVerificacaoService.getInstance();
     }
     
     public static UsuarioService getInstance() {
@@ -26,29 +29,8 @@ public class UsuarioService {
         return instance;
     }
     
-    public int login(String email, String senha){
-        int check = dao.login(email, senha);
-        System.out.println(check);
-        
-        return check;
-    }
-    
-    public boolean verificarEmail(TokenVerificacaoDTO token) {
-        System.out.println("verificarEmail() " + token.getEmailUsuario());
-        System.out.println("verificarEmail() " + token.getToken());
-        
-        TokenVerificacaoDAO tokenDAO = TokenVerificacaoDAO.getInstance();
-        
-        boolean check = tokenDAO.validateToken(token);
-        
-        System.out.println("verificarEmail(): check " + check);
-        
-        if(check)
-            check = dao.updateVerificacao(token.getEmailUsuario());
-        
-        System.out.println("verificarEmail(): check " + check);
-
-        return check;
+    public int login(String email, String senha) {
+        return dao.login(email, senha);
     }
     
     public boolean alterarDados(String email, String novoNome, String novoTelefone) {
@@ -59,18 +41,23 @@ public class UsuarioService {
         return dao.getUsuario(email);
     }
 
-    public void cadastrar(UsuarioDTO obj) {
-        TokenVerificacaoDAO tokenDAO = TokenVerificacaoDAO.getInstance();
+    public int cadastrar(UsuarioDTO obj) {
+        int test = dao.cadastrar(obj);
+
+        if(test == 0)
+            return test;
+
+        if(test == -1) {
+            tokenVerificacaoService.removerToken(obj.getEmail());
+
+            dao.removerUsuario(obj.getEmail());
+
+            return cadastrar(obj);
+        }
         
-        dao.cadastrar(obj);
-        
-        String generatedToken = TokenGenerator.generateToken();
-        
-        TokenVerificacaoDTO token = new TokenVerificacaoDTO(obj.getEmail(), generatedToken);
-        
-        EmailUtil.sendEmailVerificacao(token);
-        
-        tokenDAO.insert(token);
+        tokenVerificacaoService.addToken(obj.getEmail());
+
+        return test;
     }
     
     public boolean redefinirSenha(String email, String senha) {
@@ -84,9 +71,13 @@ public class UsuarioService {
     public List<UsuarioDTO> ListarUsuario() throws SQLException {
         return dao.ListarUsuarios();
     }
-    
-    public UsuarioDTO getUser(){
-        return dao.getUser();
-    }
 
+    public boolean updateVerificacao(TokenVerificacaoDTO tDTO) {
+        boolean check = tokenVerificacaoService.validarToken(tDTO);
+
+        if(!check)
+            return false;
+
+        return dao.updateVerificacao(tDTO.getEmailUsuario());
+    }
 }

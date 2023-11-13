@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -43,7 +44,7 @@
                             <li><a href=""><img src="imgs/header/chat.svg" alt="">Conversas</a></li>
                             <li><a href="meus-favoritos"><img src="imgs/header/coracao.svg" alt="">Favoritos</a></li>
                             <li><a href="acessibilidade.jsp"><img src="imgs/header/acessibilidade.svg" alt="">Acessibilidade</a></li>
-                            <li><a href=""><img src="imgs/header/sair.svg" alt="">Sair</a></li>
+                            <li><a href="logout"><img src="imgs/header/sair.svg" alt="">Sair</a></li>
                         </ul>
                     </div>
                 </div>

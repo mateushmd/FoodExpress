@@ -1,10 +1,12 @@
-@import url("../fonts/style.css");
-
 :root {
   --spacing: 8px;
   --background1: #e6f1f5;
   --background2: #0f7496;
   --brand1: #e6f1f5;
+}
+
+body {
+  font-family: 'Cooper Hewitt', sans-serif;
 }
 
 .number-code {
@@ -55,7 +57,7 @@
   -moz-appearence: textfield;
 }
 
-form>p {
+.form>p {
   text-align: center;
 }
 
@@ -124,11 +126,22 @@ body {
 
 .botoes1 {
   display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+  font-weight: 707;
+}
+
+.botao1 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
 }
 
 .botao1 input {
   width: 194px;
-  margin-top: 19px;
   text-align: center;
   background-color: #e6f1f5;
   color: #cc575f;

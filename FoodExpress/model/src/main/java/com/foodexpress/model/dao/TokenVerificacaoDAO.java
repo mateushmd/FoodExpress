@@ -5,8 +5,11 @@
 
 package com.foodexpress.model.dao;
 
+import com.foodexpress.model.email.EmailUtil;
 import com.foodexpress.model.encoder.Argon2Encoder;
 import com.foodexpress.model.dto.TokenVerificacaoDTO;
+import com.foodexpress.model.encoder.TokenGenerator;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -51,10 +54,19 @@ public class TokenVerificacaoDAO extends DAOTemplate<TokenVerificacaoDTO> {
         return token;
     }
     
-    public boolean insert(TokenVerificacaoDTO token) {
+    public boolean addToken(String email) {
+        delete(email);
+
+        TokenVerificacaoDTO dto = new TokenVerificacaoDTO(email, TokenGenerator.generateToken());
+
         String sql = "INSERT INTO token_verificacao VALUES(?, ?)";
         
-        return executeUpdate(sql, token.getEmailUsuario(), encoder.encode(token.getToken()));
+        boolean check = executeUpdate(sql, dto.getEmailUsuario(), encoder.encode(dto.getToken()));
+
+        if(check)
+            EmailUtil.sendEmailVerificacao(dto);
+
+        return check;
     }
     
     public boolean validateToken(TokenVerificacaoDTO obj) {
@@ -70,13 +82,13 @@ public class TokenVerificacaoDAO extends DAOTemplate<TokenVerificacaoDTO> {
         if(!encoder.check(obj.getToken(), token.getToken()))
             return false;
         
-        return delete(token);
+        return delete(token.getEmailUsuario());
     }
     
-    public boolean delete(TokenVerificacaoDTO token) {
+    public boolean delete(String email) {
         
         String sql = "DELETE FROM token_verificacao WHERE usuario_id = ?";
         
-        return executeUpdate(sql, token.getEmailUsuario());
+        return executeUpdate(sql, email);
     }
 }

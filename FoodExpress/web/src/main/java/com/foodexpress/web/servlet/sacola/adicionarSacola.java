@@ -63,7 +63,7 @@ public class adicionarSacola extends HttpServlet {
             session.setAttribute("sacola", sacola);
 
             responseData.addProperty("responseType", "atualizar");
-            responseData.addProperty("idItem", item.getId());
+            responseData.addProperty("idProduto", item.getIdProduto());
             responseData.addProperty("quantidade", item.getQuantidade());
             responseData.addProperty("precoTotal", item.getPrecoTotal());
 

@@ -24,9 +24,8 @@
         <header id="navbar">
             <img id="navbar-logo" src="imgs/logo3.png" alt="Logo">
             <div id="navbar-menu">
-                <a class="navbar-link" href="menuprincipal.jsp">Início</a>
+                <a class="navbar-link" href="inicio.jsp">Início</a>
                 <a class="navbar-link" href="meus-favoritos">Favoritos</a>
-                <a class="navbar-link" href="gerenciarloja.jsp">Loja</a>
                 <a class="navbar-link" href="#">Sobre</a>
             </div>
             <div id="search-bar">
@@ -45,7 +44,7 @@
                             <li><a href=""><img src="imgs/header/chat.svg" alt="">Conversas</a></li>
                             <li><a href="meus-favoritos"><img src="imgs/header/coracao.svg" alt="">Favoritos</a></li>
                             <li><a href="acessibilidade.jsp"><img src="imgs/header/acessibilidade.svg" alt="">Acessibilidade</a></li>
-                            <li><a href=""><img src="imgs/header/sair.svg" alt="">Sair</a></li>
+                            <li><a href="logout"><img src="imgs/header/sair.svg" alt="">Sair</a></li>
                         </ul>
                     </div>
                 </div>
@@ -109,7 +108,7 @@
                     <div class="footer-col">
                         <h4>Menu</h4>
                         <ul>
-                            <li><a href="menuprincipal.jsp"> Inicio</a></li>
+                            <li><a href="inicio.jsp"> Inicio</a></li>
                             <li><a href="gerenciarperfil.jsp"> Perfil</a></li>
                             <li><a href="sobre.jsp">Sobre</a></li>
                         </ul>

@@ -1,7 +1,29 @@
 import remover from './removerSacola.js';
 
 $(function() {
-    $('#modal-produto-adicionar').click(function(e) {
+    const adicionarElement = $('#modal-produto-adicionar');
+
+    adicionarElement.click(function(e) {
+        if(adicionarElement.hasClass('loading'))
+        {
+            console.log('loading');
+            return;
+        }
+
+        let pElements = adicionarElement.find('p');
+
+        pElements.addClass('hidden');
+
+        const loader = $('<div>', {'class': 'loader white'});
+
+        const checkmark = $('<div>', {'class': 'checkmark hidden'});
+
+        loader.append(checkmark);
+
+        adicionarElement.append(loader);
+
+        adicionarElement.addClass('loading');
+
         let produtoId = $('#modal-produto-id').val();
         let quantidade = $('p .modal-produto-quantidade').text();
 
@@ -10,6 +32,21 @@ $(function() {
             url: 'sacola/adicionar-sacola',
             data: {idProduto: produtoId, quantidade: quantidade},
             success: function(response) {
+                loader.addClass('complete');
+                checkmark.removeClass('hidden');
+                checkmark.addClass('draw');
+
+                setTimeout(function() {
+                    loader.addClass('hide');
+
+                    setTimeout(function() {
+                        loader.remove();
+                        pElements.removeClass('hidden');
+                    }, 400);
+                }, 1000);
+
+                adicionarElement.removeClass('loading');
+
                 let headerPrecoEl = $('#orders-preco');
                 let preco = parseFloat(headerPrecoEl.text().replace(',', '.'));
                 headerPrecoEl.text((preco + response.precoTotal).toFixed(2).replace('.', ','));
@@ -21,7 +58,7 @@ $(function() {
                 sacolaPrecoEl.text(headerPrecoEl.text());
 
                 if(response.responseType === 'atualizar') {
-                    let produtoContainerEl = $(`[data-id-produto="${response.idProduto}"]`);
+                    let produtoContainerEl = $(`.bag-produto[data-id-produto="${response.idProduto}"]`);
 
                     console.log(produtoContainerEl);
 
@@ -63,9 +100,6 @@ $(function() {
                 removerProdutoEl.on('click', function() {
                     remover(removerProdutoEl);
                 });
-
-                console.log(produtoEl);
-                console.log($('.bag-produtos'));
 
                 $('.bag-produtos').append(produtoEl);
             },

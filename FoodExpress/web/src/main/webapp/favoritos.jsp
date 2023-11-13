@@ -46,7 +46,7 @@
                             <li><a href="meus-favoritos"><img src="imgs/header/coracao.svg" alt="">Favoritos</a></li>
                             <li><a href="acessibilidade.jsp"><img src="imgs/header/acessibilidade.svg"
                                                                   alt="">Acessibilidade</a></li>
-                            <li><a href=""><img src="imgs/header/sair.svg" alt="">Sair</a></li>
+                            <li><a href="logout"><img src="imgs/header/sair.svg" alt="">Sair</a></li>
                         </ul>
                     </div>
                 </div>
