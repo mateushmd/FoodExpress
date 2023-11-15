@@ -65,7 +65,7 @@ public class confirmarSenha extends HttpServlet {
             return;
         }
 
-        rd = request.getRequestDispatcher("redefinirsenha.jsp");
+        rd = request.getRequestDispatcher("redefinir-senha.jsp");
         rd.forward(request, response); 
     }
 

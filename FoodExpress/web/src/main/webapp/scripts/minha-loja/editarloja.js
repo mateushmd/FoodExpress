@@ -1,7 +1,6 @@
 const botaoEditar = [...document.querySelectorAll('.editar')];
 const inputTexto = [...document.querySelectorAll('.loja-input')];
 
-
 botaoEditar.forEach((el, index) =>
 {
     el.addEventListener('click', (e) =>

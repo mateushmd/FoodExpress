@@ -14,7 +14,7 @@
         <link rel="stylesheet" type="text/css" href="styles/carrossel.css">
         <link rel="stylesheet" type="text/css" href="styles/main/footer.css">
         <link rel="stylesheet" type="text/css" href="styles/slider.css">
-        <link rel="stylesheet" type="text/css" href="styles/modal.css">
+        <link rel="stylesheet" type="text/css" href="styles/main/modal.css">
         <link rel="icon" type="image/png" href="imgs/icon.png" />
     </head>
     <body>
