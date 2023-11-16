@@ -10,8 +10,6 @@ import com.google.api.client.json.Json;
 import com.google.gson.JsonObject;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
-import java.util.ArrayList;
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -39,47 +37,39 @@ public class login extends HttpServlet {
         switch(check) {
             case -1:
                 responseData.addProperty("responseType", "error");
-
-                response.getWriter().write(responseData.toString());
-                return;
+                break;
             case 0:
-                TokenVerificacaoService tokenVerificacaoService = TokenVerificacaoService.getInstance();
-
-                session.setAttribute("email", email);
-
-                tokenVerificacaoService.reenviarToken(email);
-
                 responseData.addProperty("responseType", "redirect");
-                responseData.addProperty("redirect", "verificacao.jsp");
-
-                response.getWriter().write(responseData.toString());
-                return;
+                responseData.addProperty("redirect", "cadastro.html");
+                break;
             case 1:
-                usuario = usuarioService.getUsuario(email);
-
-                session.setAttribute("usuario", usuario);
-
-                if(usuario.getTipo() == 1) {
-                    SacolaService sacolaService = SacolaService.getInstance();
-                    SacolaViewDTO sacola;
-
-                    AcessibilidadeService acessibilidadeService = AcessibilidadeService.getInstance();
-                    AcessibilidadeDTO acessibilidade;
-
-                    sacola = sacolaService.getSacola(usuario.getEmail());
-
-                    acessibilidade = acessibilidadeService.getConfiguracoes(email);
-
-                    session.setAttribute("sacola", sacola);
-
-                    session.setAttribute("acessibilidade", acessibilidade);
-                }
-
                 responseData.addProperty("responseType", "redirect");
-                responseData.addProperty("redirect", usuario.getTipo() == 1 ? "inicio" : "carregar-loja");
-
+                responseData.addProperty("redirect", "inicio");
                 break;
         }
+
+        if(check < 1) {
+            response.getWriter().write(responseData.toString());
+            return;
+        }
+
+        usuario = usuarioService.getUsuario(email);
+
+        SacolaService sacolaService = SacolaService.getInstance();
+        SacolaViewDTO sacola;
+
+        AcessibilidadeService acessibilidadeService = AcessibilidadeService.getInstance();
+        AcessibilidadeDTO acessibilidade;
+
+        sacola = sacolaService.getSacola(usuario.getEmail());
+
+        acessibilidade = acessibilidadeService.getConfiguracoes(email);
+
+        session.setAttribute("usuario", usuario);
+
+        session.setAttribute("sacola", sacola);
+
+        session.setAttribute("acessibilidade", acessibilidade);
 
         response.getWriter().write(responseData.toString());
     }

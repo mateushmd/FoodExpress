@@ -41,8 +41,6 @@ public class UsuarioService {
         return dao.getUsuario(email);
     }
 
-    public int getTipoUsuario(String email) { return dao.getTipoUsuario(email); }
-
     public int cadastrar(UsuarioDTO obj) {
         int test = dao.cadastrar(obj);
 

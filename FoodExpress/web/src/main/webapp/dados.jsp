@@ -75,7 +75,7 @@
                         </div>
                     </li>
                     <li>
-                        <p>Celular</p>
+                        <p>Telefone</p>
                         <div class="opcao-body">
                             <input type="text" class="editavel" id="phone">
                         </div>

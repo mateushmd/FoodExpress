@@ -135,12 +135,4 @@ public class UsuarioDAO extends DAOTemplate<UsuarioDTO> {
 
         return executeExist(sql, email);
     }
-
-    public int getTipoUsuario(String email) {
-        String sql = "SELECT * FROM usuarios WHERE email = ?";
-
-        List<UsuarioDTO> users = executeQuery(sql, email);
-
-        return users.isEmpty() ? 0 : users.get(0).getTipo();
-    }
 }

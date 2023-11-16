@@ -17,6 +17,7 @@ com\foodexpress\model\service\ItemSacolaService.class
 com\foodexpress\model\service\AcessibilidadeService.class
 com\foodexpress\model\imgFirebase\FirebaseDAO.class
 com\foodexpress\model\dao\AcessibilidadeDAO.class
+com\foodexpress\model\service\TokenVerificacaoService.class
 com\foodexpress\model\dto\ItemPedidoDTO.class
 com\foodexpress\model\dao\TokenVerificacaoDAO.class
 com\foodexpress\model\dao\SacolaViewDAO.class
@@ -27,6 +28,7 @@ com\foodexpress\model\dto\UsuarioDTO.class
 com\foodexpress\model\dao\AvaliacaoDAO.class
 com\foodexpress\model\dao\ProdutoDAO.class
 com\foodexpress\model\dao\UsuarioDAO.class
+com\foodexpress\model\removerUsuario.class
 com\foodexpress\model\encoder\TokenGenerator.class
 com\foodexpress\model\dao\ItemPedidoDAO.class
 com\foodexpress\model\teste.class

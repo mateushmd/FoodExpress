@@ -13,14 +13,7 @@
         <link rel="icon" type="image/png" href="imgs/icon.png"/>
     </head>
     <body>
-        <c:choose>
-            <c:when test="${empty sessionScope.email}">
-                <c:redirect url="cadastro.html" />
-            </c:when>
-            <c:otherwise>
-                <c:set var="email" value="${sessionScope.email}"/>
-            </c:otherwise>
-        </c:choose>
+
 
         <main>
             <div id="containerRedefinir">

@@ -6,7 +6,6 @@ package com.foodexpress.web.servlet.autenticacao.verificacao;
 
 import com.foodexpress.model.dto.TokenVerificacaoDTO;
 import com.foodexpress.model.service.AcessibilidadeService;
-import com.foodexpress.model.service.LojaService;
 import com.foodexpress.model.service.TokenVerificacaoService;
 import com.foodexpress.model.service.UsuarioService;
 import com.google.gson.JsonObject;
@@ -64,14 +63,6 @@ public class verificarEmail extends HttpServlet {
             response.getWriter().write(responseData.toString());
 
             return;
-        }
-
-        int tipo = usuarioService.getTipoUsuario(email);
-
-        if(tipo == 2) {
-            LojaService lojaService = LojaService.getInstance();
-
-            lojaService.cadastrar(email);
         }
 
         AcessibilidadeService aservice = AcessibilidadeService.getInstance();

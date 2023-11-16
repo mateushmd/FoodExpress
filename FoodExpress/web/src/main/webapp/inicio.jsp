@@ -44,7 +44,16 @@
                         <ul>
                             <li><a href="dados.jsp"><img src="imgs/header/engrenagem.svg" alt="">Dados</a></li>
                             <li><a href=""><img src="imgs/header/pedido.svg" alt="">Pedidos</a></li>
-                            <li><a href=""><img src="imgs/header/chat.svg" alt="">Conversas</a></li>
+                            
+
+                        <li><a  id="conversasBtn"><img src="imgs/header/chat.svg" alt="">Conversas</a></li>
+                                                    <input style="display: none" id="meuInput" value="${usuario.email}">
+                            <script>
+                            document.getElementById('conversasBtn').onclick = function () {
+                                var valor = document.getElementById('meuInput').value;
+                                window.location.href = 'conversas.jsp?valor=' + encodeURIComponent(valor);
+                            };
+                        </script>
                             <li><a href="meus-favoritos"><img src="imgs/header/coracao.svg" alt="">Favoritos</a></li>
                             <li><a href="acessibilidade.jsp"><img src="imgs/header/acessibilidade.svg" alt="">Acessibilidade</a></li>
                             <li><a href="logout"><img src="imgs/header/sair.svg" alt="">Sair</a></li>

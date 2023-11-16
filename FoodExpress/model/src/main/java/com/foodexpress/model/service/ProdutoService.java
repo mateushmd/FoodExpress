@@ -10,7 +10,7 @@ public class ProdutoService {
 
     private ProdutoDAO produtoDAO;
 
-    private static ProdutoService instance = null;
+    public static ProdutoService instance = null;
 
     private ProdutoService() {
         produtoDAO = ProdutoDAO.getInstance();
@@ -38,6 +38,4 @@ public class ProdutoService {
     public ProdutoDTO getProdutoById(int id) {
         return produtoDAO.getProdutoById(id);
     }
-
-    public List<ProdutoDTO> getProdutosByCategoria(int idCategoria) { return produtoDAO.getProdutosByCategoria(idCategoria); }
 }
