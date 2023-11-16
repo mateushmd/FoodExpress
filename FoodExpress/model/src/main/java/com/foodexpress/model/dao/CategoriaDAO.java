@@ -55,4 +55,12 @@ public class CategoriaDAO extends DAOTemplate<CategoriaDTO> {
         
         return categorias.isEmpty() ? null : categorias;
     }
+
+    public CategoriaDTO getUltimaCategoria() {
+        String sql = "SELECT * FROM categorias WHERE id = LAST_INSERT_ID()";
+
+        List<CategoriaDTO> categoria = executeQuery(sql);
+
+        return categoria.isEmpty() ? null : categoria.get(0);
+    }
 }

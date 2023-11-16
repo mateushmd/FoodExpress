@@ -31,6 +31,17 @@ public class CategoriaService {
         return dao.inserir(obj);
     }
 
+    public CategoriaDTO novaCategoria(int idLoja) {
+        CategoriaDTO categoria = new CategoriaDTO(idLoja, "Nova categoria");
+
+        if(!inserir(categoria))
+            return null;
+
+        categoria = dao.getUltimaCategoria();
+
+        return categoria;
+    }
+
     public boolean excluir(int id) {
         return dao.excluir(id);
     }

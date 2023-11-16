@@ -9,10 +9,9 @@ public class CategoriaDTO {
 
     private ArrayList<ProdutoDTO> produtos;
 
-    public CategoriaDTO(int id, int idLoja, String nome) {
+    public CategoriaDTO(int idLoja, String nome) {
         this();
 
-        this.id = id;
         this.idLoja = idLoja;
         this.nome = nome;
     }
