@@ -117,8 +117,7 @@ public class AvaliacaoDAO extends DAOTemplate<AvaliacaoDTO> {
         return !avaliacao.isEmpty();
     }
 
-    public boolean removerAvaliacao(int idAvaliacao)
-    {
+    public boolean removerAvaliacao(int idAvaliacao) {
         String sql = "DELETE FROM avaliacoes WHERE id = ?";
 
         return executeUpdate(sql, idAvaliacao);

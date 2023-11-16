@@ -3,20 +3,21 @@ package com.foodexpress.model.dto;
 public class ProdutoDTO {
     int id;
     int idLoja;
+    int idCategoria;
     String nome;
     double preco;
     String descricao;
     boolean disponivel;
 
-    public ProdutoDTO(int idLoja, String nome, double preco, boolean disponivel) {
+    public ProdutoDTO(int idLoja, int idCategoria, String nome, double preco, boolean disponivel) {
         this.idLoja = idLoja;
         this.nome = nome;
         this.preco = preco;
         this.disponivel = disponivel;
     }
     
-    public ProdutoDTO(int idLoja, String nome, double preco, boolean disponivel, String descricao) {
-        this(idLoja, nome, preco, disponivel);
+    public ProdutoDTO(int idLoja, int idCategoria, String nome, double preco, boolean disponivel, String descricao) {
+        this(idLoja, idCategoria, nome, preco, disponivel);
         this.descricao = descricao;
     }
             
@@ -38,6 +39,10 @@ public class ProdutoDTO {
     public void setIdLoja(int idLoja) {
         this.idLoja = idLoja;
     }
+
+    public int getIdCategoria() { return idCategoria; }
+
+    public void setIdCategoria(int idCategoria) { this.idCategoria = idCategoria; }
 
     public String getNome() {
         return nome;

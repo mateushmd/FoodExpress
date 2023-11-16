@@ -5,6 +5,8 @@
 
 package com.foodexpress.model.dao;
 
+import com.foodexpress.model.dataBaseConnection.ConnectionPoolManager;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -37,9 +39,9 @@ public abstract class DAOTemplate<T> {
             while (rs.next()) {
                 results.add(mapResultSetToObject(rs));
             }
-            
-            if(rs != null) rs.close();
-            if(st != null) st.close();
+
+            rs.close();
+            st.close();
             if(conn != null) conn.close();
         } catch (SQLException ex) {
             Logger.getLogger(DAOTemplate.class.getName()).log(Level.SEVERE, null, ex);
@@ -60,8 +62,8 @@ public abstract class DAOTemplate<T> {
             setStatementParameters(st, params);
             
             affectedLines = st.executeUpdate();
-            
-            if(st != null) st.close();
+
+            st.close();
             if(conn != null) conn.close();
         } catch(SQLException ex) {
             Logger.getLogger(DAOTemplate.class.getName()).log(Level.SEVERE, null, ex);
@@ -69,7 +71,34 @@ public abstract class DAOTemplate<T> {
         
         return affectedLines > 0;
     }
-    
+
+    protected boolean executeExist(String sql, Object... params) {
+        setConnection();
+
+        boolean exists = false;
+        ResultSet rs = null;
+        PreparedStatement st = null;
+
+        try {
+            st = conn.prepareStatement(sql);
+
+            setStatementParameters(st, params);
+
+            rs = st.executeQuery();
+
+            if(rs.next())
+                exists = true;
+
+            rs.close();
+            st.close();
+            if(conn != null) conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOTemplate.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return exists;
+    }
+
     private void setStatementParameters(PreparedStatement st, Object... params) throws SQLException {
         for(int i = 0; i < params.length; i++) {
             st.setObject(i + 1, params[i]);

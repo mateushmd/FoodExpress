@@ -30,6 +30,7 @@ public class ProdutoDAO extends DAOTemplate<ProdutoDTO>{
             
             produto.setId(rs.getInt("id"));
             produto.setIdLoja(rs.getInt("id_loja"));
+            produto.setIdCategoria(rs.getInt("id_categoria"));
             produto.setNome(rs.getString("nome"));
             produto.setPreco(rs.getFloat("preco"));
             produto.setDescricao(rs.getString("descricao"));
@@ -42,9 +43,9 @@ public class ProdutoDAO extends DAOTemplate<ProdutoDTO>{
     }
     
     public boolean cadastrar(ProdutoDTO obj){
-        String sql = "INSERT INTO produtos (id_loja, nome, preco, descricao, disponivel) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO produtos (id_loja, id_categoria, nome, preco, descricao, disponivel) VALUES (?, ?, ?, ?, ?)";
         
-        return executeUpdate(sql, obj.getIdLoja(), obj.getNome(), obj.getPreco(), obj.getDescricao(), obj.getDisponivel());
+        return executeUpdate(sql, obj.getIdLoja(), obj.getIdCategoria(), obj.getNome(), obj.getPreco(), obj.getDescricao(), obj.getDisponivel());
     }
     
     public boolean update(ProdutoDTO obj) {
@@ -57,5 +58,21 @@ public class ProdutoDAO extends DAOTemplate<ProdutoDTO>{
         String sql = "SELECT * FROM produtos WHERE id_loja = ? ORDER BY nome";
         
         return executeQuery(sql, idLoja);
+    }
+
+    public ProdutoDTO getProdutoById(int id) {
+        String sql = "SELECT * FROM produtos WHERE id = ?";
+
+        List<ProdutoDTO> produto = executeQuery(sql, id);
+
+        return produto.isEmpty() ? null : produto.get(0);
+    }
+
+    public List<ProdutoDTO> getProdutosByCategoria(int idCategoria) {
+        String sql = "SELECT * FROM produtos WHERE id_categoria = ?";
+
+        List<ProdutoDTO> produtos = executeQuery(sql, idCategoria);
+
+        return produtos.isEmpty() ? null : produtos;
     }
 }

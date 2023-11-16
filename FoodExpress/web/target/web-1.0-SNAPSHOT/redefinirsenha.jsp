@@ -34,7 +34,7 @@
                 </form>
             </div>
         </main>
-        <script src="scripts/codigoVerificacao.js"></script>
+        <script src="scripts/autenticacao/verificacao/codigoVerificacao.js"></script>
     </body>
 
 </html>

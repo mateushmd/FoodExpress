@@ -1,0 +1,115 @@
+body {
+    height: 100vh;
+
+    margin: 0;
+
+    font-family: 'Cooper Hewitt', sans-serif;
+
+    background: #f5e9da url(../imgs/capa2.jpg);
+    background-size: 126%;
+    background-position: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+main {
+    max-width: 700px;
+
+    background-color: #ffff;
+    padding: 20px;
+    border-radius: 5px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    -webkit-box-shadow: -11px -6px 37px -20px rgba(204, 87, 95, 1);
+    -moz-box-shadow: -7px 6px 14px -7px rgba(204, 87, 95, 1);
+    box-shadow: -2px 11px 85px -33px rgba(204, 87, 95, 1);
+}
+
+p {
+    padding: 0 50px;
+    text-align: center;
+}
+
+
+#input-container {
+    position: relative;
+
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+label {
+    position: absolute;
+    left: 17%;
+    top: 14%;
+    background-color: white;
+
+    padding: 0 4px;
+}
+
+input {
+    font-family: inherit;
+    font-size: 1.3em;
+
+    border: 1px solid #b7b5b5;
+    border-radius: 12px;
+
+    width: 70%;
+    height: 40px;
+
+    margin-top: 20px;
+
+    padding: 0 20px;
+}
+
+button {
+    margin-top: 20px;
+
+    border: none;
+    background-color: inherit;
+    width: 30%;
+    cursor: pointer;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+button input {
+    width: 100%;
+
+    background-color: #e6f1f5;
+
+    font-weight: 707;
+    color: var(--marca);
+
+    border: 1px solid #e6f1f5;
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    margin: 0;
+}
+
+button input:hover {
+    opacity: 0.4;
+}
+
+#aviso {
+    color: black;
+    animation: blink 1s linear 2;
+}
+
+@keyframes blink {
+    0% { opacity: 100%; }
+    50% { opacity: 0;  }
+    100% { opacity: 100%; }
+}

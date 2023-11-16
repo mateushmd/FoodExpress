@@ -14,14 +14,10 @@ import java.util.List;
 public class LojaService {
     private LojaDAO ldao;
     
-    private ProdutoDAO pdao;
-    
     private static LojaService instance = null;
     
     private LojaService(){
         ldao = LojaDAO.getInstance();
-        
-        pdao = ProdutoDAO.getInstance();
     }
     
     public static LojaService getInstance(){
@@ -29,13 +25,6 @@ public class LojaService {
             instance = new LojaService();
         
         return instance;
-    }
-    
-    public int login(String idUser){
-        int check = ldao.login(idUser);
-        System.out.println(check);
-        
-        return check;
     }
     
     public LojaDTO getLoja(String idUser) {
@@ -46,8 +35,12 @@ public class LojaService {
         return ldao.getLojaById(idLoja);
     }
     
-    public boolean updateNomeDescricao(LojaDTO obj){
-        return ldao.updateND(obj);
+    public boolean updateNomeDescricao(int id, String nome, String descricao){
+        return ldao.updateNomeDescricao(id, nome, descricao);
+    }
+
+    public boolean updateNome(int id, String nome) {
+        return ldao.updateNome(id, nome);
     }
     
     public boolean updateAvaliacao(LojaDTO obj, int novaAvaliacao){
@@ -80,23 +73,11 @@ public class LojaService {
         return ldao.updateAvaliacao(obj);
     }
     
-    public void cadastrar(LojaDTO obj){
-        ldao.cadastrar(obj);
+    public void cadastrar(String email){
+        ldao.cadastrar(email);
     }
     
     public List<LojaDTO> listarLojas() {
         return ldao.ListarLojas();
-    }
-    
-    public boolean adicionarProduto(ProdutoDTO obj){
-        return pdao.cadastrar(obj);
-    }
-    
-    public ArrayList<ProdutoDTO> listarProdutos(int idLoja) {
-        return (ArrayList) pdao.listar(idLoja);
-    } 
-    
-    public boolean editarProduto(ProdutoDTO obj) {
-        return pdao.update(obj);
     }
 }

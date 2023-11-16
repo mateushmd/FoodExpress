@@ -8,12 +8,9 @@ import java.util.List;
 import java.util.logging.Level;
 
 public class UsuarioDAO extends DAOTemplate<UsuarioDTO> {
-    
     private static UsuarioDAO instance = null;
     
-    private UsuarioDTO user;
-    
-    private Argon2Encoder encoder;
+    private final Argon2Encoder encoder;
 
     private UsuarioDAO() {
         super();
@@ -49,10 +46,19 @@ public class UsuarioDAO extends DAOTemplate<UsuarioDTO> {
         return user;
     }
 
-    public boolean cadastrar(UsuarioDTO obj) {
+    public int cadastrar(UsuarioDTO obj) {
+        UsuarioDTO usuario = getUsuario(obj.getEmail());
+
+        if(usuario != null) {
+            if(!usuario.getVerificado())
+                return -1; //Remover Token e usuário para refazer o cadastro
+            else
+                return 0;
+        }
+
         String sql = "INSERT INTO usuarios (email, nome, senha, telefone, tipo, verificado) VALUES (?, ?, ?, ?, ?, ?)";
         
-        return executeUpdate(sql, obj.getEmail(), obj.getNome(), encoder.encode(obj.getSenha()), obj.getTelefone(), obj.getTipo(), obj.getVerificado());
+        return executeUpdate(sql, obj.getEmail(), obj.getNome(), encoder.encode(obj.getSenha()), obj.getTelefone(), obj.getTipo(), obj.getVerificado()) ? 1 : 0;
     }
 
     public int login(String email, String senha) {
@@ -86,10 +92,10 @@ public class UsuarioDAO extends DAOTemplate<UsuarioDTO> {
         return executeUpdate(sqlUpdate, true, email);
     }
 
-    public boolean update(UsuarioDTO obj) {
+    public boolean alterarDados(String email, String novoNome, String novoTelefone) {
         String sqlUpdate = "UPDATE usuarios SET nome = ?, telefone = ? WHERE email = ?";
         
-        return executeUpdate(sqlUpdate, obj.getNome(), obj.getTelefone(), obj.getEmail());
+        return executeUpdate(sqlUpdate, novoNome, novoTelefone, email);
     }
 
     public UsuarioDTO getUsuario(String email) {
@@ -118,7 +124,23 @@ public class UsuarioDAO extends DAOTemplate<UsuarioDTO> {
         return executeQuery(sql);
     }
 
-    public UsuarioDTO getUser() {
-        return user;
+    public boolean removerUsuario(String email) {
+        String sql = "DELETE FROM usuarios WHERE email = ?";
+
+        return executeUpdate(sql, email);
+    }
+
+    protected boolean existeUsuario(String email) {
+        String sql = "SELECT 1 FROM usuarios WHERE email = ?";
+
+        return executeExist(sql, email);
+    }
+
+    public int getTipoUsuario(String email) {
+        String sql = "SELECT * FROM usuarios WHERE email = ?";
+
+        List<UsuarioDTO> users = executeQuery(sql, email);
+
+        return users.isEmpty() ? 0 : users.get(0).getTipo();
     }
 }
