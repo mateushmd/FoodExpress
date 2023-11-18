@@ -6,14 +6,20 @@ public class CategoriaDTO {
     private int id;
     private int idLoja;
     private String nome;
+    private boolean visivel;
 
     private ArrayList<ProdutoDTO> produtos;
 
-    public CategoriaDTO(int idLoja, String nome) {
+    public CategoriaDTO(int idLoja, String nome, boolean visivel) {
         this();
 
         this.idLoja = idLoja;
         this.nome = nome;
+        this.visivel = visivel;
+    }
+
+    public CategoriaDTO(int idLoja, String nome) {
+        this(idLoja, nome, false);
     }
 
     public CategoriaDTO() {
@@ -44,6 +50,10 @@ public class CategoriaDTO {
         this.nome = nome;
     }
 
+    public boolean getVisivel() { return visivel; }
+
+    public void setVisivel(boolean visivel) { this.visivel = visivel; }
+
     public ArrayList<ProdutoDTO> getProdutos() {
         return produtos;
     }
@@ -51,6 +61,8 @@ public class CategoriaDTO {
     public void addProduto(ProdutoDTO produto) {
         produtos.add(produto);
     }
+
+    public void removerProduto(ProdutoDTO produto) { produtos.remove(produto); }
 
     public void setProdutos(ArrayList<ProdutoDTO> produtos) {
         if(produtos == null)

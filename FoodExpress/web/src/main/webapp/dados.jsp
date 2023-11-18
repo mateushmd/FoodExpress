@@ -83,7 +83,7 @@
                 </ul>
                 <div id="botao-container">
                     <div class="botao">
-                        <input type="submit" value="ALTERAR SENHA" id="senha">
+                        <input type="submit" value="ALTERAR SENHA" id="alterar-senha">
                     </div>
                     <div class="botao">
                         <input type="submit" value="SALVAR" id="save" class="hidden" name="SUBMIT">
@@ -164,10 +164,10 @@
 
         <script src="scripts/jquery/jquery.js"></script>
         <script type="module" src="scripts/sacola/removerSacola.js"></script>
-        <script src="scripts/janelas-modais/modal.js"></script>
-        <script src="scripts/acessibilidade/acessibilidade.js"></script>
-        <script src="scripts/dados/editarDados.js"></script>
-        <script src="scripts/dados/alterarDados.js"></script>
+        <script type="module" src="scripts/janelas-modais/modal.js"></script>
+        <script src="scripts/usuario/acessibilidade/acessibilidade.js"></script>
+        <script src="scripts/usuario/dados/editarDados.js"></script>
+        <script src="scripts/usuario/dados/alterarDados.js"></script>
         <script src="scripts/janelas-modais/slider.js"></script>
         <script src="scripts/mascaras.js"></script>
     </body>

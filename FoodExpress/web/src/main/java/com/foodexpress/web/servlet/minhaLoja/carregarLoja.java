@@ -2,15 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package com.foodexpress.web.servlet.vendedor;
+package com.foodexpress.web.servlet.minhaLoja;
 
-import com.foodexpress.model.dto.AvaliacaoDTO;
-import com.foodexpress.model.dto.CategoriaDTO;
-import com.foodexpress.model.dto.LojaDTO;
-import com.foodexpress.model.dto.UsuarioDTO;
-import com.foodexpress.model.service.AvaliacaoService;
-import com.foodexpress.model.service.CategoriaService;
-import com.foodexpress.model.service.LojaService;
+import com.foodexpress.model.dto.*;
+import com.foodexpress.model.service.*;
+
 import java.io.IOException;
 
 import jakarta.servlet.ServletException;
@@ -57,13 +53,25 @@ public class carregarLoja extends HttpServlet {
         AvaliacaoService avaliacaoService = AvaliacaoService.getInstance();
         ArrayList<AvaliacaoDTO> avaliacoes;
 
+        AgendaLojaService agendaLojaService = AgendaLojaService.getInstance();
+        ArrayList<AgendaLojaDTO> agenda;
+
+        PontoEncontroService pontoEncontroService = PontoEncontroService.getInstance();
+        ArrayList<ArrayList<PontoEncontroDTO>> pontos;
+
         categorias = (ArrayList<CategoriaDTO>) categoriaService.listarCompleto(loja.getId());
 
         avaliacoes = (ArrayList<AvaliacaoDTO>) avaliacaoService.getAvaliacaoByIdLoja(loja.getId());
 
+        agenda = (ArrayList<AgendaLojaDTO>) agendaLojaService.getAgendasByLoja(loja.getId());
+
+        pontos = pontoEncontroService.getByLoja(loja.getId());
+
         session.setAttribute("loja", loja);
         session.setAttribute("categorias", categorias);
         session.setAttribute("avaliacoes", avaliacoes);
+        session.setAttribute("agenda", agenda);
+        session.setAttribute("pontosEncontro", pontos);
 
         response.sendRedirect("minha-loja.jsp");
     }

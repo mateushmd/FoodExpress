@@ -14,27 +14,28 @@
     </head>
 
     <body>
-        <c:if test="${empty sessionScope.verificado}">
-            <c:redirect url="login.jsp" />
-        </c:if>
-
         <main>
             <h1>Quase lá!</h1>
-            <p>Estamos finalizando o processo para redefinir sua senha, insira uma nova senha no campo abaixo.</p>
+            <p>Insira uma nova senha no campo abaixo.</p>
 
             <div class="input-container">
                 <label for="password">Senha</label>
                 <input type="password" name="password" id="password">
             </div>
 
-            <button>
-                <input type="submit" name="submit" value="REDEFINIR">
-            </button>
+            <div class="input-container">
+                <label for="password">Confirmar senha</label>
+                <input type="password" name="password" id="confirm-password">
+            </div>
 
-            <input type="hidden" name="email" value="${usuario.getEmail()}">
+            <button>
+                <input type="submit" name="submit" value="REDEFINIR" id="redefinir">
+            </button>
         </main>
-        <script src="scripts/autenticacao/verificacao/codigoVerificacao.js"></script>
     </body>
 
+    <script src="scripts/jquery/jquery.js"></script>
+
+    <script src="scripts/usuario/dados/redefinirSenha.js"></script>
 </html>
 

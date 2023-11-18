@@ -1,14 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
-package com.foodexpress.web.servlet.vendedor;
+package com.foodexpress.web.servlet.usuario;
 
-import com.foodexpress.model.dto.*;
-import com.foodexpress.model.service.*;
-import com.google.gson.JsonObject;
-import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
+import java.io.PrintWriter;
+
+import com.foodexpress.model.dto.AcessibilidadeDTO;
+import com.foodexpress.model.service.AcessibilidadeService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -16,8 +12,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebServlet(name = "configuracao-inicial", urlPatterns = {"/configuracao-inicial"})
-public class configuracaoInicial extends HttpServlet {
+/**
+ *
+ * @author chsdi
+ */
+@WebServlet(name = "acessibilidade", urlPatterns = {"/acessibilidade"})
+public class acessibilidade extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,30 +30,28 @@ public class configuracaoInicial extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("application/json");
 
         HttpSession session = request.getSession();
 
-        JsonObject responseData = new JsonObject();
+        AcessibilidadeService aservice = AcessibilidadeService.getInstance();
 
-        if(session.getAttribute("usuario") == null)
-            return;
+        AcessibilidadeDTO aDTO = (AcessibilidadeDTO) session.getAttribute("acessibilidade");
 
-        UsuarioDTO usuario = (UsuarioDTO) session.getAttribute("usuario");
+        boolean temaEscuro = request.getParameter("tema") != null;
+        boolean contraste = request.getParameter("contraste") != null;
+        boolean visibilidadeTexto = request.getParameter("visibilidade") != null;
+        int tamanhoTexto = Integer.parseInt(request.getParameter("tamanho"));
 
-        String nome = request.getParameter("nome");
+        aDTO.setTemaEscuro(temaEscuro);
+        aDTO.setContraste(contraste);
+        aDTO.setVisibilidadeTexto(visibilidadeTexto);
+        aDTO.setTamanhoTexto(tamanhoTexto);
 
-        LojaService.getInstance().getLoja(usuario.getEmail()).setNome(nome);
+        aservice.atualizarConfiguracoes(aDTO);
 
-        LojaService lojaService = LojaService.getInstance();
-        LojaDTO loja = lojaService.getLoja(usuario.getEmail());
+        session.setAttribute("acessibilidade", aDTO);
 
-        lojaService.updateNome(loja.getId(), nome);
-
-        responseData.addProperty("responseType", "redirect");
-        responseData.addProperty("redirect", "carregar-loja");
-
-        response.getWriter().write(responseData.toString());
+        response.sendRedirect("acessibilidade.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -68,8 +66,7 @@ public class configuracaoInicial extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-        rd.forward(request, response);
+        processRequest(request, response);
     }
 
     /**

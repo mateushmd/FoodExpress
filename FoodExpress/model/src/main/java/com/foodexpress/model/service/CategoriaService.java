@@ -19,7 +19,6 @@ public class CategoriaService {
         produtoService = ProdutoService.getInstance();
     }
 
-
     public static CategoriaService getInstance() {
         if(instance == null)
             instance = new CategoriaService();
@@ -42,8 +41,8 @@ public class CategoriaService {
         return categoria;
     }
 
-    public boolean excluir(int id) {
-        return dao.excluir(id);
+    public boolean remover(int id) {
+        return dao.remover(id);
     }
 
     public List<CategoriaDTO> listar(int idLoja) {
@@ -54,7 +53,7 @@ public class CategoriaService {
         List<CategoriaDTO> lista = listar(idLoja);
 
         if(lista == null)
-            return new ArrayList<CategoriaDTO>();
+            return new ArrayList<>();
 
         for(CategoriaDTO dto : lista) {
             dto.setProdutos((ArrayList<ProdutoDTO>) produtoService.getProdutosByCategoria(dto.getId()));
@@ -62,4 +61,8 @@ public class CategoriaService {
 
         return lista;
     }
+
+    public boolean alterarVisibilidade(int id, boolean visibilidade) { return dao.alterarVisibilidade(id, visibilidade); }
+
+    public boolean alterarNome(int id, String nome) { return dao.alterarNome(id, nome); }
 }

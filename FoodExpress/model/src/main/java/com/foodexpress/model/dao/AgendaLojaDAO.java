@@ -28,9 +28,9 @@ public class AgendaLojaDAO extends DAOTemplate<AgendaLojaDTO>{
             agenda = new AgendaLojaDTO();
             
             agenda.setIdLoja(rs.getInt("id_loja"));
-            agenda.setDiaSemana(rs.getString("dia_semana"));
-            agenda.setAbertura(rs.getString("abertura"));
-            agenda.setFechamento(rs.getString("fechamento"));
+            agenda.setDiaSemana(rs.getInt("dia_semana"));
+            agenda.setAbertura(rs.getTime("abertura"));
+            agenda.setFechamento(rs.getTime("fechamento"));
             agenda.setCampus1(rs.getBoolean("campus_1"));
             agenda.setCampus2(rs.getBoolean("campus_2"));
         } catch(SQLException ex){
@@ -74,6 +74,12 @@ public class AgendaLojaDAO extends DAOTemplate<AgendaLojaDTO>{
         String sql = "SELECT * FROM agenda_lojas WHERE campus_1 = true";
         
         return executeQuery(sql);
+    }
+
+    public boolean resetarAgenda(int idLoja) {
+        String sql = "DELETE FROM agenda_lojas WHERE id_loja = ?";
+
+        return executeUpdate(sql, idLoja);
     }
     
     public boolean updateAbertura(AgendaLojaDTO ag, String ab){

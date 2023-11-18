@@ -2,9 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package com.foodexpress.web.servlet;
+package com.foodexpress.web.servlet.minhaLoja;
 
-import com.foodexpress.model.service.UsuarioService;
+import com.foodexpress.model.dto.*;
+import com.foodexpress.model.service.*;
+import com.google.gson.JsonObject;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -14,12 +16,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-/**
- *
- * @author chsdi
- */
-@WebServlet(name = "confirmarSenha", urlPatterns = {"/confirmarSenha"})
-public class confirmarSenha extends HttpServlet {
+@WebServlet(name = "configuracao-inicial", urlPatterns = {"/configuracao-inicial"})
+public class configuracaoInicial extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,41 +30,30 @@ public class confirmarSenha extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        
+        response.setContentType("application/json");
+
         HttpSession session = request.getSession();
-        
-        String submit = request.getParameter("submit");
-        
-        RequestDispatcher rd = null;
-        
-        String email = request.getParameter("email");
-        
-        if(submit.equals("CANCELAR")) {
-            response.sendRedirect("gerenciarperfil.jsp");
-            
+
+        JsonObject responseData = new JsonObject();
+
+        if(session.getAttribute("usuario") == null)
             return;
-        }
-        
-        UsuarioService uservice = UsuarioService.getInstance();
-       
-        String password = request.getParameter("password");
-        
-        System.out.println("Senha: " + password + "\nEmail: " + email);
-        
-        int check = uservice.login(email, password);
 
-        if(check < 1) {
-            request.setAttribute("msg", "Senha incorreta.");
-           
-            rd = request.getRequestDispatcher("confirmarsenha.jsp");
-            rd.forward(request, response);
+        UsuarioDTO usuario = (UsuarioDTO) session.getAttribute("usuario");
 
-            return;
-        }
+        String nome = request.getParameter("nome");
 
-        rd = request.getRequestDispatcher("redefinir-senha.jsp");
-        rd.forward(request, response); 
+        LojaService.getInstance().getLoja(usuario.getEmail()).setNome(nome);
+
+        LojaService lojaService = LojaService.getInstance();
+        LojaDTO loja = lojaService.getLoja(usuario.getEmail());
+
+        lojaService.updateNome(loja.getId(), nome);
+
+        responseData.addProperty("responseType", "redirect");
+        responseData.addProperty("redirect", "carregar-loja");
+
+        response.getWriter().write(responseData.toString());
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -81,7 +68,8 @@ public class confirmarSenha extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+        rd.forward(request, response);
     }
 
     /**

@@ -84,7 +84,7 @@
 
         <div id="modal-produto" class="modal generic hidden" data-modal-index="1" data-lock-screen="true">
             <input type="hidden" id="modal-produto-id" value="">
-            <button id="close-modal" class="modal-produto-botao">
+            <button class="modal-produto-botao close-modal styled">
                 <img src="imgs/x-symbol.svg" alt="">
             </button>
             <div id="modal-produto-main">
@@ -536,7 +536,7 @@
         <script src="scripts/loja/userRating.js"></script>
         <script src="scripts/carrossel.js"></script>
         <script src="scripts/janelas-modais/slider.js"></script>
-        <script src="scripts/janelas-modais/modal.js"></script>
+        <script type="module" src="scripts/janelas-modais/modal.js"></script>
         <script src="scripts/acessibilidade/acessibilidade.js"></script>
     </body>
 </html>

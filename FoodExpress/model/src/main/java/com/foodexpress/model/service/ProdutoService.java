@@ -23,8 +23,15 @@ public class ProdutoService {
         return instance;
     }
 
-    public boolean adicionarProduto(ProdutoDTO obj){
-        return produtoDAO.cadastrar(obj);
+    public ProdutoDTO adicionarProduto(int idLoja, int idCategoria){
+        ProdutoDTO produto = new ProdutoDTO(idLoja, idCategoria);
+
+        boolean check = produtoDAO.cadastrar(produto);
+
+        if(!check)
+            return null;
+
+        return produtoDAO.getUltimoProduto();
     }
 
     public List<ProdutoDTO> listarProdutos(int idLoja) {
@@ -34,6 +41,10 @@ public class ProdutoService {
     public boolean editarProduto(ProdutoDTO obj) {
         return produtoDAO.update(obj);
     }
+
+    public boolean removerProduto(int id) { return produtoDAO.remover(id); };
+
+    public boolean removerByCategoria(int idCategoria) { return produtoDAO.removerByCategoria(idCategoria); }
 
     public ProdutoDTO getProdutoById(int id) {
         return produtoDAO.getProdutoById(id);

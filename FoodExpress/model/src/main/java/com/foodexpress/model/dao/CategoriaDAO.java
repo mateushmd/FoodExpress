@@ -28,7 +28,8 @@ public class CategoriaDAO extends DAOTemplate<CategoriaDTO> {
 
             categoria.setId(rs.getInt("id"));
             categoria.setIdLoja(rs.getInt("id_loja"));
-            categoria.setNome(rs.getString("nome "));
+            categoria.setNome(rs.getString("nome"));
+            categoria.setVisivel(rs.getBoolean("visivel"));
         } catch(SQLException ex) {
             java.util.logging.Logger.getLogger(CategoriaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -37,12 +38,12 @@ public class CategoriaDAO extends DAOTemplate<CategoriaDTO> {
     }
 
     public boolean inserir(CategoriaDTO obj) {
-        String sql = "INSERT INTO categorias (id_loja, nome) VALUES (?, ?)";
+        String sql = "INSERT INTO categorias (id_loja, nome, visivel) VALUES (?, ?, ?)";
 
-        return executeUpdate(sql, obj.getIdLoja(), obj.getNome());
+        return executeUpdate(sql, obj.getIdLoja(), obj.getNome(), obj.getVisivel());
     }
 
-    public boolean excluir(int id) {
+    public boolean remover(int id) {
         String sql = "DELETE FROM categorias WHERE id = ?";
 
         return executeUpdate(sql, id);
@@ -62,5 +63,17 @@ public class CategoriaDAO extends DAOTemplate<CategoriaDTO> {
         List<CategoriaDTO> categoria = executeQuery(sql);
 
         return categoria.isEmpty() ? null : categoria.get(0);
+    }
+
+    public boolean alterarVisibilidade(int id, boolean visibilidade) {
+        String sql = "UPDATE categorias SET visivel = ? WHERE id = ?";
+
+        return executeUpdate(sql, visibilidade, id);
+    }
+
+    public boolean alterarNome(int id, String nome) {
+        String sql = "UPDATE categorias SET nome = ? WHERE id = ?";
+
+        return executeUpdate(sql, nome, id);
     }
 }

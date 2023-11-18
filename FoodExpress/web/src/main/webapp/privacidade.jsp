@@ -205,7 +205,7 @@
 
         <script src="scripts/jquery/jquery.js"></script>
         <script type="module" src="scripts/sacola/removerSacola.js"></script>
-        <script src="scripts/janelas-modais/modal.js"></script>
+        <script type="module" src="scripts/janelas-modais/modal.js"></script>
         <script src="scripts/acessibilidade/acessibilidade.js"></script>
         <script src="scripts/janelas-modais/slider.js"></script>
     </body>

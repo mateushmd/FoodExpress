@@ -1,4 +1,4 @@
-package com.foodexpress.web.servlet;
+package com.foodexpress.web.servlet.usuario;
 
 import com.foodexpress.model.dto.UsuarioDTO;
 import com.foodexpress.model.service.FavoritosService;

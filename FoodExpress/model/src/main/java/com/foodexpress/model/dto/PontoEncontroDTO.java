@@ -1,18 +1,14 @@
 package com.foodexpress.model.dto;
 
 public class PontoEncontroDTO {
-    int id;
-    int idLoja;
-    String nome;
+    private int id;
+    private int idLoja;
+    private int campus;
+    private String nome;
 
-    public PontoEncontroDTO(int id, int idLoja, String nome) {
-        this.id = id;
+    public PontoEncontroDTO(int idLoja, int campus, String nome) {
         this.idLoja = idLoja;
-        this.nome = nome;
-    }
-
-    public PontoEncontroDTO(int idLoja, String nome) {
-        this.idLoja = idLoja;
+        this.campus = campus;
         this.nome = nome;
     }
 
@@ -34,6 +30,10 @@ public class PontoEncontroDTO {
     public void setIdLoja(int idLoja) {
         this.idLoja = idLoja;
     }
+
+    public int getCampus() { return campus; }
+
+    public void setCampus(int campus) { this.campus = campus; }
 
     public String getNome() {
         return nome;

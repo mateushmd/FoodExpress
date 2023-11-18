@@ -335,7 +335,7 @@
         <script src="scripts/rating.js"></script>
         <script src="scripts/acessibilidade/acessibilidade.js"></script>
         <script src="scripts/janelas-modais/slider.js"></script>
-        <script src="scripts/janelas-modais/modal.js"></script>
+        <script type="module" src="scripts/janelas-modais/modal.js"></script>
     </body>
 </html>
 

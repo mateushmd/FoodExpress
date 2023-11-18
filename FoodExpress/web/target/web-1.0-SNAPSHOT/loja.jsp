@@ -14,7 +14,7 @@
         <link rel="stylesheet" type="text/css" href="styles/carrossel.css">
         <link rel="stylesheet" type="text/css" href="styles/main/footer.css">
         <link rel="stylesheet" type="text/css" href="styles/slider.css">
-        <link rel="stylesheet" type="text/css" href="styles/main/modal.css">
+        <link rel="stylesheet" type="text/css" href="styles/modal.css">
         <link rel="icon" type="image/png" href="imgs/icon.png" />
     </head>
     <body>
@@ -33,6 +33,8 @@
         <input type="hidden" id="emailFirebase" value="${loja.idUser}">
         <input type="hidden" id="avaliacao" value="<fmt:formatNumber value="${loja.avaliacao}" type="number" pattern="#,##0.0" />">
         <input type="hidden" id="id-usuario" value="${usuario.email}">
+
+
 
         <header id="navbar">
             <img id="navbar-logo" src="imgs/logo3.png" alt="Logo">
@@ -54,7 +56,14 @@
                         <ul>
                             <li><a href="dados.jsp"><img src="imgs/header/engrenagem.svg" alt="">Dados</a></li>
                             <li><a href=""><img src="imgs/header/pedido.svg" alt="">Pedidos</a></li>
-                            <li><a href=""><img src="imgs/header/chat.svg" alt="">Conversas</a></li>
+                            <li><a  id="conversasBtn"><img src="imgs/header/chat.svg" alt="">Conversas</a></li>
+                            <input style="display: none" id="meuInput2" value="${usuario.email}">
+                            <script>
+                            document.getElementById('conversasBtn').onclick = function () {
+                                var valor = document.getElementById('meuInput2').value;
+                                window.location.href = 'conversas.jsp?valor=' + encodeURIComponent(valor);
+                            };
+                        </script>
                             <li><a href="meus-favoritos"><img src="imgs/header/coracao.svg" alt="">Favoritos</a></li>
                             <li><a href="acessibilidade.jsp"><img src="imgs/header/acessibilidade.svg" alt="">Acessibilidade</a></li>
                             <li><a href="logout"><img src="imgs/header/sair.svg" alt="">Sair</a></li>
@@ -75,7 +84,7 @@
 
         <div id="modal-produto" class="modal generic hidden" data-modal-index="1" data-lock-screen="true">
             <input type="hidden" id="modal-produto-id" value="">
-            <button id="close-modal" class="modal-produto-botao">
+            <button class="modal-produto-botao close-modal styled">
                 <img src="imgs/x-symbol.svg" alt="">
             </button>
             <div id="modal-produto-main">
@@ -152,6 +161,17 @@
                 <div class="favorite">
                     <button type="submit" class="${favorito eq true ? 'active' : ''}">♥</button>
                     <input type="hidden" name="id" value="${loja.id}">
+                </div>
+                <div class="favorite">
+                    <input hidden="true" id="meuInput" type="text" value="${loja.idUser}">
+                    <a href="#" id="meuLink" style="text-decoration: none;color: #cd606b; font-size:25px;">Chat</a>
+
+                    <script>
+                        document.getElementById('meuLink').onclick = function () {
+                            var valor = document.getElementById('meuInput').value;
+                            window.location.href = 'chat.jsp?valor=' + encodeURIComponent(valor);
+                        };
+                    </script>
                 </div>
             </section>
             <section id="pesquisa">
@@ -460,43 +480,43 @@
         <script src="scripts/jquery/jquery.js"></script>
 
         <script type="module">
-            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-            import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
-            const firebaseConfig = {
-                apiKey: "AIzaSyC6E9U_uW78MMsIf9oQKBTm5LjvRp6OB2A",
-                authDomain: "restricted-d6b24.firebaseapp.com",
-                databaseURL: "https://restricted-d6b24-default-rtdb.firebaseio.com",
-                projectId: "restricted-d6b24",
-                storageBucket: "restricted-d6b24.appspot.com",
-                messagingSenderId: "351037789777",
-                appId: "1:351037789777:web:5a43c6cd09be7a53d70a70",
-                measurementId: "G-G0VFKP7XGK"
-            };
-            const app = initializeApp(firebaseConfig);
-            function getImageUrlByName() {
-                const storage = getStorage(app); // Corrigido para usar 'app' em vez de 'firebaseApp'
-                let e = document.getElementById("emailFirebase");
-                const storageRef = ref(storage, 'lojaFoto/' + e.value);//Alteração
-                return getDownloadURL(storageRef)
-                        .then(downloadURL => {
-                            return downloadURL;
-                        })
-                        .catch(error => {
-                            console.error('Error getting download URL:', error);
-                            return null;
-                        });
-            }
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+    import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
+    const firebaseConfig = {
+        apiKey: "AIzaSyC6E9U_uW78MMsIf9oQKBTm5LjvRp6OB2A",
+        authDomain: "restricted-d6b24.firebaseapp.com",
+        databaseURL: "https://restricted-d6b24-default-rtdb.firebaseio.com",
+        projectId: "restricted-d6b24",
+        storageBucket: "restricted-d6b24.appspot.com",
+        messagingSenderId: "351037789777",
+        appId: "1:351037789777:web:5a43c6cd09be7a53d70a70",
+        measurementId: "G-G0VFKP7XGK"
+    };
+    const app = initializeApp(firebaseConfig);
+    function getImageUrlByName() {
+        const storage = getStorage(app); // Corrigido para usar 'app' em vez de 'firebaseApp'
+        let e = document.getElementById("emailFirebase");
+        const storageRef = ref(storage, 'lojaFoto/' + e.value);//Alteração
+        return getDownloadURL(storageRef)
+                .then(downloadURL => {
+                    return downloadURL;
+                })
+                .catch(error => {
+                    console.error('Error getting download URL:', error);
+                    return null;
+                });
+    }
 
-            document.addEventListener("DOMContentLoaded", async function () {
-                let imageUrl = await getImageUrlByName();
-                const imgElement = document.getElementById('bannerLojaF');
-                const imgElement2 = document.getElementById('imgLojaF');
+    document.addEventListener("DOMContentLoaded", async function () {
+        let imageUrl = await getImageUrlByName();
+        const imgElement = document.getElementById('bannerLojaF');
+        const imgElement2 = document.getElementById('imgLojaF');
 
-                if (imageUrl !== null) {
-                    imgElement.src = imageUrl;
-                    imgElement2.src = imageUrl;
-                }
-            });
+        if (imageUrl !== null) {
+            imgElement.src = imageUrl;
+            imgElement2.src = imageUrl;
+        }
+    });
         </script>
 
         <script>
@@ -516,7 +536,7 @@
         <script src="scripts/loja/userRating.js"></script>
         <script src="scripts/carrossel.js"></script>
         <script src="scripts/janelas-modais/slider.js"></script>
-        <script src="scripts/janelas-modais/modal.js"></script>
+        <script type="module" src="scripts/janelas-modais/modal.js"></script>
         <script src="scripts/acessibilidade/acessibilidade.js"></script>
     </body>
 </html>

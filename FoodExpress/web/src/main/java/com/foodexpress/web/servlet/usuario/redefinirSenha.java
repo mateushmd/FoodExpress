@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package com.foodexpress.web.servlet.vendedor;
+package com.foodexpress.web.servlet.usuario;
 
-import com.foodexpress.model.dto.*;
-import com.foodexpress.model.service.*;
+import com.foodexpress.model.dto.UsuarioDTO;
+import com.foodexpress.model.service.UsuarioService;
 import com.google.gson.JsonObject;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
@@ -16,8 +16,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebServlet(name = "alterar-dados-loja", urlPatterns = {"/alterar-dados-loja"})
-public class alterarDadosLoja extends HttpServlet {
+@WebServlet(name = "redefinir-senha", urlPatterns = {"/redefinir-senha"})
+public class redefinirSenha extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("application/json");
@@ -26,21 +26,27 @@ public class alterarDadosLoja extends HttpServlet {
 
         JsonObject responseData = new JsonObject();
 
-        LojaDTO loja = (LojaDTO) session.getAttribute("loja");
+        UsuarioDTO usuario = (UsuarioDTO) session.getAttribute("usuario");
 
-        String nome = request.getParameter("nome");
-        String descricao = request.getParameter("descricao");
+        UsuarioService uservice = UsuarioService.getInstance();
+        
+        String senha = request.getParameter("senha");
+        
+        boolean check = uservice.redefinirSenha(usuario.getEmail(), senha);
 
-        LojaService lojaService = LojaService.getInstance();
+        if(!check)
+        {
+            responseData.addProperty("responseType", "error");
 
-        lojaService.updateNomeDescricao(loja.getId(), nome, descricao);
+            response.getWriter().write(responseData.toString());
 
-        loja.setNome(nome);
-        loja.setDescricao(descricao);
+            return;
+        }
 
-        session.setAttribute("loja", loja);
+        session.invalidate();
 
         responseData.addProperty("responseType", "success");
+        responseData.addProperty("redirect", "login.jsp");
 
         response.getWriter().write(responseData.toString());
     }
@@ -50,10 +56,4 @@ public class alterarDadosLoja extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }

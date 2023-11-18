@@ -2,6 +2,8 @@ package com.foodexpress.model.service;
 
 import com.foodexpress.model.dao.AgendaLojaDAO;
 import com.foodexpress.model.dto.AgendaLojaDTO;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class AgendaLojaService {
@@ -25,6 +27,30 @@ public class AgendaLojaService {
     }
     
     public List<AgendaLojaDTO> getAgendasByLoja(int idLoja){
+        ArrayList<AgendaLojaDTO> novaAgenda = (ArrayList<AgendaLojaDTO>) AgendaLojaDTO.gerarNovaAgenda();
+
+        ArrayList<AgendaLojaDTO> agenda = (ArrayList<AgendaLojaDTO>) dao.getAgendasByLoja(idLoja);
+
+        for(AgendaLojaDTO a : agenda) {
+            int index = a.getDiaSemana() - 1;
+
+            if(index >= 0 && index < novaAgenda.size()) {
+                novaAgenda.set(index, a);
+            }
+        }
+
+        return novaAgenda;
+    }
+
+    public List<AgendaLojaDTO> updateAgenda(int idLoja, List<AgendaLojaDTO> novaAgenda) {
+        dao.resetarAgenda(idLoja);
+
+        for(AgendaLojaDTO agenda : novaAgenda) {
+            agenda.setIdLoja(idLoja);
+
+            dao.cadastrar(agenda);
+        }
+
         return dao.getAgendasByLoja(idLoja);
     }
     

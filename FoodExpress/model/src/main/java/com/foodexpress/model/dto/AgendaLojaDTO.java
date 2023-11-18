@@ -1,18 +1,34 @@
 package com.foodexpress.model.dto;
 
-public class AgendaLojaDTO {
-    int idLoja;
-    String diaSemana;
-    String abertura;
-    String fechamento;
-    boolean campus1;
-    boolean campus2;
+import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
 
-    public AgendaLojaDTO(int idLoja, String diaSemana, String abertura, String fechamento, boolean campus1, boolean campus2) {
-        this.idLoja = idLoja;
-        this.diaSemana = diaSemana;
+public class AgendaLojaDTO {
+    private int idLoja;
+    private int diaSemana;
+    private Time abertura;
+    private Time fechamento;
+    private boolean campus1;
+    private boolean campus2;
+
+    public AgendaLojaDTO(int idLoja, int diaSemana, String abertura, String fechamento, boolean campus1, boolean campus2) {
+        this(idLoja, diaSemana, campus1, campus2);
+
+        this.abertura = Time.valueOf(abertura);
+        this.fechamento = Time.valueOf(fechamento);
+    }
+
+    private AgendaLojaDTO(int idLoja, int diaSemana, Time abertura, Time fechamento, boolean campus1, boolean campus2) {
+        this(idLoja, diaSemana, campus1, campus2);
+
         this.abertura = abertura;
         this.fechamento = fechamento;
+    }
+
+    private AgendaLojaDTO(int idLoja, int diaSemana, boolean campus1, boolean campus2) {
+        this.idLoja = idLoja;
+        this.diaSemana = diaSemana;
         this.campus1 = campus1;
         this.campus2 = campus2;
     }
@@ -28,29 +44,33 @@ public class AgendaLojaDTO {
         this.idLoja = idLoja;
     }
 
-    public String getDiaSemana() {
+    public int getDiaSemana() {
         return diaSemana;
     }
 
-    public void setDiaSemana(String diaSemana) {
+    public void setDiaSemana(int diaSemana) {
         this.diaSemana = diaSemana;
     }
 
-    public String getAbertura() {
+    public Time getAbertura() {
         return abertura;
     }
 
-    public void setAbertura(String abertura) {
+    public void setAbertura(Time abertura) {
         this.abertura = abertura;
     }
 
-    public String getFechamento() {
+    public void setAbertura(String abertura) { this.abertura = Time.valueOf(abertura); }
+
+    public Time getFechamento() {
         return fechamento;
     }
 
-    public void setFechamento(String fechamento) {
+    public void setFechamento(Time fechamento) {
         this.fechamento = fechamento;
     }
+
+    public void setFechamento(String fechamento) { this.fechamento = Time.valueOf(fechamento); }
 
     public boolean isCampus1() {
         return campus1;
@@ -68,5 +88,13 @@ public class AgendaLojaDTO {
         this.campus2 = campus2;
     }
 
-    
+    public static List<AgendaLojaDTO> gerarNovaAgenda() {
+        ArrayList<AgendaLojaDTO> agenda = new ArrayList<>();
+
+        for(int i = 1; i <= 7; i++) {
+            agenda.add(new AgendaLojaDTO(-1, i, (Time) null, null, false, false));
+        }
+
+        return agenda;
+    }
 }

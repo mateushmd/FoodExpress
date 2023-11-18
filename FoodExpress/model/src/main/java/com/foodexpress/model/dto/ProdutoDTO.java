@@ -9,8 +9,16 @@ public class ProdutoDTO {
     String descricao;
     boolean disponivel;
 
-    public ProdutoDTO(int idLoja, int idCategoria, String nome, double preco, boolean disponivel) {
+    public ProdutoDTO(int idLoja, int idCategoria) {
         this.idLoja = idLoja;
+        this.idCategoria = idCategoria;
+
+        nome = "Novo produto";
+        preco = 0.00;
+    }
+
+    public ProdutoDTO(int idLoja, int idCategoria, String nome, double preco, boolean disponivel) {
+        this(idLoja, idCategoria);
         this.nome = nome;
         this.preco = preco;
         this.disponivel = disponivel;

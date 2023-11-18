@@ -45,6 +45,7 @@ body {
     height: 25px;
     animation: spin 2s linear infinite;
     z-index: 99999;
+    overflow: hidden;
 }
 
 .loader.white {
