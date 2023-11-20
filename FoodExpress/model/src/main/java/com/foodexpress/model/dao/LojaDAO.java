@@ -5,11 +5,9 @@
 package com.foodexpress.model.dao;
 
 import com.foodexpress.model.dto.LojaDTO;
-import com.foodexpress.model.dto.ProdutoDTO;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -50,24 +48,10 @@ public class LojaDAO extends DAOTemplate<LojaDTO> {
         return loja;
     }
     
-    public boolean cadastrar(LojaDTO obj){
-        String sql = "INSERT INTO lojas (nome, descricao, avaliacao, id_usuario) VALUES (?, ?, ?, ?)";
+    public boolean cadastrar(String email){
+        String sql = "INSERT INTO lojas (id_usuario) VALUES (?)";
         
-        return executeUpdate(sql, obj.getNome(), obj.getDescricao(), obj.getAvaliacao(), obj.getIdUser());
-    }
-    
-    public int login(String idUser){
-        String sql = "SELECT * FROM lojas WHERE id_usuario = ?";
-        
-        List<LojaDTO> lojas = executeQuery(sql, idUser);
-        
-        //Loja não cadastrada
-        if(lojas.isEmpty())
-            return -1;
-        
-        LojaDTO loja = lojas.get(0);
-        
-        return 1;
+        return executeUpdate(sql, email);
     }
     
     public LojaDTO getLoja(String idUser) {
@@ -85,26 +69,57 @@ public class LojaDAO extends DAOTemplate<LojaDTO> {
         
         return lojas.isEmpty() ? null : lojas.get(0);
     }
-    
-    public boolean updateND(LojaDTO obj){
-        String sqlUpdate = "UPDATE lojas SET nome = ?, descricao = ? WHERE id_usuario = ?";
-        
-        return executeUpdate(sqlUpdate, obj.getNome(), obj.getDescricao(), obj.getIdUser());
+
+    public List<LojaDTO> buscarLoja(String b){
+        String busca = "%" + b + "%";
+        String sql = "SELECT * FROM foodexpress.lojas WHERE nome LIKE ?";
+
+        return executeQuery(sql, busca);
     }
-    
+
+    public boolean updateNomeDescricao(int id, String nome, String descricao){
+        String sqlUpdate = "UPDATE lojas SET nome = ?, descricao = ? WHERE id = ?";
+        
+        return executeUpdate(sqlUpdate, nome, descricao, id);
+    }
+
+    public boolean updateNome(int id, String nome) {
+        String sql = "UPDATE lojas SET nome = ? WHERE id = ?";
+
+        return executeUpdate(sql, nome, id);
+    }
+
     public boolean updateAvaliacao(LojaDTO obj){
         String sqlUpdate = "UPDATE lojas SET avaliacao = ?, qtd_avaliacoes = ?, soma_avaliacoes = ? WHERE id = ?";
         
         return executeUpdate(sqlUpdate, obj.getAvaliacao(), obj.getQtdAvaliacoes(), obj.getSomaAvaliacoes(), obj.getId());
     }
-    
-    public List<LojaDTO> ListarLojas() {
-        String sql = "SELECT * FROM lojas ORDER BY nome";
+
+    public List<LojaDTO> getMaisBemAvaliadas() {
+        String sql = "SELECT * FROM lojas ORDER BY avaliacao DESC LIMIT 5";
+
+        return executeQuery(sql);
+    }
+
+    public List<LojaDTO> listarLojas(int offSet) {
+        String sql = "SELECT * FROM lojas WHERE nome IS NOT NULL LIMIT 8 OFFSET " + offSet;
         
         return executeQuery(sql);
     }
     
     public LojaDTO getLoja(){
         return loja;
+    }
+
+    public boolean insertLojaTest(String idUsuario, String nomeLoja) {
+        String sql = "INSERT INTO lojas (id_usuario, nome) VALUES (?, ?)";
+
+        return executeUpdate(sql, idUsuario, nomeLoja);
+    }
+
+    public int getTotalLojas() {
+        String sql = "SELECT COUNT(*) AS total FROM lojas";
+
+        return count(sql);
     }
 }

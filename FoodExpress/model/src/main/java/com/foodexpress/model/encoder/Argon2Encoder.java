@@ -20,9 +20,7 @@ public class Argon2Encoder {
     }
     
     public String encode(String target) {
-        String encoded = encoder.encode(target);
-        
-        return encoded;
+        return encoder.encode(target);
     }
     
     public boolean check(String target, String encoded) {

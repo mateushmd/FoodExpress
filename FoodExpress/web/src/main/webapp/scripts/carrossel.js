@@ -29,28 +29,6 @@ arrows.forEach((el) =>
     });
 });
 
-const itemsLoja = [...document.querySelectorAll('.item-loja')];
-
-itemsLoja.forEach((el) =>
-{
-    el.addEventListener('click', (e) =>
-    {
-        const inputSubmitEl = el.querySelector('.submit-action');
-        
-        const formEl = el.closest('form');
-        
-        if(e.target.tagName === 'BUTTON') 
-        {
-            inputSubmitEl.value = 'FAVORITAR';
-            formEl.submit();
-        }
-        
-        inputSubmitEl.value = 'VISUALIZAR';
-        
-        formEl.submit();
-    });
-});
-
 function resizeArrow() 
 {
     if (bodyEl.scrollHeight <= bodyEl.clientHeight)

@@ -1,12 +1,9 @@
 .loja {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 24% 66% 10%;
     align-items: center;
-    gap: 10px;
-    padding: 10px;
-
     transition: all .2s ease;
-    padding-bottom: 20px;
+    padding: 10px 10px 20px;
     margin-bottom: 20px;
 }
 
@@ -22,6 +19,10 @@
 .loja,
 .loja h2 {
     font-weight: 707;
+}
+
+.loja h2 {
+
 }
 
 .img-loja {
@@ -54,4 +55,30 @@
     object-fit: cover;
     margin-left: 30px;
     cursor: pointer;
+}
+
+.mensagem {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.mensagem h2 {
+    font-weight: 800;
+}
+
+.mensagem p {
+    font-weight: 707;
+}
+
+.mensagem img {
+    width: 30%;
+    height: 30%;
 }

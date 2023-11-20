@@ -14,8 +14,8 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Login</title>
+        <link rel="stylesheet" type="text/css" href="styles/main/main.css">
         <link rel="stylesheet" type="text/css" href="styles/style.css">
-        <link rel="stylesheet" type="text/css" href="fonts/style.css"/>
         <link rel="icon" type="image/png" href="imgs/icon.png"/>
     </head>
     <body>
@@ -23,7 +23,7 @@
             <div class="fundo"></div>
             <div class="containerLogin">
                 <img src="imgs/logo-sem-fundo.png" class="logoLog" alt="">
-                <form action="login" method="post">
+                <div class="form">
                     <section class="campo">
                         <label for="email" class="label">E-MAIL:</label>
                         <input type="email" id="email" name="email">
@@ -36,16 +36,18 @@
                     </section>
 
                     <div class="botao">
-                        <input type="submit" value="LOGAR" style="cursor: pointer; font-family: 'Oswald', sans-serif;" id="login">
-                        <p class="parag">Não tem cadastro? <a href="index.html" id="cadastroBtn">Cadastrar</a></p>
+                        <input type="submit" value="LOGAR" style="cursor: pointer; font-family: 'Oswald', sans-serif;" id="login" data-key="13">
+                        <p class="parag">Não tem cadastro? <a href="cadastro.html" id="cadastroBtn">Cadastrar</a></p>
                     </div>
 
-                    <c:if test = "${msg != null}">
-                        <p id="aviso"><c:out value = "${msg}"/></p> 
-                    </c:if>
-                </form> 
+                </div>
             </div>
         </div>
+
+        <script src="scripts/jquery/jquery.js"></script>
+
+        <script src="scripts/autenticacao/login.js"></script>
+        <script src="scripts/keyListener.js"></script>
     </body>
 </html>
 

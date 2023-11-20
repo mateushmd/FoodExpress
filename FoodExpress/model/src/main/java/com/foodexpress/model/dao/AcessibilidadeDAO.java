@@ -57,4 +57,10 @@ public class AcessibilidadeDAO extends DAOTemplate<AcessibilidadeDTO> {
 
         return configuracoes.isEmpty() ? null : configuracoes.get(0);
     }
+
+    public boolean removerConfiguracao(String idUsuario) {
+        String sql = "DELETE FROM acessibilidade WHERE id_usuario = ?";
+
+        return executeUpdate(sql, idUsuario);
+    }
 }

@@ -3,11 +3,12 @@ package com.foodexpress.model.email;
 import java.util.Properties;
 import javax.mail.*;
 
+@Deprecated
 public class TLSEmailAuth {
 
-    private static final String CLIENT_ID = "equipefoodexpress@gmail.com";
-    private static final String PASSWORD = "AIzaSyDOYKW0Js3WhAEjJZNrIiIFn0zfzlDicDo";
-    
+    private static final String CLIENT_ID = "294719564927-lgmm5s7ta6m429orn19th8d1usksshv7.apps.googleusercontent.com";
+    private static final String PASSWORD = "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";
+
     private static Session SESSION = null;
 
     protected static Session getSession() {

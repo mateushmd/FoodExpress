@@ -11,9 +11,11 @@ public class LojaDTO {
     private int somaAvaliacoes;
     private String idUser;
     private List<ProdutoDTO> cardapio;
+    private boolean aberto;
 
     //Resgatar do bd
     public LojaDTO(int id, String nome, String descricao, double avaliacao, String idUser, int qtdAvaliacoes, int somaAvaliacoes) {
+        this();
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
@@ -25,6 +27,7 @@ public class LojaDTO {
 
     //Salvar no bd
     public LojaDTO(String nome, String descricao, double avaliacao, String idUser) {
+        this();
         this.nome = nome;
         this.descricao = descricao;
         this.avaliacao = avaliacao;
@@ -33,6 +36,7 @@ public class LojaDTO {
     
     //Criar objeto
     public LojaDTO(){
+        aberto = false;
     }
 
     public int getId() {
@@ -90,4 +94,8 @@ public class LojaDTO {
     public void setSomaAvaliacoes(int somaAvaliacoes) {
         this.somaAvaliacoes = somaAvaliacoes;
     }
+
+    public boolean getAberto() { return aberto; }
+
+    public void setAberto(boolean aberto) { this.aberto = aberto; }
 }
