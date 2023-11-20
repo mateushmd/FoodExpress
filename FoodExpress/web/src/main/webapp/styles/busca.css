@@ -1,0 +1,119 @@
+body {
+    margin: 0;
+    height: 100vh;
+    background-color: var(--cor-fundo);
+    font-family: 'Cooper Hewitt', sans-serif;
+}
+
+main {
+    padding: 30px 250px;
+}
+
+h1 {
+    font-weight: 800;
+}
+
+h1 span {
+    color: var(--marca);
+}
+
+.busca {
+    display: grid;
+    column-gap: 20px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: repeat(1fr);
+}
+
+.mensagem {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.mensagem h2 {
+    font-weight: 800;
+}
+
+.mensagem p {
+    font-weight: 707;
+}
+
+.mensagem img {
+    width: 30%;
+    height: 30%;
+}
+
+.loja {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+
+    transition: all .2s ease;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+
+    cursor: pointer;
+}
+
+.loja:hover {
+    box-shadow: 1px 1px 4px 1px #c0c0c0;
+    transform: scale(1.02);
+}
+
+.loja,
+.loja h2 {
+    font-weight: 707;
+}
+
+.loja h2,
+.loja p {
+    margin: 5px;
+}
+
+.img-loja {
+    width: calc(100px * var(--escala));
+    height: calc(100px * var(--escala));
+    object-fit: cover;
+    border-radius: 10%;
+}
+
+.loja-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.avaliacao,
+.disponibilidade {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+}
+
+.avaliacao img {
+    width: 20px;
+    height: 20px;
+}
+
+.disponibilidade svg {
+    width: 10px;
+    height: 10px;
+    padding-bottom: 2px;
+}
+
+.disponibilidade.aberto {
+    color: green;
+}
+
+.disponibilidade.fechado {
+    color: red;
+}

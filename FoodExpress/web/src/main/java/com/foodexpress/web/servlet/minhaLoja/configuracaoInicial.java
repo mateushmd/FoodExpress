@@ -43,8 +43,6 @@ public class configuracaoInicial extends HttpServlet {
 
         String nome = request.getParameter("nome");
 
-        LojaService.getInstance().getLoja(usuario.getEmail()).setNome(nome);
-
         LojaService lojaService = LojaService.getInstance();
         LojaDTO loja = lojaService.getLoja(usuario.getEmail());
 

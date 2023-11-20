@@ -14,7 +14,7 @@
         <link rel="stylesheet" type="text/css" href="styles/carrossel.css">
         <link rel="stylesheet" type="text/css" href="styles/main/footer.css">
         <link rel="stylesheet" type="text/css" href="styles/slider.css">
-        <link rel="stylesheet" type="text/css" href="styles/modal.css">
+        <link rel="stylesheet" type="text/css" href="styles/main/modal.css">
         <link rel="icon" type="image/png" href="imgs/icon.png" />
     </head>
     <body>
@@ -22,7 +22,8 @@
         <c:set var="sacola" value="${sessionScope.sacola}"/>
         <c:set var="acessibilidade" value="${sessionScope.acessibilidade}"/>
         <c:set var="loja" value="${requestScope.loja}"/>
-        <c:set var="produtos" value="${requestScope.produtos}"/>
+        <c:set var="categorias" value="${requestScope.categorias}"/>
+        <c:set var="destaques" value="${requestScope.destaques}"/>
         <c:set var="avaliacoes" value="${requestScope.avaliacoes}"/>
         <c:set var="avaliacaoUsuario" value="${requestScope.avaliacaoUsuario}"/>
         <c:set var="favorito" value="${requestScope.favorito}"/>
@@ -33,8 +34,6 @@
         <input type="hidden" id="emailFirebase" value="${loja.idUser}">
         <input type="hidden" id="avaliacao" value="<fmt:formatNumber value="${loja.avaliacao}" type="number" pattern="#,##0.0" />">
         <input type="hidden" id="id-usuario" value="${usuario.email}">
-
-
 
         <header id="navbar">
             <img id="navbar-logo" src="imgs/logo3.png" alt="Logo">
@@ -97,7 +96,7 @@
                         <h2 class="font-707">Resumo:</h2>
                         <div id="modal-produto-resumo" class="font-707">
                             <div>
-                                <p id="modal-produto-nome-loja">NOME DA LOJA</p>
+                                <p id="modal-produto-nome-loja">${loja.nome}</p>
                                 <div id="modal-produto-avaliacao">
                                     <img src="imgs/star.svg" alt="">
                                     <p>5</p>
@@ -193,7 +192,7 @@
                 <div class="carousel-container fit-product" data-items="3" data-index="0">
                     <div class="arrow arrow-rounded left-arrow"><img src="imgs/carrossel/seta.svg" alt=""></div>
                     <div class="carousel" data-index="0">
-                        <c:forEach items="${produtos}" var="produto">
+                        <c:forEach items="${destaques}" var="produto">
                             <div class="item fit-product modal-trigger" data-modal-index="1">
                                 <input type="hidden" class="id-produto" value="${produto.id}">
                                 <div class="img-container">
@@ -217,26 +216,24 @@
                 </div>
             </section>
             <section id="produtos">
-                <h1>CATEGORIA 1</h1>
-                <div class="categoria">
-                    <c:forEach items="${produtos}" var="produto">
-                        <div class="produto modal-trigger" data-modal-index="1">
-                            <input type="hidden" class="id-produto" value="${produto.id}">
-                            <div class="info-produto">
-                                <h2 class="font-707 nome">${produto.nome}</h2>
-                                <p class="descricao">${produto.descricao}</p>
-                                <p class="preco">R$<fmt:formatNumber value='${produto.preco}' pattern='0.00' /></p>
+                <c:forEach items="${categorias}" var="categoria">
+                    <h1>${categoria.nome}</h1>
+                    <div class="categoria">
+                        <c:forEach items="${categoria.produtos}" var="produto">
+                            <div class="produto modal-trigger" data-modal-index="1">
+                                <input type="hidden" class="id-produto" value="${produto.id}">
+                                <div class="info-produto">
+                                    <h2 class="font-707 nome">${produto.nome}</h2>
+                                    <p class="descricao">${produto.descricao}</p>
+                                    <p class="preco">R$<fmt:formatNumber value='${produto.preco}' pattern='0.00' /></p>
+                                </div>
+                                <div class="img-produto">
+                                    <img src="imgs/teste/teste.jpg" alt="">
+                                </div>
                             </div>
-                            <div class="img-produto">
-                                <img src="imgs/teste/teste.jpg" alt="">
-                            </div>
-                        </div>
-                    </c:forEach>
-                </div>
-                <h1>CATEGORIA 2</h1>
-                <div class="categoria">
-
-                </div>
+                        </c:forEach>
+                    </div>
+                </c:forEach>
             </section>
         </main>
         <footer>
@@ -246,7 +243,7 @@
                         <h4>Menu</h4>
                         <ul>
                             <li><a href="inicio.jsp"> Inicio</a></li>
-                            <li><a href="gerenciarperfil.jsp"> Perfil</a></li>
+                            <li><a href="dados.jsp">Perfil</a></li>
                             <li><a href="sobre.jsp">Sobre</a></li>
                         </ul>
                     </div>
@@ -537,6 +534,7 @@
         <script src="scripts/carrossel.js"></script>
         <script src="scripts/janelas-modais/slider.js"></script>
         <script type="module" src="scripts/janelas-modais/modal.js"></script>
-        <script src="scripts/acessibilidade/acessibilidade.js"></script>
+        <script src="scripts/usuario/acessibilidade/acessibilidade.js"></script>
+        <script src="scripts/busca.js"></script>
     </body>
 </html>

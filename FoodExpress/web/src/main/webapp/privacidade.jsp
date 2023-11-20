@@ -100,7 +100,7 @@
                         <h4>Menu</h4>
                         <ul>
                             <li><a href="inicio.jsp"> Inicio</a></li>
-                            <li><a href="gerenciarperfil.jsp"> Perfil</a></li>
+                            <li><a href="dados.jsp">Perfil</a></li>
                             <li><a href="sobre.jsp">Sobre</a></li>
                         </ul>
                     </div>
@@ -206,7 +206,8 @@
         <script src="scripts/jquery/jquery.js"></script>
         <script type="module" src="scripts/sacola/removerSacola.js"></script>
         <script type="module" src="scripts/janelas-modais/modal.js"></script>
-        <script src="scripts/acessibilidade/acessibilidade.js"></script>
+        <script src="scripts/usuario/acessibilidade/acessibilidade.js"></script>
         <script src="scripts/janelas-modais/slider.js"></script>
+        <script src="scripts/busca.js"></script>
     </body>
 </html>

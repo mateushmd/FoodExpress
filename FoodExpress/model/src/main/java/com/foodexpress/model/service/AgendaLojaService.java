@@ -42,6 +42,10 @@ public class AgendaLojaService {
         return novaAgenda;
     }
 
+    public AgendaLojaDTO getAgendaByLojaAndDia(int loja, int diaSemana) {
+        return dao.getAgendaByLojaAndDia(loja, diaSemana);
+    }
+
     public List<AgendaLojaDTO> updateAgenda(int idLoja, List<AgendaLojaDTO> novaAgenda) {
         dao.resetarAgenda(idLoja);
 

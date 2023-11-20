@@ -31,11 +31,11 @@ public abstract class DAOTemplate<T> {
         
         try {
             st = conn.prepareStatement(sql);
-            
+
             setStatementParameters(st, params);
-            
+
             rs = st.executeQuery();
-            
+
             while (rs.next()) {
                 results.add(mapResultSetToObject(rs));
             }
@@ -97,6 +97,31 @@ public abstract class DAOTemplate<T> {
         }
 
         return exists;
+    }
+
+    protected int count(String sql) {
+        setConnection();
+
+        int rowCount = 0;
+        ResultSet rs = null;
+        PreparedStatement st = null;
+
+        try {
+            st = conn.prepareStatement(sql);
+
+            rs = st.executeQuery();
+
+            if(rs.next())
+                rowCount = rs.getInt(1);
+
+            rs.close();
+            st.close();
+            if(conn != null) conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOTemplate.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return rowCount;
     }
 
     private void setStatementParameters(PreparedStatement st, Object... params) throws SQLException {

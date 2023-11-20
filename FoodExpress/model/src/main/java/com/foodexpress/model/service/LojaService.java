@@ -1,23 +1,24 @@
 package com.foodexpress.model.service;
 
 import com.foodexpress.model.dao.LojaDAO;
-import com.foodexpress.model.dao.ProdutoDAO;
-import com.foodexpress.model.dto.AvaliacaoDTO;
-import com.foodexpress.model.dto.LojaDTO;
-import com.foodexpress.model.dto.ProdutoDTO;
-import java.sql.SQLException;
-import java.text.DecimalFormat;
+import com.foodexpress.model.dto.*;
+
+import java.time.DayOfWeek;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class LojaService {
-    private LojaDAO ldao;
+    private final LojaDAO ldao;
     
     private static LojaService instance = null;
+
+    private static AgendaLojaService agendaLojaService = null;
     
     private LojaService(){
         ldao = LojaDAO.getInstance();
+        agendaLojaService = AgendaLojaService.getInstance();
     }
     
     public static LojaService getInstance(){
@@ -26,15 +27,36 @@ public class LojaService {
         
         return instance;
     }
-    
-    public LojaDTO getLoja(String idUser) {
-        return ldao.getLoja(idUser);
+
+    public LojaDTO getLoja(String idUsuario) {
+        return ldao.getLoja(idUsuario);
     }
-    
+
     public LojaDTO getLojaById(int idLoja) {
-        return ldao.getLojaById(idLoja);
+        LojaDTO loja = ldao.getLojaById(idLoja);
+
+        loja.setAberto(estaAberto(idLoja));
+
+        return loja;
     }
-    
+
+    public boolean estaAberto(int idLoja) {
+        LocalDateTime now = LocalDateTime.now();
+
+        DayOfWeek hoje = now.getDayOfWeek();
+
+        AgendaLojaDTO agenda = agendaLojaService.getAgendaByLojaAndDia(idLoja, hoje.getValue());
+
+        if(agenda == null)
+            return false;
+
+        LocalTime horaAtual = now.toLocalTime();
+
+        return !horaAtual.isBefore(agenda.getAbertura().toLocalTime()) && !horaAtual.isAfter(agenda.getFechamento().toLocalTime());
+    }
+
+    public List<LojaDTO> buscarLoja(String busca) { return ldao.buscarLoja(busca); }
+
     public boolean updateNomeDescricao(int id, String nome, String descricao){
         return ldao.updateNomeDescricao(id, nome, descricao);
     }
@@ -76,8 +98,40 @@ public class LojaService {
     public void cadastrar(String email){
         ldao.cadastrar(email);
     }
-    
-    public List<LojaDTO> listarLojas() {
-        return ldao.ListarLojas();
+
+    public List<GrupoLojasDTO> agruparLojas() {
+        List<GrupoLojasDTO> lista = new ArrayList<>();
+
+        lista.add(getMaisBemAvaliados());
+
+        return lista;
+    }
+
+    public List<LojaDTO> listarLojas(int callNumber) {
+        int offSet = (callNumber - 1) * 8;
+
+        ArrayList<LojaDTO> lojas = (ArrayList<LojaDTO>) ldao.listarLojas(offSet);
+
+        for(LojaDTO loja : lojas) {
+            loja.setAberto(estaAberto(loja.getId()));
+        }
+
+        return lojas;
+    }
+
+    public GrupoLojasDTO getMaisBemAvaliados() {
+        ArrayList<LojaDTO> lojas = (ArrayList<LojaDTO>) ldao.getMaisBemAvaliadas();
+
+        for(LojaDTO loja : lojas) {
+            loja.setAberto(estaAberto(loja.getId()));
+        }
+
+        GrupoLojasDTO grupo = new GrupoLojasDTO("MAIS BEM AVALIADOS", lojas);
+
+        return grupo;
+    }
+
+    public boolean temMaisLojas(int quantidadeAtual) {
+        return quantidadeAtual < ldao.getTotalLojas();
     }
 }

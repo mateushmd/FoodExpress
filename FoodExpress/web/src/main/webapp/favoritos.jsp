@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -63,6 +64,11 @@
         <main>
             <section>
                 <h1>Favoritos</h1>
+                <div class="mensagem ${empty favoritos ? '' : 'hidden'}">
+                    <img src="imgs/coracao-partido.svg" alt="">
+                    <h2>Oh não!</h2>
+                    <p>Você ainda não adicionou uma loja aos seus favoritos. Comece a espalhar o amor!</p>
+                </div>
                 <c:forEach items="${favoritos}" var="favorito">
                     <div class="loja">
                         <img src="imgs/teste/teste.jpg" class="img-loja" alt="">
@@ -150,8 +156,9 @@
         <script type="module" src="scripts/sacola/removerSacola.js"></script>
         <script src="scripts/favoritos/removerFavorito.js"></script>
         <script type="module" src="scripts/janelas-modais/modal.js"></script>
-        <script src="scripts/acessibilidade/acessibilidade.js"></script>
+        <script src="scripts/usuario/acessibilidade/acessibilidade.js"></script>
         <script src="scripts/janelas-modais/slider.js"></script>
+        <script src="scripts/busca.js"></script>
     </body> 
 
 </html>

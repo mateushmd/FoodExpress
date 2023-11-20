@@ -170,6 +170,7 @@
         <script src="scripts/usuario/dados/alterarDados.js"></script>
         <script src="scripts/janelas-modais/slider.js"></script>
         <script src="scripts/mascaras.js"></script>
+        <script src="scripts/busca.js"></script>
     </body>
 
 </html>

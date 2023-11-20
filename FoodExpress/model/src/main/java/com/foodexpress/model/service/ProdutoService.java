@@ -51,4 +51,8 @@ public class ProdutoService {
     }
 
     public List<ProdutoDTO> getProdutosByCategoria(int idCategoria) { return produtoDAO.getProdutosByCategoria(idCategoria); }
+
+    public List<ProdutoDTO> getProdutosByCategoriaCliente(int idCategoria) { return produtoDAO.getProdutosByCategoriaCliente(idCategoria); }
+
+    public List<ProdutoDTO> getProdutosDestaqueCliente(int idLoja) { return produtoDAO.getProdutosDestacadosCliente(idLoja); }
 }

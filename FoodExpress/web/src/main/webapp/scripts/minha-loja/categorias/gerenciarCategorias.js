@@ -18,10 +18,10 @@ $(function() {
         removerCategoria($(`.categoria[data-id="${$('#alerta').data('id')}"]`));
     })
 
-    $('.toggle').each(function(index) {
+    $('.categoria .toggle').each(function(index) {
         let buttons = $(this).find('.toggle-button');
 
-        let categoria = $('.toggle').closest('.categoria');
+        let categoria = $(this).closest('.categoria');
 
         buttons.each(function(index) {
             $(this).on('click', () =>

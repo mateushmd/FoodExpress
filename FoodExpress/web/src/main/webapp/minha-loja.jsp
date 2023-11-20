@@ -135,29 +135,8 @@
                         </c:forEach>
                     </div>
                     <div class="linha-de-separacao"></div>
-                    <div id="promoverLoja">
+                    <div id="promoverLoja" class="modal-trigger" data-modal-index="4">
                         <img id="imgPromove" src="imgs/minha-loja/promover.png" alt="">
-                    </div>
-                    <div id="myModal" class="modal hidden">
-                        <div class="modal-content">
-                            <span class="close">&times;</span>
-                            <div id="conteudo-promove">
-                                <div id="conteudo-top-promove">
-                                    <h3 id="h3Promove">Carregue aqui uma imagem para promover sua loja!</h3>
-                                    <label id="picture-promove" for="picture-input-promove" tabindex="0">
-                                        <span id="picture-image-promove">Carregar Imagem</span>
-                                        <input type="file" name="picture-input-promove" id="picture-input-promove"
-                                               accept="image/*" onchange="previewPromocao()" />
-                                    </label>
-                                </div>
-
-                                <div id="btns-promove">
-                                    <button id="btnPromoveS">Salvar</button>
-                                    <button id="btnPromoveE">Editar</button>
-                                </div>
-
-                            </div>
-                        </div>
                     </div>
                 </section>
                 <section class="barra-lateral-section hidden">
@@ -332,7 +311,6 @@
             <h2 id="h2Produtos">Produtos &#10095;</h2>
             <div id="categorias">
                 <c:forEach items="${categorias}" var="categoria">
-                    <c:set var="visivel" value="${categoria.visivel} "/>
                     <div class="categoria" data-id="${categoria.id}">
                         <div class="menu-categoria">
                             <input type="text" class="nome-categoria" value="${categoria.nome}" disabled>
@@ -342,8 +320,8 @@
                             <div class="opcoes">
                                 <button class="editar-categoria">Editar</button>
                                 <div class="toggle">
-                                    <button class="toggle-button ${!visivel ? 'active' : ''}">${!visivel ? 'Pausado' : 'Pausar'}</button>
-                                    <button class="toggle-button ${visivel ? 'active' : ''}">${visivel ? 'Ativado' : 'Ativar'}</button>
+                                    <button class="toggle-button ${!categoria.visivel ? 'active' : ''}">${!categoria.visivel ? 'Pausado' : 'Pausar'}</button>
+                                    <button class="toggle-button ${categoria.visivel ? 'active' : ''}">${categoria.visivel ? 'Ativado' : 'Ativar'}</button>
                                 </div>
                                 <button class="icon-expande-btn">
                                     <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" class="icon-expande">
@@ -383,8 +361,11 @@
                                                     <label for="preco">R$</label>
                                                     <input type="text" name="preco" class="preco moeda" disabled value="<fmt:formatNumber value='${produto.preco}' pattern='0.00' />" />
                                                 </div>
-                                                <div>
+                                                <div class="informacoes">
                                                     <p class="visibilidade">${produto.disponivel eq true ? 'Ativado' : 'Pausado'}</p>
+                                                    <c:if test="${produto.destaque}">
+                                                        <p class="destaque">Destaque</p>
+                                                    </c:if>
                                                 </div>
                                             </div>
                                             <button class="botao editar-produto modal-trigger" data-modal-index="2">Editar</button>
@@ -453,7 +434,7 @@
                             <label for="preco">R$</label>
                             <input type="text" name="preco" class="preco moeda" disabled value="0.00" />
                         </div>
-                        <div>
+                        <div class="informacoes">
                             <p class="visibilidade">Pausado</p>
                         </div>
                     </div>
@@ -471,9 +452,18 @@
                 <div id="modal-produto-main">
                     <ul>
                         <li>
-                            <p>Nome</p>
-                            <div class="opcao">
-                                <input type="text" id="modal-produto-nome">
+                            <div class="campo">
+                                <p>Nome</p>
+                                <div class="opcao">
+                                    <input type="text" id="modal-produto-nome">
+                                </div>
+                            </div>
+                            <div class="campo">
+                                <p>Preço</p>
+                                <div class="opcao">
+                                    <label for="modal-produto-preco">R$</label>
+                                    <input type="text" name="preco" id="modal-produto-preco" class="moeda">
+                                </div>
                             </div>
                         </li>
                         <li>
@@ -484,18 +474,20 @@
                         </li>
                         <li>
                             <div class="campo">
-                                <p>Preço</p>
+                                <p>Visibilidade</p>
                                 <div class="opcao">
-                                    <label for="modal-produto-preco">R$</label>
-                                    <input type="text" name="preco" id="modal-produto-preco" class="moeda">
+                                    <div class="toggle visibilidade">
+                                        <button class="toggle-button active">Pausado</button>
+                                        <button class="toggle-button">Ativar</button>
+                                    </div>
                                 </div>
                             </div>
                             <div class="campo">
-                                <p>Visibilidade</p>
+                                <p>Destaque</p>
                                 <div class="opcao">
-                                    <div class="toggle">
-                                        <button class="toggle-button active">Pausado</button>
-                                        <button class="toggle-button">Ativar</button>
+                                    <div class="toggle destaque">
+                                        <button class="toggle-button active">Não</button>
+                                        <button class="toggle-button">Sim</button>
                                     </div>
                                 </div>
                             </div>
@@ -518,6 +510,30 @@
             <div>
                 <button class="botao close-modal" id="alerta-sim">Sim</button>
                 <button class="botao close-modal" id="alerta-nao">Não</button>
+            </div>
+        </div>
+
+        <div class="modal generic hidden" data-modal-index="4" data-lock-screen="true">
+            <button class="modal-produto-botao close-modal styled">
+                <img src="imgs/x-symbol.svg" alt="">
+            </button>
+            <div class="modal-content">
+                <div id="conteudo-promove">
+                    <div id="conteudo-top-promove">
+                        <h3 id="h3Promove">Carregue aqui uma imagem para promover sua loja!</h3>
+                        <label id="picture-promove" for="picture-input-promove" tabindex="0">
+                            <span id="picture-image-promove">Carregar Imagem</span>
+                            <input type="file" name="picture-input-promove" id="picture-input-promove"
+                                   accept="image/*" onchange="previewPromocao()" />
+                        </label>
+                    </div>
+
+                    <div id="btns-promove">
+                        <button id="btnPromoveS">Salvar</button>
+                        <button id="btnPromoveE">Editar</button>
+                    </div>
+
+                </div>
             </div>
         </div>
 

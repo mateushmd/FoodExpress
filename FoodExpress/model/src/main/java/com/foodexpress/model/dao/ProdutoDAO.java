@@ -35,6 +35,7 @@ public class ProdutoDAO extends DAOTemplate<ProdutoDTO>{
             produto.setPreco(rs.getFloat("preco"));
             produto.setDescricao(rs.getString("descricao"));
             produto.setDisponivel(rs.getBoolean("disponivel"));
+            produto.setDestaque(rs.getBoolean("destaque"));
         } catch(SQLException ex){
             java.util.logging.Logger.getLogger(LojaDTO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -49,9 +50,9 @@ public class ProdutoDAO extends DAOTemplate<ProdutoDTO>{
     }
     
     public boolean update(ProdutoDTO obj) {
-        String sql = "UPDATE produtos SET nome = ?, preco = ?, descricao = ?, disponivel = ? WHERE id = ?";
+        String sql = "UPDATE produtos SET nome = ?, preco = ?, descricao = ?, disponivel = ?, destaque = ? WHERE id = ?";
         
-        return executeUpdate(sql, obj.getNome(), obj.getPreco(), obj.getDescricao(), obj.getDisponivel(), obj.getId());
+        return executeUpdate(sql, obj.getNome(), obj.getPreco(), obj.getDescricao(), obj.getDisponivel(), obj.getDestaque(), obj.getId());
     }
 
     public boolean remover(int id) {
@@ -84,6 +85,22 @@ public class ProdutoDAO extends DAOTemplate<ProdutoDTO>{
         String sql = "SELECT * FROM produtos WHERE id_categoria = ?";
 
         List<ProdutoDTO> produtos = executeQuery(sql, idCategoria);
+
+        return produtos.isEmpty() ? null : produtos;
+    }
+
+    public List<ProdutoDTO> getProdutosByCategoriaCliente(int idCategoria) {
+        String sql = "SELECT * FROM produtos WHERE id_categoria = ? AND disponivel = TRUE";
+
+        List<ProdutoDTO> produtos = executeQuery(sql, idCategoria);
+
+        return produtos.isEmpty() ? null : produtos;
+    }
+
+    public List<ProdutoDTO> getProdutosDestacadosCliente(int idLoja) {
+        String sql = "SELECT * FROM produtos WHERE id_loja = ? AND disponivel = TRUE AND destaque = TRUE";
+
+        List<ProdutoDTO> produtos = executeQuery(sql, idLoja);
 
         return produtos.isEmpty() ? null : produtos;
     }

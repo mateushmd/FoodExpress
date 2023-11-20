@@ -14,6 +14,18 @@ $(function() {
     });
 
     $('#modal-produto-salvar').on('click', () => editar());
+
+    $('#modal-produto-body .toggle').each(function(index){
+        let parent = $(this);
+
+        let buttons = parent.find('.toggle-button');
+
+        buttons.each(function(index) {
+            let current = $(this)
+
+            current.on('click', () => interagir(parent, index));
+        });
+    });
 })
 
 const adicionar = function(button) {
@@ -102,7 +114,8 @@ const editar = function() {
 
     let descricao = $('#modal-produto-descricao').val();
     let preco = parseFloat($('#modal-produto-preco').val().replace(',', '.'));
-    let disponivel = !$('.modal .toggle button:first-of-type').hasClass('active');
+    let disponivel = !$('.modal .toggle.visibilidade button:first-of-type').hasClass('active');
+    let destaque = !$('.modal .toggle.destaque button:first-of-type').hasClass('active');
 
     const loader = $('<div>', {'class': 'loader'});
 
@@ -115,7 +128,7 @@ const editar = function() {
     $.ajax({
         type: 'POST',
         url: 'minha-loja/produtos/editar-produto',
-        data: {id: id, nome: nome, descricao: descricao, preco: preco, disponivel: disponivel},
+        data: {id: id, nome: nome, descricao: descricao, preco: preco, disponivel: disponivel, destaque: destaque},
         success: function(response) {
             let produto = $(`.produto[data-id="${id}"]`);
 
@@ -123,6 +136,11 @@ const editar = function() {
             produto.find('.descricao').text(descricao.trim().length > 0 ? descricao : '');
             produto.find('.preco').val(preco.toFixed(2).replace('.', ','));
             produto.find('.visibilidade').text(disponivel ? 'Ativado' : 'Pausado');
+
+            if(destaque)
+                produto.find('.informacoes').append($('<p>', {'class': 'destaque'}).text('Destaque'));
+            else
+                produto.find('.destaque').remove();
 
             loader.addClass('complete');
             checkmark.removeClass('hidden');
@@ -141,5 +159,30 @@ const editar = function() {
         }
     });
 };
+
+const interagir = function(parent, index) {
+    let buttons = parent.find('.toggle-button');
+
+    let button = $(buttons.get(index));
+    let other = $(buttons.get(!index ? 1 : 0));
+
+    button.addClass('active');
+
+    other.removeClass('active');
+
+    if (parent.hasClass('destaque'));
+        return;
+
+    if (!index)
+    {
+        button.text('Pausado');
+        other.text('Ativar');
+    }
+    else
+    {
+        button.text('Ativado');
+        other.text('Pausar');
+    }
+}
 
 export default adicionar;

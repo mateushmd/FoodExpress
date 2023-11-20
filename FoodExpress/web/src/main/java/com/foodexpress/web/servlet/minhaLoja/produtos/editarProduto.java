@@ -29,6 +29,7 @@ public class editarProduto extends HttpServlet {
         String descricao = request.getParameter("descricao");
         double preco = Double.parseDouble(request.getParameter("preco"));
         boolean disponivel = Boolean.parseBoolean(request.getParameter("disponivel"));
+        boolean destaque = Boolean.parseBoolean(request.getParameter("destaque"));
 
         ProdutoService produtoService = ProdutoService.getInstance();
 
@@ -38,6 +39,7 @@ public class editarProduto extends HttpServlet {
         produto.setDescricao(descricao);
         produto.setPreco(preco);
         produto.setDisponivel(disponivel);
+        produto.setDestaque(destaque);
 
         produtoService.editarProduto(produto);
 

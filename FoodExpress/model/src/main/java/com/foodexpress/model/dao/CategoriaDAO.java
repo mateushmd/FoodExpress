@@ -57,6 +57,14 @@ public class CategoriaDAO extends DAOTemplate<CategoriaDTO> {
         return categorias.isEmpty() ? null : categorias;
     }
 
+    public List<CategoriaDTO> listarCliente(int idLoja) {
+        String sql = "SELECT * FROM categorias WHERE id_loja = ? AND visivel = TRUE";
+
+        List<CategoriaDTO> categorias = executeQuery(sql, idLoja);
+
+        return categorias.isEmpty() ? null : categorias;
+    }
+
     public CategoriaDTO getUltimaCategoria() {
         String sql = "SELECT * FROM categorias WHERE id = LAST_INSERT_ID()";
 

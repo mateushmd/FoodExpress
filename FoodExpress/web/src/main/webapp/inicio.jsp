@@ -12,7 +12,6 @@
         <link rel="stylesheet" type="text/css" href="styles/main/main.css">
         <link rel="stylesheet" type="text/css" href="styles/inicio.css">
         <link rel="stylesheet" type="text/css" href="styles/carrossel.css">
-        <link rel="stylesheet" type="text/css" href="styles/rating.css">
         <link rel="stylesheet" type="text/css" href="styles/main/header.css">
         <link rel="stylesheet" type="text/css" href="styles/main/footer.css">
         <link rel="stylesheet" type="text/css" href="styles/slider.css">
@@ -22,7 +21,9 @@
         <c:set var="usuario" value="${sessionScope.usuario}"/>
         <c:set var="sacola" value="${sessionScope.sacola}"/>
         <c:set var="acessibilidade" value="${sessionScope.acessibilidade}"/>
-        <c:set var="lojas" value="${sessionScope.lojas}"/>
+        <c:set var="gruposLojas" value="${sessionScope.gruposLojas}"/>
+        <c:set var="lojas" value="${sessionScope.lojas}" />
+        <c:set var="temMaisLoja" value="${sessionScope.temMaisLoja}" />
 
         <header id="navbar">
             <img id="navbar-logo" src="imgs/logo3.png" alt="Logo">
@@ -46,14 +47,14 @@
                             <li><a href=""><img src="imgs/header/pedido.svg" alt="">Pedidos</a></li>
                             
 
-                        <li><a  id="conversasBtn"><img src="imgs/header/chat.svg" alt="">Conversas</a></li>
-                                                    <input style="display: none" id="meuInput" value="${usuario.email}">
-                            <script>
-                            document.getElementById('conversasBtn').onclick = function () {
-                                var valor = document.getElementById('meuInput').value;
-                                window.location.href = 'conversas.jsp?valor=' + encodeURIComponent(valor);
-                            };
-                        </script>
+                            <li><a  id="conversasBtn"><img src="imgs/header/chat.svg" alt="">Conversas</a></li>
+                                                        <input style="display: none" id="meuInput" value="${usuario.email}">
+                                <script>
+                                document.getElementById('conversasBtn').onclick = function () {
+                                    var valor = document.getElementById('meuInput').value;
+                                    window.location.href = 'conversas.jsp?valor=' + encodeURIComponent(valor);
+                                };
+                            </script>
                             <li><a href="meus-favoritos"><img src="imgs/header/coracao.svg" alt="">Favoritos</a></li>
                             <li><a href="acessibilidade.jsp"><img src="imgs/header/acessibilidade.svg" alt="">Acessibilidade</a></li>
                             <li><a href="logout"><img src="imgs/header/sair.svg" alt="">Sair</a></li>
@@ -72,109 +73,77 @@
 
         <main>
             <section class="content">
-                <h1>DESTAQUES</h1>
-                <div class="carousel-container realign" data-items="2">
-                    <div class="arrow arrow-rounded left-arrow"><img alt="" src="imgs/carrossel/seta.svg"></div>
-                    <div class="carousel" data-index="0" >
-                        <c:forEach items="${lojas}" var="loja">
-                            <form action="loja" method="get">
-                                <div class="item item-loja">
+                <c:forEach items="${gruposLojas}" var="grupo">
+                    <h1>${grupo.titulo}</h1>
+                    <div class="carousel-container realign" data-items="2">
+                        <div class="arrow arrow-rounded left-arrow"><img alt="" src="imgs/carrossel/seta.svg"></div>
+                        <div class="carousel" data-index="0" >
+                            <c:forEach items="${grupo.lojas}" var="loja">
+                                <div class="item item-loja loja" data-id="${loja.id}">
                                     <div class="img-container">
                                         <img src="imgs/teste/teste.jpg" alt="${loja.idUser}" id="imgLojaF">
                                     </div>
                                     <div class="info-container">
                                         <h2>${loja.nome}</h2>
-                                        <div class="rating small process-rating" data-rating="<fmt:formatNumber value="${loja.avaliacao}" type="number" maxFractionDigits="0"/>">
-                                            <label class="star-label" data-star="1"><img src="imgs/gray-star.svg" alt=""></label>
-
-                                            <label class="star-label" data-star="2"><img src="imgs/gray-star.svg" alt=""></label>
-
-                                            <label class="star-label" data-star="3"><img src="imgs/gray-star.svg" alt=""></label>
-
-                                            <label class="star-label" data-star="4"><img src="imgs/gray-star.svg" alt=""></label>
-
-                                            <label class="star-label" data-star="5"><img src="imgs/gray-star.svg" alt=""></label>
+                                        <div class="disponibilidade ${loja.aberto ? 'aberto' : 'fechado'}">
+                                            <svg viewBox="0 0 100 100" fill="${loja.aberto ? 'green' : 'red'}" xmlns="http://www.w3.org/2000/svg">
+                                                <circle cx="50" cy="50" r="50"></circle>
+                                            </svg>
+                                            <p>${loja.aberto ? 'Aberto' : 'Fechado'}</p>
                                         </div>
-                                        <div class="carousel-favorite">
-                                            <button type="submit" value="FAVORITAR">♥</button>
+                                        <div class="avaliacao">
+                                            <img src="imgs/star.svg" alt="">
+                                            <p><fmt:formatNumber value="${loja.avaliacao}" type="number" pattern="#,##0.0" /></p>
                                         </div>
-                                        <input type="hidden" name="id" value="${loja.id}" class="id">
                                     </div>
                                 </div>
-                            </form>
-                        </c:forEach>
+                            </c:forEach>
+                        </div>
+                        <div class="arrow arrow-rounded right-arrow"><img src="imgs/carrossel/seta.svg" alt=""></div>
                     </div>
-                    <div class="arrow arrow-rounded right-arrow"><img src="imgs/carrossel/seta.svg" alt=""></div>
-                </div>
-                <h1 style="margin-top: 50px;">NOVIDADES</h1>
-                <div class="carousel-container realign" data-items="2">
-                    <div class="arrow arrow-rounded left-arrow"><img src="imgs/carrossel/seta.svg" alt=""></div>
-                    <div class="carousel" data-index="0" >
+                </c:forEach>
+                <h1>LOJAS</h1>
+                <div class="lojas-container">
+                    <div class="loja clone hidden">
+                        <img src="imgs/teste/teste.jpg" class="img-loja" alt="">
+                        <div class="loja-body">
+                            <h2></h2>
+                            <div class="avaliacao">
+                                <img src="imgs/star.svg" alt="">
+                                <p></p>
+                            </div>
+                            <div class="disponibilidade">
+                                <svg viewBox="0 0 100 100" fill="" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="50" cy="50" r="50"></circle>
+                                </svg>
+                                <p></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lojas">
                         <c:forEach items="${lojas}" var="loja">
-                            <form action="loja" method="post">
-                                <div class="item item-loja">
-                                    <div class="img-container">
-                                        <img src="imgs/teste/teste.jpg" alt="${loja.idUser}" id="imgLojaF">
+                            <div class="loja" data-id="${loja.id}">
+                                <img src="imgs/teste/teste.jpg" class="img-loja" alt="">
+                                <div class="loja-body">
+                                    <h2>${loja.nome}</h2>
+                                    <div class="avaliacao">
+                                        <img src="imgs/star.svg" alt="">
+                                        <p>${loja.avaliacao}</p>
                                     </div>
-                                    <div class="info-container">
-                                        <h2>${loja.nome}</h2>
-                                        <div class="rating small process-rating" data-rating="<fmt:formatNumber value="${loja.avaliacao}" type="number" maxFractionDigits="0"/>">
-                                            <label class="star-label" data-star="1"><img src="imgs/gray-star.svg" alt=""></label>
-
-                                            <label class="star-label" data-star="2"><img src="imgs/gray-star.svg" alt=""></label>
-
-                                            <label class="star-label" data-star="3"><img src="imgs/gray-star.svg" alt=""></label>
-
-                                            <label class="star-label" data-star="4"><img src="imgs/gray-star.svg" alt=""></label>
-
-                                            <label class="star-label" data-star="5"><img src="imgs/gray-star.svg" alt=""></label>
-                                        </div>
-                                        <div class="carousel-favorite">
-                                            <button type="submit" value="FAVORITAR">♥</button>
-                                        </div>
-                                        <input type="hidden" name="id" value="${loja.id}" class="id">
-                                        <input type="hidden" name="submitAction" class="submit-action">
+                                    <div class="disponibilidade ${loja.aberto ? 'aberto' : 'fechado'}">
+                                        <svg viewBox="0 0 100 100" fill="${loja.aberto ? 'green' : 'red'}" xmlns="http://www.w3.org/2000/svg">
+                                            <circle cx="50" cy="50" r="50"></circle>
+                                        </svg>
+                                        <p>${loja.aberto ? 'Aberto' : 'Fechado'}</p>
                                     </div>
                                 </div>
-                            </form>
+                            </div>
                         </c:forEach>
                     </div>
-                    <div class="arrow arrow-rounded right-arrow"><img src="imgs/carrossel/seta.svg" alt=""></div>
-                </div>
-                <h1 style="margin-top: 50px;">MAIS BEM AVALIADOS</h1>
-                <div class="carousel-container realign" data-items="2">
-                    <div class="arrow arrow-rounded left-arrow"><img src="imgs/carrossel/seta.svg" alt=""></div>
-                    <div class="carousel" data-index="0" >
-                        <c:forEach items="${lojas}" var="loja">
-                            <form action="loja" method="post">
-                                <div class="item item-loja">
-                                    <div class="img-container">
-                                        <img src="imgs/teste/teste.jpg" alt="${loja.idUser}" id="imgLojaF">
-                                    </div>
-                                    <div class="info-container">
-                                        <h2>${loja.nome}</h2>
-                                        <div class="rating small process-rating" data-rating="<fmt:formatNumber value="${loja.avaliacao}" type="number" maxFractionDigits="0"/>">
-                                            <label class="star-label" data-star="1"><img src="imgs/gray-star.svg" alt=""></label>
-
-                                            <label class="star-label" data-star="2"><img src="imgs/gray-star.svg" alt=""></label>
-
-                                            <label class="star-label" data-star="3"><img src="imgs/gray-star.svg" alt=""></label>
-
-                                            <label class="star-label" data-star="4"><img src="imgs/gray-star.svg" alt=""></label>
-
-                                            <label class="star-label" data-star="5"><img src="imgs/gray-star.svg" alt=""></label>
-                                        </div>
-                                        <div class="carousel-favorite">
-                                            <button type="submit" value="FAVORITAR">♥</button>
-                                        </div>
-                                        <input type="hidden" name="id" value="${loja.id}" class="id">
-                                        <input type="hidden" name="submitAction" class="submit-action">
-                                    </div>
-                                </div>
-                            </form>
-                        </c:forEach>
-                    </div>
-                    <div class="arrow arrow-rounded right-arrow"><img src="imgs/carrossel/seta.svg" alt=""></div>
+                    <c:if test="${temMaisLoja}">
+                        <button class="carregar-mais-lojas" data-call="1">Ver mais</button>
+                    </c:if>
                 </div>
             </section>
         </main>
@@ -185,7 +154,7 @@
                         <h4>Menu</h4>
                         <ul>
                             <li><a href="inicio.jsp"> Inicio</a></li>
-                            <li><a href="gerenciarperfil.jsp"> Perfil</a></li>
+                            <li><a href="dados.jsp">Perfil</a></li>
                             <li><a href="sobre.jsp">Sobre</a></li>
                         </ul>
                     </div>
@@ -193,7 +162,6 @@
                         <h4>Obter ajuda</h4>
                         <ul>
                             <li><a href="faq.jsp">FAQ</a></li>
-                            <li><a href="ajuda.jsp">Ajuda</a></li>
                         </ul>
                     </div>
                     <div class="footer-col">
@@ -332,10 +300,12 @@
         <script src="scripts/jquery/jquery.js"></script>
         <script type="module" src="scripts/sacola/removerSacola.js"></script>
         <script src="scripts/carrossel.js"></script>
-        <script src="scripts/rating.js"></script>
-        <script src="scripts/acessibilidade/acessibilidade.js"></script>
+        <script src="scripts/usuario/acessibilidade/acessibilidade.js"></script>
         <script src="scripts/janelas-modais/slider.js"></script>
         <script type="module" src="scripts/janelas-modais/modal.js"></script>
+        <script src="scripts/busca.js"></script>
+        <script type="module" src="scripts/loja/acessar.js"></script>
+        <script type="module" src="scripts/inifiniteScroll.js"></script>
     </body>
 </html>
 

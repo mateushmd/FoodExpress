@@ -47,29 +47,38 @@ function abrirModal(element) {
                 const nome = parent.querySelector('.nome').innerHTML;
                 const descricao = parent.querySelector('.descricao').innerHTML;
                 const preco = parent.querySelector('.preco').value.replace('.', ',');
-                const quantidade = parent.querySelector('.visibilidade').innerHTML === 'Ativado' ? 1 : 0;
+                const visibilidade = parent.querySelector('.visibilidade').innerHTML === 'Ativado';
+                const destaque = parent.querySelector('.destaque') !== null;
 
                 document.querySelector('#modal-produto-id').value = id;
                 document.querySelector('#modal-produto-nome').value = nome;
                 document.querySelector('#modal-produto-descricao').value = descricao;
                 document.querySelector('#modal-produto-preco').value = preco;
 
-                const toggleElements = [...document.querySelector('.toggle').querySelectorAll('button')];
+                const toggleVisibilidadeElements = [...document.querySelector('.toggle.visibilidade').querySelectorAll('button')];
 
-                if(quantidade === 0) {
-                    toggleElements[0].innerHTML = 'Pausado';
-                    toggleElements[0].classList.add('active');
-                    toggleElements[1].innerHTML = 'Avitar';
-                    toggleElements[1].classList.remove('active');
+                if(!visibilidade) {
+                    toggleVisibilidadeElements[0].innerHTML = 'Pausado';
+                    toggleVisibilidadeElements[0].classList.add('active');
+                    toggleVisibilidadeElements[1].innerHTML = 'Avitar';
+                    toggleVisibilidadeElements[1].classList.remove('active');
                 } else {
-                    toggleElements[0].innerHTML = 'Pausar';
-                    toggleElements[0].classList.remove('active');
-                    toggleElements[1].innerHTML = 'Ativado';
-                    toggleElements[1].classList.add('active');
+                    toggleVisibilidadeElements[0].innerHTML = 'Pausar';
+                    toggleVisibilidadeElements[0].classList.remove('active');
+                    toggleVisibilidadeElements[1].innerHTML = 'Ativado';
+                    toggleVisibilidadeElements[1].classList.add('active');
+                }
+
+                const toggleDestaqueElements = [...document.querySelector('.toggle.destaque').querySelectorAll('button')];
+
+                if(destaque) {
+                    toggleDestaqueElements[1].classList.add('active');
+                    toggleDestaqueElements[0].classList.remove('active');
+                } else {
+                    toggleDestaqueElements[0].classList.add('active');
+                    toggleDestaqueElements[1].classList.remove('active');
                 }
             }
-
-            return;
         }
     });
 }

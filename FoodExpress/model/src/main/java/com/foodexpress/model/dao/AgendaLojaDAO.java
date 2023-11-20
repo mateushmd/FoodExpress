@@ -57,6 +57,14 @@ public class AgendaLojaDAO extends DAOTemplate<AgendaLojaDTO>{
         
         return executeQuery(sql, idLoja);
     }
+
+    public AgendaLojaDTO getAgendaByLojaAndDia(int idLoja, int diaSemana) {
+        String sql = "SELECT * FROM agenda_lojas WHERE id_loja = ? AND dia_semana = ?";
+
+        List<AgendaLojaDTO> agenda = executeQuery(sql, idLoja, diaSemana);
+
+        return agenda.isEmpty() ? null : agenda.get(0);
+    }
     
     public List<AgendaLojaDTO> getAgendasByDiaSemana(String dia){
         String sql = "SELECT * FROM agenda_lojas WHERE dia_semana = ?";

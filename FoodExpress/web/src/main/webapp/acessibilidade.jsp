@@ -178,8 +178,9 @@
         <script type="module" src="scripts/sacola/removerSacola.js"></script>
         <script type="module" src="scripts/janelas-modais/modal.js"></script>
         <script src="scripts/rangeinput.js"></script>
-        <script src="scripts/acessibilidade/acessibilidade.js"></script>
+        <script src="scripts/usuario/acessibilidade/acessibilidade.js"></script>
         <script src="scripts/janelas-modais/slider.js"></script>
+        <script src="scripts/busca.js"></script>
     </body>
 
 </html>
