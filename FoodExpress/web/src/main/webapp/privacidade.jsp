@@ -58,6 +58,21 @@
             </div>
         </header>
 
+        <header id="navbar-responsive" class="hidden">
+            <div>
+                <img src="imgs/header/house.svg" alt="">
+                <p>Início</p>
+            </div>
+            <div>
+                <img src="imgs/lupa-azul.svg" alt="">
+                <p>Buscar</p>
+            </div>
+            <div>
+                <img src="imgs/header/icone-perfil.png" alt="">
+                <p>Perfil</p>
+            </div>
+        </header>
+
         <main>
             <h2>A segurança e privacidade dos seus dados são de extrema importância para nós. Esta Política de Segurança e Privacidade dos Dados visa explicar como coletamos, 
                 utilizamos, protegemos e compartilhamos as suas informações no site, assegurando a confidencialidade e a integridade dos dados.</h2>
@@ -209,5 +224,6 @@
         <script src="scripts/usuario/acessibilidade/acessibilidade.js"></script>
         <script src="scripts/janelas-modais/slider.js"></script>
         <script src="scripts/busca.js"></script>
+        <script src="scripts/responsiveNavBar.js"></script>
     </body>
 </html>

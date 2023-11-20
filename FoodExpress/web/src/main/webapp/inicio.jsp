@@ -71,6 +71,21 @@
             </div>
         </header>
 
+        <header id="navbar-responsive" class="hidden">
+            <div>
+                <img src="imgs/header/house.svg" alt="">
+                <p>Início</p>
+            </div>
+            <div>
+                <img src="imgs/lupa-azul.svg" alt="">
+                <p>Buscar</p>
+            </div>
+            <div>
+                <img src="imgs/header/icone-perfil.png" alt="">
+                <p>Perfil</p>
+            </div>
+        </header>
+
         <main>
             <section class="content">
                 <c:forEach items="${gruposLojas}" var="grupo">
@@ -306,6 +321,7 @@
         <script src="scripts/busca.js"></script>
         <script type="module" src="scripts/loja/acessar.js"></script>
         <script type="module" src="scripts/inifiniteScroll.js"></script>
+        <script src="scripts/responsiveNavBar.js"></script>
     </body>
 </html>
 

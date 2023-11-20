@@ -59,6 +59,21 @@
             </div>
         </header>
 
+        <header id="navbar-responsive" class="hidden">
+            <div>
+                <img src="imgs/header/house.svg" alt="">
+                <p>Início</p>
+            </div>
+            <div>
+                <img src="imgs/lupa-azul.svg" alt="">
+                <p>Buscar</p>
+            </div>
+            <div>
+                <img src="imgs/header/icone-perfil.png" alt="">
+                <p>Perfil</p>
+            </div>
+        </header>
+
         <main>
             <h1>Dúvidas frequentes:</h1>
             <section>
@@ -228,5 +243,6 @@
         <script src="scripts/usuario/acessibilidade/acessibilidade.js"></script>
         <script src="scripts/janelas-modais/slider.js"></script>
         <script src="scripts/busca.js"></script>
+        <script src="scripts/responsiveNavBar.js"></script>
     </body>
 </html>

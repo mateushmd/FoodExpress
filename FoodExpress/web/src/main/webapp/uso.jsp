@@ -58,6 +58,21 @@
             </div>
         </header>
 
+        <header id="navbar-responsive" class="hidden">
+            <div>
+                <img src="imgs/header/house.svg" alt="">
+                <p>Início</p>
+            </div>
+            <div>
+                <img src="imgs/lupa-azul.svg" alt="">
+                <p>Buscar</p>
+            </div>
+            <div>
+                <img src="imgs/header/icone-perfil.png" alt="">
+                <p>Perfil</p>
+            </div>
+        </header>
+
         <main>
             <h2>Bem-vindo(a) à Política de Uso do FoodExpress, que é projetada para garantir uma experiência segura,
                 eficiente e agradável para todos os usuários. Este site foi criado para permitir que os usuarios façam
@@ -218,6 +233,7 @@
         <script src="scripts/usuario/acessibilidade/acessibilidade.js"></script>
         <script src="scripts/janelas-modais/slider.js"></script>
         <script src="scripts/busca.js"></script>
+        <script src="scripts/responsiveNavBar.js"></script>
     </body>
 
 </html>

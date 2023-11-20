@@ -82,3 +82,23 @@
     width: 30%;
     height: 30%;
 }
+
+@media only screen and (max-width: 540px) {
+    .loja {
+        width: 80vw;
+        grid-template-columns: 40% 50% 10%;
+    }
+
+    #img-loja {
+        width: 70px;
+        height: 70px;
+    }
+
+    .loja h2 {
+        font-size: 1em;
+    }
+
+    .remover {
+        margin: 0;
+    }
+}

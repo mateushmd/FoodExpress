@@ -361,3 +361,42 @@
     font-weight: 707;
     color: green;
 }
+
+#navbar-responsive {
+    position: absolute;
+    bottom: 0;
+
+    width: 100vw;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 100%;
+
+    align-items: center;
+    justify-content: center;
+}
+
+#navbar-responsive div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 5px;
+}
+
+#navbar-responsive div p {
+    margin: 0;
+    margin-bottom: 5px;
+
+    font-size: .75rem;
+}
+
+#navbar-responsive div img {
+    width: 20px;
+    object-fit: contain;
+}
+
+#navbar-responsive div p,
+#navbar-responsive div img {
+    cursor: pointer;
+}

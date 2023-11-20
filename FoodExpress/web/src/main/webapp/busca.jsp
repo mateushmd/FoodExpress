@@ -71,6 +71,21 @@
             </div>
         </header>
 
+        <header id="navbar-responsive" class="hidden">
+            <div>
+                <img src="imgs/header/house.svg" alt="">
+                <p>Início</p>
+            </div>
+            <div>
+                <img src="imgs/lupa-azul.svg" alt="">
+                <p>Buscar</p>
+            </div>
+            <div>
+                <img src="imgs/header/icone-perfil.png" alt="">
+                <p>Perfil</p>
+            </div>
+        </header>
+
         <main>
             <h1>Buscando por <span>${busca}</span></h1>
 
@@ -181,5 +196,6 @@
         <script type="module" src="scripts/janelas-modais/modal.js"></script>
         <script src="scripts/busca.js"></script>
         <script type="module" src="scripts/loja/acessar.js"></script>
+        <script src="scripts/responsiveNavBar.js"></script>
     </body>
 </html>

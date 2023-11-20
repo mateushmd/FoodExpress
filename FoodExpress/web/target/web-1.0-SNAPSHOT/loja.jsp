@@ -79,6 +79,21 @@
             </div>
         </header>
 
+        <header id="navbar-responsive" class="hidden">
+            <div>
+                <img src="imgs/header/house.svg" alt="">
+                <p>Início</p>
+            </div>
+            <div>
+                <img src="imgs/lupa-azul.svg" alt="">
+                <p>Buscar</p>
+            </div>
+            <div>
+                <img src="imgs/header/icone-perfil.png" alt="">
+                <p>Perfil</p>
+            </div>
+        </header>
+
         <div id="overlay" class="hidden"></div>
 
         <div id="modal-produto" class="modal generic hidden" data-modal-index="1" data-lock-screen="true">
@@ -536,5 +551,6 @@
         <script type="module" src="scripts/janelas-modais/modal.js"></script>
         <script src="scripts/usuario/acessibilidade/acessibilidade.js"></script>
         <script src="scripts/busca.js"></script>
+        <script src="scripts/responsiveNavBar.js"></script>
     </body>
 </html>
