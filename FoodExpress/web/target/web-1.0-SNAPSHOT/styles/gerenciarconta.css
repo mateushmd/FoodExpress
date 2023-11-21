@@ -229,3 +229,15 @@ section li>p {
     color: white;
     background-color: #0f7496;
 }
+
+@media only screen and (max-width: 430px) {
+    .opcao-body input[type=text] {
+        width: 80vw
+    }
+}
+
+@media only screen and (max-width: 390px) {
+    #acessibilidade {
+        font-size: 3.5vw;
+    }
+}

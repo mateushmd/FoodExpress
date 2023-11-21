@@ -9,7 +9,7 @@
     z-index: 9999;
     transition: all .6s;
     box-shadow: 5px 0 5px -5px rgba(0, 0, 0, 0.7),
-        -5px 0 5px -5px rgba(0, 0, 0, 0.7);
+    -5px 0 5px -5px rgba(0, 0, 0, 0.7);
 }
 
 #slider.open {
@@ -43,10 +43,6 @@
     height: 20px;
 }
 
-#slider-content {
-    height: 100%;
-}
-
 .slider-container {
     display: flex;
     flex-direction: column;
@@ -54,4 +50,22 @@
     overflow-y: auto;
     overflow-x: hidden;
     padding-right: 10px;
+}
+
+@media only screen and (max-width: 1000px) {
+    #slider {
+        padding: 0;
+        top: 100vh;
+        right: 0;
+        width: 100vw;
+        box-shadow: none;
+    }
+
+    #slider.open {
+        top: 0;
+    }
+
+    .slider-container {
+        padding: 40px 30px 30px;
+    }
 }

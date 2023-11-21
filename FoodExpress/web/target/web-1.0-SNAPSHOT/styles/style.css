@@ -6,8 +6,8 @@ body {
     font-family: 'Cooper Hewitt', sans-serif;
     margin: 0;
     padding: 0;
-    height: 100%;
-    width: 100%;
+    height: 100vh;
+    width: 100vw;
     background-color: #e6f1f5;
     color: #e6f1f5;
     overflow: hidden;
@@ -38,8 +38,9 @@ body {
 
 .main {
     display: grid;
-    grid-template-columns: 75% auto;
-    min-height: 100%;
+    grid-template-columns: 70vw auto;
+    grid-template-rows: 100%;
+    height: 100vh;
     width: 100%;
     background: #f5e9da url("../imgs/capa.jpg");
     background-position: 47%;
@@ -225,7 +226,35 @@ a {
 }
 
 @keyframes blink {
-    0% { opacity: 100%; }
-    50% { opacity: 0;  }
-    100% { opacity: 100%; }
+    0% {
+        opacity: 100%;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 100%;
+    }
+}
+
+@media only screen and (max-width: 1500px) {
+    .main {
+        grid-template-columns: 60vw auto;
+        background-position: 80%;
+        background-size: 150%;
+    }
+}
+
+@media only screen and (max-width: 1150px) {
+    .main {
+        grid-template-columns: 0 auto;
+    }
+}
+
+@media only screen and (max-width: 410px) {
+    input:not([type=radio]) {
+        width: 70vw
+    }
 }
