@@ -1,27 +1,24 @@
 package com.foodexpress.model.service;
 
 import com.foodexpress.model.dao.LojaDAO;
-import com.foodexpress.model.dao.ProdutoDAO;
-import com.foodexpress.model.dto.AvaliacaoDTO;
-import com.foodexpress.model.dto.LojaDTO;
-import com.foodexpress.model.dto.ProdutoDTO;
-import java.sql.SQLException;
-import java.text.DecimalFormat;
+import com.foodexpress.model.dto.*;
+
+import java.time.DayOfWeek;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class LojaService {
-    private LojaDAO ldao;
-    
-    private ProdutoDAO pdao;
+    private final LojaDAO ldao;
     
     private static LojaService instance = null;
+
+    private static AgendaLojaService agendaLojaService = null;
     
     private LojaService(){
         ldao = LojaDAO.getInstance();
-        
-        pdao = ProdutoDAO.getInstance();
+        agendaLojaService = AgendaLojaService.getInstance();
     }
     
     public static LojaService getInstance(){
@@ -30,29 +27,45 @@ public class LojaService {
         
         return instance;
     }
-    
-    public int login(String idUser){
-        int check = ldao.login(idUser);
-        System.out.println(check);
-        
-        return check;
+
+    public LojaDTO getLoja(String idUsuario) {
+        return ldao.getLoja(idUsuario);
     }
-    
-    public LojaDTO getLoja(String idUser) {
-        return ldao.getLoja(idUser);
-    }
-    
+
     public LojaDTO getLojaById(int idLoja) {
-        return ldao.getLojaById(idLoja);
+        LojaDTO loja = ldao.getLojaById(idLoja);
+
+        loja.setAberto(estaAberto(idLoja));
+
+        return loja;
     }
-    
-    public boolean updateNomeDescricao(LojaDTO obj){
-        return ldao.updateND(obj);
+
+    public boolean estaAberto(int idLoja) {
+        LocalDateTime now = LocalDateTime.now();
+
+        DayOfWeek hoje = now.getDayOfWeek();
+
+        AgendaLojaDTO agenda = agendaLojaService.getAgendaByLojaAndDia(idLoja, hoje.getValue());
+
+        if(agenda == null)
+            return false;
+
+        LocalTime horaAtual = now.toLocalTime();
+
+        return !horaAtual.isBefore(agenda.getAbertura().toLocalTime()) && !horaAtual.isAfter(agenda.getFechamento().toLocalTime());
+    }
+
+    public List<LojaDTO> buscarLoja(String busca) { return ldao.buscarLoja(busca); }
+
+    public boolean updateNomeDescricao(int id, String nome, String descricao){
+        return ldao.updateNomeDescricao(id, nome, descricao);
+    }
+
+    public boolean updateNome(int id, String nome) {
+        return ldao.updateNome(id, nome);
     }
     
     public boolean updateAvaliacao(LojaDTO obj, int novaAvaliacao){
-        DecimalFormat df = new DecimalFormat("#.#");
-        
         obj.setQtdAvaliacoes(obj.getQtdAvaliacoes() + 1);
         
         obj.setSomaAvaliacoes(obj.getSomaAvaliacoes() + novaAvaliacao);
@@ -61,24 +74,64 @@ public class LojaService {
         
         return ldao.updateAvaliacao(obj);
     }
-    
-    public void cadastrar(LojaDTO obj){
-        ldao.cadastrar(obj);
+
+    public boolean mudarAvaliacao(LojaDTO obj, int avaliacaoAntiga, int novaAvaliacao)
+    {
+        obj.setSomaAvaliacoes((obj.getSomaAvaliacoes() - avaliacaoAntiga) + novaAvaliacao);
+
+        obj.setAvaliacao((double) obj.getSomaAvaliacoes() / (double) obj.getQtdAvaliacoes());
+
+        return ldao.updateAvaliacao(obj);
+    }
+
+    public boolean removerAvaliacao(LojaDTO obj, int avaliacao)
+    {
+        obj.setSomaAvaliacoes(obj.getSomaAvaliacoes() - avaliacao);
+
+        obj.setQtdAvaliacoes(obj.getQtdAvaliacoes() - 1);
+
+        obj.setAvaliacao((double) obj.getSomaAvaliacoes() / (double) obj.getQtdAvaliacoes());
+
+        return ldao.updateAvaliacao(obj);
     }
     
-    public List<LojaDTO> listarLojas() {
-        return ldao.ListarLojas();
+    public void cadastrar(String email){
+        ldao.cadastrar(email);
     }
-    
-    public boolean adicionarProduto(ProdutoDTO obj){
-        return pdao.cadastrar(obj);
+
+    public List<GrupoLojasDTO> agruparLojas() {
+        List<GrupoLojasDTO> lista = new ArrayList<>();
+
+        lista.add(getMaisBemAvaliados());
+
+        return lista;
     }
-    
-    public ArrayList<ProdutoDTO> listarProdutos(int idLoja) {
-        return (ArrayList) pdao.listar(idLoja);
-    } 
-    
-    public boolean editarProduto(ProdutoDTO obj) {
-        return pdao.update(obj);
+
+    public List<LojaDTO> listarLojas(int callNumber) {
+        int offSet = (callNumber - 1) * 8;
+
+        ArrayList<LojaDTO> lojas = (ArrayList<LojaDTO>) ldao.listarLojas(offSet);
+
+        for(LojaDTO loja : lojas) {
+            loja.setAberto(estaAberto(loja.getId()));
+        }
+
+        return lojas;
+    }
+
+    public GrupoLojasDTO getMaisBemAvaliados() {
+        ArrayList<LojaDTO> lojas = (ArrayList<LojaDTO>) ldao.getMaisBemAvaliadas();
+
+        for(LojaDTO loja : lojas) {
+            loja.setAberto(estaAberto(loja.getId()));
+        }
+
+        GrupoLojasDTO grupo = new GrupoLojasDTO("MAIS BEM AVALIADOS", lojas);
+
+        return grupo;
+    }
+
+    public boolean temMaisLojas(int quantidadeAtual) {
+        return quantidadeAtual < ldao.getTotalLojas();
     }
 }

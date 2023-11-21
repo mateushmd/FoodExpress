@@ -1,35 +1,31 @@
 package com.foodexpress.model.email;
 
 import java.util.Properties;
-import javax.mail.Authenticator;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
+import javax.mail.*;
 
+@Deprecated
 public class TLSEmailAuth {
 
-    private static final String EMAIL = "equipefoodexpress@gmail.com";
-    private static final String PASSWORD = "dwqszhkyydzxctqn";
-    
+    private static final String CLIENT_ID = "294719564927-lgmm5s7ta6m429orn19th8d1usksshv7.apps.googleusercontent.com";
+    private static final String PASSWORD = "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";
+
     private static Session SESSION = null;
 
     protected static Session getSession() {
         if(SESSION == null) {
             Properties props = new Properties();
-        
-            props.put("mail.smtp.host", "smtp.gmail.com");
-            props.put("mail.smtp.port", "587");
-            props.put("mail.smtp.auth", "true");
-            props.put("mail.smtp.starttls.enable", "true");
-            props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
 
-            Authenticator auth = new Authenticator() {
-                @Override
-                protected PasswordAuthentication getPasswordAuthentication() {
-                    return new PasswordAuthentication(EMAIL, PASSWORD);
-                }
-            };
+            props.put("mail.imap.ssl.enable", "true");
+            props.put("mail.imap.auth.mechanisms", "XOAUTH2");
 
-            SESSION =  Session.getInstance(props, auth);
+            SESSION = Session.getInstance(props);
+
+            try {
+                Store store = SESSION.getStore("imap");
+                store.connect("imap.gmail.com", CLIENT_ID, PASSWORD);
+            } catch (MessagingException e) {
+                throw new RuntimeException(e);
+            }
         }
         
         return SESSION;

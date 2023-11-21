@@ -1,0 +1,156 @@
+@import url('https://fonts.cdnfonts.com/css/cooper-hewitt?styles=34277,34279,34271');
+
+:root {
+    --marca: #cc575f;
+    --marca2: #0F7496;
+
+    --escala: 1;
+    --escala-menor: 1;
+
+    --cor-fundo: #fff;
+
+    --cor-fonte-1: #000;
+    --cor-fonte-2: #e6f1f5;
+
+    --cor-borda: #ccc;
+
+    --cor-placeholder: #c0c0c0;
+
+    --cor-seta: rgb(39, 39, 39, .4);
+    --cor-seta-hover: #272727;
+
+    --font-weight: 100;
+}
+
+body {
+    color: var(--cor-fonte-1);
+    font-weight: var(--font-weight);
+    background-color: var(--cor-fundo);
+    font-size: calc(1em * var(--escala));
+}
+
+.hidden {
+    display: none !important;
+}
+
+.transparent {
+    opacity: 0 !important;
+}
+
+.loader {
+    border: 2px solid var(--cor-borda);
+    border-left-color: var(--marca);
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    animation: spin 2s linear infinite;
+    z-index: 99999;
+    overflow: hidden;
+}
+
+.loader.white {
+    border-color: white;
+    border-left-color: var(--marca2);
+}
+
+.loader.complete {
+    -webkit-animation: none;
+    animation: none;
+    border-color: var(--marca);
+    transition: border 500ms ease-out;
+}
+
+.loader.white.complete {
+    border-color: var(--marca2);
+}
+
+.loader.hide {
+    transform: scale(0);
+    transition: all 500ms ease;
+}
+
+.checkmark {
+    position: relative;
+}
+
+.checkmark.draw::after {
+    animation-duration: 800ms;
+    animation-timing-function: ease;
+    animation-name: checkmark;
+    transform: scaleX(-1) rotate(135deg);
+}
+
+.checkmark::after {
+    opacity: 1;
+    height: 15px;
+    width: 7px;
+    transform-origin: left top;
+    border-right: 3px solid var(--marca);
+    border-top: 3px solid var(--marca);
+    content: '';
+    left: 2px;
+    top: 13px;
+    position: absolute;
+}
+
+.loader.white .checkmark::after {
+    border-color: var(--marca2);
+}
+
+*::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+*::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0);
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0);
+    -webkit-box-shadow: inset 0 0 6px rgb(114, 114, 114);
+}
+
+*::-webkit-scrollbar-thumb:window-inactive {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes checkmark {
+    0% {
+        height: 0;
+        width: 0;
+        opacity: 1;
+    }
+
+    20% {
+        height: 0;
+        width: 7px;
+        opacity: 1;
+    }
+
+    40% {
+        height: 15px;
+        width: 7px;
+        opacity: 1;
+    }
+
+    100% {
+        height: 15px;
+        width: 7px;
+        opacity: 1;
+    }
+}

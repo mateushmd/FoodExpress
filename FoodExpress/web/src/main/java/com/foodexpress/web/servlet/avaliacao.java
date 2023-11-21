@@ -38,31 +38,60 @@ public class avaliacao extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
+        String submit = request.getParameter("submit");
+
         HttpSession session = request.getSession();
-        
+
         UsuarioDTO cliente = (UsuarioDTO) session.getAttribute("usuario");
         
         int idLoja = Integer.parseInt(request.getParameter("idLoja"));
-        
-        System.out.println(idLoja);
+
+        String URL = "loja?id=" + idLoja;
         
         LojaService lService = LojaService.getInstance();
-        
+
+        AvaliacaoService aService = AvaliacaoService.getInstance();
+
+        AvaliacaoDTO aDTO;
+
         LojaDTO loja = lService.getLojaById(idLoja);
+
+        if(submit.equals("DELETAR"))
+        {
+            aDTO = aService.getAvaliacaoByIdLojaCliente(idLoja, cliente.getEmail());
+
+            aService.removerAvaliacao(aDTO, loja);
+
+            response.sendRedirect(URL);
+
+            return;
+        }
         
         int nota = Integer.parseInt(request.getParameter("rating"));
         
         String comentario = request.getParameter("comentario");
-        
-        AvaliacaoDTO aDTO = new AvaliacaoDTO(idLoja, cliente.getEmail(), nota, comentario);
-        
-        AvaliacaoService aService = AvaliacaoService.getInstance();
-        
+
+        if(submit.equals("SALVAR"))
+        {
+            aDTO = aService.getAvaliacaoByIdLojaCliente(idLoja, cliente.getEmail());
+
+            aDTO.setComentario(comentario);
+            aDTO.setNota(nota);
+
+            int avaliacaoAntiga = Integer.parseInt(request.getParameter("default-rating"));
+
+            aService.updateNotaComentario(aDTO, loja, avaliacaoAntiga);
+
+            response.sendRedirect(URL);
+
+            return;
+        }
+
+        aDTO = new AvaliacaoDTO(idLoja, cliente.getEmail(), nota, comentario);
+
         aService.cadastrarAvaliacao(aDTO, loja);
-        
-        String URL = "processLoja?id=" + idLoja;
-        
+
         response.sendRedirect(URL);
     }
 

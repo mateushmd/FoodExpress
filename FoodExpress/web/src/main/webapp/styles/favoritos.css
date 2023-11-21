@@ -1,0 +1,108 @@
+.loja {
+    width: 500px;
+    display: grid;
+    grid-template-columns: 24% 66% 10%;
+    align-items: center;
+    transition: all .2s ease;
+    padding: 10px 10px 20px;
+    margin-bottom: 20px;
+}
+
+.loja:not(:last-child) {
+    border-bottom: 1px solid var(--cor-borda);
+}
+
+.loja:hover {
+    box-shadow: 1px 1px 4px 1px #c0c0c0;
+    transform: scale(1.02);
+}
+
+.loja,
+.loja h2 {
+    font-weight: 707;
+}
+
+.img-loja {
+    width: calc(100px * var(--escala));
+    height: calc(100px * var(--escala));
+    object-fit: cover;
+    border-radius: 10%;
+}
+
+.loja-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.loja-body h2 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+
+.avaliacao {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+}
+
+.avaliacao img {
+    width: 20px;
+    height: 20px;
+}
+
+.remover {
+    width: calc(18px * var(--escala-menor));
+    height: calc(18px * var(--escala-menor));
+    object-fit: cover;
+    margin-left: 30px;
+    cursor: pointer;
+}
+
+.mensagem {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.mensagem h2 {
+    font-weight: 800;
+}
+
+.mensagem p {
+    font-weight: 707;
+}
+
+.mensagem img {
+    width: 30%;
+    height: 30%;
+}
+
+@media only screen and (max-width: 540px) {
+    .loja {
+        width: 80vw;
+        grid-template-columns: 40% 50% 10%;
+    }
+
+    .img-loja {
+        width: 70px;
+        height: 70px;
+    }
+
+    .loja h2 {
+        font-size: 1em;
+    }
+
+    .remover {
+        margin: 0;
+    }
+}
