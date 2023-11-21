@@ -208,6 +208,7 @@ section li>p {
     flex-direction: row;
     align-items: center;
     gap: 20px;
+    justify-content: space-between;
 }
 
 .botao {
@@ -220,9 +221,11 @@ section li>p {
     background-color: var(--cor-fundo);
     color: #cc575f;
     border: 1px solid var(--cor-borda);
-    font-size: inherit;
+    font-size: 13px;
     border-radius: 6px;
     cursor: pointer;
+    font-family: 'cooper hewitt';
+    padding: 2px 12px 2px 12px;
 }
 
 .botao>input:hover {

@@ -76,32 +76,26 @@ input {
 
 button {
     margin-top: 20px;
-
     border: none;
     background-color: inherit;
     width: 30%;
     cursor: pointer;
-
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 button input {
-    width: 100%;
-
+    width: 194px;
+    text-align: center;
     background-color: #e6f1f5;
-
-    font-weight: 707;
-    color: var(--marca);
-
+    color: #cc575f;
     border: 1px solid #e6f1f5;
+    font-size: inherit;
     border-radius: 6px;
-
+    height: 29px;
     cursor: pointer;
-
-    margin: 0;
-    padding: 0;
+    font-family: 'Oswald', sans-serif;
 }
 
 button input:hover {
