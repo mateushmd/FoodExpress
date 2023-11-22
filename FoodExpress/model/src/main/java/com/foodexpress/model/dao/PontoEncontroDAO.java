@@ -3,6 +3,7 @@ package com.foodexpress.model.dao;
 import com.foodexpress.model.dto.PontoEncontroDTO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -29,6 +30,7 @@ public class PontoEncontroDAO extends DAOTemplate<PontoEncontroDTO> {
             
             pe.setId(rs.getInt("id"));
             pe.setIdLoja(rs.getInt("id_loja"));
+            pe.setCampus(rs.getInt("campus"));
             pe.setNome(rs.getString("nome"));
         } catch(SQLException ex){
             java.util.logging.Logger.getLogger(PontoEncontroDTO.class.getName()).log(Level.SEVERE, null, ex);
@@ -37,10 +39,16 @@ public class PontoEncontroDAO extends DAOTemplate<PontoEncontroDTO> {
         return pe;
     }
     
-    public boolean cadastrar(PontoEncontroDTO obj){
-        String sql = "INSERT INTO pontos_encontro (id_loja, nome) VALUES (?, ?)";
+    public boolean adicionar(PontoEncontroDTO obj){
+        String sql = "INSERT INTO pontos_encontro (id_loja, campus, nome) VALUES (?, ?, ?)";
         
-        return executeUpdate(sql, obj.getIdLoja(), obj.getNome());
+        return executeUpdate(sql, obj.getIdLoja(), obj.getCampus(), obj.getNome());
+    }
+
+    public boolean remover(int idLoja, int id) {
+        String sql = "DELETE FROM pontos_encontro WHERE id = ? AND id_loja = ?";
+
+        return executeUpdate(sql, id, idLoja);
     }
     
     public List<PontoEncontroDTO> listarPontos(){
@@ -59,5 +67,13 @@ public class PontoEncontroDAO extends DAOTemplate<PontoEncontroDTO> {
         String sql = "SELECT * FROM pontos_encontro WHERE id_loja = ?";
         
         return executeQuery(sql, idLoja);
+    }
+
+    public PontoEncontroDTO getInserted(int idLoja) {
+        String sql = "SELECT * FROM pontos_encontro WHERE id_loja = ? AND id = LAST_INSERT_ID()";
+
+        ArrayList<PontoEncontroDTO> lista = (ArrayList<PontoEncontroDTO>) executeQuery(sql, idLoja);
+
+        return lista.isEmpty() ? null : lista.get(0);
     }
 }

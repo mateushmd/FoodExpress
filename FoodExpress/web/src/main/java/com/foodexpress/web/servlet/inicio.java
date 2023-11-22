@@ -4,6 +4,7 @@
  */
 package com.foodexpress.web.servlet;
 
+import com.foodexpress.model.dto.GrupoLojasDTO;
 import com.foodexpress.model.dto.LojaDTO;
 import com.foodexpress.model.service.LojaService;
 import java.io.IOException;
@@ -47,9 +48,13 @@ public class inicio extends HttpServlet {
         if(session.getAttribute("lojas") == null) {
             LojaService lservice = LojaService.getInstance();
         
-            ArrayList<LojaDTO> lojas = (ArrayList<LojaDTO>) lservice.listarLojas();
-            
+            ArrayList<GrupoLojasDTO> gruposLojas = (ArrayList<GrupoLojasDTO>) lservice.agruparLojas();
+
+            ArrayList<LojaDTO> lojas = (ArrayList<LojaDTO>) lservice.listarLojas(1);
+
             session.setAttribute("lojas", lojas);
+            session.setAttribute("gruposLojas", gruposLojas);
+            session.setAttribute("temMaisLoja", lservice.temMaisLojas(lojas.size()));
         }
 
         response.sendRedirect("inicio.jsp");

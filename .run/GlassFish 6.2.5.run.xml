@@ -2,7 +2,7 @@
   <configuration default="false" name="GlassFish 6.2.5" type="GlassfishConfiguration" factoryName="Local" APPLICATION_SERVER_NAME="GlassFish 6.2.5" ALTERNATIVE_JRE_ENABLED="true" ALTERNATIVE_JRE_PATH="17" nameIsGenerated="true">
     <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/web/" />
     <option name="BROWSER_ID" value="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" />
-    <option name="UPDATING_POLICY" value="restart-server" />
+    <option name="UPDATING_POLICY" value="redeploy-artifacts" />
     <deployment>
       <artifact name="web:war">
         <settings />

@@ -7,11 +7,13 @@ import com.foodexpress.model.service.*;
 
 import java.sql.Array;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class teste {
     public static void main(String[] args) throws SQLException {
-        System.out.println(ConnectionPoolManager.getDataSource().getConnection().isValid(2));
+        LojaDAO.getInstance().listarLojas(0);
     }
 }

@@ -34,6 +34,10 @@
 
         <c:set var="avaliacoes" value="${sessionScope.avaliacoes}" />
 
+        <c:set var="agenda" value="${sessionScope.agenda}" />
+
+        <c:set var="pontos" value="${sessionScope.pontosEncontro}" />
+
         <div id="overlay" class="hidden"></div>
 
         <div id="barra-lateral-container">
@@ -46,8 +50,7 @@
                         <table id="horarios">
                             <thead>
                             <tr>
-                                <th>Dia da Semana</th>
-                                <th>On/Off</th>
+                                <th colspan="2">Dia da Semana</th>
                                 <th>Abertura</th>
                                 <th>Fechamento</th>
                                 <th>C1</th>
@@ -55,153 +58,85 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>Segunda-feira</td>
-                                <td>
-                                    <input type="checkbox" class="liga-desliga__checkbox horario" id="segundaAberto">
-                                    <label for="segundaAberto" class="liga-desliga__botao"></label>
-                                </td>
-                                <td><input type="time" class="abertura" disabled></td>
-                                <td><input type="time" class="fechamento" disabled></td>
+                                <c:forEach items="${agenda}" var="a">
+                                    <tr class="dia" data-dia="${a.diaSemana}">
+                                        <td class="dia-da-semana"></td>
+                                        <td class="ativado-desativado">
+                                            <input type="checkbox" class="liga-desliga__checkbox horario" ${a.idLoja ne -1 ? 'checked' : ''}>
+                                            <label class="liga-desliga__botao"></label>
+                                        </td>
+                                        <td><input type="time" class="abertura" value="${a.abertura ne null ? a.abertura : ''}" ${a.abertura eq null ? 'disabled' : ''}></td>
+                                        <td><input type="time" class="fechamento" value="${a.fechamento ne null ? a.fechamento : ''}" ${a.fechamento eq null ? 'disabled' : ''}></td>
 
-                                <td><input type="radio" class="c1" name="c1_segunda" disabled></td>
-                                <td><input type="radio" class="c2" name="c2_segunda" disabled></td>
-                            </tr>
-                            <tr>
-                                <td>Terça-feira</td>
-                                <td>
-                                    <input type="checkbox" class="liga-desliga__checkbox horario" id="tercaAberto">
-                                    <label for="tercaAberto" class="liga-desliga__botao"></label>
-                                </td>
-                                <td><input type="time" class="abertura" disabled></td>
-                                <td><input type="time" class="fechamento" disabled></td>
 
-                                <td><input type="radio" class="c1" name="c1_terca" disabled></td>
-                                <td><input type="radio" class="c2" name="c2_terca" disabled></td>
-                            </tr>
-                            <tr>
-                                <td>Quarta-feira</td>
-                                <td>
-                                    <input type="checkbox" class="liga-desliga__checkbox horario" id="quartaAberto">
-                                    <label for="quartaAberto" class="liga-desliga__botao"></label>
-                                </td>
-                                <td><input type="time" class="abertura" disabled></td>
-                                <td><input type="time" class="fechamento" disabled></td>
-
-                                <td><input type="radio" class="c1" name="c1_quarta" disabled></td>
-                                <td><input type="radio" class="c2" name="c2_quarta" disabled></td>
-                            </tr>
-                            <tr>
-                                <td>Quinta-feira</td>
-                                <td>
-                                    <input type="checkbox" class="liga-desliga__checkbox horario" id="quintaAberto">
-                                    <label for="quintaAberto" class="liga-desliga__botao"></label>
-                                </td>
-                                <td><input type="time" class="abertura" disabled></td>
-                                <td><input type="time" class="fechamento" disabled></td>
-
-                                <td><input type="radio" class="c1" name="c1_quinta" disabled></td>
-                                <td><input type="radio" class="c2" name="c2_quinta" disabled></td>
-                            </tr>
-                            <tr>
-                                <td>Sexta-feira</td>
-                                <td>
-                                    <input type="checkbox" class="liga-desliga__checkbox horario" id="sextaAberto">
-                                    <label for="sextaAberto" class="liga-desliga__botao"></label>
-                                </td>
-                                <td><input type="time" class="abertura" disabled></td>
-                                <td><input type="time" class="fechamento" disabled></td>
-
-                                <td><input type="radio" class="c1" name="c1_sexta" disabled></td>
-                                <td><input type="radio" class="c2" name="c2_sexta" disabled></td>
-                            </tr>
-                            <tr>
-                                <td>Sábado</td>
-                                <td>
-                                    <input type="checkbox" class="liga-desliga__checkbox horario" id="sabadoAberto">
-                                    <label for="sabadoAberto" class="liga-desliga__botao"></label>
-                                </td>
-                                <td><input type="time" class="abertura" disabled></td>
-                                <td><input type="time" class="fechamento" disabled></td>
-
-                                <td><input type="radio" class="c1" name="c1_sabado" disabled></td>
-                                <td><input type="radio" class="c2" name="c2_sabado" disabled></td>
-                            </tr>
-                            <tr>
-                                <td>Domingo</td>
-                                <td>
-                                    <input type="checkbox" class="liga-desliga__checkbox horario" id="domingoAberto">
-                                    <label for="domingoAberto" class="liga-desliga__botao"></label>
-                                </td>
-                                <td><input type="time" class="abertura" disabled></td>
-                                <td><input type="time" class="fechamento" disabled></td>
-
-                                <td><input type="radio" class="c1" name="c1_domingo" disabled></td>
-                                <td><input type="radio" class="c2" name="c2_domingo" disabled></td>
-                            </tr>
+                                        <td><input type="radio" name="campus-${a.diaSemana}" class="campus c1" value="1" ${a.idLoja eq -1 ? 'disabled' : a.campus1 ? 'checked' : ''}></td>
+                                        <td><input type="radio" name="campus-${a.diaSemana}" class="campus c2" value="2" ${a.idLoja eq -1 ? 'disabled' : a.campus2 ? 'checked' : ''}></td>
+                                    </tr>
+                                </c:forEach>
                             </tbody>
                         </table>
-                        <button type="button" id="horario">Salvar</button>
-
+                        <div>
+                            <button type="button" id="horario">Salvar</button>
+                        </div>
                     </div>
                     <div class="linha-de-separacao"></div>
                     <div class="menu-localidade">
-                        <div class="container-local">
-                            <h2>Campus 1 ⌵</h2>
-                            <div class="submenu">
-                                <div id="container-ponto-encontroc1">
-                                    <input type="text" placeholder="Ponto de encontro" class="ponto-encontro"
-                                           id="ponto-encontroc1">
-                                    <button type="button" class="botao salvar-ponto">Adicionar
+                        <c:forEach items="${pontos}" var="campus" varStatus="loop">
+                            <div class="container-local" data-campus="${loop.index + 1}">
+                                <div class="container-local-header">
+                                    <h2>Campus ${loop.index + 1}</h2>
+                                    <button class="icon-expande-local-btn">
+                                        <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" class="icon-expande">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <g transform="translate(-433.000000, -1392.000000)" fill="currentColor"
+                                                   fill-rule="nonzero">
+                                                    <g transform="translate(47.000000, 1227.000000)">
+                                                        <g class="icon-seta-restaurante"
+                                                           transform="translate(386.000000, 165.000000)">
+                                                            <path
+                                                                    d="M17.4142136,18.5479578 C16.633165,17.8173474 15.366835,17.8173474 14.5857864,18.5479578 C13.8047379,19.2785683 13.8047379,20.4631219 14.5857864,21.1937324 L24,30 L33.4142136,21.1937324 C34.1952621,20.4631219 34.1952621,19.2785683 33.4142136,18.5479578 C32.633165,17.8173474 31.366835,17.8173474 30.5857864,18.5479578 L24,24.708451 L17.4142136,18.5479578 Z"
+                                                                    id="Path-5-Copy-3"></path>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </svg>
                                     </button>
-                                    <h2>Pontos de Encontro</h2>
-                                    <div class="pontos-encontro">
-                                        <p class="pontos-encontro-msg">Comece adicionando algum ponto de encontro</p>
+                                </div>
+                                <div class="submenu">
+                                    <div>
+                                        <input type="text" placeholder="Ponto de encontro" class="ponto-encontro"
+                                               maxlength="40">
+                                        <button type="button" class="botao salvar-ponto">Adicionar
+                                        </button>
+                                        <h2>Pontos de Encontro</h2>
+                                        <div class="pontos-encontro">
+                                            <c:choose>
+                                                <c:when test="${empty campus}">
+                                                    <p class="pontos-encontro-msg">Comece adicionando algum ponto de encontro</p>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <c:forEach items="${campus}" var="ponto">
+                                                        <div class="ponto-encontro-container" data-id="${ponto.id}">
+                                                            <p>${ponto.nome}</p>
+                                                            <button class="excluir-ponto">
+                                                                <img src="imgs/x-symbol.svg">
+                                                            </button>
+                                                        </div>
+                                                    </c:forEach>
+                                                </c:otherwise>
+                                            </c:choose>
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="linha-de-separacao"></div>
-                        <div class="container-local">
-                            <h2>Campus 2 ⌵</h2>
-                            <div class="submenu">
-                                <div id="container-ponto-encontroc2">
-                                    <input type="text" placeholder="Ponto de encontro" class="ponto-encontro"
-                                           id="ponto-encontroc2">
-                                    <button type="button" class="botao salvar-ponto">Adicionar
-                                    </button>
-                                    <h2>Pontos de Encontro</h2>
-                                    <div class="pontos-encontro">
-                                        <p class="pontos-encontro-msg">Comece adicionando algum ponto de encontro</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                            <c:if test="${loop.index eq 0}"><div class="linha-de-separacao"></div></c:if>
+                        </c:forEach>
                     </div>
                     <div class="linha-de-separacao"></div>
-                    <div id="promoverLoja">
+                    <div id="promoverLoja" class="modal-trigger" data-modal-index="4">
                         <img id="imgPromove" src="imgs/minha-loja/promover.png" alt="">
-                    </div>
-                    <div id="myModal" class="modal hidden">
-                        <div class="modal-content">
-                            <span class="close">&times;</span>
-                            <div id="conteudo-promove">
-                                <div id="conteudo-top-promove">
-                                    <h3 id="h3Promove">Carregue aqui uma imagem para promover sua loja!</h3>
-                                    <label id="picture-promove" for="picture-input-promove" tabindex="0">
-                                        <span id="picture-image-promove">Carregar Imagem</span>
-                                        <input type="file" name="picture-input-promove" id="picture-input-promove"
-                                               accept="image/*" onchange="previewPromocao()" />
-                                    </label>
-                                </div>
-
-                                <div id="btns-promove">
-                                    <button id="btnPromoveS">Salvar</button>
-                                    <button id="btnPromoveE">Editar</button>
-                                </div>
-
-                            </div>
-                        </div>
                     </div>
                 </section>
                 <section class="barra-lateral-section hidden">
@@ -278,7 +213,7 @@
                         <li>
                             <p>Nome</p>
                             <div class="opcao-body">
-                                <input type="text" class="editavel" value="${usuario.nome}">
+                                <input type="text" class="editavel" id="name" value="${usuario.nome}">
                             </div>
                         </li>
                         <li>
@@ -294,12 +229,19 @@
                             </div>
                         </li>
                     </ul>
-                    <div id="botao-dados-container">
+                    <div class="botao-dados-container">
                         <div class="botao-dados">
-                            <input type="submit" value="ALTERAR SENHA" id="senha">
+                            <input type="submit" value="Alterar senha" id="alterar-senha">
                         </div>
                         <div class="botao-dados">
-                            <input type="submit" value="SALVAR" id="save" class="hidden" name="SUBMIT">
+                            <input type="submit" value="Salvar" id="save" class="hidden" name="SUBMIT">
+                        </div>
+                    </div>
+                    <div class="botao-dados-container">
+                        <div class="botao-dados">
+                            <a href="logout">
+                                <input type="submit" value="Sair" id="sair">
+                            </a>
                         </div>
                     </div>
 
@@ -368,62 +310,20 @@
             </div>
             <h2 id="h2Produtos">Produtos &#10095;</h2>
             <div id="categorias">
-
-                <!--Template para clonagem em scripts-->
-                <div class="categoria clone hidden">
-                    <div class="menu-categoria">
-                        <h2 class="nome-categoria">Nova categoria</h2>
-                        <p class="ct-vazia">Categoria vazia</p>
-                        <div class="opcoes">
-                            <div class="toggle">
-                                <button class="toggle-button active">Pausado</button>
-                                <button class="toggle-button">Ativar</button>
-                            </div>
-                            <button class=" icon-expande-btn">
-                                <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" class="icon-expande">
-                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                        <g transform="translate(-433.000000, -1392.000000)" fill="currentColor"
-                                           fill-rule="nonzero">
-                                            <g transform="translate(47.000000, 1227.000000)">
-                                                <g class="icon-seta-restaurante"
-                                                   transform="translate(386.000000, 165.000000)">
-                                                    <path
-                                                            d="M17.4142136,18.5479578 C16.633165,17.8173474 15.366835,17.8173474 14.5857864,18.5479578 C13.8047379,19.2785683 13.8047379,20.4631219 14.5857864,21.1937324 L24,30 L33.4142136,21.1937324 C34.1952621,20.4631219 34.1952621,19.2785683 33.4142136,18.5479578 C32.633165,17.8173474 31.366835,17.8173474 30.5857864,18.5479578 L24,24.708451 L17.4142136,18.5479578 Z"
-                                                            id="Path-5-Copy-3"></path>
-                                                </g>
-                                            </g>
-                                        </g>
-                                    </g>
-                                </svg>
-                            </button>
-                            <button>
-                                <img src="imgs/lixeira.svg" alt="">
-                            </button>
-                        </div>
-                        <div class="body-categoria">
-                            <div class="linha-de-separacao-cardapio"></div>
-                            <div class="container-adiciona-categoria">
-                                <div class="produtos">
-                                    <button class="botao add-produto">+ Adicionar produto</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <c:forEach items="${categorias}" var="categoria">
                     <div class="categoria" data-id="${categoria.id}">
                         <div class="menu-categoria">
-                            <h2 class="nome-categoria">${categoria.nome}</h2>
+                            <input type="text" class="nome-categoria" value="${categoria.nome}" disabled>
                             <c:if test="${empty categoria.produtos}">
                                 <p class="ct-vazia">Categoria vazia</p>
                             </c:if>
                             <div class="opcoes">
+                                <button class="editar-categoria">Editar</button>
                                 <div class="toggle">
-                                    <button class="toggle-button active">Pausado</button>
-                                    <button class="toggle-button">Ativar</button>
+                                    <button class="toggle-button ${!categoria.visivel ? 'active' : ''}">${!categoria.visivel ? 'Pausado' : 'Pausar'}</button>
+                                    <button class="toggle-button ${categoria.visivel ? 'active' : ''}">${categoria.visivel ? 'Ativado' : 'Ativar'}</button>
                                 </div>
-                                <button class=" icon-expande-btn">
+                                <button class="icon-expande-btn">
                                     <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" class="icon-expande">
                                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                             <g transform="translate(-433.000000, -1392.000000)" fill="currentColor"
@@ -440,35 +340,59 @@
                                         </g>
                                     </svg>
                                 </button>
-                                <button>
+                                <button class="remover-categoria" data-modal-index="3">
                                     <img src="imgs/lixeira.svg" alt="">
                                 </button>
                             </div>
-                            <div class="body-categoria">
-                                <div class="linha-de-separacao-cardapio"></div>
-                                <div class="container-adiciona-categoria">
-                                    <div class="produtos">
-                                        <button class="botao add-produto">+ Adicionar produto</button>
-                                    </div>
+                        </div>
+                        <div class="body-categoria">
+                            <div class="linha-de-separacao-cardapio"></div>
+                            <div class="container-adiciona-categoria">
+                                <div class="produtos">
+                                    <c:forEach items="${categoria.produtos}" var="produto">
+                                        <div class="produto" data-id="${produto.id}">
+                                            <img class="img-produto" src="imgs/teste/teste.jpg" alt="">
+                                            <div>
+                                                <p class="nome">${produto.nome}</p>
+                                                <p class="descricao">${produto.descricao}</p>
+                                            </div>
+                                            <div class="input-container">
+                                                <div>
+                                                    <label for="preco">R$</label>
+                                                    <input type="text" name="preco" class="preco moeda" disabled value="<fmt:formatNumber value='${produto.preco}' pattern='0.00' />" />
+                                                </div>
+                                                <div class="informacoes">
+                                                    <p class="visibilidade">${produto.disponivel eq true ? 'Ativado' : 'Pausado'}</p>
+                                                    <c:if test="${produto.destaque}">
+                                                        <p class="destaque">Destaque</p>
+                                                    </c:if>
+                                                </div>
+                                            </div>
+                                            <button class="botao editar-produto modal-trigger" data-modal-index="2">Editar</button>
+                                            <img class="remover-produto" src="imgs/lixeira.svg" alt="">
+                                        </div>
+                                    </c:forEach>
+                                    <button class="botao add-produto">+ Adicionar produto</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </c:forEach>
 
-                <!--Se a categoria estiver vazia-->
-                <div class="categoria">
+                <button id="add-categoria" class="botao">+ Adicionar categoria</button>
+
+                <!--Templates para clonagem em scripts-->
+                <div class="categoria clone hidden">
                     <div class="menu-categoria">
-                        <h2>Bebidas</h2>
-                        <!--Se a categoria estiver vazia-->
+                        <input type="text" class="nome-categoria" value="Nova categoria" disabled>
                         <p class="ct-vazia">Categoria vazia</p>
-                        <!--Se a categoria estiver vazia-->
                         <div class="opcoes">
+                            <button class="editar-categoria">Editar</button>
                             <div class="toggle">
                                 <button class="toggle-button active">Pausado</button>
                                 <button class="toggle-button">Ativar</button>
                             </div>
-                            <button class=" icon-expande-btn">
+                            <button class="icon-expande-btn">
                                 <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" class="icon-expande">
                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                         <g transform="translate(-433.000000, -1392.000000)" fill="currentColor"
@@ -477,15 +401,15 @@
                                                 <g class="icon-seta-restaurante"
                                                    transform="translate(386.000000, 165.000000)">
                                                     <path
-                                                    d="M17.4142136,18.5479578 C16.633165,17.8173474 15.366835,17.8173474 14.5857864,18.5479578 C13.8047379,19.2785683 13.8047379,20.4631219 14.5857864,21.1937324 L24,30 L33.4142136,21.1937324 C34.1952621,20.4631219 34.1952621,19.2785683 33.4142136,18.5479578 C32.633165,17.8173474 31.366835,17.8173474 30.5857864,18.5479578 L24,24.708451 L17.4142136,18.5479578 Z"
-                                                    id="Path-5-Copy-3"></path>
+                                                            d="M17.4142136,18.5479578 C16.633165,17.8173474 15.366835,17.8173474 14.5857864,18.5479578 C13.8047379,19.2785683 13.8047379,20.4631219 14.5857864,21.1937324 L24,30 L33.4142136,21.1937324 C34.1952621,20.4631219 34.1952621,19.2785683 33.4142136,18.5479578 C32.633165,17.8173474 31.366835,17.8173474 30.5857864,18.5479578 L24,24.708451 L17.4142136,18.5479578 Z"
+                                                            id="Path-5-Copy-3"></path>
                                                 </g>
                                             </g>
                                         </g>
                                     </g>
                                 </svg>
                             </button>
-                            <button>
+                            <button class="remover-categoria" data-modal-index="3">
                                 <img src="imgs/lixeira.svg" alt="">
                             </button>
                         </div>
@@ -494,46 +418,52 @@
                         <div class="linha-de-separacao-cardapio"></div>
                         <div class="container-adiciona-categoria">
                             <div class="produtos">
-                                <div class="produto">
-                                    <img class="img-produto" src="imgs/teste/teste.jpg" alt="">
-                                    <div>
-                                        <p class="nome">Coquinha Gelada 300ml</p>
-                                        <p class="descricao">ASDASDASDASD</p>
-                                    </div>
-                                    <div class="input-container">
-                                        <div>
-                                            <label for="preco">R$</label>
-                                            <input type="number" id="preco" name="preco" class="preco moeda" disabled value="5.99" />
-                                        </div>
-                                        <div>
-                                            <input type="number" id="quantidade" name="quantidade" class="quantidade" disabled value="3" />
-                                            <label for="quantidade">unid.</label>
-                                        </div>
-
-                                    </div>
-                                    <button class="botao editar-produto modal-trigger" data-modal-index="2">Editar</button>
-                                    <img src="imgs/lixeira.svg" alt="">
-                                </div>
-                                <button class="botao" id="add-produto">+ Adicionar produto</button>
+                                <button class="botao add-produto">+ Adicionar produto</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <button id="add-categoria" class="botao">+ Adicionar categoria</button>
+                <div class="produto clone hidden">
+                    <img class="img-produto" src="imgs/teste/teste.jpg" alt="">
+                    <div>
+                        <p class="nome">Novo produto</p>
+                        <p class="descricao"></p>
+                    </div>
+                    <div class="input-container">
+                        <div>
+                            <label for="preco">R$</label>
+                            <input type="text" name="preco" class="preco moeda" disabled value="0.00" />
+                        </div>
+                        <div class="informacoes">
+                            <p class="visibilidade">Pausado</p>
+                        </div>
+                    </div>
+                    <button class="botao editar-produto modal-trigger" data-modal-index="2">Editar</button>
+                    <img class="remover-produto" src="imgs/lixeira.svg" alt="">
+                </div>
             </div>
         </main>
 
-        <div class="modal hidden" data-modal-index="2" data-lock-screen="true">
-            <button id="close-modal" class="modal-produto-botao">
+        <div class="modal generic hidden" data-modal-index="2" data-lock-screen="true">
+            <button class="modal-produto-botao close-modal styled">
                 <img src="imgs/x-symbol.svg" alt="">
             </button>
             <div id="modal-produto-body">
                 <div id="modal-produto-main">
                     <ul>
                         <li>
-                            <p>Nome</p>
-                            <div class="opcao">
-                                <input type="text" id="modal-produto-nome">
+                            <div class="campo">
+                                <p>Nome</p>
+                                <div class="opcao">
+                                    <input type="text" id="modal-produto-nome">
+                                </div>
+                            </div>
+                            <div class="campo">
+                                <p>Preço</p>
+                                <div class="opcao">
+                                    <label for="modal-produto-preco">R$</label>
+                                    <input type="text" name="preco" id="modal-produto-preco" class="moeda">
+                                </div>
                             </div>
                         </li>
                         <li>
@@ -544,52 +474,94 @@
                         </li>
                         <li>
                             <div class="campo">
-                                <p>Preço</p>
+                                <p>Visibilidade</p>
                                 <div class="opcao">
-                                    <label for="preco">R$</label>
-                                    <input type="text" name="preco" id="modal-produto-preco" class="moeda">
+                                    <div class="toggle visibilidade">
+                                        <button class="toggle-button active">Pausado</button>
+                                        <button class="toggle-button">Ativar</button>
+                                    </div>
                                 </div>
                             </div>
                             <div class="campo">
-                                <p>Quantidade</p>
+                                <p>Destaque</p>
                                 <div class="opcao">
-                                    <input type="number" id="modal-produto-quantidade" min="0">
+                                    <div class="toggle destaque">
+                                        <button class="toggle-button active">Não</button>
+                                        <button class="toggle-button">Sim</button>
+                                    </div>
                                 </div>
                             </div>
                         </li>
                     </ul>
-                    <div>
-                        <button class="botao">Salvar</button>
+                    <div id="modal-produto-salvar-container">
+                        <button class="botao" id="modal-produto-salvar">Salvar</button>
                     </div>
                 </div>
                 <div id="modal-produto-img">
                     <img src="imgs/teste/teste.jpg" alt="">
                 </div>
             </div>
+            <input type="hidden" id="modal-produto-id">
+        </div>
+
+        <div class="modal hidden" id="alerta" data-modal-index="3" data-lock-screen="true">
+            <h1>Atenção</h1>
+            <p>Esta categoria contém um ou mais produtos. Removê-la resultará na remoção de todos os produtos contidos nela. Deseja prosseguir?</p>
+            <div>
+                <button class="botao close-modal" id="alerta-sim">Sim</button>
+                <button class="botao close-modal" id="alerta-nao">Não</button>
+            </div>
+        </div>
+
+        <div class="modal generic hidden" data-modal-index="4" data-lock-screen="true">
+            <button class="modal-produto-botao close-modal styled">
+                <img src="imgs/x-symbol.svg" alt="">
+            </button>
+            <div class="modal-content">
+                <div id="conteudo-promove">
+                    <div id="conteudo-top-promove">
+                        <h3 id="h3Promove">Carregue aqui uma imagem para promover sua loja!</h3>
+                        <label id="picture-promove" for="picture-input-promove" tabindex="0">
+                            <span id="picture-image-promove">Carregar Imagem</span>
+                            <input type="file" name="picture-input-promove" id="picture-input-promove"
+                                   accept="image/*" onchange="previewPromocao()" />
+                        </label>
+                    </div>
+
+                    <div id="btns-promove">
+                        <button id="btnPromoveS">Salvar</button>
+                        <button id="btnPromoveE">Editar</button>
+                    </div>
+
+                </div>
+            </div>
         </div>
 
         <script src="scripts/jquery/jquery.js"></script>
 
-        <script src="scripts/minha-loja/categorias/alterarEstadoCategoria.js"></script>
-        <script src="scripts/minha-loja/categorias/gerenciarCategorias.js"></script>
-        <script src="scripts/minha-loja/categorias/editarCategoria.js"></script>
+        <script type="module" src="scripts/janelas-modais/modal.js"></script>
+
+        <script src="scripts/minha-loja/agenda/gerenciarAgenda.js"></script>
+        <script src="scripts/minha-loja/agenda/editarAgenda.js"></script>
+
+        <script type="module" src="scripts/minha-loja/produtos/gerenciarProdutos.js"></script>
+
+        <script type="module" src="scripts/minha-loja/categorias/gerenciarCategorias.js"></script>
 
         <script src="scripts/minha-loja/dados/editarDadosLoja.js"></script>
         <script src="scripts/minha-loja/dados/alterarDadosLoja.js"></script>
 
-        <script src="scripts/minha-loja/editarloja.js"></script>
         <script src="scripts/minha-loja/alterarImagem.js"></script>
-        <script src="scripts/minha-loja/editarProduto.js"></script>
-        <script src="scripts/minha-loja/editarHorarios.js"></script>
-        <script src="scripts/minha-loja/editarPontoEncontro.js"></script>
-        <script src="scripts/minha-loja/barraLateral.js"></script>
+
+        <script src="scripts/minha-loja/pontos/gerenciarPontoEncontro.js"></script>
+
+        <script src="scripts/usuario/dados/editarDados.js"></script>
+        <script src="scripts/usuario/dados/alterarDados.js"></script>
 
         <script src="scripts/minha-loja/formatarMoeda.js"></script>
 
+        <script src="scripts/minha-loja/barraLateral.js"></script>
 
-        <script src="scripts/janelas-modais/modal.js"></script>
-        <script src="scripts/dados/editarDados.js"></script>
-        <script src="scripts/dados/alterarDados.js"></script>
         <script src="scripts/rating.js"></script>
         <script src="scripts/mascaras.js"></script>
     </body>

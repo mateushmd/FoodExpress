@@ -11,6 +11,9 @@ $(function() {
             data: {idLoja: target.data('lojaId')},
             success: function(response) {
                 target.parent().remove();
+
+                if($('.loja').length < 1)
+                    $('.mensagem').removeClass('hidden');
             },
             error: function(xhr, status, error) {
                 console.error(`AJAX request failed with status ${status}, error: ${error}`);

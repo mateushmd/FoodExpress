@@ -20,3 +20,111 @@ main {
         /*calc(3.15em * var(--escala-menor))*/
         3.15em;
 }
+
+.lojas-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.lojas-container button {
+    width: 100%;
+    background-color: inherit;
+    border: none;
+    border-radius: 5px;
+    font-family: inherit;
+    font-size: 2em;
+    font-weight: 707;
+    cursor: pointer;
+    transition: all .2s ease;
+}
+
+.lojas-container button:hover {
+    background-color: var(--marca);
+    color: white;
+}
+
+.lojas-container .lojas {
+    display: grid;
+    column-gap: 20px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: repeat(1fr);
+}
+
+
+.lojas-container .loja {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+
+    transition: all .2s ease;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+
+    cursor: pointer;
+}
+
+.lojas-container .loja:hover {
+    box-shadow: 1px 1px 4px 1px #c0c0c0;
+    transform: scale(1.02);
+}
+
+.lojas-container .loja,
+.lojas-container .loja h2 {
+    font-weight: 707;
+}
+
+.lojas-container .loja h2,
+.lojas-container .loja p {
+    margin: 5px;
+}
+
+.lojas-container .img-loja {
+    width: calc(100px * var(--escala));
+    height: calc(100px * var(--escala));
+    object-fit: cover;
+    border-radius: 10%;
+}
+
+.lojas-container .loja-body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.lojas-container .avaliacao,
+.lojas-container .disponibilidade {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+}
+
+.lojas-container .avaliacao img {
+    width: 20px;
+    height: 20px;
+}
+
+.lojas-container .disponibilidade svg {
+    width: 10px;
+    height: 10px;
+    padding-bottom: 2px;
+}
+
+.lojas-container .disponibilidade.aberto {
+    color: green;
+}
+
+.lojas-container .disponibilidade.fechado {
+    color: red;
+}
+
+.lojas-container .loja h2 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    font-size: 1.1em;
+}

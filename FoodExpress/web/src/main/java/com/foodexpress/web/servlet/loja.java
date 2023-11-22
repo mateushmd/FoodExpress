@@ -1,13 +1,7 @@
 package com.foodexpress.web.servlet;
 
-import com.foodexpress.model.dto.AvaliacaoDTO;
-import com.foodexpress.model.dto.LojaDTO;
-import com.foodexpress.model.dto.ProdutoDTO;
-import com.foodexpress.model.dto.UsuarioDTO;
-import com.foodexpress.model.service.AvaliacaoService;
-import com.foodexpress.model.service.FavoritosService;
-import com.foodexpress.model.service.LojaService;
-import com.foodexpress.model.service.ProdutoService;
+import com.foodexpress.model.dto.*;
+import com.foodexpress.model.service.*;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -33,35 +27,32 @@ public class loja extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        int id = Integer.parseInt(request.getParameter("id"));
-        
-        System.out.println(id);
-        
-        LojaService lService = LojaService.getInstance();
 
-        ProdutoService produtoService = ProdutoService.getInstance();
-        
-        AvaliacaoService avaliacaoService = AvaliacaoService.getInstance();
-
-        FavoritosService favoritosService = FavoritosService.getInstance();
-        
         HttpSession session = request.getSession();
-        
-        LojaDTO loja = lService.getLojaById(id);
+
+        int id = Integer.parseInt(request.getParameter("id"));
 
         UsuarioDTO usuario = ((UsuarioDTO) session.getAttribute("usuario"));
         
-        ArrayList<ProdutoDTO> produtos = (ArrayList<ProdutoDTO>) produtoService.listarProdutos(loja.getId());
-        
-        ArrayList<AvaliacaoDTO> avaliacoes = (ArrayList<AvaliacaoDTO>) avaliacaoService.getAvaliacaoByIdLoja(loja.getId());
+        LojaService lService = LojaService.getInstance();
+        LojaDTO loja = lService.getLojaById(id);
 
+        CategoriaService categoriaService = CategoriaService.getInstance();
+        ArrayList<CategoriaDTO> categorias = (ArrayList<CategoriaDTO>) categoriaService.listarCliente(loja.getId());
+
+        ProdutoService produtoService = ProdutoService.getInstance();
+        ArrayList<ProdutoDTO> destaques = (ArrayList<ProdutoDTO>) produtoService.getProdutosDestaqueCliente(loja.getId());
+
+        AvaliacaoService avaliacaoService = AvaliacaoService.getInstance();
+        ArrayList<AvaliacaoDTO> avaliacoes = (ArrayList<AvaliacaoDTO>) avaliacaoService.getAvaliacaoByIdLoja(loja.getId());
         AvaliacaoDTO avaliacaoUsuario = avaliacaoService.getAvaliacaoByIdLojaCliente(loja.getId(), usuario.getEmail());
 
+        FavoritosService favoritosService = FavoritosService.getInstance();
         boolean favorito = favoritosService.checkFavorito(usuario.getEmail(), loja.getId());
         
         request.setAttribute("loja", loja);
-        request.setAttribute("produtos", produtos);
+        request.setAttribute("categorias", categorias);
+        request.setAttribute("destaques", destaques);
         request.setAttribute("avaliacoes", avaliacoes);
         request.setAttribute("avaliacaoUsuario", avaliacaoUsuario);
         request.setAttribute("favorito", favorito);

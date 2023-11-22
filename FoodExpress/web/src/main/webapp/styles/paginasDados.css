@@ -1,13 +1,14 @@
 body {
     height: 100vh;
+    width: 100vw;
 
     margin: 0;
 
     font-family: 'Cooper Hewitt', sans-serif;
 
     background: #f5e9da url(../imgs/capa2.jpg);
-    background-size: 126%;
-    background-position: 50%;
+
+    background-size: cover;
 
     display: flex;
     align-items: center;
@@ -36,7 +37,8 @@ p {
 }
 
 
-#input-container {
+#input-container,
+.input-container {
     position: relative;
 
     width: 100%;
@@ -44,6 +46,8 @@ p {
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    margin-bottom: 10px;
 }
 
 label {
@@ -72,31 +76,26 @@ input {
 
 button {
     margin-top: 20px;
-
     border: none;
     background-color: inherit;
     width: 30%;
     cursor: pointer;
-
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 button input {
-    width: 100%;
-
+    width: 194px;
+    text-align: center;
     background-color: #e6f1f5;
-
-    font-weight: 707;
-    color: var(--marca);
-
+    color: #cc575f;
     border: 1px solid #e6f1f5;
+    font-size: inherit;
     border-radius: 6px;
-
+    height: 29px;
     cursor: pointer;
-
-    margin: 0;
+    font-family: 'Oswald', sans-serif;
 }
 
 button input:hover {
@@ -109,7 +108,42 @@ button input:hover {
 }
 
 @keyframes blink {
-    0% { opacity: 100%; }
-    50% { opacity: 0;  }
-    100% { opacity: 100%; }
+    0% {
+        opacity: 100%;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 100%;
+    }
+}
+
+@media only screen and (max-width: 740px) {
+    main {
+        padding: 0;
+        height: 100vh;
+        width: 100vw;
+        max-width: 100vw;
+        justify-content: center;
+    }
+}
+
+@media only screen and (max-width: 370px) {
+    #redefinir {
+        font-size: 0.8em;
+    }
+}
+
+@media only screen and (max-width: 300px) {
+    h1 {
+        font-size: 1.6em;
+        font-weight: 707;
+    }
+
+    p {
+        font-size: 0.8em;
+    }
 }

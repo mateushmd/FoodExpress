@@ -71,7 +71,7 @@
     transition: transform .5s cubic-bezier(0, 0, 0, 0.90);
 }
 
-.item:hover img {
+.item:hover .img-container img {
     transform: scale(1.15);
 }
 
@@ -91,7 +91,7 @@
     padding: 0px 20px;
     margin: 0;
     display: grid;
-    grid-template-columns: 44% 44% 11%;
+    grid-template-columns: 34% 33% 33%;
     grid-template-rows: 100%;
     align-items: center;
     overflow: visible;
@@ -108,6 +108,11 @@
     font-size: calc(1.5em / var(--escala-menor));
     font-weight: 800;
     margin: 0;
+    
+    text-align: center;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
 }
 
 .item.fit-product .info-container h2 {
@@ -205,5 +210,40 @@
 }
 
 .carousel-favorite button:hover {
+    color: red;
+}
+
+.avaliacao,
+.disponibilidade {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-weight: 707;
+    gap: 5px;
+}
+
+.avaliacao img {
+    width: 20px;
+    height: 20px;
+    padding-bottom: 5px;
+}
+
+.avaliacao p {
+    margin: 0;
+    text-align: end;
+}
+
+.disponibilidade svg {
+    width: 10px;
+    height: 10px;
+    padding-bottom: 2px;
+}
+
+.disponibilidade.aberto {
+    color: green;
+}
+
+.disponibilidade.fechado {
     color: red;
 }
