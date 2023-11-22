@@ -231,16 +231,16 @@
                     </ul>
                     <div class="botao-dados-container">
                         <div class="botao-dados">
-                            <input type="submit" value="ALTERAR SENHA" id="alterar-senha">
+                            <input type="submit" value="Alterar senha" id="alterar-senha">
                         </div>
                         <div class="botao-dados">
-                            <input type="submit" value="SALVAR" id="save" class="hidden" name="SUBMIT">
+                            <input type="submit" value="Salvar" id="save" class="hidden" name="SUBMIT">
                         </div>
                     </div>
                     <div class="botao-dados-container">
                         <div class="botao-dados">
                             <a href="logout">
-                                <input type="submit" value="SAIR" id="sair">
+                                <input type="submit" value="Sair" id="sair">
                             </a>
                         </div>
                     </div>

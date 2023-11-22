@@ -1,4 +1,5 @@
 .loja {
+    width: 500px;
     display: grid;
     grid-template-columns: 24% 66% 10%;
     align-items: center;
@@ -21,10 +22,6 @@
     font-weight: 707;
 }
 
-.loja h2 {
-
-}
-
 .img-loja {
     width: calc(100px * var(--escala));
     height: calc(100px * var(--escala));
@@ -35,6 +32,13 @@
 .loja-body {
     display: flex;
     flex-direction: column;
+}
+
+.loja-body h2 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
 }
 
 .avaliacao {
@@ -81,4 +85,24 @@
 .mensagem img {
     width: 30%;
     height: 30%;
+}
+
+@media only screen and (max-width: 540px) {
+    .loja {
+        width: 80vw;
+        grid-template-columns: 40% 50% 10%;
+    }
+
+    .img-loja {
+        width: 70px;
+        height: 70px;
+    }
+
+    .loja h2 {
+        font-size: 1em;
+    }
+
+    .remover {
+        margin: 0;
+    }
 }

@@ -36,17 +36,6 @@
                 <div id="profile">
                     <img id="profile-pic" class="modal-trigger" data-modal-index="0" src="imgs/header/icone-perfil.png"
                          alt="Perfil">
-                    <div id="modal-perfil" class="modal hidden" data-modal-index="0">
-                        <h2>Olá ${usuario.nome}</h2>
-                        <ul>
-                            <li><a href="dados.jsp"><img src="imgs/header/engrenagem.svg" alt="">Dados</a></li>
-                            <li><a href=""><img src="imgs/header/pedido.svg" alt="">Pedidos</a></li>
-                            <li><a href=""><img src="imgs/header/chat.svg" alt="">Conversas</a></li>
-                            <li><a href="meus-favoritos"><img src="imgs/header/coracao.svg" alt="">Favoritos</a></li>
-                            <li><a href="acessibilidade.jsp"><img src="imgs/header/acessibilidade.svg" alt="">Acessibilidade</a></li>
-                            <li><a href="logout"><img src="imgs/header/sair.svg" alt="">Sair</a></li>
-                        </ul>
-                    </div>
                 </div>
                 <div id="orders">
                     <img id="orders-pic" src="imgs/header/sacola.svg" class="slider-trigger" data-slider-index="0" alt="Pedidos">
@@ -55,6 +44,43 @@
                         <p><span id="orders-quantidade">${sacola.quantidade}</span> ${sacola.quantidade eq 1 ? 'item' : 'itens'}</p>
                     </div>
                 </div>
+            </div>
+        </header>
+
+        <div id="modal-perfil" class="modal hidden" data-modal-index="0">
+            <button class="close-modal styled">
+                <img src="imgs/x-symbol.svg" alt="">
+            </button>
+            <div>
+                <h2>Olá ${usuario.nome}</h2>
+                <ul>
+                    <li><a href="dados.jsp"><img src="imgs/header/engrenagem.svg" alt="">Dados</a></li>
+                    <li><a href=""><img src="imgs/header/pedido.svg" alt="">Pedidos</a></li>
+                    <li><a href=""><img src="imgs/header/chat.svg" alt="">Conversas</a></li>
+                    <li><a href="meus-favoritos"><img src="imgs/header/coracao.svg" alt="">Favoritos</a></li>
+                    <li><a href="acessibilidade.jsp"><img src="imgs/header/acessibilidade.svg" alt="">Acessibilidade</a>
+                    </li>
+                    <li><a href="logout"><img src="imgs/header/sair.svg" alt="">Sair</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <header id="navbar-responsive" class="hidden">
+            <div>
+                <img src="imgs/header/house.svg" alt="">
+                <p>Início</p>
+            </div>
+            <div>
+                <img src="imgs/lupa-azul.svg" alt="">
+                <p>Buscar</p>
+            </div>
+            <div class="slider-trigger" data-slider-index="0">
+                <img src="imgs/header/sacola.svg" alt="">
+                <p>Sacola</p>
+            </div>
+            <div class="modal-trigger" data-modal-index="0">
+                <img src="imgs/header/icone-perfil.png" alt="">
+                <p>Perfil</p>
             </div>
         </header>
 
@@ -171,6 +197,7 @@
         <script src="scripts/janelas-modais/slider.js"></script>
         <script src="scripts/mascaras.js"></script>
         <script src="scripts/busca.js"></script>
+        <script src="scripts/responsiveNavBar.js"></script>
     </body>
 
 </html>
