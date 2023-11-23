@@ -1,5 +1,3 @@
-@import url("../fonts/style.css");
-
 :root {
   --spacing: 8px;
   --background1: #e6f1f5;
@@ -7,17 +5,24 @@
   --brand1: #e6f1f5;
 }
 
+* {
+  overflow: hidden;
+}
+
+body {
+  font-family: 'Cooper Hewitt', sans-serif;
+}
+
 .number-code {
   border-color: var(--background1);
   border-style: solid;
+
 }
 
 .number-code>div {
-  display: flex;
-}
-
-.number-code>div>input:not(:last-child) {
-  margin-right: calc(var(--spacing) * 2);
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto;
+  gap: 15px;
 }
 
 .code-input {
@@ -40,7 +45,7 @@
 
 .code-input {
   font-size: 1.5em;
-  width: 1em;
+  width: 2em;
   text-align: center;
   flex: 1 0 1em;
 }
@@ -55,7 +60,7 @@
   -moz-appearence: textfield;
 }
 
-form>p {
+.form>p {
   text-align: center;
 }
 
@@ -114,7 +119,6 @@ body {
   height: 38px;
   padding-left: 6px;
   border-color: #b7b5b5;
-  font-family: iFood RC Titulos, iFood RC Textos, helvetica, sans-serif;
   color: black;
 }
 
@@ -124,11 +128,22 @@ body {
 
 .botoes1 {
   display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+  font-weight: 707;
+}
+
+.botao1 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
 }
 
 .botao1 input {
   width: 194px;
-  margin-top: 19px;
   text-align: center;
   background-color: #e6f1f5;
   color: #cc575f;
@@ -150,5 +165,47 @@ body {
 }
 
 #codigo {
-  font-family: iFood RC Titulos,iFood RC Textos,helvetica,sans-serif;
+  font-family: iFood RC Titulos, iFood RC Textos, helvetica, sans-serif;
+}
+
+@media only screen and (max-width: 1060px) {
+  body {
+    background-size: cover;
+  }
+}
+
+@media only screen and (max-width: 564px) {
+  #containerRedefinir {
+    width: 80vw;
+  }
+}
+
+
+@media only screen and (max-width: 475px) {
+  .code-input {
+    width: 0.7em;
+  }
+
+  .botoes1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media only screen and (max-width: 410px) {
+  .code-input {
+    width: 0.5em !important;
+  }
+}
+
+@media only screen and (max-width: 390px) {
+  #containerRedefinir {
+    width: 100vw;
+    padding: 0;
+  }
+
+  .number-code>div {
+    gap: 5px;
+  }
 }

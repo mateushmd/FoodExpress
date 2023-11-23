@@ -1,0 +1,29 @@
+.rating {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    z-index: 1000;
+}
+
+.rating input {
+    display: none;
+}
+
+.rating label {
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.rating label img {
+    width: 30px;
+    height: auto;
+}
+
+.rating.small label img {
+    width: calc(20px * var(--escala-menor));
+}
+
+.rating .checked {
+    color: #ffc700;
+}

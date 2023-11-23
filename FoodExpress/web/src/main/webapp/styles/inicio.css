@@ -1,0 +1,165 @@
+@import url('https://fonts.cdnfonts.com/css/cooper-hewitt?styles=34277,34271');
+
+body {
+    margin: 0;
+    height: 100vh;
+    background-color: var(--cor-fundo);
+    overflow-x: hidden;
+    font-family: 'Cooper Hewitt', sans-serif;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: 100vw;
+}
+
+main {
+    padding: 30px 250px;
+}
+
+.content>h1 {
+    font-size:
+        /*calc(3.15em * var(--escala-menor))*/
+            3.15em;
+}
+
+.lojas-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.lojas-container button {
+    width: 100%;
+    background-color: inherit;
+    border: none;
+    border-radius: 5px;
+    font-family: inherit;
+    font-size: 2em;
+    font-weight: 707;
+    cursor: pointer;
+    transition: all .2s ease;
+}
+
+.lojas-container button:hover {
+    background-color: var(--marca);
+    color: white;
+}
+
+.lojas-container .lojas {
+    display: grid;
+    column-gap: 20px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: repeat(1fr);
+}
+
+
+.lojas-container .loja {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+
+    transition: all .2s ease;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+
+    cursor: pointer;
+}
+
+.lojas-container .loja:hover {
+    box-shadow: 1px 1px 4px 1px #c0c0c0;
+    transform: scale(1.02);
+}
+
+.lojas-container .loja,
+.lojas-container .loja h2 {
+    font-weight: 707;
+}
+
+.lojas-container .loja h2,
+.lojas-container .loja p {
+    margin: 5px;
+}
+
+.lojas-container .img-loja {
+    width: calc(100px * var(--escala));
+    height: calc(100px * var(--escala));
+    object-fit: cover;
+    border-radius: 10%;
+}
+
+.lojas-container .loja-body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.lojas-container .avaliacao,
+.lojas-container .disponibilidade {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+}
+
+.lojas-container .avaliacao img {
+    width: 20px;
+    height: 20px;
+}
+
+.lojas-container .disponibilidade svg {
+    width: 10px;
+    height: 10px;
+    padding-bottom: 2px;
+}
+
+.lojas-container .disponibilidade.aberto {
+    color: green;
+}
+
+.lojas-container .disponibilidade.fechado {
+    color: red;
+}
+
+.lojas-container .loja h2 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    font-size: 1.1em;
+}
+
+@media only screen and (max-width: 1400px) {
+    main {
+        padding: 30px;
+    }
+}
+
+@media only screen and (max-width: 1240px) {
+    .lojas-container .lojas {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media only screen and (max-width: 880px) {
+    .lojas-container .lojas {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .content>h1 {
+        font-size: 1em;
+    }
+
+    .lojas-container .lojas {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .lojas-container .img-loja {
+        width: 50px;
+        height: 50px;
+    }
+}

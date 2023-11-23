@@ -1,26 +1,21 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package com.foodexpress.web.servlet;
 
-import com.foodexpress.model.dto.LojaDTO;
-import com.foodexpress.model.dto.ProdutoDTO;
-import com.foodexpress.model.service.LojaService;
+import com.foodexpress.model.dto.*;
+import com.foodexpress.model.service.*;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
+import jakarta.servlet.http.HttpSession;
 
-/**
- *
- * @author chsdi
- */
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 @WebServlet(name = "loja", urlPatterns = {"/loja"})
 public class loja extends HttpServlet {
 
@@ -36,22 +31,59 @@ public class loja extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+
+        HttpSession session = request.getSession();
+
+        int id = Integer.parseInt(request.getParameter("id"));
+
+        UsuarioDTO usuario = ((UsuarioDTO) session.getAttribute("usuario"));
         
-        String submit = request.getParameter("submitAction");
+        LojaService lService = LojaService.getInstance();
+        LojaDTO loja = lService.getLojaById(id);
+
+        CategoriaService categoriaService = CategoriaService.getInstance();
+        ArrayList<CategoriaDTO> categorias = (ArrayList<CategoriaDTO>) categoriaService.listarCliente(loja.getId());
+
+        ProdutoService produtoService = ProdutoService.getInstance();
+        ArrayList<ProdutoDTO> destaques = (ArrayList<ProdutoDTO>) produtoService.getProdutosDestaqueCliente(loja.getId());
+
+        AvaliacaoService avaliacaoService = AvaliacaoService.getInstance();
+        ArrayList<AvaliacaoDTO> avaliacoes = (ArrayList<AvaliacaoDTO>) avaliacaoService.getAvaliacaoByIdLoja(loja.getId());
+        AvaliacaoDTO avaliacaoUsuario = avaliacaoService.getAvaliacaoByIdLojaCliente(loja.getId(), usuario.getEmail());
+
+        FavoritosService favoritosService = FavoritosService.getInstance();
+        boolean favorito = favoritosService.checkFavorito(usuario.getEmail(), loja.getId());
+
+        AgendaLojaService agendaLojaService = AgendaLojaService.getInstance();
+        ArrayList<AgendaLojaDTO> agenda = (ArrayList<AgendaLojaDTO>) agendaLojaService.getAgendasByLojaCliente(loja.getId());
+
+        UsuarioService usuarioService = UsuarioService.getInstance();
+        String telefone = usuarioService.getTelefone(loja.getIdUser());
+
+        Pattern pattern = Pattern.compile("[^0-9]");
+        Matcher matcher = pattern.matcher(telefone);
+
+        telefone = matcher.replaceAll("");
+
+        PontoEncontroService pontoEncontroService = PontoEncontroService.getInstance();
+        ArrayList<PontoEncontroDTO> pontos = (ArrayList<PontoEncontroDTO>) pontoEncontroService.getCliente(loja.getId());
+
+        int diaDaSemanaAtual = LocalDateTime.now().getDayOfWeek().getValue();
         
-        String id = request.getParameter("id");
+        request.setAttribute("loja", loja);
+        request.setAttribute("categorias", categorias);
+        request.setAttribute("destaques", destaques);
+        request.setAttribute("avaliacoes", avaliacoes);
+        request.setAttribute("avaliacaoUsuario", avaliacaoUsuario);
+        request.setAttribute("favorito", favorito);
+        request.setAttribute("agenda", agenda);
+        request.setAttribute("telefone", telefone);
+        request.setAttribute("pontos", pontos);
+        request.setAttribute("diaDaSemanaAtual", diaDaSemanaAtual);
         
-        System.out.println(submit);
+        RequestDispatcher rd = request.getRequestDispatcher("loja.jsp");
         
-        String URL = "processLoja?id=" + id;
-        
-        //Implementar favoritos
-        if(submit.equals("FAVORITAR")) {
-            response.sendRedirect("menuprincipal.jsp");
-            return;
-        }
-        
-        response.sendRedirect(URL);
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -66,7 +98,7 @@ public class loja extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
+        processRequest(request, response);
     }
 
     /**

@@ -1,7 +1,5 @@
 @import url('https://fonts.cdnfonts.com/css/cooper-hewitt?styles=34277,34271');
-@import url(' https://fonts.cdnfonts.com/css/oswald-4 ');
-@import url('https://fonts.cdnfonts.com/css/freshwost');
-@import url("../fonts/style.css");
+@import url('https://fonts.cdnfonts.com/css/oswald-4');
 
 html {
     height: 100%;
@@ -11,22 +9,22 @@ body {
     font-family: 'Cooper Hewitt', sans-serif;
     margin: 0;
     padding: 0;
-    height: 100%;
-    width: 100%;
+    height: 100vh;
+    width: 100vw;
     background-color: #e6f1f5;
     color: #e6f1f5;
+    overflow: hidden;
 }
 
 .container {
     background-color: #ffffff;
     padding: 20px;
-    width: 500px;
     display: flex;
     justify-content: center;
     align-items: center;
-    -webkit-box-shadow: -11px -6px 37px -20px rgba(204,87,95,1);
-    -moz-box-shadow: -7px 6px 14px -7px rgba(204,87,95,1);
-    box-shadow: -8px 17px 161px -10px rgba(204,87,95,1);
+    -webkit-box-shadow: -11px -6px 37px -20px rgba(204, 87, 95, 1);
+    -moz-box-shadow: -7px 6px 14px -7px rgba(204, 87, 95, 1);
+    box-shadow: -8px 17px 161px -10px rgba(204, 87, 95, 1);
     flex-wrap: wrap;
     z-index: 1;
     flex-direction: column;
@@ -38,36 +36,17 @@ body {
 
 .fundo {
     opacity: 0.6;
-    width: 72vw;
     background-color: #3d3d3d;
 }
 
-#main {
-    top: 50%;
-    left: 50%;
-    display: flex;
-    flex-direction: row;
-    justify-content: end;
-    min-height: 100%;
+.main {
+    display: grid;
+    grid-template-columns: 70vw auto;
+    grid-template-rows: 100%;
+    height: 100vh;
     width: 100%;
     background: #f5e9da url("../imgs/capa.jpg");
     background-position: 47%;
-    min-width: 61vw;
-    background-repeat: no-repeat;
-    background-size: 126%;
-}
-
-#mainLogin {
-    top: 50%;
-    left: 50%;
-    display: flex;
-    flex-direction: row;
-    justify-content: end;
-    height: 100%;
-    width: 100%;
-    background: #f5e9da url("../imgs/capa.jpg");
-    background-position: 47%;
-    min-width: 61vw;
     background-repeat: no-repeat;
     background-size: 126%;
 }
@@ -75,25 +54,24 @@ body {
 .containerLogin {
     background-color: #ffffff;
     padding: 20px;
-    width: 500px;
     display: flex;
     justify-content: center;
     align-items: center;
-    -webkit-box-shadow: -11px -6px 37px -20px rgba(204,87,95,1);
-    -moz-box-shadow: -7px 6px 14px -7px rgba(204,87,95,1);
-    box-shadow: -8px 17px 161px -10px rgba(204,87,95,1);
+    -webkit-box-shadow: -11px -6px 37px -20px rgba(204, 87, 95, 1);
+    -moz-box-shadow: -7px 6px 14px -7px rgba(204, 87, 95, 1);
+    box-shadow: -8px 17px 161px -10px rgba(204, 87, 95, 1);
     flex-wrap: wrap;
     z-index: 1;
     flex-direction: column;
 }
 
-form {
+.form {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-form section {
+.form section {
     padding-bottom: 20px;
 }
 
@@ -120,7 +98,6 @@ input:focus {
     height: 38px;
     padding-left: 6px;
     border-color: #b7b5b5;
-    font-family: iFood RC Titulos,iFood RC Textos,helvetica,sans-serif;
     color: black;
 }
 
@@ -130,6 +107,10 @@ input:focus {
 
 .botao {
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
 }
 
 .botao input {
@@ -146,7 +127,6 @@ input:focus {
 .opcoes {
     display: flex;
     font-size: 11px;
-    font-family: iFood RC Titulos,iFood RC Textos,helvetica,sans-serif;
     color: black;
 }
 
@@ -164,7 +144,7 @@ input:focus {
     margin-left: 40px;
 }
 
-form a {
+.form a {
     text-decoration: none;
     color: inherit;
 }
@@ -174,7 +154,6 @@ form a {
 }
 
 #tenhoLogin {
-    font-family: 'Oswald', sans-serif; 
     font-size: 11px;
     color: #000000;
     font-size: 11px;
@@ -185,17 +164,18 @@ form a {
 }
 
 .parag {
-    font-family: 'Oswald', sans-serif; 
-    font-size: 11px;
-    color: #b7b5b5;
-    font-size: 11px;
+    color: #857f7f;
+    font-size: 13px;
     margin-top: 2px;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 400;
 }
 
 #cadastro {
     cursor: pointer;
-    font-family: 'Oswald', sans-serif; 
+    font-family: 'Oswald', sans-serif;
 }
+
 #cadastro:hover {
     color: #ffffff;
     background-color: #0f7496;
@@ -208,11 +188,10 @@ form a {
 
 #login {
     cursor: pointer;
-    font-family: 'Oswald', sans-serif; 
+    font-family: 'Oswald', sans-serif;
 }
 
 #cadastroBtn {
-    font-family: 'Oswald', sans-serif; 
     font-size: 11px;
     color: #000000;
     font-size: 11px;
@@ -226,7 +205,9 @@ form a {
     color: #adadad;
     padding-left: 6px;
     padding-top: 6px;
-    font-size: 11px;
+    font-size: 13px;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 400;
 }
 
 #senhaBtn:hover {
@@ -235,13 +216,10 @@ form a {
 }
 
 a {
-    
     font-size: 13px;
-    font-family: 'Oswald', sans-serif;
 }
 
 .label {
-    font-family: iFood RC Titulos,iFood RC Textos,helvetica,sans-serif;
     font-size: 12px;
     padding-bottom: 3px;
     color: #adadad;
@@ -249,4 +227,39 @@ a {
 
 #aviso {
     color: black;
+    animation: blink 1s linear 2;
+}
+
+@keyframes blink {
+    0% {
+        opacity: 100%;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 100%;
+    }
+}
+
+@media only screen and (max-width: 1500px) {
+    .main {
+        grid-template-columns: 60vw auto;
+        background-position: 80%;
+        background-size: 150%;
+    }
+}
+
+@media only screen and (max-width: 1150px) {
+    .main {
+        grid-template-columns: 0 auto;
+    }
+}
+
+@media only screen and (max-width: 410px) {
+    input:not([type=radio]) {
+        width: 70vw
+    }
 }

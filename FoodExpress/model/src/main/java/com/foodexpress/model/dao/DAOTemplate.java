@@ -5,6 +5,8 @@
 
 package com.foodexpress.model.dao;
 
+import com.foodexpress.model.dataBaseConnection.ConnectionPoolManager;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,37 +23,107 @@ public abstract class DAOTemplate<T> {
     protected abstract T mapResultSetToObject(ResultSet rs) throws SQLException;
     
     protected List<T> executeQuery(String sql, Object... params) {
+        setConnection();
+        
         List<T> results = new ArrayList<>();
         ResultSet rs = null;
+        PreparedStatement st = null;
         
-        try (PreparedStatement st = conn.prepareStatement(sql)) {
+        try {
+            st = conn.prepareStatement(sql);
+
             setStatementParameters(st, params);
+
             rs = st.executeQuery();
+
             while (rs.next()) {
                 results.add(mapResultSetToObject(rs));
             }
+
+            rs.close();
+            st.close();
+            if(conn != null) conn.close();
         } catch (SQLException ex) {
             Logger.getLogger(DAOTemplate.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            ConexaoBD.closeResultSet(rs);
         }
+        
         return results;
     }
     
     protected boolean executeUpdate(String sql, Object... params) {
-        int affectedLines = 0;
+        setConnection();
         
-        try(PreparedStatement st = conn.prepareStatement(sql)) {
+        int affectedLines = 0;
+        PreparedStatement st = null;
+        
+        try {
+            st = conn.prepareStatement(sql);
+            
             setStatementParameters(st, params);
             
             affectedLines = st.executeUpdate();
+
+            st.close();
+            if(conn != null) conn.close();
         } catch(SQLException ex) {
             Logger.getLogger(DAOTemplate.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return affectedLines > 0;
     }
-    
+
+    protected boolean executeExist(String sql, Object... params) {
+        setConnection();
+
+        boolean exists = false;
+        ResultSet rs = null;
+        PreparedStatement st = null;
+
+        try {
+            st = conn.prepareStatement(sql);
+
+            setStatementParameters(st, params);
+
+            rs = st.executeQuery();
+
+            if(rs.next())
+                exists = true;
+
+            rs.close();
+            st.close();
+            if(conn != null) conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOTemplate.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return exists;
+    }
+
+    protected int count(String sql) {
+        setConnection();
+
+        int rowCount = 0;
+        ResultSet rs = null;
+        PreparedStatement st = null;
+
+        try {
+            st = conn.prepareStatement(sql);
+
+            rs = st.executeQuery();
+
+            if(rs.next())
+                rowCount = rs.getInt(1);
+
+            rs.close();
+            st.close();
+            if(conn != null) conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOTemplate.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return rowCount;
+    }
+
     private void setStatementParameters(PreparedStatement st, Object... params) throws SQLException {
         for(int i = 0; i < params.length; i++) {
             st.setObject(i + 1, params[i]);
