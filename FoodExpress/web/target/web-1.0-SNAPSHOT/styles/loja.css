@@ -355,6 +355,9 @@ main {
     border-radius: 6px;
     height: calc(29px * var(--escala-menor));
     cursor: pointer;
+    font-size: 14px;
+    font-family: 'Poppins';
+    font-weight: 100;
 }
 
 .botao>input:hover {

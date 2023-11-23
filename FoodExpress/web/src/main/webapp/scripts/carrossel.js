@@ -29,20 +29,6 @@ arrows.forEach((el) =>
     });
 });
 
-const itemsLoja = [...document.querySelectorAll('.item-loja')];
-
-itemsLoja.forEach((el) =>
-{
-    el.addEventListener('click', (e) =>
-    {
-        const inputSubmitEl = el.querySelector('.submit-action');
-        
-        const formEl = el.closest('form');
-        
-        formEl.submit();
-    });
-});
-
 function resizeArrow() 
 {
     if (bodyEl.scrollHeight <= bodyEl.clientHeight)

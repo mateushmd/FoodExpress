@@ -1,12 +1,10 @@
 .loja {
-    display: flex;
-    flex-direction: row;
+    width: 500px;
+    display: grid;
+    grid-template-columns: 24% 66% 10%;
     align-items: center;
-    gap: 10px;
-    padding: 10px;
-
     transition: all .2s ease;
-    padding-bottom: 20px;
+    padding: 10px 10px 20px;
     margin-bottom: 20px;
 }
 
@@ -36,6 +34,13 @@
     flex-direction: column;
 }
 
+.loja-body h2 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+
 .avaliacao {
     display: flex;
     flex-direction: row;
@@ -54,4 +59,50 @@
     object-fit: cover;
     margin-left: 30px;
     cursor: pointer;
+}
+
+.mensagem {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.mensagem h2 {
+    font-weight: 800;
+}
+
+.mensagem p {
+    font-weight: 707;
+}
+
+.mensagem img {
+    width: 30%;
+    height: 30%;
+}
+
+@media only screen and (max-width: 540px) {
+    .loja {
+        width: 80vw;
+        grid-template-columns: 40% 50% 10%;
+    }
+
+    .img-loja {
+        width: 70px;
+        height: 70px;
+    }
+
+    .loja h2 {
+        font-size: 1em;
+    }
+
+    .remover {
+        margin: 0;
+    }
 }

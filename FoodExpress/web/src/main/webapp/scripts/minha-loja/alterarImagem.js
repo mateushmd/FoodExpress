@@ -29,10 +29,37 @@ inputFileLoja.addEventListener('change', function (e)
     }
 });
 
-function previewImage()
+function previewBanner()
+{
+    const input = document.getElementById('picture-banner');
+    const imageContainer = document.getElementById('picture-image-loja');
+
+    if (input.files && input.files[0])
+    {
+        const reader = new FileReader();
+
+        reader.onload = function (e)
+        {
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            img.classList.add('picture-img');
+
+            imageContainer.innerHTML = "";
+            imageContainer.appendChild(img);
+        };
+
+        reader.readAsDataURL(input.files[0]);
+    } else
+    {
+        imageContainer.innerHTML = pictureImgLoja;
+    }
+}
+
+
+function previewPerfil()
 {
     const input = document.getElementById('picture-input-loja-perfil');
-    const imageContainer = document.getElementById('picture-image-loja-perfil');
+    const imageContainer = document.getElementById('picture-perfil');
 
     if (input.files && input.files[0])
     {
@@ -48,7 +75,7 @@ function previewImage()
     } else
     {
         imageContainer.style.backgroundImage = 'none';
-        imageContainer.innerText = 'Logo';
+        imageContainer.innerText = 'Foto';
     }
 }
 

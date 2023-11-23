@@ -22,7 +22,8 @@
         <c:set var="sacola" value="${sessionScope.sacola}"/>
         <c:set var="acessibilidade" value="${sessionScope.acessibilidade}"/>
         <c:set var="loja" value="${requestScope.loja}"/>
-        <c:set var="produtos" value="${requestScope.produtos}"/>
+        <c:set var="categorias" value="${requestScope.categorias}"/>
+        <c:set var="destaques" value="${requestScope.destaques}"/>
         <c:set var="avaliacoes" value="${requestScope.avaliacoes}"/>
         <c:set var="avaliacaoUsuario" value="${requestScope.avaliacaoUsuario}"/>
         <c:set var="favorito" value="${requestScope.favorito}"/>
@@ -49,17 +50,6 @@
                 <div id="profile">
                     <img id="profile-pic" class="modal-trigger" data-modal-index="0" src="imgs/header/icone-perfil.png"
                          alt="Perfil">
-                    <div id="modal-perfil" class="modal hidden" data-modal-index="0">
-                        <h2>Olá ${usuario.nome}</h2>
-                        <ul>
-                            <li><a href="dados.jsp"><img src="imgs/header/engrenagem.svg" alt="">Dados</a></li>
-                            <li><a href=""><img src="imgs/header/pedido.svg" alt="">Pedidos</a></li>
-                            <li><a href=""><img src="imgs/header/chat.svg" alt="">Conversas</a></li>
-                            <li><a href="meus-favoritos"><img src="imgs/header/coracao.svg" alt="">Favoritos</a></li>
-                            <li><a href="acessibilidade.jsp"><img src="imgs/header/acessibilidade.svg" alt="">Acessibilidade</a></li>
-                            <li><a href="logout"><img src="imgs/header/sair.svg" alt="">Sair</a></li>
-                        </ul>
-                    </div>
                 </div>
                 <div id="orders">
                     <img id="orders-pic" src="imgs/header/sacola.svg" class="slider-trigger" data-slider-index="0" alt="Pedidos">
@@ -71,11 +61,48 @@
             </div>
         </header>
 
+        <div id="modal-perfil" class="modal hidden" data-modal-index="0">
+            <button class="close-modal styled">
+                <img src="imgs/x-symbol.svg" alt="">
+            </button>
+            <div>
+                <h2>Olá ${usuario.nome}</h2>
+                <ul>
+                    <li><a href="dados.jsp"><img src="imgs/header/engrenagem.svg" alt="">Dados</a></li>
+                    <li><a href=""><img src="imgs/header/pedido.svg" alt="">Pedidos</a></li>
+                    <li><a href=""><img src="imgs/header/chat.svg" alt="">Conversas</a></li>
+                    <li><a href="meus-favoritos"><img src="imgs/header/coracao.svg" alt="">Favoritos</a></li>
+                    <li><a href="acessibilidade.jsp"><img src="imgs/header/acessibilidade.svg" alt="">Acessibilidade</a>
+                    </li>
+                    <li><a href="logout"><img src="imgs/header/sair.svg" alt="">Sair</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <header id="navbar-responsive" class="hidden">
+            <div>
+                <img src="imgs/header/house.svg" alt="">
+                <p>Início</p>
+            </div>
+            <div>
+                <img src="imgs/lupa-azul.svg" alt="">
+                <p>Buscar</p>
+            </div>
+            <div class="slider-trigger" data-slider-index="0">
+                <img src="imgs/header/sacola.svg" alt="">
+                <p>Sacola</p>
+            </div>
+            <div class="modal-trigger" data-modal-index="0">
+                <img src="imgs/header/icone-perfil.png" alt="">
+                <p>Perfil</p>
+            </div>
+        </header>
+
         <div id="overlay" class="hidden"></div>
 
         <div id="modal-produto" class="modal generic hidden" data-modal-index="1" data-lock-screen="true">
             <input type="hidden" id="modal-produto-id" value="">
-            <button id="close-modal" class="modal-produto-botao">
+            <button class="modal-produto-botao close-modal styled">
                 <img src="imgs/x-symbol.svg" alt="">
             </button>
             <div id="modal-produto-main">
@@ -88,7 +115,7 @@
                         <h2 class="font-707">Resumo:</h2>
                         <div id="modal-produto-resumo" class="font-707">
                             <div>
-                                <p id="modal-produto-nome-loja">NOME DA LOJA</p>
+                                <p id="modal-produto-nome-loja">${loja.nome}</p>
                                 <div id="modal-produto-avaliacao">
                                     <img src="imgs/star.svg" alt="">
                                     <p>5</p>
@@ -153,6 +180,17 @@
                     <button type="submit" class="${favorito eq true ? 'active' : ''}">♥</button>
                     <input type="hidden" name="id" value="${loja.id}">
                 </div>
+                <div class="favorite">
+                    <input hidden="true" id="meuInput" type="text" value="${loja.idUser}">
+                    <a href="#" id="meuLink" style="text-decoration: none;color: #cd606b; font-size:25px;">Chat</a>
+
+                    <script>
+                        document.getElementById('meuLink').onclick = function () {
+                            var valor = document.getElementById('meuInput').value;
+                            window.location.href = 'chat.jsp?valor=' + encodeURIComponent(valor);
+                        };
+                    </script>
+                </div>
             </section>
             <section id="pesquisa">
                 <div id="container-input">
@@ -173,11 +211,11 @@
                 <div class="carousel-container fit-product" data-items="3" data-index="0">
                     <div class="arrow arrow-rounded left-arrow"><img src="imgs/carrossel/seta.svg" alt=""></div>
                     <div class="carousel" data-index="0">
-                        <c:forEach items="${produtos}" var="produto">
+                        <c:forEach items="${destaques}" var="produto">
                             <div class="item fit-product modal-trigger" data-modal-index="1">
                                 <input type="hidden" class="id-produto" value="${produto.id}">
                                 <div class="img-container">
-                                    <img src="imgs/teste/teste.jpg" alt="Sandubao">
+                                    <img src="imgs/teste/teste.jpg" alt="${produto.nome}">
                                 </div>
                                 <div class="info-container">
                                     <div class="info-container-header">
@@ -197,26 +235,24 @@
                 </div>
             </section>
             <section id="produtos">
-                <h1>CATEGORIA 1</h1>
-                <div class="categoria">
-                    <c:forEach items="${produtos}" var="produto">
-                        <div class="produto modal-trigger" data-modal-index="1">
-                            <input type="hidden" class="id-produto" value="${produto.id}">
-                            <div class="info-produto">
-                                <h2 class="font-707 nome">${produto.nome}</h2>
-                                <p class="descricao">${produto.descricao}</p>
-                                <p class="preco">R$<fmt:formatNumber value='${produto.preco}' pattern='0.00' /></p>
+                <c:forEach items="${categorias}" var="categoria">
+                    <h1>${categoria.nome}</h1>
+                    <div class="categoria">
+                        <c:forEach items="${categoria.produtos}" var="produto">
+                            <div class="produto modal-trigger" data-modal-index="1">
+                                <input type="hidden" class="id-produto" value="${produto.id}">
+                                <div class="info-produto">
+                                    <h2 class="font-707 nome">${produto.nome}</h2>
+                                    <p class="descricao">${produto.descricao}</p>
+                                    <p class="preco">R$<fmt:formatNumber value='${produto.preco}' pattern='0.00' /></p>
+                                </div>
+                                <div class="img-container">
+                                    <img src="imgs/teste/teste.jpg" alt="${produto.nome}">
+                                </div>
                             </div>
-                            <div class="img-produto">
-                                <img src="imgs/teste/teste.jpg" alt="">
-                            </div>
-                        </div>
-                    </c:forEach>
-                </div>
-                <h1>CATEGORIA 2</h1>
-                <div class="categoria">
-
-                </div>
+                        </c:forEach>
+                    </div>
+                </c:forEach>
             </section>
         </main>
         <footer>
@@ -226,7 +262,7 @@
                         <h4>Menu</h4>
                         <ul>
                             <li><a href="inicio.jsp"> Inicio</a></li>
-                            <li><a href="gerenciarperfil.jsp"> Perfil</a></li>
+                            <li><a href="dados.jsp">Perfil</a></li>
                             <li><a href="sobre.jsp">Sobre</a></li>
                         </ul>
                     </div>
@@ -460,6 +496,90 @@
         <script src="scripts/jquery/jquery.js"></script>
 
         <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+    import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
+    const firebaseConfig = {
+        apiKey: "AIzaSyC6E9U_uW78MMsIf9oQKBTm5LjvRp6OB2A",
+        authDomain: "restricted-d6b24.firebaseapp.com",
+        databaseURL: "https://restricted-d6b24-default-rtdb.firebaseio.com",
+        projectId: "restricted-d6b24",
+        storageBucket: "restricted-d6b24.appspot.com",
+        messagingSenderId: "351037789777",
+        appId: "1:351037789777:web:5a43c6cd09be7a53d70a70",
+        measurementId: "G-G0VFKP7XGK"
+    };
+    const app = initializeApp(firebaseConfig);
+    function getImageUrlByName() {
+        const storage = getStorage(app); // Corrigido para usar 'app' em vez de 'firebaseApp'
+        let e = document.getElementById("emailFirebase");
+        const storageRef = ref(storage, 'lojaBanner/' + e.value);//Alteração
+        return getDownloadURL(storageRef)
+                .then(downloadURL => {
+                    return downloadURL;
+                })
+                .catch(error => {
+                    console.error('Error getting download URL:', error);
+                    return null;
+                });
+    }
+
+    document.addEventListener("DOMContentLoaded", async function () {
+        let imageUrl = await getImageUrlByName();
+        const imgElement = document.getElementById('bannerLojaF');
+
+        if (imageUrl !== null) {
+            imgElement.src = imageUrl;
+        }
+    });
+        </script>
+        <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+    import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
+    const firebaseConfig = {
+        apiKey: "AIzaSyC6E9U_uW78MMsIf9oQKBTm5LjvRp6OB2A",
+        authDomain: "restricted-d6b24.firebaseapp.com",
+        databaseURL: "https://restricted-d6b24-default-rtdb.firebaseio.com",
+        projectId: "restricted-d6b24",
+        storageBucket: "restricted-d6b24.appspot.com",
+        messagingSenderId: "351037789777",
+        appId: "1:351037789777:web:5a43c6cd09be7a53d70a70",
+        measurementId: "G-G0VFKP7XGK"
+    };
+    const app = initializeApp(firebaseConfig);
+    function getImageUrlByName() {
+        const storage = getStorage(app); // Corrigido para usar 'app' em vez de 'firebaseApp'
+        let e = document.getElementById("emailFirebase");
+        const storageRef = ref(storage, 'lojaPerfil/' + e.value);//Alteração
+        return getDownloadURL(storageRef)
+                .then(downloadURL => {
+                    return downloadURL;
+                })
+                .catch(error => {
+                    console.error('Error getting download URL:', error);
+                    return null;
+                });
+    }
+
+    document.addEventListener("DOMContentLoaded", async function () {
+        let imageUrl = await getImageUrlByName();
+        const imgElement2 = document.getElementById('imgLojaF');
+
+        if (imageUrl !== null) {
+            imgElement2.src = imageUrl;
+        }
+    });
+        </script>
+
+        <script>
+            const configuracoesAcessibilidade = [
+                '${acessibilidade.temaEscuro}' !== 'false',
+                '${acessibilidade.contraste}' !== 'false',
+                '${acessibilidade.visibilidadeTexto}' !== 'false',
+                (parseInt('${acessibilidade.tamanhoTexto}') / 100)
+            ];
+        </script>
+
+        <script type="module">
             import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
             import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
             const firebaseConfig = {
@@ -475,39 +595,74 @@
             const app = initializeApp(firebaseConfig);
             function getImageUrlByName() {
                 const storage = getStorage(app); // Corrigido para usar 'app' em vez de 'firebaseApp'
-                let e = document.getElementById("emailFirebase");
-                const storageRef = ref(storage, 'lojaFoto/' + e.value);//Alteração
-                return getDownloadURL(storageRef)
-                        .then(downloadURL => {
-                            return downloadURL;
-                        })
-                        .catch(error => {
-                            console.error('Error getting download URL:', error);
-                            return null;
-                        });
+                let e = document.getElementById("imgLojaF");
+                const imgElements = document.querySelectorAll('.img-container img');
+                imgElements.forEach(async imgElement => {
+                    const altText = imgElement.getAttribute('alt');
+                    console.log(altText);
+                    let email = document.getElementById("emailFirebase");
+                    const storageRef = ref(storage, 'ProdutoFoto/'+ email.value + "/" + altText);
+
+                    try {
+                        const imageUrl = await getDownloadURL(storageRef);
+                        if (imageUrl) {
+                            imgElement.src = imageUrl;
+                        } else {
+                            console.log("Erro ao carregar a imagem para o email:", altText);
+                        }
+                    } catch (error) {
+                        console.error('Erro ao obter URL de download:', error);
+                    }
+                });
             }
 
             document.addEventListener("DOMContentLoaded", async function () {
-                let imageUrl = await getImageUrlByName();
-                const imgElement = document.getElementById('bannerLojaF');
-                const imgElement2 = document.getElementById('imgLojaF');
-
-                if (imageUrl !== null) {
-                    imgElement.src = imageUrl;
-                    imgElement2.src = imageUrl;
-                }
+                getImageUrlByName();
             });
         </script>
+        
+         <script type="module">
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+            import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
+            const firebaseConfig = {
+                apiKey: "AIzaSyC6E9U_uW78MMsIf9oQKBTm5LjvRp6OB2A",
+                authDomain: "restricted-d6b24.firebaseapp.com",
+                databaseURL: "https://restricted-d6b24-default-rtdb.firebaseio.com",
+                projectId: "restricted-d6b24",
+                storageBucket: "restricted-d6b24.appspot.com",
+                messagingSenderId: "351037789777",
+                appId: "1:351037789777:web:5a43c6cd09be7a53d70a70",
+                measurementId: "G-G0VFKP7XGK"
+            };
+            const app = initializeApp(firebaseConfig);
+            function getImageUrlByName() {
+                const storage = getStorage(app); // Corrigido para usar 'app' em vez de 'firebaseApp'
+                let e = document.getElementById("imgLojaF");
+                const imgElements = document.querySelectorAll('.img-produto');
+                imgElements.forEach(async imgElement => {
+                    const altText = imgElement.getAttribute('alt');
+                    console.log(altText);
+                    let email = document.getElementById("emailFirebase");
+                    const storageRef = ref(storage, 'ProdutoFoto/'+ email.value + "/" + altText);
 
-        <script>
-            const configuracoesAcessibilidade = [
-                '${acessibilidade.temaEscuro}' !== 'false',
-                '${acessibilidade.contraste}' !== 'false',
-                '${acessibilidade.visibilidadeTexto}' !== 'false',
-                (parseInt('${acessibilidade.tamanhoTexto}') / 100)
-            ];
-        </script>
+                    try {
+                        const imageUrl = await getDownloadURL(storageRef);
+                        if (imageUrl) {
+                            imgElement.src = imageUrl;
+                        } else {
+                            console.log("Erro ao carregar a imagem para o email:", altText);
+                        }
+                    } catch (error) {
+                        console.error('Erro ao obter URL de download:', error);
+                    }
+                });
+            }
 
+            document.addEventListener("DOMContentLoaded", async function () {
+                getImageUrlByName();
+            });
+        </script>        
+        
         <script src="scripts/jquery/jquery.js"></script>
         <script src="scripts/rating.js"></script>
         <script type="module" src="scripts/sacola/adicionarSacola.js"></script>
@@ -516,7 +671,9 @@
         <script src="scripts/loja/userRating.js"></script>
         <script src="scripts/carrossel.js"></script>
         <script src="scripts/janelas-modais/slider.js"></script>
-        <script src="scripts/janelas-modais/modal.js"></script>
-        <script src="scripts/acessibilidade/acessibilidade.js"></script>
+        <script type="module" src="scripts/janelas-modais/modal.js"></script>
+        <script src="scripts/usuario/acessibilidade/acessibilidade.js"></script>
+        <script src="scripts/busca.js"></script>
+        <script src="scripts/responsiveNavBar.js"></script>
     </body>
 </html>

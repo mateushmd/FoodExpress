@@ -1,12 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<%
-
-    String msg = (String) request.getAttribute("msg");
-
-%>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -39,7 +33,6 @@
                         <input type="submit" value="LOGAR" style="cursor: pointer; font-family: 'Oswald', sans-serif;" id="login" data-key="13">
                         <p class="parag">Não tem cadastro? <a href="cadastro.html" id="cadastroBtn">Cadastrar</a></p>
                     </div>
-
                 </div>
             </div>
         </div>

@@ -4,6 +4,7 @@ import com.foodexpress.model.encoder.Argon2Encoder;
 import com.foodexpress.model.dto.UsuarioDTO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 
