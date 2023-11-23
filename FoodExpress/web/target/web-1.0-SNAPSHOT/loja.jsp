@@ -1,6 +1,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 
 <!DOCTYPE html>
 <html>
@@ -15,6 +17,7 @@
         <link rel="stylesheet" type="text/css" href="styles/main/footer.css">
         <link rel="stylesheet" type="text/css" href="styles/slider.css">
         <link rel="stylesheet" type="text/css" href="styles/main/modal.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="icon" type="image/png" href="imgs/icon.png" />
     </head>
     <body>
@@ -27,6 +30,10 @@
         <c:set var="avaliacoes" value="${requestScope.avaliacoes}"/>
         <c:set var="avaliacaoUsuario" value="${requestScope.avaliacaoUsuario}"/>
         <c:set var="favorito" value="${requestScope.favorito}"/>
+        <c:set var="agenda" value="${requestScope.agenda}"/>
+        <c:set var="telefone" value="${requestScope.telefone}"/>
+        <c:set var="pontos" value="${requestScope.pontos}"/>
+        <c:set var="diaDaSemanaAutal" value="${requestScope.diaDaSemanaAtual}"/>
 
         <c:set var="ratingClass" value="${not empty avaliacaoUsuario ? 'process-rating disabled' : ''}"/>
         <c:set var="ratingValue" value="${not empty avaliacaoUsuario ? avaliacaoUsuario.nota : 0}"/>
@@ -69,8 +76,7 @@
                 <h2>Olá ${usuario.nome}</h2>
                 <ul>
                     <li><a href="dados.jsp"><img src="imgs/header/engrenagem.svg" alt="">Dados</a></li>
-                    <li><a href=""><img src="imgs/header/pedido.svg" alt="">Pedidos</a></li>
-                    <li><a href=""><img src="imgs/header/chat.svg" alt="">Conversas</a></li>
+                    <li><a href="meus-pedidos"><img src="imgs/header/pedido.svg" alt="">Pedidos</a></li>
                     <li><a href="meus-favoritos"><img src="imgs/header/coracao.svg" alt="">Favoritos</a></li>
                     <li><a href="acessibilidade.jsp"><img src="imgs/header/acessibilidade.svg" alt="">Acessibilidade</a>
                     </li>
@@ -148,112 +154,135 @@
                     </div>
                 </div>
                 <div id="modal-produto-img-container">
-                    <img src="imgs/teste/teste.jpg" alt="">
+                    <img src="imgs/teste/teste.png" alt="">
                 </div>
             </div>
         </div>
 
         <main>
             <section id="banner">
-                <img src="imgs/teste/teste.jpg" alt="" id="bannerLojaF">
+                <img src="imgs/teste/teste.png" alt="" id="bannerLojaF">
             </section>
             <section id="info">
-                <img src="imgs/teste/teste.jpg" alt="" id="imgLojaF">
-                <h1>${loja.nome}</h1>
-                <div class="rating process-rating slider-trigger" data-rating="<fmt:formatNumber value="${loja.avaliacao}" type="number" maxFractionDigits="0"/>" data-slider-index="1">
-                    <input class="star-input" id="star1" type="radio" name="rating" value="1">
-                    <label class="star-label" for="star1" data-star="1"><img src="imgs/gray-star.svg" alt=""></label>
-
-                    <input class="star-input" id="star2" type="radio" name="rating" value="2">
-                    <label class="star-label" for="star2" data-star="2"><img src="imgs/gray-star.svg" alt=""></label>
-
-                    <input class="star-input" id="star3" type="radio" name="rating" value="3">
-                    <label class="star-label" for="star3" data-star="3"><img src="imgs/gray-star.svg" alt=""></label>
-
-                    <input class="star-input" id="star4" type="radio" name="rating" value="4">
-                    <label class="star-label" for="star4" data-star="4"><img src="imgs/gray-star.svg" alt=""></label>
-
-                    <input class="star-input" id="star5" type="radio" name="rating" value="5">
-                    <label class="star-label" for="star5" data-star="5"><img src="imgs/gray-star.svg" alt=""></label>
+                <div>
+                    <img src="imgs/teste/teste.png" alt="" id="imgLojaF">
+                    <h1>${loja.nome}</h1>
+                    <div class="info-rating slider-trigger" data-slider-index="1">
+                        <img src="imgs/star.svg" alt="">
+                        <p><fmt:formatNumber value="${loja.avaliacao}" type="number" pattern="#,##0.0" /> (${loja.qtdAvaliacoes})</p>
+                    </div>
+                    <div class="favorite">
+                        <button type="submit" class="${favorito eq true ? 'active' : ''}">♥</button>
+                        <input type="hidden" name="id" value="${loja.id}">
+                    </div>
+                    <div class="disponibilidade ${loja.aberto ? 'aberto' : 'fechado'}">
+                        <svg viewBox="0 0 100 100" fill="${loja.aberto ? 'green' : 'red'}" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="50" cy="50" r="50"></circle>
+                        </svg>
+                        <p>${loja.aberto ? 'Aberto' : 'Fechado'}</p>
+                    </div>
                 </div>
-                <div class="favorite">
-                    <button type="submit" class="${favorito eq true ? 'active' : ''}">♥</button>
-                    <input type="hidden" name="id" value="${loja.id}">
-                </div>
-                <div class="favorite">
-                    <input hidden="true" id="meuInput" type="text" value="${loja.idUser}">
-                    <a href="#" id="meuLink" style="text-decoration: none;color: #cd606b; font-size:25px;">Chat</a>
-
-                    <script>
-                        document.getElementById('meuLink').onclick = function () {
-                            var valor = document.getElementById('meuInput').value;
-                            window.location.href = 'chat.jsp?valor=' + encodeURIComponent(valor);
-                        };
-                    </script>
+                <div>
+                    <p class="slider-trigger" data-slider-index="2">Ver mais</p>
+                    <p>|</p>
+                    <div id="conversar" class="whatsapp" data-numero="${telefone}">
+                        <p>Conversar</p>
+                        <i class="fa fa-whatsapp"></i>
+                    </div>
+                    <p>|</p>
+                    <img src="imgs/denunciar.svg" alt="" class="denunciar modal-trigger" data-modal-index="10">
                 </div>
             </section>
-            <section id="pesquisa">
-                <div id="container-input">
-                    <img src="imgs/lupa-azul.svg" alt="">
-                    <input type="text" placeholder="Buscar no cardápio">
-                </div>
-                <div id="container-select">
-                    <select name="ponto-encontro">
-                        <option value="-1" selected>Escolha um ponto de encontro</option>
-                        <option value="1">Saída do bandejão</option>
-                        <option value="2">Hall P20</option>
-                        <option value="3">Grêmio</option>
-                    </select>
-                </div>
-            </section>
-            <section id="destaques" class="content">
-                <h1>DESTAQUES</h1>
-                <div class="carousel-container fit-product" data-items="3" data-index="0">
-                    <div class="arrow arrow-rounded left-arrow"><img src="imgs/carrossel/seta.svg" alt=""></div>
-                    <div class="carousel" data-index="0">
-                        <c:forEach items="${destaques}" var="produto">
-                            <div class="item fit-product modal-trigger" data-modal-index="1">
-                                <input type="hidden" class="id-produto" value="${produto.id}">
-                                <div class="img-container">
-                                    <img src="imgs/teste/teste.jpg" alt="Sandubao">
+
+            <c:choose>
+                <c:when test="${not empty categorias}">
+                    <section id="pesquisa">
+                        <div id="container-input">
+                            <img src="imgs/lupa-azul.svg" alt="">
+                            <input type="text" placeholder="Buscar no cardápio">
+                        </div>
+                        <div id="container-select">
+                            <select name="ponto-encontro" id="ponto-encontro">
+                                <c:choose>
+                                    <c:when test="${pontos eq null}">
+                                        <option value="-2">Loja fechada</option>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:choose>
+                                            <c:when test="${empty pontos}">
+                                                <option value="-1">Sem ponto de encontro</option>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <c:forEach items="${pontos}" var="ponto" varStatus="loop">
+                                                    <option value="${ponto.id}" ${loop.index eq 0 ? 'selected' : ''}>${ponto.nome}</option>
+                                                </c:forEach>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:otherwise>
+                                </c:choose>
+                            </select>
+                        </div>
+                    </section>
+                    <c:if test="${destaques ne null}">
+                        <section id="destaques" class="content">
+                            <h1>DESTAQUES</h1>
+                            <div class="carousel-container fit-product" data-items="3" data-index="0">
+                                <div class="arrow arrow-rounded left-arrow"><img src="imgs/carrossel/seta.svg" alt=""></div>
+                                <div class="carousel" data-index="0">
+                                    <c:forEach items="${destaques}" var="produto">
+                                        <div class="item fit-product modal-trigger" data-modal-index="1">
+                                            <input type="hidden" class="id-produto" value="${produto.id}">
+                                            <div class="img-container">
+                                                <img src="imgs/teste/teste.png" alt="Sandubao">
+                                            </div>
+                                            <div class="info-container">
+                                                <div class="info-container-header">
+                                                    <h2 class="font-707 nome">${produto.nome}</h2>
+                                                </div>
+                                                <div class="info-container-body">
+                                                    <p class="descricao">${produto.descricao}</p>
+                                                </div>
+                                                <div class="info-container-footer">
+                                                    <p class="preco">R$<fmt:formatNumber value='${produto.preco}' pattern='0.00' /></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </c:forEach>
                                 </div>
-                                <div class="info-container">
-                                    <div class="info-container-header">
-                                        <h2 class="font-707 nome">${produto.nome}</h2>
+                                <div class="arrow arrow-rounded right-arrow"><img src="imgs/carrossel/seta.svg" alt=""></div>
+                            </div>
+                        </section>
+                    </c:if>
+                    <section id="produtos">
+                        <c:forEach items="${categorias}" var="categoria">
+                            <h1>${categoria.nome}</h1>
+                            <div class="categoria">
+                                <c:forEach items="${categoria.produtos}" var="produto">
+                                    <div class="produto modal-trigger" data-modal-index="1">
+                                        <input type="hidden" class="id-produto" value="${produto.id}">
+                                        <div class="info-produto">
+                                            <h2 class="font-707 nome">${produto.nome}</h2>
+                                            <p class="descricao">${produto.descricao}</p>
+                                            <p class="preco">R$<fmt:formatNumber value='${produto.preco}' pattern='0.00' /></p>
+                                        </div>
+                                        <div class="img-produto">
+                                            <img src="imgs/teste/teste.png" alt="">
+                                        </div>
                                     </div>
-                                    <div class="info-container-body">
-                                        <p class="descricao">${produto.descricao}</p>
-                                    </div>
-                                    <div class="info-container-footer">
-                                        <p class="preco">R$<fmt:formatNumber value='${produto.preco}' pattern='0.00' /></p>
-                                    </div>
-                                </div>
+                                </c:forEach>
                             </div>
                         </c:forEach>
-                    </div>
-                    <div class="arrow arrow-rounded right-arrow"><img src="imgs/carrossel/seta.svg" alt=""></div>
-                </div>
-            </section>
-            <section id="produtos">
-                <c:forEach items="${categorias}" var="categoria">
-                    <h1>${categoria.nome}</h1>
-                    <div class="categoria">
-                        <c:forEach items="${categoria.produtos}" var="produto">
-                            <div class="produto modal-trigger" data-modal-index="1">
-                                <input type="hidden" class="id-produto" value="${produto.id}">
-                                <div class="info-produto">
-                                    <h2 class="font-707 nome">${produto.nome}</h2>
-                                    <p class="descricao">${produto.descricao}</p>
-                                    <p class="preco">R$<fmt:formatNumber value='${produto.preco}' pattern='0.00' /></p>
-                                </div>
-                                <div class="img-produto">
-                                    <img src="imgs/teste/teste.jpg" alt="">
-                                </div>
-                            </div>
-                        </c:forEach>
-                    </div>
-                </c:forEach>
-            </section>
+                    </section>
+                </c:when>
+                <c:otherwise>
+                    <section id="vazio">
+                        <img src="imgs/loja/em-construcao.svg" alt="">
+                        <h2>Opa!</h2>
+                        <p>Parece que esta loja ainda está em construção! Não esqueça de usar um capacete!</p>
+                    </section>
+                </c:otherwise>
+            </c:choose>
+
         </main>
         <footer>
             <div class="container-footer">
@@ -359,180 +388,380 @@
                                     <p>Total</p>
                                     <p class="preco">R$ <span id="bag-preco"><fmt:formatNumber value='${sacola.total}' pattern='0.00'/></span></p>
                                 </div>
-                                <button>
-                                    <p>Realizar pedido</p>
-                                </button>
+                                <div id="opcoes-pedido">
+                                    <button id="fazer-pedido">
+                                        <p>Pedir</p>
+                                    </button>
+                                    <div id="select">
+                                        <select name="" id="pontos-pedido">
+                                            <c:choose>
+                                                <c:when test="${sacola.pontos eq null}">
+                                                    <option value="-2">Loja fechada</option>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <c:choose>
+                                                        <c:when test="${empty sacola.pontos}">
+                                                            <option value="-1">Sem ponto de encontro</option>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <c:forEach items="${sacola.pontos}" var="ponto" varStatus="loop">
+                                                                <option value="${ponto.id}" ${loop.index eq 0 ? 'selected' : ''}>${ponto.nome}</option>
+                                                            </c:forEach>
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </select>
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="slider-container hidden">
-                    <div id="slider-ratings-header">
-                        <h2 class="font-707">Avaliações</h2>
-                        <span>${loja.nome}</span>
-                        <h1><fmt:formatNumber value="${loja.avaliacao}" type="number" pattern="#,##0.0" /></h1>
-                        <div class="rating process-rating" data-rating="<fmt:formatNumber value="${loja.avaliacao}" type="number" maxFractionDigits="0"/>">
-                            <input class="star-input" type="radio" name="rating" value="1">
-                            <label class="star-label" for="star1" data-star="1"><img src="imgs/gray-star.svg"
-                                                                                     alt=""></label>
+                    <div id="slider-ratings">
+                        <div id="slider-ratings-header">
+                            <h2 class="font-707">Avaliações</h2>
+                            <span>${loja.nome}</span>
+                            <h1><fmt:formatNumber value="${loja.avaliacao}" type="number" pattern="#,##0.0" /></h1>
+                            <div class="rating process-rating" data-rating="<fmt:formatNumber value="${loja.avaliacao}" type="number" maxFractionDigits="0"/>">
+                                <input class="star-input" type="radio" name="rating" value="1">
+                                <label class="star-label" data-star="1"><img src="imgs/gray-star.svg"
+                                                                             alt=""></label>
 
-                            <input class="star-input" type="radio" name="rating" value="2">
-                            <label class="star-label" for="star2" data-star="2"><img src="imgs/gray-star.svg"
-                                                                                     alt=""></label>
+                                <input class="star-input" type="radio" name="rating" value="2">
+                                <label class="star-label" data-star="2"><img src="imgs/gray-star.svg"
+                                                                             alt=""></label>
 
-                            <input class="star-input" type="radio" name="rating" value="3">
-                            <label class="star-label" for="star3" data-star="3"><img src="imgs/gray-star.svg"
-                                                                                     alt=""></label>
+                                <input class="star-input" type="radio" name="rating" value="3">
+                                <label class="star-label" data-star="3"><img src="imgs/gray-star.svg"
+                                                                             alt=""></label>
 
-                            <input class="star-input" type="radio" name="rating" value="4">
-                            <label class="star-label" for="star4" data-star="4"><img src="imgs/gray-star.svg"
-                                                                                     alt=""></label>
+                                <input class="star-input" type="radio" name="rating" value="4">
+                                <label class="star-label" data-star="4"><img src="imgs/gray-star.svg"
+                                                                             alt=""></label>
 
-                            <input class="star-input" type="radio" name="rating" value="5">
-                            <label class="star-label" for="star5" data-star="5"><img src="imgs/gray-star.svg"
-                                                                                     alt=""></label>
+                                <input class="star-input" type="radio" name="rating" value="5">
+                                <label class="star-label" data-star="5"><img src="imgs/gray-star.svg"
+                                                                             alt=""></label>
+                            </div>
+                            <span>${loja.qtdAvaliacoes} avaliações</span>
                         </div>
-                        <span>${loja.qtdAvaliacoes} avaliações</span>
-                    </div>
-                    <div id="slider-ratings-content">
-                        <div id="user-comment">
-                            <form action="avaliacao" method="post" id="user-rating-form">
-                                <div id="user-comment-header">
-                                    <h2>Sua avaliação</h2>
-                                    <c:if test="${not empty avaliacaoUsuario}">
-                                        <img src="imgs/lixeira.svg" alt="" id="delete">
-                                    </c:if>
-                                </div>
-                                <textarea name="comentario" cols="30" rows="4" id="comment"
-                                          placeholder="Fale sobre sua experiência com a loja" ${not empty avaliacaoUsuario ? "disabled" : ''}>${not empty avaliacaoUsuario ? avaliacaoUsuario.comentario : ''}</textarea>
-                                <div id="user-comment-footer">
-                                    <div id="user-rating" class="rating small ${ratingClass}" data-rating="${ratingValue}">
-                                        <input class="star-input" type="radio" name="rating" value="1">
-                                        <label class="star-label" for="star1" data-star="1"><img src="imgs/gray-star.svg"
-                                                                                                 alt=""></label>
-
-                                        <input class="star-input" type="radio" name="rating" value="2">
-                                        <label class="star-label" for="star2" data-star="2"><img src="imgs/gray-star.svg"
-                                                                                                 alt=""></label>
-
-                                        <input class="star-input" type="radio" name="rating" value="3">
-                                        <label class="star-label" for="star3" data-star="3"><img src="imgs/gray-star.svg"
-                                                                                                 alt=""></label>
-
-                                        <input class="star-input" type="radio" name="rating" value="4">
-                                        <label class="star-label" for="star4" data-star="4"><img src="imgs/gray-star.svg"
-                                                                                                 alt=""></label>
-
-                                        <input class="star-input" type="radio" name="rating" value="5">
-                                        <label class="star-label" for="star5" data-star="5"><img src="imgs/gray-star.svg"
-                                                                                                 alt=""></label>
+                        <div id="slider-ratings-content">
+                            <div id="user-comment">
+                                <form action="avaliacao" method="post" id="user-rating-form">
+                                    <div id="user-comment-header">
+                                        <h2>Sua avaliação</h2>
+                                        <c:if test="${not empty avaliacaoUsuario}">
+                                            <img src="imgs/lixeira.svg" alt="" id="delete">
+                                        </c:if>
                                     </div>
+                                    <textarea name="comentario" cols="30" rows="4" id="comment"
+                                              placeholder="Fale sobre sua experiência com a loja" ${not empty avaliacaoUsuario ? "disabled" : ''}>${not empty avaliacaoUsuario ? avaliacaoUsuario.comentario : ''}</textarea>
+                                    <div id="user-comment-footer">
+                                        <div id="user-rating" class="rating small ${ratingClass}" data-rating="${ratingValue}">
+                                            <input class="star-input" type="radio" name="rating" value="1">
+                                            <label class="star-label" data-star="1"><img src="imgs/gray-star.svg"
+                                                                                         alt=""></label>
 
-                                    <div class="button-container">
-                                        <c:choose>
-                                            <c:when test="${not empty avaliacaoUsuario}">
-                                                <div class="botao">
-                                                    <input type="submit" value="SALVAR" id="save" class="hidden" name="submit">
-                                                </div>
-                                                <div class="botao">
-                                                    <input type="submit" value="EDITAR" id="edit">
-                                                </div>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <div class="botao">
-                                                    <input type="submit" name="submit" value="ENVIAR" id="rate">
-                                                </div>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </div>
-                                </div>
-                                <input type="hidden" id="rating" name="rating" value="${not empty avaliacaoUsuario ? avaliacaoUsuario.nota : ''}">
-                                <input type="hidden" id="default-message" value="${not empty avaliacaoUsuario ? avaliacaoUsuario.comentario : ''}">
-                                <input type="hidden" id="default-rating" name="default-rating" value="${not empty avaliacaoUsuario ? avaliacaoUsuario.nota : ''}">
-                                <input type="hidden" name="idLoja" value="${loja.id}">
-                            </form>
-                        </div>
+                                            <input class="star-input" type="radio" name="rating" value="2">
+                                            <label class="star-label" data-star="2"><img src="imgs/gray-star.svg"
+                                                                                         alt=""></label>
 
-                        <c:forEach items="${avaliacoes}" var="avaliacao">
-                            <c:if test="${avaliacao.id ne avaliacaoUsuario.id}">
-                                <div class="slider-ratings-comment">
-                                    <h2>${avaliacao.idCliente}</h2>
-                                    <p>${avaliacao.comentario}</p>
-                                    <div class="slider-ratings-comment-footer">
-                                        <div>
-                                            <span>${avaliacao.nota}</span>
-                                            <div class="rating process-rating small" data-rating="${avaliacao.nota}">
-                                                <input class="star-input" type="radio" name="rating" value="1">
-                                                <label class="star-label" for="star1" data-star="1"><img src="imgs/gray-star.svg"
-                                                                                                         alt=""></label>
+                                            <input class="star-input" type="radio" name="rating" value="3">
+                                            <label class="star-label" data-star="3"><img src="imgs/gray-star.svg"
+                                                                                         alt=""></label>
 
-                                                <input class="star-input" type="radio" name="rating" value="2">
-                                                <label class="star-label" for="star2" data-star="2"><img src="imgs/gray-star.svg"
-                                                                                                         alt=""></label>
+                                            <input class="star-input" type="radio" name="rating" value="4">
+                                            <label class="star-label" data-star="4"><img src="imgs/gray-star.svg"
+                                                                                         alt=""></label>
 
-                                                <input class="star-input" type="radio" name="rating" value="3">
-                                                <label class="star-label" for="star3" data-star="3"><img src="imgs/gray-star.svg"
-                                                                                                         alt=""></label>
-
-                                                <input class="star-input" type="radio" name="rating" value="4">
-                                                <label class="star-label" for="star4" data-star="4"><img src="imgs/gray-star.svg"
-                                                                                                         alt=""></label>
-
-                                                <input class="star-input" type="radio" name="rating" value="5">
-                                                <label class="star-label" for="star5" data-star="5"><img src="imgs/gray-star.svg"
-                                                                                                         alt=""></label>
-                                            </div>
+                                            <input class="star-input" type="radio" name="rating" value="5">
+                                            <label class="star-label" data-star="5"><img src="imgs/gray-star.svg"
+                                                                                         alt=""></label>
                                         </div>
-                                        <span><fmt:formatDate value="${avaliacao.data}" pattern="dd/MM/yyyy"/></span>
+
+                                        <div class="button-container">
+                                            <c:choose>
+                                                <c:when test="${not empty avaliacaoUsuario}">
+                                                    <div class="botao">
+                                                        <input type="submit" value="SALVAR" id="save" class="hidden" name="submit">
+                                                    </div>
+                                                    <div class="botao">
+                                                        <input type="submit" value="EDITAR" id="edit">
+                                                    </div>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <div class="botao">
+                                                        <input type="submit" name="submit" value="ENVIAR" id="rate">
+                                                    </div>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </div>
                                     </div>
-                                </div>
-                            </c:if>
-                        </c:forEach>
+                                    <input type="hidden" id="rating" name="rating" value="${not empty avaliacaoUsuario ? avaliacaoUsuario.nota : ''}">
+                                    <input type="hidden" id="default-message" value="${not empty avaliacaoUsuario ? avaliacaoUsuario.comentario : ''}">
+                                    <input type="hidden" id="default-rating" name="default-rating" value="${not empty avaliacaoUsuario ? avaliacaoUsuario.nota : ''}">
+                                    <input type="hidden" name="idLoja" value="${loja.id}">
+                                </form>
+                            </div>
+
+                            <c:forEach items="${avaliacoes}" var="avaliacao">
+                                <c:if test="${avaliacao.id ne avaliacaoUsuario.id}">
+                                    <div class="slider-ratings-comment">
+                                        <img class="denunciar-avaliacao modal-trigger" src="imgs/denunciar.svg" alt="" data-modal-index="10">
+                                        <h2>${avaliacao.idCliente}</h2>
+                                        <p>${avaliacao.comentario}</p>
+                                        <div class="slider-ratings-comment-footer">
+                                            <div>
+                                                <span>${avaliacao.nota}</span>
+                                                <div class="rating process-rating small" data-rating="${avaliacao.nota}">
+                                                    <input class="star-input" type="radio" name="rating" value="1">
+                                                    <label class="star-label" data-star="1"><img src="imgs/gray-star.svg"
+                                                                                                 alt=""></label>
+
+                                                    <input class="star-input" type="radio" name="rating" value="2">
+                                                    <label class="star-label" data-star="2"><img src="imgs/gray-star.svg"
+                                                                                                 alt=""></label>
+
+                                                    <input class="star-input" type="radio" name="rating" value="3">
+                                                    <label class="star-label" data-star="3"><img src="imgs/gray-star.svg"
+                                                                                                 alt=""></label>
+
+                                                    <input class="star-input" type="radio" name="rating" value="4">
+                                                    <label class="star-label" data-star="4"><img src="imgs/gray-star.svg"
+                                                                                                 alt=""></label>
+
+                                                    <input class="star-input" type="radio" name="rating" value="5">
+                                                    <label class="star-label" data-star="5"><img src="imgs/gray-star.svg"
+                                                                                                 alt=""></label>
+                                                </div>
+                                            </div>
+                                            <span><fmt:formatDate value="${avaliacao.data}" pattern="dd/MM/yyyy"/></span>
+                                        </div>
+                                    </div>
+                                </c:if>
+                            </c:forEach>
+                        </div>
                     </div>
                 </div>
+                <div class="slider-container hidden">
+                    <div id="slider-informacoes">
+                        <div id="descricao">
+                            <h2>Descrição</h2>
+                            <c:choose>
+                                <c:when test="${loja.descricao ne null and loja.descricao.blank eq false}">
+                                    <p class="descricao reduzido">${loja.descricao}</p>
+                                    <p class="see-more" data-target="descricao">Ver mais</p>
+                                </c:when>
+                                <c:otherwise>
+                                    <p>Sem descrição.</p>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+                        <div>
+                            <h2>Horários</h2>
+                            <div id="horarios">
+                                <c:choose>
+                                    <c:when test="${not empty agenda}">
+                                        <c:forEach items="${agenda}" var="horario">
+                                            <div class="horario">
+                                                <c:if test="${diaDaSemanaAutal eq horario.diaSemana}">
+                                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
+                                                         xmlns="http://www.w3.org/2000/svg">
+                                                        <path
+                                                                d="M6.99325 0.333008C3.31992 0.333008 0.333252 3.31967 0.333252 6.99301C0.333252 10.6663 3.31992 13.653 6.99325 13.653C10.6666 13.653 13.6532 10.6663 13.6532 6.99301C13.6532 3.31967 10.6599 0.333008 6.99325 0.333008ZM9.65992 8.15301H6.32658C6.05325 8.15301 5.82658 7.92634 5.82658 7.65301V4.19967C5.82658 3.92634 6.05325 3.69967 6.32658 3.69967C6.59992 3.69967 6.82658 3.91967 6.82658 4.19967V7.15301H9.65992C9.93325 7.15301 10.1599 7.37967 10.1599 7.65301C10.1599 7.92634 9.93325 8.15301 9.65992 8.15301Z"
+                                                                fill="#cc575f"></path>
+                                                    </svg>
+                                                </c:if>
+                                                <p>${horario.diaSemanaString}</p>
+                                                <p>${fn:substring(horario.abertura.toString(), 0, 5) } às ${fn:substring(horario.fechamento.toString(), 0, 5)}</p>
+                                                <p>${horario.campus1 ? 'Campus 1' : 'Campus 2'}</p>
+                                            </div>
+                                        </c:forEach>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <p>Esta loja ainda não disponibilizou os horários de funcionamento.</p>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal hidden" id="alerta" data-modal-index="3" data-lock-screen="true">
+            <h1>Atenção</h1>
+            <p id="msg"></p>
+            <div>
+                <button class="botao close-modal" id="alerta-sim">OK</button>
             </div>
         </div>
 
         <script src="scripts/jquery/jquery.js"></script>
 
         <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-    import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
-    const firebaseConfig = {
-        apiKey: "AIzaSyC6E9U_uW78MMsIf9oQKBTm5LjvRp6OB2A",
-        authDomain: "restricted-d6b24.firebaseapp.com",
-        databaseURL: "https://restricted-d6b24-default-rtdb.firebaseio.com",
-        projectId: "restricted-d6b24",
-        storageBucket: "restricted-d6b24.appspot.com",
-        messagingSenderId: "351037789777",
-        appId: "1:351037789777:web:5a43c6cd09be7a53d70a70",
-        measurementId: "G-G0VFKP7XGK"
-    };
-    const app = initializeApp(firebaseConfig);
-    function getImageUrlByName() {
-        const storage = getStorage(app); // Corrigido para usar 'app' em vez de 'firebaseApp'
-        let e = document.getElementById("emailFirebase");
-        const storageRef = ref(storage, 'lojaFoto/' + e.value);//Alteração
-        return getDownloadURL(storageRef)
-                .then(downloadURL => {
-                    return downloadURL;
-                })
-                .catch(error => {
-                    console.error('Error getting download URL:', error);
-                    return null;
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+            import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
+            const firebaseConfig = {
+                apiKey: "AIzaSyC6E9U_uW78MMsIf9oQKBTm5LjvRp6OB2A",
+                authDomain: "restricted-d6b24.firebaseapp.com",
+                databaseURL: "https://restricted-d6b24-default-rtdb.firebaseio.com",
+                projectId: "restricted-d6b24",
+                storageBucket: "restricted-d6b24.appspot.com",
+                messagingSenderId: "351037789777",
+                appId: "1:351037789777:web:5a43c6cd09be7a53d70a70",
+                measurementId: "G-G0VFKP7XGK"
+            };
+            const app = initializeApp(firebaseConfig);
+            function getImageUrlByName() {
+                const storage = getStorage(app); // Corrigido para usar 'app' em vez de 'firebaseApp'
+                let e = document.getElementById("emailFirebase");
+                const storageRef = ref(storage, 'lojaBanner/' + e.value);//Alteração
+                return getDownloadURL(storageRef)
+                        .then(downloadURL => {
+                            return downloadURL;
+                        })
+                        .catch(error => {
+                            console.error('Error getting download URL:', error);
+                            return null;
+                        });
+            }
+
+            document.addEventListener("DOMContentLoaded", async function () {
+                let imageUrl = await getImageUrlByName();
+                const imgElement = document.getElementById('bannerLojaF');
+                const imgElement2 = document.getElementById('imgLojaF');
+
+                if (imageUrl !== null) {
+                    imgElement.src = imageUrl;
+                    imgElement2.src = imageUrl;
+                }
+            });
+        </script>
+
+        <script type="module">
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+            import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
+            const firebaseConfig = {
+                apiKey: "AIzaSyC6E9U_uW78MMsIf9oQKBTm5LjvRp6OB2A",
+                authDomain: "restricted-d6b24.firebaseapp.com",
+                databaseURL: "https://restricted-d6b24-default-rtdb.firebaseio.com",
+                projectId: "restricted-d6b24",
+                storageBucket: "restricted-d6b24.appspot.com",
+                messagingSenderId: "351037789777",
+                appId: "1:351037789777:web:5a43c6cd09be7a53d70a70",
+                measurementId: "G-G0VFKP7XGK"
+            };
+            const app = initializeApp(firebaseConfig);
+            function getImageUrlByName() {
+                const storage = getStorage(app); // Corrigido para usar 'app' em vez de 'firebaseApp'
+                let e = document.getElementById("emailFirebase");
+                const storageRef = ref(storage, 'lojaPerfil/' + e.value);//Alteração
+                return getDownloadURL(storageRef)
+                    .then(downloadURL => {
+                        return downloadURL;
+                    })
+                    .catch(error => {
+                        console.error('Error getting download URL:', error);
+                        return null;
+                    });
+            }
+
+            document.addEventListener("DOMContentLoaded", async function () {
+                let imageUrl = await getImageUrlByName();
+                const imgElement2 = document.getElementById('imgLojaF');
+
+                if (imageUrl !== null) {
+                    imgElement2.src = imageUrl;
+                }
+            });
+        </script>
+
+        <script type="module">
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+            import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
+            const firebaseConfig = {
+                apiKey: "AIzaSyC6E9U_uW78MMsIf9oQKBTm5LjvRp6OB2A",
+                authDomain: "restricted-d6b24.firebaseapp.com",
+                databaseURL: "https://restricted-d6b24-default-rtdb.firebaseio.com",
+                projectId: "restricted-d6b24",
+                storageBucket: "restricted-d6b24.appspot.com",
+                messagingSenderId: "351037789777",
+                appId: "1:351037789777:web:5a43c6cd09be7a53d70a70",
+                measurementId: "G-G0VFKP7XGK"
+            };
+            const app = initializeApp(firebaseConfig);
+            function getImageUrlByName() {
+                const storage = getStorage(app); // Corrigido para usar 'app' em vez de 'firebaseApp'
+                let e = document.getElementById("imgLojaF");
+                const imgElements = document.querySelectorAll('.img-container img');
+                imgElements.forEach(async imgElement => {
+                    const altText = imgElement.getAttribute('alt');
+                    console.log(altText);
+                    let email = document.getElementById("emailFirebase");
+                    const storageRef = ref(storage, 'ProdutoFoto/'+ email.value + "/" + altText);
+
+                    try {
+                        const imageUrl = await getDownloadURL(storageRef);
+                        if (imageUrl) {
+                            imgElement.src = imageUrl;
+                        } else {
+                            console.log("Erro ao carregar a imagem para o email:", altText);
+                        }
+                    } catch (error) {
+                        console.error('Erro ao obter URL de download:', error);
+                    }
                 });
-    }
+            }
 
-    document.addEventListener("DOMContentLoaded", async function () {
-        let imageUrl = await getImageUrlByName();
-        const imgElement = document.getElementById('bannerLojaF');
-        const imgElement2 = document.getElementById('imgLojaF');
+            document.addEventListener("DOMContentLoaded", async function () {
+                getImageUrlByName();
+            });
+        </script>
 
-        if (imageUrl !== null) {
-            imgElement.src = imageUrl;
-            imgElement2.src = imageUrl;
-        }
-    });
+        <script type="module">
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+            import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
+            const firebaseConfig = {
+                apiKey: "AIzaSyC6E9U_uW78MMsIf9oQKBTm5LjvRp6OB2A",
+                authDomain: "restricted-d6b24.firebaseapp.com",
+                databaseURL: "https://restricted-d6b24-default-rtdb.firebaseio.com",
+                projectId: "restricted-d6b24",
+                storageBucket: "restricted-d6b24.appspot.com",
+                messagingSenderId: "351037789777",
+                appId: "1:351037789777:web:5a43c6cd09be7a53d70a70",
+                measurementId: "G-G0VFKP7XGK"
+            };
+            const app = initializeApp(firebaseConfig);
+            function getImageUrlByName() {
+                const storage = getStorage(app); // Corrigido para usar 'app' em vez de 'firebaseApp'
+                let e = document.getElementById("imgLojaF");
+                const imgElements = document.querySelectorAll('.img-produto');
+                imgElements.forEach(async imgElement => {
+                    const altText = imgElement.getAttribute('alt');
+                    console.log(altText);
+                    let email = document.getElementById("emailFirebase");
+                    const storageRef = ref(storage, 'ProdutoFoto/'+ email.value + "/" + altText);
+
+                    try {
+                        const imageUrl = await getDownloadURL(storageRef);
+                        if (imageUrl) {
+                            imgElement.src = imageUrl;
+                        } else {
+                            console.log("Erro ao carregar a imagem para o email:", altText);
+                        }
+                    } catch (error) {
+                        console.error('Erro ao obter URL de download:', error);
+                    }
+                });
+            }
+
+            document.addEventListener("DOMContentLoaded", async function () {
+                getImageUrlByName();
+            });
         </script>
 
         <script>
@@ -548,6 +777,7 @@
         <script src="scripts/rating.js"></script>
         <script type="module" src="scripts/sacola/adicionarSacola.js"></script>
         <script type="module" src="scripts/sacola/removerSacola.js"></script>
+        <script type="module" src="scripts/sacola/fazerPedido.js"></script>
         <script src="scripts/loja/favoritar.js"></script>
         <script src="scripts/loja/userRating.js"></script>
         <script src="scripts/carrossel.js"></script>
@@ -556,5 +786,6 @@
         <script src="scripts/usuario/acessibilidade/acessibilidade.js"></script>
         <script src="scripts/busca.js"></script>
         <script src="scripts/responsiveNavBar.js"></script>
+        <script type="module" src="scripts/whatsAppLinker.js"></script>
     </body>
 </html>

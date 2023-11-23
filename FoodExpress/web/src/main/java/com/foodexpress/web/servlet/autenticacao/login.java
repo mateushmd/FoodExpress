@@ -68,6 +68,11 @@ public class login extends HttpServlet {
 
                     sacola = sacolaService.getSacola(usuario.getEmail());
 
+                    PontoEncontroService pontoEncontroService = PontoEncontroService.getInstance();
+                    ArrayList<PontoEncontroDTO> pontos = (ArrayList<PontoEncontroDTO>) pontoEncontroService.getCliente(sacola.getIdLoja());
+
+                    sacola.setPontos(pontos);
+
                     acessibilidade = acessibilidadeService.getConfiguracoes(email);
 
                     session.setAttribute("sacola", sacola);

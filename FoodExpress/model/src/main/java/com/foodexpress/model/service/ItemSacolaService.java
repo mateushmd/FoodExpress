@@ -26,7 +26,7 @@ public class ItemSacolaService {
         return instance;
     }
 
-    public boolean addItem(ItemSacolaDTO item) {
+    public int addItem(ItemSacolaDTO item) {
         return itemSacolaDAO.addItem(item);
     }
 
@@ -45,4 +45,6 @@ public class ItemSacolaService {
     public ItemSacolaViewDTO getItemNovo(String idUsuario, List<ItemSacolaViewDTO> itensAtuais) {
         return itemSacolaViewDAO.getItemNovo(idUsuario, itensAtuais);
     }
+
+    public boolean limparSacola(String idUsuario) { return itemSacolaDAO.limparSacola(idUsuario); }
 }

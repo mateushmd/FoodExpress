@@ -41,22 +41,25 @@ public class ItemSacolaDAO extends DAOTemplate<ItemSacolaDTO> {
         return item;
     }
 
-    public boolean addItem(ItemSacolaDTO item) {
+    public int addItem(ItemSacolaDTO item) {
         ItemSacolaDTO itemExistente = getItem(item.getIdUsuario(), item.getIdProduto());
 
         if(itemExistente != null) {
+            if(itemExistente.getQuantidade() + item.getQuantidade() > 10)
+                return -1;
+
             String sql = "UPDATE itens_sacola SET quantidade = quantidade + ?, preco_total = preco_total + ? WHERE id = ?";
 
             executeUpdate(sql, item.getQuantidade(), item.getPrecoTotal(), itemExistente.getId());
 
-            return false;
+            return 0;
         }
 
         String sql = "INSERT INTO itens_sacola (id_usuario, id_produto, quantidade, preco_item, preco_total) VALUES(?, ?, ?, ?, ?)";
 
         executeUpdate(sql, item.getIdUsuario(), item.getIdProduto(), item.getQuantidade(), item.getPrecoItem(), item.getPrecoTotal());
 
-        return true;
+        return 1;
     }
 
     public boolean removerItem(int id) {
@@ -79,6 +82,12 @@ public class ItemSacolaDAO extends DAOTemplate<ItemSacolaDTO> {
         List<ItemSacolaDTO> item = executeQuery(sql, idUsuario, idProduto);
 
         return item.isEmpty() ? null : item.get(0);
+    }
+
+    public boolean limparSacola(String idUsuario) {
+        String sql = "DELETE FROM itens_sacola WHERE id_usuario = ?";
+
+        return executeUpdate(sql, idUsuario);
     }
 
 }

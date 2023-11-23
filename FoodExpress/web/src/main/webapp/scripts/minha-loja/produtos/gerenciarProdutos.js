@@ -137,11 +137,11 @@ const editar = function() {
             produto.find('.preco').val(preco.toFixed(2).replace('.', ','));
             produto.find('.visibilidade').text(disponivel ? 'Ativado' : 'Pausado');
 
+            produto.find('.destaque').remove();
+
             if(destaque)
                 produto.find('.informacoes').append($('<p>', {'class': 'destaque'}).text('Destaque'));
-            else
-                produto.find('.destaque').remove();
-
+            
             loader.addClass('complete');
             checkmark.removeClass('hidden');
             checkmark.addClass('draw');

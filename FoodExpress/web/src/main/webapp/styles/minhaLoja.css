@@ -4,9 +4,8 @@
 @import url("../fonts/style.css");
 
 body {
-    padding: 0;
     margin: 0;
-    padding-left: 600px;
+    padding: 50px 50px 0 35vw;
 
     font-family: 'Cooper Hewitt', sans-serif !important;
 }
@@ -27,8 +26,8 @@ body {
     border: 1px solid #ee2d2d;
     cursor: pointer;
     border-radius: 6px;
-    font-family: 'iFood RC Titulos';
-    font-weight: 100;
+    font-family: inherit;
+    font-weight: 707;
 }
 
 .botao:hover {
@@ -47,7 +46,7 @@ body {
     top: 0;
     left: 0;
 
-    width: 680px;
+    width: 35vw;
     height: 100vh;
 
     display: grid;
@@ -57,11 +56,11 @@ body {
     border-right: 2px solid var(--cor-borda);
 }
 
-#barra-lateral-container > div {
+#barra-lateral-container>div {
     overflow-y: scroll;
 }
 
-#barra-lateral-container > div::-webkit-scrollbar-track {
+#barra-lateral-container>div::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgb(0, 0, 0, .3);
 }
 
@@ -260,12 +259,15 @@ li>p {
 
 #dados-pessoais .botao-dados-container {
     display: flex;
-    flex-direction: column-reverse;
-    align-items: center;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 20px;
     width: 100%;
+    margin-bottom: 20px;
 }
 
 #dados-pessoais .botao-dados input {
+    height: calc(29px * var(--escala));
     text-align: center;
     background-color: var(--cor-fundo);
     color: #cc575f;
@@ -273,12 +275,6 @@ li>p {
     font-size: inherit;
     border-radius: 6px;
     cursor: pointer;
-    font-family: 'iFood RC Titulos';
-    padding: 7px 15px 6px 15px;
-}
-
-.botao-dados-container .botao-dados #sair {
-    border: none;
 }
 
 #dados-pessoais .botao-dados>input:hover {
@@ -289,7 +285,6 @@ li>p {
 main {
     display: flex;
     flex-direction: column;
-    padding: 30px 150px;
 }
 
 h1 {
@@ -361,7 +356,7 @@ h1 {
     padding: 5px;
 }
 
-#container-info-loja > div {
+#container-info-loja>div {
     display: flex;
     flex-direction: row;
     gap: 20px;
@@ -563,13 +558,12 @@ h1 {
 
 #horario {
     color: #ee2d2d;
-    font-size: 16px;
+    font-size: 14px;
     background-color: white;
     border: 1px solid #ee2d2d;
     border-radius: 6px;
-    padding: 6px 25px 6px 25px;
+    padding: 5px;
     cursor: pointer;
-    font-family: 'iFood RC Titulos';
 }
 
 #horario:hover {
@@ -839,14 +833,13 @@ tbody input {
 }
 
 .menu-categoria .nome-categoria {
-    width: 212px;
-    border: none;
-    border-bottom: 2px solid black;
-    font-size: 18px;
-    font-weight: 100;
-    background-color: transparent;
-    padding: 5px;
-    outline: none;
+    background-color: inherit;
+    font-family: inherit;
+    color: inherit;
+    font-weight: 600;
+    font-size: 23px;
+    border: 1px solid var(--cor-borda);
+    border-radius: 5px;
 }
 
 .menu-categoria .nome-categoria:disabled {
@@ -888,7 +881,7 @@ tbody input {
 }
 
 .opcoes .editar-categoria {
-    height: 28px;
+    height: 25px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -900,13 +893,11 @@ tbody input {
     padding: 5px;
     cursor: pointer;
     margin-right: 20px;
-    width: 60px;
-    font-family: 'iFood RC Titulos';
 }
 
 .opcoes .editar-categoria:hover {
-    background-color: #ff7e7e63;
-    color: black;
+    background-color: #ee2d2d;
+    color: white;
 }
 
 .menu-exclui {
@@ -1010,7 +1001,6 @@ tbody input {
     height: 24px;
     font-size: 12px;
     width: 79px;
-    font-family: 'iFood RC Titulos';
 }
 
 .toggle button:first-child {
@@ -1030,7 +1020,10 @@ tbody input {
 
 .modal .toggle button {
     height: 40px;
-    font-family: 'iFood RC Titulos';
+}
+
+#modal-produto {
+    width: 1100px;
 }
 
 .adicionaItem {
@@ -1204,8 +1197,6 @@ tbody input {
     padding: 5px;
     cursor: pointer;
     margin-right: 20px;
-    font-family: 'iFood RC Titulos';
-    font-weight: 100;
 }
 
 .produto button:hover {
@@ -1369,7 +1360,6 @@ tbody input {
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    font-family: 'iFood RC Titulos';
 }
 
 .produto .input-container {
@@ -1388,23 +1378,27 @@ tbody input {
 }
 
 .produto .input-container input {
-    width: 75px;
+    width: 100px;
     height: 32px;
+    padding: 0 0 0 5px;
     border: 1px solid #bfbfbf;
     border-radius: 3px;
     position: relative;
+
     text-align: start;
-    font-weight: 600;
-    font-size: 18px;
-    font-family: 'iFood RC Titulos';
-    background: #dbc4c4a1; 
+    font-family: inherit;
+    font-weight: 707;
+    font-size: 1.5em;
 }
 
 .produto .input-container div:last-child input {
     text-align: end;
 }
 
-
+.produto .informacoes {
+    display: flex;
+    gap: 40px;
+}
 
 .menu-item {
     position: absolute;
@@ -1611,4 +1605,105 @@ tbody input {
     height: 30px;
     width: 60px;
     font-size: 1.3em;
+}
+
+.pedido {
+    display: grid;
+    grid-template-rows: auto auto auto;
+    width: 500px;
+
+    border: 1px solid var(--cor-borda);
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 30px;
+}
+
+.pedido>div:not(:last-child) {
+    border-bottom: 1px solid var(--cor-borda);
+}
+
+.pedido-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 20px;
+}
+
+.pedido-header img {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: 100%;
+}
+
+.pedido-header div:first-child {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
+
+.pedido-header div:first-child div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.pedido-body {
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.pedido-body span {
+    margin-right: 20px;
+}
+
+.pedido-footer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 20px
+}
+
+#pedido-vazio * {
+    font-weight: 707;
+}
+
+#pedido-vazio img {
+    width: 500px;
+    height: 500px;
+}
+
+@media only screen and (max-width: 1370px) {
+    body {
+        padding: 50px 50px 50px 60px;
+    }
+
+    #barra-lateral-container {
+        width: 650px;
+
+        left: -590px;
+
+        z-index: 9999;
+
+        transition: all .2s;
+
+        background-color: inherit;
+    }
+
+    #barra-lateral-container.open {
+        left: 0;
+    }
+}
+
+@media only screen and (max-width: 1170px) {
+    #modal-produto {
+        width: 80vw;
+    }
 }

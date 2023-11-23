@@ -32,6 +32,19 @@ $(function() {
             url: 'sacola/adicionar-sacola',
             data: {idProduto: produtoId, quantidade: quantidade},
             success: function(response) {
+                if(response.responseType === 'error') {
+                    loader.remove();
+                    pElements.removeClass('hidden');
+
+                    $('#modal-produto').addClass('hidden');
+                    $('#overlay').removeClass('hidden');
+                    $('#alerta').removeClass('hidden');
+
+                    $('#alerta').find('#msg').text(response.msg);
+
+                    return;
+                }
+
                 loader.addClass('complete');
                 checkmark.removeClass('hidden');
                 checkmark.addClass('draw');
@@ -57,6 +70,29 @@ $(function() {
                 let sacolaPrecoEl = $('#bag-preco');
                 sacolaPrecoEl.text(headerPrecoEl.text());
 
+                let select = $('#pontos-pedido');
+
+                if(response.responseType === 'gerarSacola') {
+                    $('#empty-bag').addClass('hidden');
+                    $('#bag-container').removeClass('hidden');
+                    $('#bag-nome').text(response.nomeLoja);
+                    $('#bag-anchor').attr('href', `loja?id=${response.idLoja}`);
+
+                    let pontos = response.pontos;
+
+                    select.find('option').remove();
+
+                    if(pontos !== undefined) {
+                        $.each(pontos, function(index, item) {
+                            select.append($(`<option value="${item.id}">`).text(item.nome));
+                        });
+                    } else {
+                        select.append($('<option value="-2">').text('Loja fechada'))
+                    }
+                }
+
+                select.val($('#ponto-encontro').find(':selected').val()).change();
+
                 if(response.responseType === 'atualizar') {
                     let produtoContainerEl = $(`.bag-produto[data-id-produto="${response.idProduto}"]`);
 
@@ -70,13 +106,6 @@ $(function() {
                     produtoPrecoEl.text((preco + response.precoTotal).toFixed(2).replace('.', ','));
 
                     return;
-                }
-
-                if(response.responseType === 'gerarSacola') {
-                    $('#empty-bag').addClass('hidden');
-                    $('#bag-container').removeClass('hidden');
-                    $('#bag-nome').text(response.nomeLoja);
-                    $('#bag-anchor').attr('href', `loja?id=${response.idLoja}`);
                 }
 
                 let produtoEl = $('.bag-produto.clone').clone();

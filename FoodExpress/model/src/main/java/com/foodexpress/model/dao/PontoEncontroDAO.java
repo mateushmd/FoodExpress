@@ -76,4 +76,12 @@ public class PontoEncontroDAO extends DAOTemplate<PontoEncontroDTO> {
 
         return lista.isEmpty() ? null : lista.get(0);
     }
+
+    public List<PontoEncontroDTO> getByLojaAndCampus(int idLoja, int campus) {
+        String sql = "SELECT * FROM pontos_encontro WHERE id_loja = ? AND campus = ?";
+
+        ArrayList<PontoEncontroDTO> lista = (ArrayList<PontoEncontroDTO>) executeQuery(sql, idLoja, campus);
+
+        return lista.isEmpty() ? null : lista;
+    }
 }

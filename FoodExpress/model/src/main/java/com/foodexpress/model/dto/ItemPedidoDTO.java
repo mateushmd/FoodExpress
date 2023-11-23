@@ -7,6 +7,8 @@ public class ItemPedidoDTO {
     int quantidade;
     double precoTotal;
 
+    String nome;
+
     //Resgatar do BD
     public ItemPedidoDTO(int id, int idProduto, int idPedido, int quantidade, double precoTotal) {
         this.id = id;
@@ -19,6 +21,16 @@ public class ItemPedidoDTO {
     //Cadastrar no bd
     public ItemPedidoDTO(int idProduto, int quantidade, double precoTotal) {
         this.idProduto = idProduto;
+        this.quantidade = quantidade;
+        this.precoTotal = precoTotal;
+    }
+
+    //View
+    public ItemPedidoDTO(String nome, int id, int idProduto, int idPedido, int quantidade, double precoTotal) {
+        this.nome = nome;
+        this.id = id;
+        this.idProduto = idProduto;
+        this.idPedido = idPedido;
         this.quantidade = quantidade;
         this.precoTotal = precoTotal;
     }
@@ -67,5 +79,9 @@ public class ItemPedidoDTO {
         this.precoTotal = precoTotal;
     }
     
-    
+    public String getNome() {return nome;}
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 }

@@ -12,6 +12,8 @@ public class AgendaLojaDTO {
     private boolean campus1;
     private boolean campus2;
 
+    private static String[] diasDaSemana = {"Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado", "Domingo"};
+
     public AgendaLojaDTO(int idLoja, int diaSemana, String abertura, String fechamento, boolean campus1, boolean campus2) {
         this(idLoja, diaSemana, campus1, campus2);
 
@@ -96,5 +98,12 @@ public class AgendaLojaDTO {
         }
 
         return agenda;
+    }
+
+    public String getDiaSemanaString() {
+        if(diaSemana <= 0)
+            return "";
+
+        return diasDaSemana[diaSemana - 1];
     }
 }

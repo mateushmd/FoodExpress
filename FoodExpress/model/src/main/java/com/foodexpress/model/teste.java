@@ -14,6 +14,6 @@ import java.util.Random;
 
 public class teste {
     public static void main(String[] args) throws SQLException {
-        LojaDAO.getInstance().listarLojas(0);
+
     }
 }

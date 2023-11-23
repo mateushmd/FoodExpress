@@ -35,8 +35,8 @@
             <p>
                 Encorajamos todos os nossos vendedores a definirem todos os aspectos essenciais da loja,
                 como foto de perfil, banner e horário de funcionamento. Além disso, certifique-se
-                que o número de celular informado seja de fácil acesso para que haja uma comunicação
-                com os clientes sempre quando for necessário. Você pode alterar todos esses dados a qualquer momento.
+                que o número de celular informado seja de fácil acesso, pois você receberá pedidos e
+                mensagens dos clientes pelo WhatsApp. Você pode alterar todos esses dados a qualquer momento.
             </p>
 
             <div id="input-container">

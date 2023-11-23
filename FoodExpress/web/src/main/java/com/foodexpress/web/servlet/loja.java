@@ -10,7 +10,11 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @WebServlet(name = "loja", urlPatterns = {"/loja"})
 public class loja extends HttpServlet {
@@ -49,6 +53,22 @@ public class loja extends HttpServlet {
 
         FavoritosService favoritosService = FavoritosService.getInstance();
         boolean favorito = favoritosService.checkFavorito(usuario.getEmail(), loja.getId());
+
+        AgendaLojaService agendaLojaService = AgendaLojaService.getInstance();
+        ArrayList<AgendaLojaDTO> agenda = (ArrayList<AgendaLojaDTO>) agendaLojaService.getAgendasByLojaCliente(loja.getId());
+
+        UsuarioService usuarioService = UsuarioService.getInstance();
+        String telefone = usuarioService.getTelefone(loja.getIdUser());
+
+        Pattern pattern = Pattern.compile("[^0-9]");
+        Matcher matcher = pattern.matcher(telefone);
+
+        telefone = matcher.replaceAll("");
+
+        PontoEncontroService pontoEncontroService = PontoEncontroService.getInstance();
+        ArrayList<PontoEncontroDTO> pontos = (ArrayList<PontoEncontroDTO>) pontoEncontroService.getCliente(loja.getId());
+
+        int diaDaSemanaAtual = LocalDateTime.now().getDayOfWeek().getValue();
         
         request.setAttribute("loja", loja);
         request.setAttribute("categorias", categorias);
@@ -56,6 +76,10 @@ public class loja extends HttpServlet {
         request.setAttribute("avaliacoes", avaliacoes);
         request.setAttribute("avaliacaoUsuario", avaliacaoUsuario);
         request.setAttribute("favorito", favorito);
+        request.setAttribute("agenda", agenda);
+        request.setAttribute("telefone", telefone);
+        request.setAttribute("pontos", pontos);
+        request.setAttribute("diaDaSemanaAtual", diaDaSemanaAtual);
         
         RequestDispatcher rd = request.getRequestDispatcher("loja.jsp");
         

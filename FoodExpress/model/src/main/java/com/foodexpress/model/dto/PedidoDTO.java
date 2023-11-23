@@ -4,6 +4,10 @@
  */
 package com.foodexpress.model.dto;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -14,41 +18,35 @@ public class PedidoDTO {
     int id;
     int idLoja;
     String idCliente;
-    String dhPedido; //Data e hora do pedido
+
+    String nomeCliente;
+    Timestamp dhPedido; //Data e hora do pedido
     String lEntrega; //Local entrega
     double pTotal; //Preco total
-    String status;
-    String rCancelamento; //Razao cancelamento
-    String dhFechamento; //Data e hora fechammento
-    List<ItemPedidoDTO> produtos;
+    ArrayList<ItemPedidoDTO> produtos;
 
     //criar objeto
     public PedidoDTO() {
     }
 
     //resgatar bd
-    public PedidoDTO(int id, int id_loja, String id_cliente, String dhPedido, String lEntrega, double preco_total, String status, String razao_cancelamento, String dhFechamento) {
+    public PedidoDTO(int id, int id_loja, String id_cliente, Timestamp dhPedido, String lEntrega, double preco_total) {
         this.id = id;
         this.idLoja = id_loja;
         this.idCliente = id_cliente;
         this.dhPedido = dhPedido;
         this.lEntrega = lEntrega;
         this.pTotal = preco_total;
-        this.status = status;
-        this.rCancelamento = razao_cancelamento;
-        this.dhFechamento = dhFechamento;
+        this.produtos = new ArrayList<>();
     }
 
     //salvar no bd
-    public PedidoDTO(int idLoja, String idCliente, String dhPedido, String lEntrega, double pTotal, String status) {
+    public PedidoDTO(int idLoja, String idCliente, String lEntrega, double pTotal, ArrayList<ItemPedidoDTO> produtos) {
         this.idLoja = idLoja;
         this.idCliente = idCliente;
         this.dhPedido = dhPedido;
         this.lEntrega = lEntrega;
         this.pTotal = pTotal;
-        this.status = status;
-        this.rCancelamento = rCancelamento;
-        this.dhFechamento = dhFechamento;
         this.produtos = produtos;
     }
     
@@ -78,11 +76,17 @@ public class PedidoDTO {
         this.idCliente = idCliente;
     }
 
-    public String getDhPedido() {
+    public Timestamp getDhPedido() {
         return dhPedido;
     }
 
-    public void setDhPedido(String dhPedido) {
+    public Date getDataPedido() {
+        LocalDate data = dhPedido.toLocalDateTime().toLocalDate();
+
+        return java.sql.Date.valueOf(data);
+    }
+
+    public void setDhPedido(Timestamp dhPedido) {
         this.dhPedido = dhPedido;
     }
 
@@ -101,36 +105,22 @@ public class PedidoDTO {
     public void setpTotal(double pTotal) {
         this.pTotal = pTotal;
     }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getrCancelamento() {
-        return rCancelamento;
-    }
-
-    public void setrCancelamento(String rCancelamento) {
-        this.rCancelamento = rCancelamento;
-    }
-
-    public String getDhFechamento() {
-        return dhFechamento;
-    }
-
-    public void setDhFechamento(String dhFechamento) {
-        this.dhFechamento = dhFechamento;
-    }
     
-    public void addProduto(List<ItemPedidoDTO> prod){
+    public void setProdutos(ArrayList<ItemPedidoDTO> prod){
         produtos = prod;
     }
-    
+
+    public void addProduto(ItemPedidoDTO produto) {
+        produtos.add(produto);
+    }
+
     public List<ItemPedidoDTO> getProdutos(){
         return produtos;
     }
+
+    public void setNomeCliente(String nome) {
+        this.nomeCliente = nome;
+    }
+
+    public String getNomeCliente() { return nomeCliente; }
 }

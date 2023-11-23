@@ -42,6 +42,10 @@ public class AgendaLojaService {
         return novaAgenda;
     }
 
+    public List<AgendaLojaDTO> getAgendasByLojaCliente(int idLoja) {
+        return dao.getAgendasByLoja(idLoja);
+    }
+
     public AgendaLojaDTO getAgendaByLojaAndDia(int loja, int diaSemana) {
         return dao.getAgendaByLojaAndDia(loja, diaSemana);
     }

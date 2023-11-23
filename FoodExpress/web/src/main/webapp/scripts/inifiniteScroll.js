@@ -5,7 +5,11 @@ $(function() {
 });
 
 const carregar = function() {
-    let call = $('.carregar-mais-lojas').data('call') + 1;
+    const button = $('.carregar-mais-lojas');
+
+    let call = button.data('call') + 1;
+
+    button.data('call', call);
 
     const loader = $('<div>', {'class': 'loader white'});
 
@@ -13,13 +17,21 @@ const carregar = function() {
 
     loader.append(checkmark);
 
-    loader.insertBefore($('.carregar-mais-lojas'));
+    loader.insertBefore(button);
 
     $.ajax({
         type: 'POST',
         url: 'carregar-mais-lojas',
         data: {callNumber: call},
         success: function(response) {
+            setTimeout(function() {
+                loader.addClass('hide');
+
+                setTimeout(function() {
+                    loader.remove();
+                }, 400);
+            }, 1000);
+
             let elements = $();
 
             for(let i = 0; i < response.length; i++) {
@@ -47,14 +59,6 @@ const carregar = function() {
             }
 
             $('.lojas').append(elements);
-
-            setTimeout(function() {
-                loader.addClass('hide');
-
-                setTimeout(function() {
-                    loader.remove();
-                }, 400);
-            }, 1000);
         },
         error: function(xhr, status, error) {
             console.error(`AJAX request failed with status ${status}, error: ${error}`);

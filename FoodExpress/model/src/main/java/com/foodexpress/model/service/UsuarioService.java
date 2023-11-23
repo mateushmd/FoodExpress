@@ -82,4 +82,10 @@ public class UsuarioService {
 
         return dao.updateVerificacao(tDTO.getEmailUsuario());
     }
+
+    public String getTelefone(String email) {
+        UsuarioDTO usuario = getUsuario(email);
+
+        return usuario.getTelefone();
+    }
 }

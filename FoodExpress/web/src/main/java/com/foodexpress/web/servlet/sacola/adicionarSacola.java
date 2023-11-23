@@ -1,14 +1,9 @@
 package com.foodexpress.web.servlet.sacola;
 
 import com.foodexpress.model.dto.*;
-import com.foodexpress.model.service.ItemSacolaService;
-import com.foodexpress.model.service.LojaService;
-import com.foodexpress.model.service.ProdutoService;
+import com.foodexpress.model.service.*;
 import com.foodexpress.model.util.JsonHandler;
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -17,6 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map;
 
 @WebServlet(name = "adicionar-sacola", urlPatterns = {"/sacola/adicionar-sacola"})
@@ -25,6 +21,8 @@ public class adicionarSacola extends HttpServlet {
         response.setContentType("application/json");
 
         HttpSession session = request.getSession();
+
+        JsonObject responseData = new JsonObject();
 
         String idCliente = ((UsuarioDTO) session.getAttribute("usuario")).getEmail();
 
@@ -35,6 +33,17 @@ public class adicionarSacola extends HttpServlet {
         ProdutoService produtoService = ProdutoService.getInstance();
 
         ProdutoDTO produto = produtoService.getProdutoById(idProduto);
+
+        SacolaViewDTO sacola = (SacolaViewDTO) session.getAttribute("sacola");
+
+        if(sacola.getIdLoja() != -1 && produto.getIdLoja() != sacola.getIdLoja()) {
+            responseData.addProperty("responseType", "error");
+            responseData.addProperty("msg", "Não é possível adicionar produtos de lojas diferentes na mesma sacola. Faça o pedido ou remova todos os itens antes de adicionar algum produto desta loja.");
+
+            response.getWriter().write(responseData.toString());
+
+            return;
+        }
 
         double precoItem = produto.getPreco();
 
@@ -49,13 +58,14 @@ public class adicionarSacola extends HttpServlet {
 
         ItemSacolaService iService = ItemSacolaService.getInstance();
 
-        iService.addItem(item);
+        int check = iService.addItem(item);
 
-        SacolaViewDTO sacola = (SacolaViewDTO) session.getAttribute("sacola");
+        if(check == -1) {
+            responseData.addProperty("responseType ", "error");
+            responseData.addProperty("msg", "Cada item só pode conter um máximo de 10 unidades por pedido.");
+        }
 
         ItemSacolaViewDTO itemAdicionado = iService.getItemNovo(idCliente, sacola.getItens());
-
-        JsonObject responseData = new JsonObject();
 
         if(itemAdicionado == null) {
             sacola.updateItem(item.getIdProduto(), item.getQuantidade(), item.getPrecoTotal());
@@ -86,6 +96,25 @@ public class adicionarSacola extends HttpServlet {
 
             sacola.setIdLoja(loja.getId());
             sacola.setNomeLoja(loja.getNome());
+
+            PontoEncontroService pontoEncontroService = PontoEncontroService.getInstance();
+
+            ArrayList<PontoEncontroDTO> pontos = (ArrayList<PontoEncontroDTO>) pontoEncontroService.getCliente(loja.getId());
+
+            if(pontos != null) {
+                JsonArray jsonArray = new JsonArray();
+
+                for(PontoEncontroDTO ponto : pontos) {
+                    JsonObject pontoJson = new JsonObject();
+
+                    pontoJson.addProperty("nome", ponto.getNome());
+                    pontoJson.addProperty("id", ponto.getId());
+
+                    jsonArray.add(pontoJson);
+                }
+
+                responseData.add("pontos", jsonArray);
+            }
 
             System.out.println("gerando sacola");
         } else {

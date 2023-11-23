@@ -59,6 +59,9 @@ public class carregarLoja extends HttpServlet {
         PontoEncontroService pontoEncontroService = PontoEncontroService.getInstance();
         ArrayList<ArrayList<PontoEncontroDTO>> pontos;
 
+        PedidoService pedidoService = PedidoService.getInstance();
+        ArrayList<PedidoDTO> pedidos;
+
         categorias = (ArrayList<CategoriaDTO>) categoriaService.listarCompleto(loja.getId());
 
         avaliacoes = (ArrayList<AvaliacaoDTO>) avaliacaoService.getAvaliacaoByIdLoja(loja.getId());
@@ -67,33 +70,27 @@ public class carregarLoja extends HttpServlet {
 
         pontos = pontoEncontroService.getByLoja(loja.getId());
 
+        pedidos = (ArrayList<PedidoDTO>) pedidoService.getPedidosLoja(loja.getId());
+
         session.setAttribute("loja", loja);
         session.setAttribute("categorias", categorias);
         session.setAttribute("avaliacoes", avaliacoes);
         session.setAttribute("agenda", agenda);
         session.setAttribute("pontosEncontro", pontos);
+        session.setAttribute("pedidos", pedidos);
 
         response.sendRedirect("minha-loja.jsp");
     }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }

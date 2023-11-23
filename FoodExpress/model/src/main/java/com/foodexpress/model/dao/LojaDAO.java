@@ -72,7 +72,7 @@ public class LojaDAO extends DAOTemplate<LojaDTO> {
 
     public List<LojaDTO> buscarLoja(String b){
         String busca = "%" + b + "%";
-        String sql = "SELECT * FROM foodexpress.lojas WHERE nome LIKE ?";
+        String sql = "SELECT * FROM foodexpress.lojas WHERE nome LIKE ? ORDER BY nome";
 
         return executeQuery(sql, busca);
     }

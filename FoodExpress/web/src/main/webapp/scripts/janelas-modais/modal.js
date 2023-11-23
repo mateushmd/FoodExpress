@@ -88,7 +88,7 @@ closeModalElements.forEach(element => {
     {
         const modalEl = element.closest('.modal');
         modalEl.classList.add('hidden');
-        overlayEl.classList.toggle('hidden');
+        overlayEl.classList.add('hidden');
     });
 })
 
@@ -104,7 +104,7 @@ modalProdutoBotaoQuantidadeElements.forEach(el =>
 
         let quantidade = parseInt(quantidadeElements[0].innerHTML) + operacao;
 
-        if (quantidade < 1)
+        if (quantidade < 1 || quantidade > 10)
             return;
 
         quantidadeElements.forEach(el => el.innerHTML = quantidade);

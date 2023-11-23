@@ -4,17 +4,16 @@ import com.foodexpress.model.dto.ItemPedidoDTO;
 import com.foodexpress.model.dto.PedidoDTO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 
 public class PedidoDAO extends DAOTemplate<PedidoDTO> {
 
     private static PedidoDAO instance = null;
-    ItemPedidoDAO itemDAO;
 
     private PedidoDAO() {
         super();
-        itemDAO = ItemPedidoDAO.getInstance();
     }
 
     public static synchronized PedidoDAO getInstance() {
@@ -35,13 +34,8 @@ public class PedidoDAO extends DAOTemplate<PedidoDTO> {
             pedido.setId(rs.getInt("id"));
             pedido.setIdLoja(rs.getInt("id_loja"));
             pedido.setIdCliente(rs.getString("id_cliente"));
-            pedido.setDhPedido(rs.getString("data_hora_pedido"));
+            pedido.setDhPedido(rs.getTimestamp("data_hora_pedido"));
             pedido.setlEntrega(rs.getString("local_entrega"));
-            pedido.setpTotal(rs.getDouble("preco_total"));
-            pedido.setStatus(rs.getString("status"));
-            pedido.setrCancelamento(rs.getString("razao_cancelamento"));
-            pedido.setDhFechamento(rs.getString("data_hora_fechamento"));
-            pedido.addProduto(itemDAO.getItensPedidoById(rs.getInt("id")));
         } catch (SQLException ex) {
             java.util.logging.Logger.getLogger(PedidoDTO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -49,28 +43,10 @@ public class PedidoDAO extends DAOTemplate<PedidoDTO> {
         return pedido;
     }
 
-    public boolean realizarPedido(PedidoDTO obj, List<ItemPedidoDTO> itens) {
-        String sql = "INSERT INTO pedidos (id_cliente, id_loja, data_hora_pedido, local_entrega, preco_total, status) VALUES (?, ?, ?, ?, ?, ?)";
-        boolean aux = false;
+    public boolean realizarPedido(PedidoDTO obj) {
+        String sql = "INSERT INTO pedidos (id_cliente, id_loja, local_entrega, preco_total) VALUES (?, ?, ?, ?)";
 
-        PedidoDTO ped = getPedidoByIdLojaClienteStatus(obj.getIdLoja(), obj.getIdCliente(), "Pendente");
-
-        if (ped == null) {
-            aux = executeUpdate(sql, obj.getIdCliente(), obj.getIdLoja(), obj.getDhPedido(), obj.getlEntrega(), obj.getpTotal(), obj.getStatus());
-            if (!aux)
-                System.out.println("Deu errado! -_-");
-            ped = getPedidoByIdLojaClienteStatus(obj.getIdLoja(), obj.getIdCliente(), "Pendente");
-        }
-
-        itemDAO.addItens(itens, ped.getId());
-
-        List<ItemPedidoDTO> listAux = itemDAO.getItensPedidoByPedido(ped.getId());
-
-        if (!updateValorTotal(calculaValorTotal(listAux), ped.getId())) {
-            System.out.println("Não foi possível armazenar o valor total");
-        }
-
-        return aux;
+        return executeUpdate(sql, obj.getIdCliente(), obj.getIdLoja(), obj.getlEntrega(), obj.getpTotal());
     }
 
     public double calculaValorTotal(List<ItemPedidoDTO> itens) {
@@ -165,5 +141,13 @@ public class PedidoDAO extends DAOTemplate<PedidoDTO> {
         }
             
         return aux;
+    }
+
+    public int getPedidoId() {
+        String sql = "SELECT * FROM pedidos WHERE id = LAST_INSERT_ID()";
+
+        ArrayList<PedidoDTO> pedido = (ArrayList<PedidoDTO>) executeQuery(sql);
+
+        return pedido.isEmpty() ? -1 : pedido.get(0).getId();
     }
 }

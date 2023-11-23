@@ -20,6 +20,8 @@ const adicionarNomes = function() {
 }
 
 const salvar = function() {
+    $('#aviso').remove();
+
     let dias = $('.dia');
 
     let lista = [];
@@ -38,11 +40,25 @@ const salvar = function() {
 
         let fechamento = dia.find('.fechamento').val();
 
+        if(abertura.length === 0 || fechamento.length === 0) {
+            $('<p>', {'id': 'aviso'}).text('Todos os campos devem ser preenchidos corretamente').insertAfter('#container-horario div');
+            return;
+        }
+
         if(abertura.length < 6)
             abertura += ':00';
 
         if(fechamento.length < 6)
             fechamento += ':00';
+
+        let c1 = dia.find(`.c1[name="campus-${index + 1}"]`).is(':checked');
+        let c2 = dia.find(`.c2[name="campus-${index + 1}"]`).is(':checked');
+
+        if(c1 === false && c2 === false) {
+            $('<p>', {'id': 'aviso'}).text('Todos os campos devem ser preenchidos corretamente').insertAfter('#container-horario div');
+            return;
+        }
+
 
         lista.push({
             diaSemana: index + 1,
@@ -60,12 +76,32 @@ const salvar = function() {
     if(lista.length === 0)
         return;
 
+    const loader = $('<div>', {'class': 'loader white'});
+
+    const checkmark = $('<div>', {'class': 'checkmark hidden'});
+
+    loader.append(checkmark);
+
+    $('#container-horario div').append(loader);
+
     $.ajax({
         type: 'POST',
         url: 'minha-loja/atualizar-agenda',
         contentType: 'application/json',
         data: JSON.stringify({lista: lista}),
         success: function(response) {
+            loader.addClass('complete');
+            checkmark.removeClass('hidden');
+            checkmark.addClass('draw');
+
+            setTimeout(function() {
+                loader.addClass('hide');
+
+                setTimeout(function() {
+                    loader.remove();
+                }, 400);
+            }, 1000);
+
             unchecked.forEach(element => {
                 element.find('.abertura').val('');
                 element.find('.fechamento').val('');

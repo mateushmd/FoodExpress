@@ -126,25 +126,16 @@
 
 #modal-perfil {
     position: fixed;
-
-    z-index: 9999;
-
-    top: 9%;
     right: 12%;
-
+    top: 8%;
     overflow: hidden;
-
+    z-index: 9999;
     background-color: var(--cor-fundo);
-
     color: gray;
-
     border-radius: 2%;
-
     box-shadow: 1px 1px 4px 1px #c0c0c0;
-
     margin-top: 20px;
     padding: 30px 40px;
-
     transition: max-height 1s ease-in;
 }
 
@@ -368,7 +359,7 @@
     font-weight: 707;
 }
 
-#bag-footer div {
+#bag-footer div:first-child {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -377,7 +368,7 @@
 
 #bag-footer button {
     font-family: inherit;
-    font-size: calc(1.5em / var(--escala-menor));
+    font-size: calc(1.2em / var(--escala-menor));
     color: white;
     font-weight: 707;
 
@@ -387,10 +378,46 @@
     border-radius: 10px;
 
     cursor: pointer;
+
+    width: 100%;
 }
 
 #bag-footer input:hover {
     background-color: red;
+}
+
+#select {
+    grid-template-columns: 1fr;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    height: 67px;
+    width: 99%;
+    display: grid;
+    align-items: center;
+}
+
+#select select {
+    background: none;
+    border: none;
+    font-size: calc(1rem * var(--escala-menor));
+    height: 70%;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    color: var(--cor-fonte-1);
+    text-align: center;
+}
+
+#select select:focus {
+    outline: none;
+}
+
+#opcoes-pedido {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
 }
 
 .preco {
@@ -399,7 +426,7 @@
 }
 
 #navbar-responsive {
-    position: absolute;
+    position: fixed;
     bottom: 0;
 
     z-index: 99999999;
@@ -450,8 +477,6 @@
         height: 100vh;
         margin: 0;
         padding: 0;
-        border-radius: 0;
-        box-shadow: none;
     }
 
     #modal-perfil div {

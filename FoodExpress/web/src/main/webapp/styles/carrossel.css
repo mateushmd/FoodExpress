@@ -12,9 +12,14 @@
     font-weight: 800;
 }
 
+.carousel-container {
+    height: 100%;
+}
+
 .carousel-container,
 .carousel-container.fit-product {
     position: relative;
+    width: 89%;
 }
 
 .carousel-container {
@@ -113,6 +118,7 @@
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
+    overflow: hidden;
 }
 
 .item.fit-product .info-container h2 {
@@ -232,6 +238,7 @@
 .avaliacao p {
     margin: 0;
     text-align: end;
+    color: #ad9d9d;
 }
 
 .disponibilidade svg {
@@ -246,4 +253,58 @@
 
 .disponibilidade.fechado {
     color: red;
+}
+
+@media only screen and (max-width: 1370px) {
+    .item {
+        width: 40vw;
+    }
+
+    .item h2 {
+        font-size: 1em;
+    }
+
+    .left-arrow.arrow-rounded,
+    .right-arrow.arrow-rounded {
+        top: 50%;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    .arrow-rounded {
+        width: 30px !important;
+        height: 30px;
+    }
+}
+
+@media only screen and (max-width: 850px) {
+    .item:not(.fit-product) {
+        font-size: 0.7em;
+    }
+}
+
+@media only screen and (max-width: 750px) {
+    .item:not(.fit-product) {
+        width: 300px;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .carousel-container.realign {
+        padding: 0;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .item:not(.item.fit-product) {
+        height: 142px;
+        width: 80vw;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .item.fit-product {
+        width: 80vw;
+        font-size: 0.8em;
+    }
 }

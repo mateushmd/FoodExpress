@@ -55,8 +55,7 @@
                 <h2>Olá ${usuario.nome}</h2>
                 <ul>
                     <li><a href="dados.jsp"><img src="imgs/header/engrenagem.svg" alt="">Dados</a></li>
-                    <li><a href=""><img src="imgs/header/pedido.svg" alt="">Pedidos</a></li>
-                    <li><a href=""><img src="imgs/header/chat.svg" alt="">Conversas</a></li>
+                    <li><a href="meus-pedidos"><img src="imgs/header/pedido.svg" alt="">Pedidos</a></li>
                     <li><a href="meus-favoritos"><img src="imgs/header/coracao.svg" alt="">Favoritos</a></li>
                     <li><a href="acessibilidade.jsp"><img src="imgs/header/acessibilidade.svg" alt="">Acessibilidade</a>
                     </li>
@@ -210,9 +209,33 @@
                                     <p>Total</p>
                                     <p class="preco">R$ <span id="bag-preco"><fmt:formatNumber value='${sacola.total}' pattern='0.00'/></span></p>
                                 </div>
-                                <button>
-                                    <p>Realizar pedido</p>
-                                </button>
+                                <div id="opcoes-pedido">
+                                    <button id="fazer-pedido">
+                                        <p>Pedir</p>
+                                    </button>
+                                    <div id="select">
+                                        <select name="" id="pontos-pedido">
+                                            <c:choose>
+                                                <c:when test="${sacola.pontos eq null}">
+                                                    <option value="-2">Loja fechada</option>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <c:choose>
+                                                        <c:when test="${empty sacola.pontos}">
+                                                            <option value="-1">Sem ponto de encontro</option>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <c:forEach items="${sacola.pontos}" var="ponto" varStatus="loop">
+                                                                <option value="${ponto.id}" ${loop.index eq 0 ? 'selected' : ''}>${ponto.nome}</option>
+                                                            </c:forEach>
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </select>
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -231,6 +254,7 @@
 
         <script src="scripts/jquery/jquery.js"></script>
         <script type="module" src="scripts/sacola/removerSacola.js"></script>
+<script type="module" src="scripts/sacola/fazerPedido.js"></script>
         <script type="module" src="scripts/janelas-modais/modal.js"></script>
         <script src="scripts/usuario/acessibilidade/acessibilidade.js"></script>
         <script src="scripts/janelas-modais/slider.js"></script>

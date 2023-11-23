@@ -38,6 +38,8 @@
 
         <c:set var="pontos" value="${sessionScope.pontosEncontro}" />
 
+        <c:set var="pedidos" value="${sessionScope.pedidos}" />
+
         <div id="overlay" class="hidden"></div>
 
         <div id="barra-lateral-container">
@@ -141,6 +143,38 @@
                 </section>
                 <section class="barra-lateral-section hidden">
                     <h1><img src="imgs/minha-loja/pedidos.svg" alt=""> Pedidos</h1>
+
+                    <div class="mensagem ${empty pedidos ? '' : 'hidden'}">
+                        <img src="imgs/sad.svg" alt="">
+                        <h2>Oh não!</h2>
+                        <p>Você ainda não fez o seu primeiro pedido no FoodExpress! Tá esperando o que?</p>
+                    </div>
+                    <c:forEach items="${pedidos}" var="pedido">
+                        <div class="pedido">
+                            <div class="pedido-header">
+                                <div>
+                                    <img src="imgs/teste/teste.png" alt="">
+                                    <div>
+                                        <p>Pedido concluído</p>
+                                        <p>Nº ${pedido.id}</p>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <p><fmt:formatDate value="${pedido.dataPedido}" pattern="dd/MM/yyyy"/></p>
+                                </div>
+                            </div>
+                            <div class="pedido-body">
+                                <c:forEach items="${pedido.produtos}" var="produto">
+                                    <p><span class="quantidade">${produto.quantidade}</span> ${produto.nome}</p>
+                                </c:forEach>
+                            </div>
+                            <div class="pedido-footer">
+                                <p>Total:</p>
+                                <p class="preco"><fmt:formatNumber value='${pedido.pTotal}' pattern='0.00' /></p>
+                            </div>
+                        </div>
+                    </c:forEach>
                 </section>
                 <section class="barra-lateral-section hidden" id="avaliacoes">
                     <h1><img src="imgs/minha-loja/star.svg" alt=""> Avaliações</h1>
@@ -225,7 +259,7 @@
                         <li>
                             <p>Celular</p>
                             <div class="opcao-body">
-                                <input type="text" class="editavel" id="phone" value="${usuario.telefone}">
+                                <input type="text" class="editavel" id="phone" value="${usuario.telefone}" maxlength="16">
                             </div>
                         </li>
                     </ul>
@@ -351,7 +385,7 @@
                                 <div class="produtos">
                                     <c:forEach items="${categoria.produtos}" var="produto">
                                         <div class="produto" data-id="${produto.id}">
-                                            <img class="img-produto" src="imgs/teste/teste.jpg" alt="">
+                                            <img class="img-produto" src="imgs/teste/teste.png" alt="">
                                             <div>
                                                 <p class="nome">${produto.nome}</p>
                                                 <p class="descricao">${produto.descricao}</p>
@@ -424,7 +458,7 @@
                     </div>
                 </div>
                 <div class="produto clone hidden">
-                    <img class="img-produto" src="imgs/teste/teste.jpg" alt="">
+                    <img class="img-produto" src="imgs/teste/teste.png" alt="">
                     <div>
                         <p class="nome">Novo produto</p>
                         <p class="descricao"></p>
@@ -444,7 +478,7 @@
             </div>
         </main>
 
-        <div class="modal generic hidden" data-modal-index="2" data-lock-screen="true">
+        <div class="modal generic hidden" id="modal-produto" data-modal-index="2" data-lock-screen="true">
             <button class="modal-produto-botao close-modal styled">
                 <img src="imgs/x-symbol.svg" alt="">
             </button>
@@ -498,7 +532,21 @@
                     </div>
                 </div>
                 <div id="modal-produto-img">
-                    <img src="imgs/teste/teste.jpg" alt="">
+                    <div style="width: 300px; height: 300px; border: 2px solid black;">
+                        <img id="imgProduto" style="max-width: 100%; max-height: 100%;">
+                    </div>
+                    <input type="file" id="file-inputProduto" accept="image/*">
+                    <script>document.getElementById('file-inputProduto').addEventListener('change', function(e) {
+                        const file = e.target.files[0];
+                        if (file) {
+                            const reader = new FileReader();
+                            reader.onload = function(e) {
+                                document.getElementById('imgProduto').src = e.target.result;
+                            };
+                            reader.readAsDataURL(file);
+                        }
+                    });
+                    </script>
                 </div>
             </div>
             <input type="hidden" id="modal-produto-id">
@@ -537,6 +585,242 @@
             </div>
         </div>
 
+        <script type="module">
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+            import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
+            const firebaseConfig = {
+                apiKey: "AIzaSyC6E9U_uW78MMsIf9oQKBTm5LjvRp6OB2A",
+                authDomain: "restricted-d6b24.firebaseapp.com",
+                databaseURL: "https://restricted-d6b24-default-rtdb.firebaseio.com",
+                projectId: "restricted-d6b24",
+                storageBucket: "restricted-d6b24.appspot.com",
+                messagingSenderId: "351037789777",
+                appId: "1:351037789777:web:5a43c6cd09be7a53d70a70",
+                measurementId: "G-G0VFKP7XGK"
+            };
+            const app = initializeApp(firebaseConfig);
+            async function uploadFile(file) {
+                const storage = getStorage(app);
+                let e = document.getElementById("emailFb");
+                const storageRef = ref(storage, 'lojaPerfil/' + e.value);
+                try {
+                    await uploadBytes(storageRef, file);
+                    // Get the download URL of the uploaded file
+                    const downloadURL = await getDownloadURL(storageRef);
+                    console.log('Uploaded and replaced file:', file.name);
+                    console.log('File available at', downloadURL);
+                } catch (error) {
+                    console.error('Error uploading file:', error);
+                }
+            }
+
+            document.addEventListener("DOMContentLoaded", function () {
+                const inputLojaPerfil = document.getElementById('picture-input-loja-perfil');
+                inputLojaPerfil.addEventListener('change', () => {
+                    const file = inputLojaPerfil.files[0];
+                    if (file) {
+                        uploadFile(file);
+                    }
+                });
+            });</script>
+
+        <script type="module">
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+            import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
+            const firebaseConfig = {
+                apiKey: "AIzaSyC6E9U_uW78MMsIf9oQKBTm5LjvRp6OB2A",
+                authDomain: "restricted-d6b24.firebaseapp.com",
+                databaseURL: "https://restricted-d6b24-default-rtdb.firebaseio.com",
+                projectId: "restricted-d6b24",
+                storageBucket: "restricted-d6b24.appspot.com",
+                messagingSenderId: "351037789777",
+                appId: "1:351037789777:web:5a43c6cd09be7a53d70a70",
+                measurementId: "G-G0VFKP7XGK"
+            };
+            const app = initializeApp(firebaseConfig);
+            async function uploadFile(file) {
+                const storage = getStorage(app);
+                let e = document.getElementById("emailFb");
+                const storageRef = ref(storage, 'lojaBanner/' + e.value);
+                try {
+                    await uploadBytes(storageRef, file);
+                    // Get the download URL of the uploaded file
+                    const downloadURL = await getDownloadURL(storageRef);
+                    console.log('Uploaded and replaced file:', file.name);
+                    console.log('File available at', downloadURL);
+                } catch (error) {
+                    console.error('Error uploading file:', error);
+                }
+            }
+
+            document.addEventListener("DOMContentLoaded", function () {
+                const inputLojaBanner = document.getElementById('picture-banner');
+                inputLojaBanner.addEventListener('change', () => {
+                    const file = inputLojaBanner.files[0];
+                    if (file) {
+                        uploadFile(file);
+                    }
+                });
+            });</script>
+        <script type="module">
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+            import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
+            const firebaseConfig = {
+                apiKey: "AIzaSyC6E9U_uW78MMsIf9oQKBTm5LjvRp6OB2A",
+                authDomain: "restricted-d6b24.firebaseapp.com",
+                databaseURL: "https://restricted-d6b24-default-rtdb.firebaseio.com",
+                projectId: "restricted-d6b24",
+                storageBucket: "restricted-d6b24.appspot.com",
+                messagingSenderId: "351037789777",
+                appId: "1:351037789777:web:5a43c6cd09be7a53d70a70",
+                measurementId: "G-G0VFKP7XGK"
+            };
+            const app = initializeApp(firebaseConfig);
+            function getImageUrlByName() {
+                const storage = getStorage(app); // Corrigido para usar 'app' em vez de 'firebaseApp'
+                let e = document.getElementById("emailFb");
+                const storageRef = ref(storage, 'lojaPerfil/' + e.value);
+                return getDownloadURL(storageRef)
+                    .then(downloadURL => {
+                        return downloadURL;
+                    })
+                    .catch(error => {
+                        console.error('Error getting download URL:', error);
+                        return null;
+                    });
+            }
+
+            document.addEventListener("DOMContentLoaded", async function () {
+                let imageUrl = await getImageUrlByName();
+                // Encontra o elemento <img> no HTML pelo ID e define o atributo src
+                const imgElement = document.getElementById('picture-img');
+                imgElement.src = imageUrl;
+            });
+        </script>
+
+
+        <script type="module">
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+            import { getStorage, ref, uploadBytes, getDownloadURL, listAll } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
+            const firebaseConfig = {
+                apiKey: "AIzaSyC6E9U_uW78MMsIf9oQKBTm5LjvRp6OB2A",
+                authDomain: "restricted-d6b24.firebaseapp.com",
+                databaseURL: "https://restricted-d6b24-default-rtdb.firebaseio.com",
+                projectId: "restricted-d6b24",
+                storageBucket: "restricted-d6b24.appspot.com",
+                messagingSenderId: "351037789777",
+                appId: "1:351037789777:web:5a43c6cd09be7a53d70a70",
+                measurementId: "G-G0VFKP7XGK"
+            };
+            const app = initializeApp(firebaseConfig);
+            async function uploadFile(file) {
+                const storage = getStorage(app);
+                let e = document.getElementById("emailFb");
+                let produtoNome = document.getElementById("modal-produto-nome");
+                const storageRef = ref(storage, 'ProdutoFoto/' + e.value + "/" + produtoNome.value); // Alteração para usar o próximo número de arquivo
+
+                try {
+                    await uploadBytes(storageRef, file);
+                    // Get the download URL of the uploaded file
+                    const downloadURL = await getDownloadURL(storageRef);
+                    console.log('Uploaded and replaced file:', file.name);
+                    console.log('File available at', downloadURL);
+                } catch (error) {
+                    console.error('Error uploading file:', error);
+                }
+            }
+
+            document.addEventListener("DOMContentLoaded", function () {
+                const fileInput = document.getElementById('file-inputProduto'); //Alteração
+                fileInput.addEventListener('change', () => {
+                    const file = fileInput.files[0];
+                    if (file) {
+                        uploadFile(file);
+                    }
+                });
+            });</script>
+
+
+        <script type="module">
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+            import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
+            const firebaseConfig = {
+                apiKey: "AIzaSyC6E9U_uW78MMsIf9oQKBTm5LjvRp6OB2A",
+                authDomain: "restricted-d6b24.firebaseapp.com",
+                databaseURL: "https://restricted-d6b24-default-rtdb.firebaseio.com",
+                projectId: "restricted-d6b24",
+                storageBucket: "restricted-d6b24.appspot.com",
+                messagingSenderId: "351037789777",
+                appId: "1:351037789777:web:5a43c6cd09be7a53d70a70",
+                measurementId: "G-G0VFKP7XGK"
+            };
+            const app = initializeApp(firebaseConfig);
+            async function uploadFile(file) {
+                const storage = getStorage(app);
+                let e = document.getElementById("emailFb");
+                const storageRef = ref(storage, 'lojaBanner/' + e.value);
+                try {
+                    await uploadBytes(storageRef, file);
+                    // Get the download URL of the uploaded file
+                    const downloadURL = await getDownloadURL(storageRef);
+                    console.log('Uploaded and replaced file:', file.name);
+                    console.log('File available at', downloadURL);
+                } catch (error) {
+                    console.error('Error uploading file:', error);
+                }
+            }
+
+            document.addEventListener("DOMContentLoaded", function () {
+                const inputLojaBanner = document.getElementById('picture-input-promove');
+                inputLojaBanner.addEventListener('change', () => {
+                    const file = inputLojaBanner.files[0];
+                    if (file) {
+                        uploadFile(file);
+                    }
+                });
+            });</script>
+
+        <script type="module">
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+            import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
+            const firebaseConfig = {
+                apiKey: "AIzaSyC6E9U_uW78MMsIf9oQKBTm5LjvRp6OB2A",
+                authDomain: "restricted-d6b24.firebaseapp.com",
+                databaseURL: "https://restricted-d6b24-default-rtdb.firebaseio.com",
+                projectId: "restricted-d6b24",
+                storageBucket: "restricted-d6b24.appspot.com",
+                messagingSenderId: "351037789777",
+                appId: "1:351037789777:web:5a43c6cd09be7a53d70a70",
+                measurementId: "G-G0VFKP7XGK"
+            };
+            const app = initializeApp(firebaseConfig);
+            function getImageUrlByName() {
+                const storage = getStorage(app); // Corrigido para usar 'app' em vez de 'firebaseApp'
+                let e = document.getElementById("imgLojaF");
+                const imgElements = document.querySelectorAll('.img-produto');
+                imgElements.forEach(async imgElement => {
+                    const altText = imgElement.getAttribute('alt');
+                    console.log(altText);
+                    let email = document.getElementById("emailFb");
+                    const storageRef = ref(storage, 'ProdutoFoto/' + email.value + "/" + altText);
+                    try {
+                        const imageUrl = await getDownloadURL(storageRef);
+                        if (imageUrl) {
+                            imgElement.src = imageUrl;
+                        } else {
+                            console.log("Erro ao carregar a imagem para o email:", altText);
+                        }
+                    } catch (error) {
+                        console.error('Erro ao obter URL de download:', error);
+                    }
+                });
+            }
+
+            document.addEventListener("DOMContentLoaded", async function () {
+                getImageUrlByName();
+            });
+        </script>
+
         <script src="scripts/jquery/jquery.js"></script>
 
         <script type="module" src="scripts/janelas-modais/modal.js"></script>
@@ -561,6 +845,7 @@
         <script src="scripts/minha-loja/formatarMoeda.js"></script>
 
         <script src="scripts/minha-loja/barraLateral.js"></script>
+        <script src="scripts/responsiveSideBar.js"></script>
 
         <script src="scripts/rating.js"></script>
         <script src="scripts/mascaras.js"></script>

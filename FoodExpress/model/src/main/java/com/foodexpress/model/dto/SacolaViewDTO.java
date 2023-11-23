@@ -9,6 +9,7 @@ public class SacolaViewDTO {
     private ArrayList<ItemSacolaViewDTO> itens;
     private int quantidade;
     private double total;
+    private ArrayList<PontoEncontroDTO> pontos;
 
     public SacolaViewDTO() {
         idLoja = -1;
@@ -99,4 +100,8 @@ public class SacolaViewDTO {
     public int getQuantidade() { return quantidade; }
 
     public boolean estaVazia() { return itens.isEmpty(); }
+
+    public ArrayList<PontoEncontroDTO> getPontos() { return pontos; }
+
+    public void setPontos(ArrayList<PontoEncontroDTO> pontos) { this.pontos = pontos; }
 }
