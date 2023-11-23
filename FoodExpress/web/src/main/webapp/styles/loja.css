@@ -50,9 +50,25 @@ main {
 }
 
 #info h1 {
-    font-weight: 800;
-    font-size: calc(32px * var(--escala-menor));
-    margin: 0;
+    font-family: 'iFood RC Titulos';
+    display: inline;
+    font-size: 2.5rem;
+    font-weight: 500;
+    line-height: 24px;
+    color: #3e3e3e;
+    margin: 0 0 2px;
+}
+
+@media (max-width: 1332px) {
+    #info h1 {
+    font-size: 1.70rem;
+    }
+}
+
+@media (max-width: 1231px) {
+    #info h1 {
+        font-size: 26px;
+    }
 }
 
 .rating {
@@ -197,7 +213,10 @@ main {
 }
 
 #produtos h1 {
-    font-weight: 800;
+    font-weight: 400;
+    font-family: 'iFood RC Titulos';
+    font-size: 1.7rem;
+    color: #3f3e3e;
 }
 
 .preco {
@@ -208,9 +227,21 @@ main {
 
 .categoria {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 50px;
     margin-bottom: 60px;
+}
+
+@media (max-width: 1583px) {
+    .categoria {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (min-width: 2491px) {
+    .categoria {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
 
 .produto {
@@ -219,6 +250,7 @@ main {
     display: grid;
     grid-template-columns: 60% 40%;
     grid-template-rows: 100%;
+    cursor: pointer;
 }
 
 .produto:hover img {
@@ -231,8 +263,11 @@ main {
 }
 
 .info-produto h2 {
-    font-size: calc(1.5em / var(--escala-menor));
     margin: 19px 0px;
+    font-size: 1.325rem;
+    line-height: 1.5rem;
+    color: #3e3e3e;
+    font-family: 'iFood RC Titulos';
 }
 
 .info-produto p {
@@ -408,6 +443,16 @@ main {
     grid-template-columns: 1fr 1fr;
 }
 
+@media (max-width: 1270px) {
+    #modal-produto-main {
+        display: block;
+    }
+    
+    #modal-produto-img-container img {
+        display: none;
+    }
+}
+
 #modal-produto-info {
     max-height: 60vh;
     display: grid;
@@ -508,7 +553,7 @@ main {
 }
 
 #modal-produto-adicionar>p:last-child {
-    font-size: calc(1.3em * (var(--escala-menor) / var(--escala)));
+    font-size: 16px;
 }
 
 #modal-produto-quantidade {
@@ -546,4 +591,10 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.descricao {
+    font-weight: lighter;
+    color: #717171;
+    font-family: 'iFood RC Titulos';
 }

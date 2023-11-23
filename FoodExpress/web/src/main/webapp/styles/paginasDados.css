@@ -1,3 +1,6 @@
+@import url('https://fonts.cdnfonts.com/css/cooper-hewitt?styles=34277,34271');
+@import url(' https://fonts.cdnfonts.com/css/oswald-4 ');
+
 body {
     height: 100vh;
     width: 100vw;
@@ -91,7 +94,7 @@ button input {
     background-color: #e6f1f5;
     color: #cc575f;
     border: 1px solid #e6f1f5;
-    font-size: inherit;
+    font-size: 19px;
     border-radius: 6px;
     height: 29px;
     cursor: pointer;

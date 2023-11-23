@@ -21,50 +21,44 @@ main {
         3.15em;
 }
 
-.lojas-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.lojas-container button {
-    width: 100%;
-    background-color: inherit;
-    border: none;
-    border-radius: 5px;
-    font-family: inherit;
-    font-size: 2em;
-    font-weight: 707;
-    cursor: pointer;
-    transition: all .2s ease;
-}
-
-.lojas-container button:hover {
-    background-color: var(--marca);
-    color: white;
-}
-
 .lojas-container .lojas {
     display: grid;
-    column-gap: 20px;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: repeat(1fr);
+    grid-template-columns: repeat(3, 1fr);
+    gap: 43px;
 }
 
+@media (min-width: 1340px) {
+    .lojas-container .lojas {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (min-width: 600px) and (max-width: 1066px) {
+    .lojas-container .lojas {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 700px) {
+    .lojas-container .lojas {
+        grid-template-columns: 1fr;
+    }
+}
 
 .lojas-container .loja {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 10px;
-    padding: 10px;
-
+    padding: 10px 71px 10px 19px;
     transition: all .2s ease;
     padding-bottom: 20px;
     margin-bottom: 20px;
-
     cursor: pointer;
 }
+
+
+
 
 .lojas-container .loja:hover {
     box-shadow: 1px 1px 4px 1px #c0c0c0;
@@ -82,8 +76,8 @@ main {
 }
 
 .lojas-container .img-loja {
-    width: calc(100px * var(--escala));
-    height: calc(100px * var(--escala));
+    width: calc(113px * var(--escala));
+    height: calc(113px * var(--escala));
     object-fit: cover;
     border-radius: 10%;
 }
@@ -127,4 +121,7 @@ main {
     -webkit-line-clamp: 1;
     overflow: hidden;
     font-size: 1.1em;
+    color: #3e3e3e;
+    font-family: 'iFood RC Titulos';
+    width: 152%;
 }

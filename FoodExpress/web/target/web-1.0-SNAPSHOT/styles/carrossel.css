@@ -9,12 +9,19 @@
 }
 
 .content h1 {
-    font-weight: 800;
+    font-weight: 500;
+    color: #3f3e3e;
+    font-size: 1.5rem;
+    font-family: 'iFood RC Titulos';
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-start;
 }
 
 .carousel-container,
 .carousel-container.fit-product {
     position: relative;
+    width: 89%;
 }
 
 .carousel-container {
@@ -108,10 +115,11 @@
     font-size: calc(1.5em / var(--escala-menor));
     font-weight: 800;
     margin: 0;
-    
+
     text-align: center;
     display: -webkit-box;
     -webkit-box-orient: vertical;
+    overflow: hidden;
     -webkit-line-clamp: 2;
 }
 
@@ -232,6 +240,7 @@
 .avaliacao p {
     margin: 0;
     text-align: end;
+    color: #ad9d9d;
 }
 
 .disponibilidade svg {
@@ -246,4 +255,58 @@
 
 .disponibilidade.fechado {
     color: red;
+}
+
+@media only screen and (max-width: 1370px) {
+    .item {
+        width: 40vw;
+    }
+
+    .item h2 {
+        font-size: 1em;
+    }
+
+    .left-arrow.arrow-rounded,
+    .right-arrow.arrow-rounded {
+        top: calc(50% - 9vh);
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    .arrow-rounded {
+        width: 30px !important;
+        height: 30px;
+    }
+}
+
+@media only screen and (max-width: 850px) {
+    .item:not(.fit-product) {
+        font-size: 0.7em;
+    }
+}
+
+@media only screen and (max-width: 750px) {
+    .item:not(.fit-product) {
+        width: 300px;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .carousel-container.realign {
+        padding: 0;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .item:not(.item.fit-product) {
+        height: 142px;
+        width: 80vw;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .item.fit-product {
+        width: 80vw;
+        font-size: 0.8em;
+    }
 }
