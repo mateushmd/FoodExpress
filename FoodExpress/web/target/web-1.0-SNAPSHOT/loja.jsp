@@ -393,7 +393,7 @@
                                         <select name="" id="pontos-pedido">
                                             <c:choose>
                                                 <c:when test="${sacola.pontos eq null}">
-                                                    <option value="-2">Loja fechada</option>
+                                                    <option value="-2" selected>Loja fechada</option>
                                                 </c:when>
                                                 <c:otherwise>
                                                     <c:choose>

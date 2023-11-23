@@ -36,6 +36,7 @@ public class PedidoDAO extends DAOTemplate<PedidoDTO> {
             pedido.setIdCliente(rs.getString("id_cliente"));
             pedido.setDhPedido(rs.getTimestamp("data_hora_pedido"));
             pedido.setlEntrega(rs.getString("local_entrega"));
+            pedido.setpTotal(rs.getDouble("preco_total"));
         } catch (SQLException ex) {
             java.util.logging.Logger.getLogger(PedidoDTO.class.getName()).log(Level.SEVERE, null, ex);
         }

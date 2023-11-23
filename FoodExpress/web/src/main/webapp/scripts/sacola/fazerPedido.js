@@ -10,7 +10,7 @@ function fazerPedido() {
 
     let idPonto = $('#pontos-pedido').find(':selected').val();
 
-    if(idPonto === -2) {
+    if(idPonto === '-2') {
         $('<p>', {'id': 'aviso'}).text('A loja está fechada').insertAfter('#fazer-pedido');
 
         return;
