@@ -15,6 +15,7 @@
         <link rel="stylesheet" type="text/css" href="styles/main/header.css">
         <link rel="stylesheet" type="text/css" href="styles/main/footer.css">
         <link rel="stylesheet" type="text/css" href="styles/slider.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="icon" type="image/png" href="imgs/icon.png"/>
     </head>
     <body>
@@ -139,8 +140,8 @@
 
                     <div class="lojas">
                         <c:forEach items="${lojas}" var="loja">
-                            <div class="loja" data-id="${loja.id}">
-                                <img src="imgs/teste/teste.png" class="img-loja" alt="">
+                            <div class="loja lojas" data-id="${loja.id}">
+                                <img src="imgs/teste/teste.png" class="img-loja" alt="${loja.idUser}">
                                 <div class="loja-body">
                                     <h2>${loja.nome}</h2>
                                     <div class="avaliacao">
@@ -191,10 +192,9 @@
                         <h4>Inscreva-se!</h4>
 
                         <div class="medias-socias">
-                            <a href="#"> <i class="fa fa-facebook"></i> </a>
-                            <a href="#"> <i class="fa fa-instagram"></i> </a>
-                            <a href="#"> <i class="fa fa-twitter"></i> </a>
-                            <a href="#"> <i class="fa fa-linkedin"></i> </a>
+
+                            <a href="https://www.instagram.com/cfoodexpress/"> <i class="fa fa-instagram"></i> </a>
+                            <a href="https://twitter.com/CFoodExpress_"> <i class="fa fa-twitter"></i> </a>
                         </div>
 
                     </div>
@@ -309,6 +309,46 @@
                     console.log(altText);
 
                     const storageRef = ref(storage, 'lojaBanner/' + altText);
+
+                    try {
+                        const imageUrl = await getDownloadURL(storageRef);
+                        if (imageUrl) {
+                            imgElement.src = imageUrl;
+                        } else {
+                            console.log("Erro ao carregar a imagem para o email:", altText);
+                        }
+                    } catch (error) {
+                        console.error('Erro ao obter URL de download:', error);
+                    }
+                });
+            }
+
+            document.addEventListener("DOMContentLoaded", async function () {
+                getImageUrlByName();
+            });
+        </script>
+        <script type="module">
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+            import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
+            const firebaseConfig = {
+                apiKey: "AIzaSyC6E9U_uW78MMsIf9oQKBTm5LjvRp6OB2A",
+                authDomain: "restricted-d6b24.firebaseapp.com",
+                databaseURL: "https://restricted-d6b24-default-rtdb.firebaseio.com",
+                projectId: "restricted-d6b24",
+                storageBucket: "restricted-d6b24.appspot.com",
+                messagingSenderId: "351037789777",
+                appId: "1:351037789777:web:5a43c6cd09be7a53d70a70",
+                measurementId: "G-G0VFKP7XGK"
+            };
+            const app = initializeApp(firebaseConfig);
+            function getImageUrlByName() {
+                const storage = getStorage(app); // Corrigido para usar 'app' em vez de 'firebaseApp'
+                const imgElements = document.querySelectorAll('.loja.lojas img');
+                imgElements.forEach(async imgElement => {
+                    const altText = imgElement.getAttribute('alt');
+                    console.log(altText);
+
+                    const storageRef = ref(storage, 'lojaPerfil/' + altText);
 
                     try {
                         const imageUrl = await getDownloadURL(storageRef);

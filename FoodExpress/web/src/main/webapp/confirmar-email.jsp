@@ -50,5 +50,10 @@
             </div>
         </main>
 
+        <script src="scripts/jquery/jquery.js"></script>
+
+        <script src="scripts/autenticacao/verificacao/codigoVerificacao.js"></script>
+        <script src="scripts/confirmarEmail.js"></script>
+
     </body>
 </html>

@@ -389,7 +389,7 @@
                                     <c:forEach items="${categoria.produtos}" var="produto">
                                         <div class="produto" data-id="${produto.id}">
                                             <div class="img-container">
-                                                <img class="img-produto" src="imgs/teste/teste.jpg" alt="${produto.nome}">
+                                                <img class="img-produto" src="imgs/teste/teste.png" alt="${produto.nome}">
                                             </div>
 
                                             <div>

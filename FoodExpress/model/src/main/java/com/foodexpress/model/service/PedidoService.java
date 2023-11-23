@@ -58,6 +58,9 @@ public class PedidoService {
     public List<PedidoDTO> getPedidosLoja(int idLoja) {
         ArrayList<PedidoDTO> pedidos = (ArrayList<PedidoDTO>) pedidoDAO.getPedidoByIdLoja(idLoja);
 
+        if(pedidos == null)
+            return null;
+
         for(PedidoDTO pedido : pedidos) {
             ArrayList<ItemPedidoDTO> produtos = (ArrayList<ItemPedidoDTO>) itemPedidoViewDAO.getItensView(pedido.getId());
             pedido.setProdutos(produtos);

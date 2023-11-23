@@ -7,7 +7,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Login</title>
+        <title>FoodExpress</title>
         <link rel="stylesheet" type="text/css" href="styles/main/main.css">
         <link rel="stylesheet" type="text/css" href="styles/style.css">
         <link rel="icon" type="image/png" href="imgs/icon.png"/>
@@ -26,7 +26,7 @@
                     <section class="campo">
                         <label for="password" class="label">SENHA:</label>
                         <input type="password" id="password" name="password">
-                        <a href="#" id="senhaBtn">  Esqueci minha senha</a>
+                        <a href="recuperar-conta.jsp" id="senhaBtn">  Esqueci minha senha</a>
                     </section>
 
                     <div class="botao">

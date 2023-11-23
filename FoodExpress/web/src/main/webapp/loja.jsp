@@ -190,7 +190,7 @@
                         <i class="fa fa-whatsapp"></i>
                     </div>
                     <p>|</p>
-                    <img src="imgs/denunciar.svg" alt="" class="denunciar modal-trigger" data-modal-index="10">
+                    <img src="imgs/denunciar.svg" alt="" class="denunciar denunciar-btn modal-trigger" data-modal-index="10">
                 </div>
             </section>
 
@@ -233,7 +233,7 @@
                                         <div class="item fit-product modal-trigger" data-modal-index="1">
                                             <input type="hidden" class="id-produto" value="${produto.id}">
                                             <div class="img-container">
-                                                <img src="imgs/teste/teste.jpg" alt="${produto.nome}">
+                                                <img src="imgs/teste/teste.png" alt="${produto.nome}">
                                             </div>
                                             <div class="info-container">
                                                 <div class="info-container-header">
@@ -298,7 +298,6 @@
                         <h4>Obter ajuda</h4>
                         <ul>
                             <li><a href="faq.jsp">FAQ</a></li>
-                            <li><a href="ajuda.jsp">Ajuda</a></li>
                         </ul>
                     </div>
                     <div class="footer-col">
@@ -312,10 +311,9 @@
                         <h4>Inscreva-se!</h4>
 
                         <div class="medias-socias">
-                            <a href="#"> <i class="fa fa-facebook"></i> </a>
-                            <a href="#"> <i class="fa fa-instagram"></i> </a>
-                            <a href="#"> <i class="fa fa-twitter"></i> </a>
-                            <a href="#"> <i class="fa fa-linkedin"></i> </a>
+
+                            <a href="https://www.instagram.com/cfoodexpress/"> <i class="fa fa-instagram"></i> </a>
+                            <a href="https://twitter.com/CFoodExpress_"> <i class="fa fa-twitter"></i> </a>
                         </div>
                     </div>
                 </div>
@@ -509,7 +507,7 @@
                             <c:forEach items="${avaliacoes}" var="avaliacao">
                                 <c:if test="${avaliacao.id ne avaliacaoUsuario.id}">
                                     <div class="slider-ratings-comment">
-                                        <img class="denunciar-avaliacao modal-trigger" src="imgs/denunciar.svg" alt="" data-modal-index="10">
+                                        <img class="denunciar-avaliacao denunciar-btn modal-trigger" src="imgs/denunciar.svg" alt="" data-modal-index="10">
                                         <h2>${avaliacao.idCliente}</h2>
                                         <p>${avaliacao.comentario}</p>
                                         <div class="slider-ratings-comment-footer">
@@ -599,6 +597,15 @@
             </div>
         </div>
 
+        <div class="modal hidden" id="denuncia" data-modal-index="10" data-lock-screen="true">
+            <h1>Denúncia</h1>
+            <p>Sentimos muito pela inconveniência. Envie um e-mail para equipefoodexpress@gmail.com contendo a sua denúncia.
+            Para facilitar, adicione imagens que comprovam a infração. Obrigado por nos ajudar!</p>
+            <div>
+                <button class="botao close-modal">FECHAR</button>
+            </div>
+        </div>
+
         <script src="scripts/jquery/jquery.js"></script>
 
         <script type="module">
@@ -632,11 +639,9 @@
             document.addEventListener("DOMContentLoaded", async function () {
                 let imageUrl = await getImageUrlByName();
                 const imgElement = document.getElementById('bannerLojaF');
-                const imgElement2 = document.getElementById('imgLojaF');
 
                 if (imageUrl !== null) {
                     imgElement.src = imageUrl;
-                    imgElement2.src = imageUrl;
                 }
             });
         </script>

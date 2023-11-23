@@ -18,10 +18,9 @@
         de e-mail associado a sua conta para confirmarmos que realmente é você. Depois, insira uma nova
         senha e guarde-a em algum lugar que você não irá esquecer.
     </p>
-
     <div id="input-container">
         <label for="email">E-mail</label>
-        <input type="text" name="email" id="email">
+        <input type="text" name="email" id="email" required>
     </div>
 
     <button>
@@ -31,6 +30,7 @@
 
 <script src="scripts/jquery/jquery.js"></script>
 
+<script src="scripts/recuperarConta.js"></script>
 
 </body>
 </html>

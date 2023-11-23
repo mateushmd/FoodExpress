@@ -104,6 +104,11 @@ public class LojaService {
 
         lista.add(getMaisBemAvaliados());
 
+        GrupoLojasDTO grupo = getMaisRecentes();
+
+        if(grupo != null)
+            lista.add(grupo);
+
         return lista;
     }
 
@@ -130,6 +135,22 @@ public class LojaService {
 
         return grupo;
     }
+
+    public GrupoLojasDTO getMaisRecentes() {
+        ArrayList<LojaDTO> lojas = (ArrayList<LojaDTO>) ldao.getMaisBemAvaliadas();
+
+        if(lojas.isEmpty())
+            return null;
+
+        for(LojaDTO loja : lojas) {
+            loja.setAberto(estaAberto(loja.getId()));
+        }
+
+        GrupoLojasDTO grupo = new GrupoLojasDTO("MAIS RECENTES", lojas);
+
+        return grupo;
+    }
+
 
     public boolean temMaisLojas(int quantidadeAtual) {
         return quantidadeAtual < ldao.getTotalLojas();

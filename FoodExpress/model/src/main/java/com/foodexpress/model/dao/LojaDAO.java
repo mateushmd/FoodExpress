@@ -101,6 +101,12 @@ public class LojaDAO extends DAOTemplate<LojaDTO> {
         return executeQuery(sql);
     }
 
+    public List<LojaDTO> getMaisRecentes() {
+        String sql = "SELECT * FROM lojas WHERE data_criacao >= NOW() - INTERVAL 2 WEEK ORDER BY data_criacao DESC LIMIT 10";
+
+        return executeQuery(sql);
+    }
+
     public List<LojaDTO> listarLojas(int offSet) {
         String sql = "SELECT * FROM lojas WHERE nome IS NOT NULL LIMIT 8 OFFSET " + offSet;
         
@@ -122,4 +128,6 @@ public class LojaDAO extends DAOTemplate<LojaDTO> {
 
         return count(sql);
     }
+
+
 }

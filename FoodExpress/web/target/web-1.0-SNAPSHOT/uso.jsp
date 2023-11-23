@@ -13,6 +13,7 @@
         <link rel="stylesheet" href="styles/main/footer.css">
         <link rel="stylesheet" type="text/css" href="styles/paginasinformacionais.css">
         <link rel="stylesheet" type="text/css" href="styles/slider.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="icon" type="image/png" href="imgs/icon.png" />
     </head>
 
@@ -142,7 +143,6 @@
                         <h4>Obter ajuda</h4>
                         <ul>
                             <li><a href="faq.jsp">FAQ</a></li>
-                            <li><a href="ajuda.jsp">Ajuda</a></li>
                         </ul>
                     </div>
                     <div class="footer-col">
@@ -156,10 +156,9 @@
                         <h4>Inscreva-se!</h4>
 
                         <div class="medias-socias">
-                            <a href="#"> <i class="fa fa-facebook"></i> </a>
-                            <a href="#"> <i class="fa fa-instagram"></i> </a>
-                            <a href="#"> <i class="fa fa-twitter"></i> </a>
-                            <a href="#"> <i class="fa fa-linkedin"></i> </a>
+
+                            <a href="https://www.instagram.com/cfoodexpress/"> <i class="fa fa-instagram"></i> </a>
+                            <a href="https://twitter.com/CFoodExpress_"> <i class="fa fa-twitter"></i> </a>
                         </div>
 
                     </div>

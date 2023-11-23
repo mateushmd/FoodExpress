@@ -21,15 +21,15 @@ public class TokenVerificacaoService {
         return instance;
     }
 
-    protected boolean validarToken(TokenVerificacaoDTO obj) {
+    public boolean validarToken(TokenVerificacaoDTO obj) {
         return dao.validateToken(obj);
     }
 
-    protected boolean addToken(String email) {
+    public boolean addToken(String email) {
         return dao.addToken(email);
     }
 
-    protected boolean removerToken(String email) {
+    public boolean removerToken(String email) {
         return dao.delete(email);
     }
 
