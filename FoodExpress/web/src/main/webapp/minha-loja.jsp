@@ -51,13 +51,13 @@
                             Olá, ${usuario.nome}</h1>
                         <table id="horarios">
                             <thead>
-                            <tr>
-                                <th colspan="2">Dia da Semana</th>
-                                <th>Abertura</th>
-                                <th>Fechamento</th>
-                                <th>C1</th>
-                                <th>C2</th>
-                            </tr>
+                                <tr>
+                                    <th colspan="2">Dia da Semana</th>
+                                    <th>Abertura</th>
+                                    <th>Fechamento</th>
+                                    <th>C1</th>
+                                    <th>C2</th>
+                                </tr>
                             </thead>
                             <tbody>
                                 <c:forEach items="${agenda}" var="a">
@@ -89,19 +89,19 @@
                                     <h2>Campus ${loop.index + 1}</h2>
                                     <button class="icon-expande-local-btn">
                                         <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" class="icon-expande">
-                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                <g transform="translate(-433.000000, -1392.000000)" fill="currentColor"
-                                                   fill-rule="nonzero">
-                                                    <g transform="translate(47.000000, 1227.000000)">
-                                                        <g class="icon-seta-restaurante"
-                                                           transform="translate(386.000000, 165.000000)">
-                                                            <path
-                                                                    d="M17.4142136,18.5479578 C16.633165,17.8173474 15.366835,17.8173474 14.5857864,18.5479578 C13.8047379,19.2785683 13.8047379,20.4631219 14.5857864,21.1937324 L24,30 L33.4142136,21.1937324 C34.1952621,20.4631219 34.1952621,19.2785683 33.4142136,18.5479578 C32.633165,17.8173474 31.366835,17.8173474 30.5857864,18.5479578 L24,24.708451 L17.4142136,18.5479578 Z"
-                                                                    id="Path-5-Copy-3"></path>
-                                                        </g>
-                                                    </g>
-                                                </g>
-                                            </g>
+                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <g transform="translate(-433.000000, -1392.000000)" fill="currentColor"
+                                           fill-rule="nonzero">
+                                        <g transform="translate(47.000000, 1227.000000)">
+                                        <g class="icon-seta-restaurante"
+                                           transform="translate(386.000000, 165.000000)">
+                                        <path
+                                            d="M17.4142136,18.5479578 C16.633165,17.8173474 15.366835,17.8173474 14.5857864,18.5479578 C13.8047379,19.2785683 13.8047379,20.4631219 14.5857864,21.1937324 L24,30 L33.4142136,21.1937324 C34.1952621,20.4631219 34.1952621,19.2785683 33.4142136,18.5479578 C32.633165,17.8173474 31.366835,17.8173474 30.5857864,18.5479578 L24,24.708451 L17.4142136,18.5479578 Z"
+                                            id="Path-5-Copy-3"></path>
+                                        </g>
+                                        </g>
+                                        </g>
+                                        </g>
                                         </svg>
                                     </button>
                                 </div>
@@ -307,18 +307,21 @@
                 </div>
             </nav>
         </div>
-
+<div>
+            <input hidden="false" type="text" id="emailFb" value="${usuario.email}">
+        </div>  
         <main>
             <div id="container-dados-loja">
                 <div id="container-img-loja">
                     <label id="banner" for="picture-banner" tabindex="0">
                         <span id="picture-image-loja"></span>
-                        <input type="file" name="picture-input-loja" id="picture-banner" />
+                        <input type="file" name="picture-input-loja" id="picture-banner" onchange="previewBanner()" />
+
                     </label>
                     <label id="perfil" for="picture-input-loja-perfil" tabindex="0">
                         <span id="picture-perfil">Foto</span>
                         <input type="file" name="picture-input-loja-perfil" id="picture-input-loja-perfil" accept="image/*"
-                               onchange="previewImage()" />
+                               onchange="previewPerfil()" />
                     </label>
                 </div>
                 <div id="container-info-loja">
@@ -359,19 +362,19 @@
                                 </div>
                                 <button class="icon-expande-btn">
                                     <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" class="icon-expande">
-                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                            <g transform="translate(-433.000000, -1392.000000)" fill="currentColor"
-                                               fill-rule="nonzero">
-                                                <g transform="translate(47.000000, 1227.000000)">
-                                                    <g class="icon-seta-restaurante"
-                                                       transform="translate(386.000000, 165.000000)">
-                                                        <path
-                                                                d="M17.4142136,18.5479578 C16.633165,17.8173474 15.366835,17.8173474 14.5857864,18.5479578 C13.8047379,19.2785683 13.8047379,20.4631219 14.5857864,21.1937324 L24,30 L33.4142136,21.1937324 C34.1952621,20.4631219 34.1952621,19.2785683 33.4142136,18.5479578 C32.633165,17.8173474 31.366835,17.8173474 30.5857864,18.5479578 L24,24.708451 L17.4142136,18.5479578 Z"
-                                                                id="Path-5-Copy-3"></path>
-                                                    </g>
-                                                </g>
-                                            </g>
-                                        </g>
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <g transform="translate(-433.000000, -1392.000000)" fill="currentColor"
+                                       fill-rule="nonzero">
+                                    <g transform="translate(47.000000, 1227.000000)">
+                                    <g class="icon-seta-restaurante"
+                                       transform="translate(386.000000, 165.000000)">
+                                    <path
+                                        d="M17.4142136,18.5479578 C16.633165,17.8173474 15.366835,17.8173474 14.5857864,18.5479578 C13.8047379,19.2785683 13.8047379,20.4631219 14.5857864,21.1937324 L24,30 L33.4142136,21.1937324 C34.1952621,20.4631219 34.1952621,19.2785683 33.4142136,18.5479578 C32.633165,17.8173474 31.366835,17.8173474 30.5857864,18.5479578 L24,24.708451 L17.4142136,18.5479578 Z"
+                                        id="Path-5-Copy-3"></path>
+                                    </g>
+                                    </g>
+                                    </g>
+                                    </g>
                                     </svg>
                                 </button>
                                 <button class="remover-categoria" data-modal-index="3">
@@ -385,7 +388,10 @@
                                 <div class="produtos">
                                     <c:forEach items="${categoria.produtos}" var="produto">
                                         <div class="produto" data-id="${produto.id}">
-                                            <img class="img-produto" src="imgs/teste/teste.png" alt="">
+                                            <div class="img-container">
+                                                <img class="img-produto" src="imgs/teste/teste.jpg" alt="${produto.nome}">
+                                            </div>
+
                                             <div>
                                                 <p class="nome">${produto.nome}</p>
                                                 <p class="descricao">${produto.descricao}</p>
@@ -428,19 +434,19 @@
                             </div>
                             <button class="icon-expande-btn">
                                 <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" class="icon-expande">
-                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                        <g transform="translate(-433.000000, -1392.000000)" fill="currentColor"
-                                           fill-rule="nonzero">
-                                            <g transform="translate(47.000000, 1227.000000)">
-                                                <g class="icon-seta-restaurante"
-                                                   transform="translate(386.000000, 165.000000)">
-                                                    <path
-                                                            d="M17.4142136,18.5479578 C16.633165,17.8173474 15.366835,17.8173474 14.5857864,18.5479578 C13.8047379,19.2785683 13.8047379,20.4631219 14.5857864,21.1937324 L24,30 L33.4142136,21.1937324 C34.1952621,20.4631219 34.1952621,19.2785683 33.4142136,18.5479578 C32.633165,17.8173474 31.366835,17.8173474 30.5857864,18.5479578 L24,24.708451 L17.4142136,18.5479578 Z"
-                                                            id="Path-5-Copy-3"></path>
-                                                </g>
-                                            </g>
-                                        </g>
-                                    </g>
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <g transform="translate(-433.000000, -1392.000000)" fill="currentColor"
+                                   fill-rule="nonzero">
+                                <g transform="translate(47.000000, 1227.000000)">
+                                <g class="icon-seta-restaurante"
+                                   transform="translate(386.000000, 165.000000)">
+                                <path
+                                    d="M17.4142136,18.5479578 C16.633165,17.8173474 15.366835,17.8173474 14.5857864,18.5479578 C13.8047379,19.2785683 13.8047379,20.4631219 14.5857864,21.1937324 L24,30 L33.4142136,21.1937324 C34.1952621,20.4631219 34.1952621,19.2785683 33.4142136,18.5479578 C32.633165,17.8173474 31.366835,17.8173474 30.5857864,18.5479578 L24,24.708451 L17.4142136,18.5479578 Z"
+                                    id="Path-5-Copy-3"></path>
+                                </g>
+                                </g>
+                                </g>
+                                </g>
                                 </svg>
                             </button>
                             <button class="remover-categoria" data-modal-index="3">
@@ -539,13 +545,13 @@
                     <script>document.getElementById('file-inputProduto').addEventListener('change', function(e) {
                         const file = e.target.files[0];
                         if (file) {
-                            const reader = new FileReader();
-                            reader.onload = function(e) {
-                                document.getElementById('imgProduto').src = e.target.result;
-                            };
-                            reader.readAsDataURL(file);
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                        document.getElementById('imgProduto').src = e.target.result;
+                        };
+                        reader.readAsDataURL(file);
                         }
-                    });
+                        });
                     </script>
                 </div>
             </div>
@@ -589,112 +595,112 @@
             import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
             import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
             const firebaseConfig = {
-                apiKey: "AIzaSyC6E9U_uW78MMsIf9oQKBTm5LjvRp6OB2A",
-                authDomain: "restricted-d6b24.firebaseapp.com",
-                databaseURL: "https://restricted-d6b24-default-rtdb.firebaseio.com",
-                projectId: "restricted-d6b24",
-                storageBucket: "restricted-d6b24.appspot.com",
-                messagingSenderId: "351037789777",
-                appId: "1:351037789777:web:5a43c6cd09be7a53d70a70",
-                measurementId: "G-G0VFKP7XGK"
+            apiKey: "AIzaSyC6E9U_uW78MMsIf9oQKBTm5LjvRp6OB2A",
+                    authDomain: "restricted-d6b24.firebaseapp.com",
+                    databaseURL: "https://restricted-d6b24-default-rtdb.firebaseio.com",
+                    projectId: "restricted-d6b24",
+                    storageBucket: "restricted-d6b24.appspot.com",
+                    messagingSenderId: "351037789777",
+                    appId: "1:351037789777:web:5a43c6cd09be7a53d70a70",
+                    measurementId: "G-G0VFKP7XGK"
             };
             const app = initializeApp(firebaseConfig);
             async function uploadFile(file) {
-                const storage = getStorage(app);
-                let e = document.getElementById("emailFb");
-                const storageRef = ref(storage, 'lojaPerfil/' + e.value);
-                try {
-                    await uploadBytes(storageRef, file);
-                    // Get the download URL of the uploaded file
-                    const downloadURL = await getDownloadURL(storageRef);
-                    console.log('Uploaded and replaced file:', file.name);
-                    console.log('File available at', downloadURL);
-                } catch (error) {
-                    console.error('Error uploading file:', error);
-                }
+            const storage = getStorage(app);
+            let e = document.getElementById("emailFb");
+            const storageRef = ref(storage, 'lojaPerfil/' + e.value);
+            try {
+            await uploadBytes(storageRef, file);
+            // Get the download URL of the uploaded file
+            const downloadURL = await getDownloadURL(storageRef);
+            console.log('Uploaded and replaced file:', file.name);
+            console.log('File available at', downloadURL);
+            } catch (error) {
+            console.error('Error uploading file:', error);
+            }
             }
 
             document.addEventListener("DOMContentLoaded", function () {
-                const inputLojaPerfil = document.getElementById('picture-input-loja-perfil');
-                inputLojaPerfil.addEventListener('change', () => {
-                    const file = inputLojaPerfil.files[0];
-                    if (file) {
-                        uploadFile(file);
-                    }
-                });
+            const inputLojaPerfil = document.getElementById('picture-input-loja-perfil');
+            inputLojaPerfil.addEventListener('change', () => {
+            const file = inputLojaPerfil.files[0];
+            if (file) {
+            uploadFile(file);
+            }
+            });
             });</script>
 
         <script type="module">
             import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
             import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
             const firebaseConfig = {
-                apiKey: "AIzaSyC6E9U_uW78MMsIf9oQKBTm5LjvRp6OB2A",
-                authDomain: "restricted-d6b24.firebaseapp.com",
-                databaseURL: "https://restricted-d6b24-default-rtdb.firebaseio.com",
-                projectId: "restricted-d6b24",
-                storageBucket: "restricted-d6b24.appspot.com",
-                messagingSenderId: "351037789777",
-                appId: "1:351037789777:web:5a43c6cd09be7a53d70a70",
-                measurementId: "G-G0VFKP7XGK"
+            apiKey: "AIzaSyC6E9U_uW78MMsIf9oQKBTm5LjvRp6OB2A",
+                    authDomain: "restricted-d6b24.firebaseapp.com",
+                    databaseURL: "https://restricted-d6b24-default-rtdb.firebaseio.com",
+                    projectId: "restricted-d6b24",
+                    storageBucket: "restricted-d6b24.appspot.com",
+                    messagingSenderId: "351037789777",
+                    appId: "1:351037789777:web:5a43c6cd09be7a53d70a70",
+                    measurementId: "G-G0VFKP7XGK"
             };
             const app = initializeApp(firebaseConfig);
             async function uploadFile(file) {
-                const storage = getStorage(app);
-                let e = document.getElementById("emailFb");
-                const storageRef = ref(storage, 'lojaBanner/' + e.value);
-                try {
-                    await uploadBytes(storageRef, file);
-                    // Get the download URL of the uploaded file
-                    const downloadURL = await getDownloadURL(storageRef);
-                    console.log('Uploaded and replaced file:', file.name);
-                    console.log('File available at', downloadURL);
-                } catch (error) {
-                    console.error('Error uploading file:', error);
-                }
+            const storage = getStorage(app);
+            let e = document.getElementById("emailFb");
+            const storageRef = ref(storage, 'lojaBanner/' + e.value);
+            try {
+            await uploadBytes(storageRef, file);
+            // Get the download URL of the uploaded file
+            const downloadURL = await getDownloadURL(storageRef);
+            console.log('Uploaded and replaced file:', file.name);
+            console.log('File available at', downloadURL);
+            } catch (error) {
+            console.error('Error uploading file:', error);
+            }
             }
 
             document.addEventListener("DOMContentLoaded", function () {
-                const inputLojaBanner = document.getElementById('picture-banner');
-                inputLojaBanner.addEventListener('change', () => {
-                    const file = inputLojaBanner.files[0];
-                    if (file) {
-                        uploadFile(file);
-                    }
-                });
+            const inputLojaBanner = document.getElementById('picture-banner');
+            inputLojaBanner.addEventListener('change', () => {
+            const file = inputLojaBanner.files[0];
+            if (file) {
+            uploadFile(file);
+            }
+            });
             });</script>
         <script type="module">
             import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
             import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
             const firebaseConfig = {
-                apiKey: "AIzaSyC6E9U_uW78MMsIf9oQKBTm5LjvRp6OB2A",
-                authDomain: "restricted-d6b24.firebaseapp.com",
-                databaseURL: "https://restricted-d6b24-default-rtdb.firebaseio.com",
-                projectId: "restricted-d6b24",
-                storageBucket: "restricted-d6b24.appspot.com",
-                messagingSenderId: "351037789777",
-                appId: "1:351037789777:web:5a43c6cd09be7a53d70a70",
-                measurementId: "G-G0VFKP7XGK"
+            apiKey: "AIzaSyC6E9U_uW78MMsIf9oQKBTm5LjvRp6OB2A",
+                    authDomain: "restricted-d6b24.firebaseapp.com",
+                    databaseURL: "https://restricted-d6b24-default-rtdb.firebaseio.com",
+                    projectId: "restricted-d6b24",
+                    storageBucket: "restricted-d6b24.appspot.com",
+                    messagingSenderId: "351037789777",
+                    appId: "1:351037789777:web:5a43c6cd09be7a53d70a70",
+                    measurementId: "G-G0VFKP7XGK"
             };
             const app = initializeApp(firebaseConfig);
             function getImageUrlByName() {
-                const storage = getStorage(app); // Corrigido para usar 'app' em vez de 'firebaseApp'
-                let e = document.getElementById("emailFb");
-                const storageRef = ref(storage, 'lojaPerfil/' + e.value);
-                return getDownloadURL(storageRef)
+            const storage = getStorage(app); // Corrigido para usar 'app' em vez de 'firebaseApp'
+            let e = document.getElementById("emailFb");
+            const storageRef = ref(storage, 'lojaPerfil/' + e.value);
+            return getDownloadURL(storageRef)
                     .then(downloadURL => {
-                        return downloadURL;
+                    return downloadURL;
                     })
                     .catch(error => {
-                        console.error('Error getting download URL:', error);
-                        return null;
+                    console.error('Error getting download URL:', error);
+                    return null;
                     });
             }
 
             document.addEventListener("DOMContentLoaded", async function () {
-                let imageUrl = await getImageUrlByName();
-                // Encontra o elemento <img> no HTML pelo ID e define o atributo src
-                const imgElement = document.getElementById('picture-img');
-                imgElement.src = imageUrl;
+            let imageUrl = await getImageUrlByName();
+            // Encontra o elemento <img> no HTML pelo ID e define o atributo src
+            const imgElement = document.getElementById('picture-img');
+            imgElement.src = imageUrl;
             });
         </script>
 
@@ -703,41 +709,41 @@
             import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
             import { getStorage, ref, uploadBytes, getDownloadURL, listAll } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
             const firebaseConfig = {
-                apiKey: "AIzaSyC6E9U_uW78MMsIf9oQKBTm5LjvRp6OB2A",
-                authDomain: "restricted-d6b24.firebaseapp.com",
-                databaseURL: "https://restricted-d6b24-default-rtdb.firebaseio.com",
-                projectId: "restricted-d6b24",
-                storageBucket: "restricted-d6b24.appspot.com",
-                messagingSenderId: "351037789777",
-                appId: "1:351037789777:web:5a43c6cd09be7a53d70a70",
-                measurementId: "G-G0VFKP7XGK"
+            apiKey: "AIzaSyC6E9U_uW78MMsIf9oQKBTm5LjvRp6OB2A",
+                    authDomain: "restricted-d6b24.firebaseapp.com",
+                    databaseURL: "https://restricted-d6b24-default-rtdb.firebaseio.com",
+                    projectId: "restricted-d6b24",
+                    storageBucket: "restricted-d6b24.appspot.com",
+                    messagingSenderId: "351037789777",
+                    appId: "1:351037789777:web:5a43c6cd09be7a53d70a70",
+                    measurementId: "G-G0VFKP7XGK"
             };
             const app = initializeApp(firebaseConfig);
             async function uploadFile(file) {
-                const storage = getStorage(app);
-                let e = document.getElementById("emailFb");
-                let produtoNome = document.getElementById("modal-produto-nome");
-                const storageRef = ref(storage, 'ProdutoFoto/' + e.value + "/" + produtoNome.value); // Alteração para usar o próximo número de arquivo
+            const storage = getStorage(app);
+            let e = document.getElementById("emailFb");
+            let produtoNome = document.getElementById("modal-produto-nome");
+            const storageRef = ref(storage, 'ProdutoFoto/' + e.value + "/" + produtoNome.value); // Alteração para usar o próximo número de arquivo
 
-                try {
-                    await uploadBytes(storageRef, file);
-                    // Get the download URL of the uploaded file
-                    const downloadURL = await getDownloadURL(storageRef);
-                    console.log('Uploaded and replaced file:', file.name);
-                    console.log('File available at', downloadURL);
-                } catch (error) {
-                    console.error('Error uploading file:', error);
-                }
+            try {
+            await uploadBytes(storageRef, file);
+            // Get the download URL of the uploaded file
+            const downloadURL = await getDownloadURL(storageRef);
+            console.log('Uploaded and replaced file:', file.name);
+            console.log('File available at', downloadURL);
+            } catch (error) {
+            console.error('Error uploading file:', error);
+            }
             }
 
             document.addEventListener("DOMContentLoaded", function () {
-                const fileInput = document.getElementById('file-inputProduto'); //Alteração
-                fileInput.addEventListener('change', () => {
-                    const file = fileInput.files[0];
-                    if (file) {
-                        uploadFile(file);
-                    }
-                });
+            const fileInput = document.getElementById('file-inputProduto'); //Alteração
+            fileInput.addEventListener('change', () => {
+            const file = fileInput.files[0];
+            if (file) {
+            uploadFile(file);
+            }
+            });
             });</script>
 
 
@@ -745,79 +751,79 @@
             import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
             import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
             const firebaseConfig = {
-                apiKey: "AIzaSyC6E9U_uW78MMsIf9oQKBTm5LjvRp6OB2A",
-                authDomain: "restricted-d6b24.firebaseapp.com",
-                databaseURL: "https://restricted-d6b24-default-rtdb.firebaseio.com",
-                projectId: "restricted-d6b24",
-                storageBucket: "restricted-d6b24.appspot.com",
-                messagingSenderId: "351037789777",
-                appId: "1:351037789777:web:5a43c6cd09be7a53d70a70",
-                measurementId: "G-G0VFKP7XGK"
+            apiKey: "AIzaSyC6E9U_uW78MMsIf9oQKBTm5LjvRp6OB2A",
+                    authDomain: "restricted-d6b24.firebaseapp.com",
+                    databaseURL: "https://restricted-d6b24-default-rtdb.firebaseio.com",
+                    projectId: "restricted-d6b24",
+                    storageBucket: "restricted-d6b24.appspot.com",
+                    messagingSenderId: "351037789777",
+                    appId: "1:351037789777:web:5a43c6cd09be7a53d70a70",
+                    measurementId: "G-G0VFKP7XGK"
             };
             const app = initializeApp(firebaseConfig);
             async function uploadFile(file) {
-                const storage = getStorage(app);
-                let e = document.getElementById("emailFb");
-                const storageRef = ref(storage, 'lojaBanner/' + e.value);
-                try {
-                    await uploadBytes(storageRef, file);
-                    // Get the download URL of the uploaded file
-                    const downloadURL = await getDownloadURL(storageRef);
-                    console.log('Uploaded and replaced file:', file.name);
-                    console.log('File available at', downloadURL);
-                } catch (error) {
-                    console.error('Error uploading file:', error);
-                }
+            const storage = getStorage(app);
+            let e = document.getElementById("emailFb");
+            const storageRef = ref(storage, 'lojaBanner/' + e.value);
+            try {
+            await uploadBytes(storageRef, file);
+            // Get the download URL of the uploaded file
+            const downloadURL = await getDownloadURL(storageRef);
+            console.log('Uploaded and replaced file:', file.name);
+            console.log('File available at', downloadURL);
+            } catch (error) {
+            console.error('Error uploading file:', error);
+            }
             }
 
             document.addEventListener("DOMContentLoaded", function () {
-                const inputLojaBanner = document.getElementById('picture-input-promove');
-                inputLojaBanner.addEventListener('change', () => {
-                    const file = inputLojaBanner.files[0];
-                    if (file) {
-                        uploadFile(file);
-                    }
-                });
+            const inputLojaBanner = document.getElementById('picture-input-promove');
+            inputLojaBanner.addEventListener('change', () => {
+            const file = inputLojaBanner.files[0];
+            if (file) {
+            uploadFile(file);
+            }
+            });
             });</script>
 
         <script type="module">
             import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
             import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
             const firebaseConfig = {
-                apiKey: "AIzaSyC6E9U_uW78MMsIf9oQKBTm5LjvRp6OB2A",
-                authDomain: "restricted-d6b24.firebaseapp.com",
-                databaseURL: "https://restricted-d6b24-default-rtdb.firebaseio.com",
-                projectId: "restricted-d6b24",
-                storageBucket: "restricted-d6b24.appspot.com",
-                messagingSenderId: "351037789777",
-                appId: "1:351037789777:web:5a43c6cd09be7a53d70a70",
-                measurementId: "G-G0VFKP7XGK"
+            apiKey: "AIzaSyC6E9U_uW78MMsIf9oQKBTm5LjvRp6OB2A",
+                    authDomain: "restricted-d6b24.firebaseapp.com",
+                    databaseURL: "https://restricted-d6b24-default-rtdb.firebaseio.com",
+                    projectId: "restricted-d6b24",
+                    storageBucket: "restricted-d6b24.appspot.com",
+                    messagingSenderId: "351037789777",
+                    appId: "1:351037789777:web:5a43c6cd09be7a53d70a70",
+                    measurementId: "G-G0VFKP7XGK"
             };
             const app = initializeApp(firebaseConfig);
             function getImageUrlByName() {
-                const storage = getStorage(app); // Corrigido para usar 'app' em vez de 'firebaseApp'
-                let e = document.getElementById("imgLojaF");
-                const imgElements = document.querySelectorAll('.img-produto');
-                imgElements.forEach(async imgElement => {
-                    const altText = imgElement.getAttribute('alt');
-                    console.log(altText);
-                    let email = document.getElementById("emailFb");
-                    const storageRef = ref(storage, 'ProdutoFoto/' + email.value + "/" + altText);
-                    try {
-                        const imageUrl = await getDownloadURL(storageRef);
-                        if (imageUrl) {
-                            imgElement.src = imageUrl;
-                        } else {
-                            console.log("Erro ao carregar a imagem para o email:", altText);
-                        }
-                    } catch (error) {
-                        console.error('Erro ao obter URL de download:', error);
-                    }
-                });
+            const storage = getStorage(app); // Corrigido para usar 'app' em vez de 'firebaseApp'
+            let e = document.getElementById("imgLojaF");
+            const imgElements = document.querySelectorAll('.img-produto');
+            imgElements.forEach(async imgElement => {
+            const altText = imgElement.getAttribute('alt');
+            console.log(altText);
+            let email = document.getElementById("emailFb");
+            const storageRef = ref(storage, 'ProdutoFoto/' + email.value + "/" + altText);
+            try {
+            const imageUrl = await getDownloadURL(storageRef);
+            if (imageUrl) {
+            imgElement.src = imageUrl;
+            } else {
+            console.log("Erro ao carregar a imagem para o email:", altText);
+            }
+            } catch (error) {
+            console.error('Erro ao obter URL de download:', error);
+            }
+            });
             }
 
             document.addEventListener("DOMContentLoaded", async function () {
-                getImageUrlByName();
+            getImageUrlByName();
             });
         </script>
 

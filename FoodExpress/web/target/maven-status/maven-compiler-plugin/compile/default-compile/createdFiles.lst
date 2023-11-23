@@ -3,6 +3,7 @@ com\foodexpress\web\servlet\servletTemplate.class
 com\foodexpress\web\servlet\inicio.class
 com\foodexpress\web\servlet\minhaLoja\pontos\removerPontoEncontro.class
 com\foodexpress\web\servlet\autenticacao\login.class
+com\foodexpress\web\servlet\pedido\fazerPedido.class
 com\foodexpress\web\servlet\minhaLoja\atualizarAgenda$1.class
 com\foodexpress\web\servlet\busca.class
 com\foodexpress\web\servlet\usuario\redefinirSenha.class
@@ -28,6 +29,7 @@ com\foodexpress\web\servlet\favoritos\adicionarFavorito.class
 com\foodexpress\web\servlet\minhaLoja\atualizarAgenda.class
 com\foodexpress\web\servlet\minhaLoja\produtos\editarProduto.class
 com\foodexpress\web\servlet\Common.class
+com\foodexpress\web\servlet\pedido\meusPedidos.class
 com\foodexpress\web\servlet\usuario\alterarDados.class
 com\foodexpress\web\servlet\minhaLoja\categorias\adicionarCategoria.class
 com\foodexpress\web\servlet\avaliacao.class
