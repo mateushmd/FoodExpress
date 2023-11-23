@@ -1671,13 +1671,20 @@ tbody input {
     padding-top: 20px
 }
 
+#pedido-vazio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
 #pedido-vazio * {
     font-weight: 707;
 }
 
 #pedido-vazio img {
-    width: 500px;
-    height: 500px;
+    width: 400px;
+    height: 400px;
 }
 
 @media only screen and (max-width: 1370px) {

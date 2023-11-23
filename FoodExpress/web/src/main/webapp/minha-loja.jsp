@@ -144,7 +144,7 @@
                 <section class="barra-lateral-section hidden">
                     <h1><img src="imgs/minha-loja/pedidos.svg" alt=""> Pedidos</h1>
 
-                    <div class="mensagem ${empty pedidos ? '' : 'hidden'}">
+                    <div class="pedido-vazio ${empty pedidos ? '' : 'hidden'}">
                         <img src="imgs/sad.svg" alt="">
                         <h2>Oh não!</h2>
                         <p>Você ainda não fez o seu primeiro pedido no FoodExpress! Tá esperando o que?</p>

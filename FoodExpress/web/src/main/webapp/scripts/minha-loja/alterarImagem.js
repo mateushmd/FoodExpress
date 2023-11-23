@@ -1,6 +1,5 @@
 const inputFileLoja = document.querySelector('#picture-input-loja');
 const pictureImageLoja = document.querySelector('#picture-image-loja');
-pictureImageLoja.innerHTML = pictureImgLoja;
 
 inputFileLoja.addEventListener('change', function (e)
 {
