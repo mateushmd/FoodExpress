@@ -95,6 +95,7 @@
                 </div>
                 <c:forEach items="${favoritos}" var="favorito">
                     <div class="loja">
+                        <c:set var="gruposLojas" value="${sessionScope.gruposLojas}"/>
                         <img src="imgs/teste/teste.png" class="img-loja" alt="">
                         <div class="loja-body">
                             <h2>${favorito.nome}</h2>
@@ -190,7 +191,41 @@
                 </div>
             </div>
         </div>
+   <script type="module">
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+            import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
+            const firebaseConfig = {
+            apiKey: "AIzaSyC6E9U_uW78MMsIf9oQKBTm5LjvRp6OB2A",
+                    authDomain: "restricted-d6b24.firebaseapp.com",
+                    databaseURL: "https://restricted-d6b24-default-rtdb.firebaseio.com",
+                    projectId: "restricted-d6b24",
+                    storageBucket: "restricted-d6b24.appspot.com",
+                    messagingSenderId: "351037789777",
+                    appId: "1:351037789777:web:5a43c6cd09be7a53d70a70",
+                    measurementId: "G-G0VFKP7XGK"
+            };
+            const app = initializeApp(firebaseConfig);
+            function getImageUrlByName() {
+            const storage = getStorage(app); // Corrigido para usar 'app' em vez de 'firebaseApp'
+            let e = document.getElementById("emailFb");
+            const storageRef = ref(storage, 'lojaPerfil/' + e.value);
+            return getDownloadURL(storageRef)
+                    .then(downloadURL => {
+                    return downloadURL;
+                    })
+                    .catch(error => {
+                    console.error('Error getting download URL:', error);
+                    return null;
+                    });
+            }
 
+            document.addEventListener("DOMContentLoaded", async function () {
+            let imageUrl = await getImageUrlByName();
+            // Encontra o elemento <img> no HTML pelo ID e define o atributo src
+            const imgElement = document.getElementById('img-loja');
+            imgElement.src = imageUrl;
+            });
+        </script>
         <script>
             const configuracoesAcessibilidade = [
                 '${acessibilidade.temaEscuro}' !== 'false',

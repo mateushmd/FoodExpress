@@ -233,7 +233,7 @@
                                         <div class="item fit-product modal-trigger" data-modal-index="1">
                                             <input type="hidden" class="id-produto" value="${produto.id}">
                                             <div class="img-container">
-                                                <img src="imgs/teste/teste.png" alt="Sandubao">
+                                                <img src="imgs/teste/teste.jpg" alt="${produto.nome}">
                                             </div>
                                             <div class="info-container">
                                                 <div class="info-container-header">
@@ -265,8 +265,8 @@
                                             <p class="descricao">${produto.descricao}</p>
                                             <p class="preco">R$<fmt:formatNumber value='${produto.preco}' pattern='0.00' /></p>
                                         </div>
-                                        <div class="img-produto">
-                                            <img src="imgs/teste/teste.png" alt="">
+                                        <div class="img-container">
+                                            <img src="imgs/teste/teste.png" alt="${produto.nome}">
                                         </div>
                                     </div>
                                 </c:forEach>
@@ -282,7 +282,6 @@
                     </section>
                 </c:otherwise>
             </c:choose>
-
         </main>
         <footer>
             <div class="container-footer">

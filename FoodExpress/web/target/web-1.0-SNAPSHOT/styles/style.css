@@ -1,5 +1,5 @@
 @import url('https://fonts.cdnfonts.com/css/cooper-hewitt?styles=34277,34271');
-@import url(' https://fonts.cdnfonts.com/css/oswald-4 ');
+@import url('https://fonts.cdnfonts.com/css/oswald-4');
 
 html {
     height: 100%;
@@ -205,7 +205,7 @@ input:focus {
     color: #adadad;
     padding-left: 6px;
     padding-top: 6px;
-    font-size: 11px;
+    font-size: 13px;
     font-family: 'Oswald', sans-serif;
     font-weight: 400;
 }
