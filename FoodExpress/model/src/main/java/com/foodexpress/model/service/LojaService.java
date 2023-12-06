@@ -137,7 +137,7 @@ public class LojaService {
     }
 
     public GrupoLojasDTO getMaisRecentes() {
-        ArrayList<LojaDTO> lojas = (ArrayList<LojaDTO>) ldao.getMaisBemAvaliadas();
+        ArrayList<LojaDTO> lojas = (ArrayList<LojaDTO>) ldao.getMaisRecentes();
 
         if(lojas.isEmpty())
             return null;

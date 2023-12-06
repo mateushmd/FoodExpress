@@ -1,0 +1,95 @@
+.pedido {
+    display: grid;
+    grid-template-rows: auto auto auto;
+    width: 650px;
+
+    border: 1px solid var(--cor-borda);
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 30px;
+}
+
+.pedido>div:not(:last-child) {
+    border-bottom: 1px solid var(--cor-borda);
+}
+
+.pedido-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 20px;
+}
+
+.pedido-header img {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: 100%;
+}
+
+.pedido-header div:first-child {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
+
+.pedido-header div:first-child div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.pedido-body {
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.pedido-body span {
+    margin-right: 20px;
+}
+
+.pedido-footer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 20px
+}
+
+.mensagem {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.mensagem h2 {
+    font-weight: 800;
+}
+
+.mensagem p {
+    font-weight: 707;
+}
+
+.mensagem img {
+    width: 30%;
+    height: 30%;
+}
+
+@media only screen and (max-width: 730px) {
+    .pedido {
+        width: 80vw;
+    }
+}
